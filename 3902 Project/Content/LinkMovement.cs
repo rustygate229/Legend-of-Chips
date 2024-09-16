@@ -10,19 +10,21 @@ namespace _3902_Project.Content
     public class LinkMovement : ILinkMovement
     {
 
-        private GameTime _gameTime;
+        private float _movementTime;
 
         Vector2 _position;
 
         private float speed;
 
-        public LinkMovement(GameTime gameTime)
+        public LinkMovement()
         {
-            _gameTime = gameTime;
-
             _position = new Vector2(0, 0);
-
             speed = 100f;
+        }
+
+        public void timeSinceLastUpdate(GameTime gameTime)
+        {
+            _movementTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         public double getXPosition()
@@ -37,22 +39,22 @@ namespace _3902_Project.Content
 
         public void moveDown()
         {
-            _position.Y += speed * (float)_gameTime.ElapsedGameTime.TotalSeconds;
+            _position.Y += speed * _movementTime;
         }
 
         public void moveLeft()
         {
-            _position.X -= speed * (float)_gameTime.ElapsedGameTime.TotalSeconds;
+            _position.X -= speed * _movementTime;
         }
 
         public void moveRight()
         {
-            _position.X += speed * (float)_gameTime.ElapsedGameTime.TotalSeconds;
+            _position.X += speed * _movementTime;
         }
 
         public void moveUp()
         {
-            _position.Y -= speed * (float)_gameTime.ElapsedGameTime.TotalSeconds;
+            _position.Y -= speed * _movementTime;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace _3902_Project.Content
 
         double getXPosition();
         double getYPosition();
+        void timeSinceLastUpdate(GameTime gameTime);
 
         void moveUp();
         void moveDown();
