@@ -10,22 +10,17 @@ namespace _3902_Project.Content
     public class LinkMovement : ILinkMovement
     {
 
-        private GraphicsDeviceManager _graphicsDeviceManager;
         private GameTime _gameTime;
 
         Vector2 _position;
 
         private float speed;
 
-        public LinkMovement(GraphicsDeviceManager graphicsDeviceManager, GameTime gameTime)
+        public LinkMovement(GameTime gameTime)
         {
-            _graphicsDeviceManager = graphicsDeviceManager;
             _gameTime = gameTime;
 
-            _position = new Vector2();
-
-            _position.X = _graphicsDeviceManager.PreferredBackBufferWidth / 2;
-            _position.Y = _graphicsDeviceManager.PreferredBackBufferHeight / 2;
+            _position = new Vector2(0, 0);
 
             speed = 100f;
         }
