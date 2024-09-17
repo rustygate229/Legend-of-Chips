@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
-namespace _3902_Project
+namespace blockSpriteFactory
 {
     public class SpriteFactory
     {
-        private Texture2D enemySpritesheet;
+        private Texture2D blockSpritesheet;
         // More private Texture2Ds follow
         // ...
 
@@ -25,24 +26,23 @@ namespace _3902_Project
 
         public void LoadAllTextures(ContentManager content)
         {
-            enemySpriteSheet = content.Load<Texture2D>("enemy");
-            // More Content.Load calls follow
-            //...
+            blockSpritesheet = content.Load<Texture2D>("Dungeon Block and Room Spritesheet");
+            
         }
 
-        public ISprite CreateSmallEnemySprite()
+        public ISprite Create()
         {
-            return new EnemySprite(enemySpritesheet, 32, 32);
+            return new BlockSprite(blockSpritesheet, 32, 32);
         }
 
         public ISprite CreateBigEnemySprite()
         {
-            return new EnemySprite(enemySpritesheet, 64, 64);
+            return new BlockSprite(blockSpritesheet, 64, 64);
         }
 
         public ISprite CreateTintedEnemySprite(ILevel level)
         {
-            return new EnemySprite(enemySpritesheet, level.ColorTheme);
+            return new BlockSprite(blockSpritesheet, level.ColorTheme);
         }
 
         // More public ISprite returning methods follow
