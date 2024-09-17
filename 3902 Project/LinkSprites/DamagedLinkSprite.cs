@@ -13,7 +13,8 @@ namespace _3902_Project
         private int totalFrames;
 
 
-        public DamagedLinkSprite(Texture2D sheet, int w)
+
+        public DamagedLinkSprite(Texture2D sheet, int w, int h)
         {
             //width and height are size of sprite
             spritesheet = sheet;
