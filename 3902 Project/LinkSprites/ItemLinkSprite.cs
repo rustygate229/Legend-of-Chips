@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Drawing;
 using System.Collections.Generic;
 
 namespace _3902_Project
@@ -11,6 +12,7 @@ namespace _3902_Project
         private int height;
         private int frame;
         private int totalFrames;
+        private List<Rectangle> sourceList;
 
 
         public ItemLinkSprite(Texture2D sheet, int w, int h)
@@ -21,6 +23,8 @@ namespace _3902_Project
             height = h;
             totalFrames = 1;
             frame = 0;
+            sourceList = new List<Rectangle>();
+            sourceList.Add(new Rectangle(-107, -11, 16, 16)); 
         }
 
         public void Update()
@@ -34,9 +38,14 @@ namespace _3902_Project
             }
 
         }
-		
-		public void Draw(SpriteBatch sb)
+		public void Draw(SpriteBatch spritebatch)
+        {
+            //just for interface reasons
+        }
+
+		public void Draw(SpriteBatch sb, ILinkStateMachine state, ILinkMovement mvt)
 		{
+            //needs access to state and movement 
 			
 
 

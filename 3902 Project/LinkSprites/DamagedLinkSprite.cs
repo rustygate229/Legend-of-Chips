@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace _3902_Project
 {
@@ -11,6 +12,7 @@ namespace _3902_Project
         private int height;
         private int frame;
         private int totalFrames;
+        private List<Rectangle> sourceList;
 
 
 
@@ -22,6 +24,7 @@ namespace _3902_Project
             height = h;
             totalFrames = 3;
             frame = 0;
+            sourceList = new List<Rectangle>();
         }
 
         public void Update()

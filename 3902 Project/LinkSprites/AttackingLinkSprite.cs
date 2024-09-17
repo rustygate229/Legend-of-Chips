@@ -23,6 +23,11 @@ namespace _3902_Project
             height = h;
             totalFrames = 4;
             frame = 0;
+            sourceList = new List<Rectangle>();
+
+            //attacking link sprite code is particularly complicated
+            //hard coding rectangle sizes
+
         }
 
         public void Update()
