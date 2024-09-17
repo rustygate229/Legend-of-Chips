@@ -4,15 +4,14 @@ using Microsoft.Xna.Framework.Content;
 
 namespace blockSpriteFactory
 {
-    public class SpriteFactory
+    public class BlockSpriteFactory
     {
         private Texture2D blockSpritesheet;
-        // More private Texture2Ds follow
-        // ...
+        private Vector2 position;
 
-        private static SpriteFactory instance = new SpriteFactory();
+        private static BlockSpriteFactory instance = new BlockSpriteFactory();
 
-        public static SpriteFactory Instance
+        public static BlockSpriteFactory Instance
         {
             get
             {
@@ -20,8 +19,9 @@ namespace blockSpriteFactory
             }
         }
 
-        private SpriteFactory()
+        private BlockSpriteFactory()
         {
+            
         }
 
         public void LoadAllTextures(ContentManager content)
@@ -30,19 +30,14 @@ namespace blockSpriteFactory
             
         }
 
-        public ISprite Create()
+        public ISprite CreateStatues()
         {
-            return new BlockSprite(blockSpritesheet, 32, 32);
+            return new BlockSprite(blockSpritesheet, position, 32, 32, 32, 32);
         }
 
-        public ISprite CreateBigEnemySprite()
+        public ISprite CreateSquareBlock()
         {
-            return new BlockSprite(blockSpritesheet, 64, 64);
-        }
-
-        public ISprite CreateTintedEnemySprite(ILevel level)
-        {
-            return new BlockSprite(blockSpritesheet, level.ColorTheme);
+            return new BlockSprite(blockSpritesheet, 32, 32, 64, 64);
         }
 
         // More public ISprite returning methods follow
