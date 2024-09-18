@@ -24,6 +24,8 @@ namespace _3902_Project
             totalFrames = 1;
             frame = 0;
             sourceList = new List<Rectangle>();
+
+            //hard coded values for sheet
             sourceList.Add(new Rectangle(-107, -11, 16, 16)); 
         }
 

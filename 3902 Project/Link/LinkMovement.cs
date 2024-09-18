@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _3902_Project.Content
+namespace _3902_Project
 {
     public class LinkMovement : ILinkMovement
     {
