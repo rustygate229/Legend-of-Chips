@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 using System.ComponentModel;
-//using static _3902_Project.LinkSprite;
 
 namespace _3902_Project
 {
