@@ -9,12 +9,15 @@ namespace _3902_Project
     public class LinkStateMachine : ILinkStateMachine
 {
         public enum Direction { UP, DOWN, LEFT, RIGHT }
+        public enum Action { STATIONARY, MOVING }
 
         private Direction _direction;
+        private Action _action;
 
         public LinkStateMachine()
         {
             _direction = Direction.RIGHT;
+            _action = Action.STATIONARY;
         }
 
         public int getDirectionState()
@@ -40,6 +43,21 @@ namespace _3902_Project
         public void changeStateRight()
         {
             _direction = Direction.RIGHT;
+        }
+
+        public int getActionState()
+        {
+            return (int)_action;
+        }
+
+        public void changeToMoving()
+        {
+            _action = Action.MOVING;
+        }
+
+        public void changeToStationary()
+        {
+            _action = Action.STATIONARY;
         }
     }
 }
