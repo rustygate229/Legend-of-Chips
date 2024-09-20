@@ -33,27 +33,34 @@ namespace _3902_Project
 
         public ISprite CreateWalkingLinkSprite()
         {
-            //unfortunately opted to initialize the list of textures here
+            //opted to initialize the list of textures here
             //instead of in LinkSprite
-            //List<Texture2D> list = new List<Texture2D>();
 
-            return new WalkingLinkSprite(linkSpriteSheet, spriteSize, spriteSize);
+            List<Rectangle> source = new List<Rectangle>();
+            //TODO: finish this method
+            return new LinkSprite(linkSpriteSheet, source, 1, spriteSize, spriteSize);
         }
 
         public ISprite CreateItemUseLinkSprite()
         {
-            return new ItemLinkSprite(linkSpriteSheet, spriteSize, spriteSize);
+            List<Rectangle> source = new List<Rectangle>();
+            source.Add(new Microsoft.Xna.Framework.Rectangle(-107, -11, 16, 16));
+            source.Add(new Rectangle(-124, -11, 16, 16));
+            source.Add(new Rectangle(-141, -11, 16, 16));
+            return new LinkSprite(linkSpriteSheet, source, 1, spriteSize, spriteSize);
         }
 
         public ISprite CreateAttackingLinkSprite()
         {
-            List<Texture2D> list = new List<Texture2D>();
-            return new AttackingLinkSprite(linkSpriteSheet, spriteSize, spriteSize);
+            List<Rectangle> source = new List<Rectangle>();
+            //TODO: finish this method
+            return new LinkSprite(linkSpriteSheet, source, 1, spriteSize, spriteSize);
         }
         public ISprite CreateDamagedLinkSprite()
         {
-            List<Texture2D> list = new List<Texture2D>();
-            return new DamagedLinkSprite(linkSpriteSheet, spriteSize, spriteSize);
+            List<Rectangle> source = new List<Rectangle>();
+            //TODO: finish this method
+            return new LinkSprite(linkSpriteSheet, source, 1, spriteSize, spriteSize);
         }
 
 
