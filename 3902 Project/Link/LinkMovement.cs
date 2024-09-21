@@ -19,13 +19,9 @@ namespace _3902_Project
         public LinkMovement()
         {
             _position = new Vector2(0, 0);
-            speed = 100f;
+            speed = 4;
         }
 
-        public void timeSinceLastUpdate(GameTime gameTime)
-        {
-            _movementTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-        }
 
         public double getXPosition()
         {

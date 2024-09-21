@@ -9,7 +9,7 @@ namespace _3902_Project
     public interface ILinkStateMachine
     {
             int getDirectionState();
-        int getActionState();
+            int getActionState();
 
             void changeStateUp();
             void changeStateDown();

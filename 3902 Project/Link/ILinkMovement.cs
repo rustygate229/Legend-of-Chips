@@ -12,7 +12,6 @@ namespace _3902_Project
 
         double getXPosition();
         double getYPosition();
-        void timeSinceLastUpdate(GameTime gameTime);
 
         void moveUp();
         void moveDown();
