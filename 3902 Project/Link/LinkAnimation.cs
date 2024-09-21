@@ -10,22 +10,42 @@ namespace _3902_Project
 
 		}
 
-        public void AnimDown()
+        public void AnimDownMoving()
         {
             throw new NotImplementedException();
         }
 
-        public void AnimLeft()
+        public void AnimDownStationary()
         {
             throw new NotImplementedException();
         }
 
-        public void AnimRight()
+        public void AnimLeftMoving()
         {
             throw new NotImplementedException();
         }
 
-        public void AnimUp()
+        public void AnimLeftStationary()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AnimRightMoving()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AnimRightStationary()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AnimUpMoving()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AnimUpStationary()
         {
             throw new NotImplementedException();
         }
