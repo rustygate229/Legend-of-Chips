@@ -8,56 +8,58 @@ namespace _3902_Project
 {
     public class LinkStateMachine : ILinkStateMachine
 {
-        public enum Direction { UP, DOWN, LEFT, RIGHT }
-        public enum Action { STATIONARY, MOVING }
+        public enum MOVEMENT { SUP, SDOWN, SLEFT, SRIGHT , MUP, MDOWN, MLEFT, MRIGHT}
 
-        private Direction _direction;
-        private Action _action;
+        private MOVEMENT _moveState;
 
         public LinkStateMachine()
         {
-            _direction = Direction.RIGHT;
-            _action = Action.STATIONARY;
+            _moveState = MOVEMENT.SLEFT;
         }
 
-        public int getDirectionState()
+        public int getMovementState()
         {
-            return (int) _direction;
+            return (int) _moveState;
         }
 
-        public void changeStateUp()
+        public void changeStateMovingUp()
         {
-            _direction = Direction.UP;
+            _moveState = MOVEMENT.MUP;
         }
 
-        public void changeStateDown()
+        public void changeStateMovingDown()
         {
-            _direction = Direction.DOWN;
+            _moveState = MOVEMENT.MDOWN;
         }
 
-        public void changeStateLeft()
+        public void changeStateMovingLeft()
         {
-            _direction = Direction.LEFT;
+            _moveState = MOVEMENT.MLEFT;
         }
 
-        public void changeStateRight()
+        public void changeStateMovingRight()
         {
-            _direction = Direction.RIGHT;
+            _moveState = MOVEMENT.MRIGHT;
         }
 
-        public int getActionState()
+        public void changeStateStillUp()
         {
-            return (int)_action;
+            _moveState = MOVEMENT.SUP;
         }
 
-        public void changeToMoving()
+        public void changeStateStillDown()
         {
-            _action = Action.MOVING;
+            _moveState = MOVEMENT.SDOWN;
         }
 
-        public void changeToStationary()
+        public void changeStateStillLeft()
         {
-            _action = Action.STATIONARY;
+            _moveState = MOVEMENT.SLEFT;
+        }
+
+        public void changeStateStillRight()
+        {
+            _moveState = MOVEMENT.SRIGHT;
         }
     }
 }

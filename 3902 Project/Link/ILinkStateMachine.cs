@@ -8,14 +8,15 @@ namespace _3902_Project
 {
     public interface ILinkStateMachine
     {
-            int getDirectionState();
-            int getActionState();
+            int getMovementState();
 
-            void changeStateUp();
-            void changeStateDown();
-            void changeStateLeft();
-            void changeStateRight();
-            void changeToMoving();
-            void changeToStationary();
+            void changeStateMovingUp();
+            void changeStateMovingDown();
+            void changeStateMovingLeft();
+            void changeStateMovingRight();
+            void changeStateStillUp();
+            void changeStateStillDown();
+            void changeStateStillLeft();
+            void changeStateStillRight();
     }
 }
