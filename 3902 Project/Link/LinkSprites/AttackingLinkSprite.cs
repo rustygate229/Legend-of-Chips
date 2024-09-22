@@ -83,14 +83,14 @@ namespace _3902_Project
             }
 
             //destination rectangle dynamically scales with size of sourceRectangle size
-            if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MUP)
+            if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MUP || state.getMovementState() == (int)LinkStateMachine.MOVEMENT.SUP)
             {
                 //offsets MUP sprites
                 int height = (int)((y) - ((sourceRectangle.Height - 16) * scale));
 
                 destinationRectangle = new Rectangle((int)(x), height, (int)(sourceRectangle.Width * scale), (int)(sourceRectangle.Height * scale));
             }
-            else if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MLEFT)
+            else if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MLEFT || state.getMovementState() == (int)LinkStateMachine.MOVEMENT.SLEFT)
             {
                 int width = (int)(x - (sourceRectangle.Width - 16) * scale);
 
@@ -104,7 +104,6 @@ namespace _3902_Project
             sb.Begin(samplerState: SamplerState.PointClamp);
             if (reverseFlag)
             {
-                //commented out until i fix the reverse flag stuff
                 sb.Draw(spritesheet, destinationRectangle, sourceRectangle, Color.White, 0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0f);
             }
             else

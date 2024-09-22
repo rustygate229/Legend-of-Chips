@@ -27,7 +27,7 @@ namespace _3902_Project
 
         public void LoadAllTextures(ContentManager content)
         {
-            linkSpriteSheet = content.Load<Texture2D>("Link Spritesheet");
+            linkSpriteSheet = content.Load<Texture2D>("Link Spritesheet transparent");
         }
 
         public ISprite StationaryLinkSprite()
@@ -75,7 +75,7 @@ namespace _3902_Project
             source.Add(new Rectangle(1, 47, 16, 16));
             source.Add(new Rectangle(18, 47, 16, 27));
             source.Add(new Rectangle(35, 47, 16, 23));
-            source.Add(new Rectangle(57, 47, 16, 19));
+            source.Add(new Rectangle(53, 47, 16, 19));
 
             //right
             source.Add(new Rectangle(1, 77, 16, 16));

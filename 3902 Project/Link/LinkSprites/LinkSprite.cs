@@ -58,19 +58,19 @@ namespace _3902_Project
             //sourceList = down, right, up, order from left to right in spritesheet
 
 
-            if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MDOWN)
+            if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MDOWN || state.getMovementState() == (int)LinkStateMachine.MOVEMENT.SDOWN)
             {
                 sourceRectangle = sourceList[frame];
             }
-            else if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MRIGHT) 
+            else if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MRIGHT || state.getMovementState() == (int)LinkStateMachine.MOVEMENT.SRIGHT) 
             {
                 sourceRectangle = sourceList[frame + totalFrames];
             }
-            else if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MUP)
+            else if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MUP || state.getMovementState() == (int)LinkStateMachine.MOVEMENT.SUP)
             {
                 sourceRectangle = sourceList[frame + 2 * totalFrames];
             }
-            else if (state.getMovementState() == (int) LinkStateMachine.MOVEMENT.MLEFT) 
+            else if (state.getMovementState() == (int) LinkStateMachine.MOVEMENT.MLEFT || state.getMovementState() == (int)LinkStateMachine.MOVEMENT.SLEFT) 
             {
                 //reverse flag since spritesheet doesn't have left sprites
                 reverseFlag = true;
