@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _3902_Project.Link;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -8,8 +9,8 @@ namespace _3902_Project
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private LinkStateMachine _stateMachine;
-        private IAnimation _animation;
+
+        private LinkPlayer player;
 
 
         public Game1()
@@ -31,15 +32,7 @@ namespace _3902_Project
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             LinkSpriteFactory.Instance.LoadAllTextures(Content);
 
-
-
-            //default left
-            _stateMachine = new LinkStateMachine();
-            _stateMachine.changeStateMovingRight();
-
-            _animation = new LinkAnimation(_spriteBatch, Content, _stateMachine);
-
-
+            player = new LinkPlayer(_spriteBatch, Content);
 
 
             // TODO: use this.Content to load your game content here
@@ -50,10 +43,11 @@ namespace _3902_Project
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            player.Update();
+
             // TODO: Add your update logic here
             base.Update(gameTime);
-
-            _animation.Update();
+            
         }
 
         protected override void Draw(GameTime gameTime)
@@ -61,13 +55,7 @@ namespace _3902_Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            int x = 0;
-            int y = 150;
-            _animation.AnimStationary(100, y);
-            _animation.AnimMoving(200, y);
-            _animation.AnimItem(300, y);
-            _animation.AnimAttack(400, y);
-
+            player.Draw();
 
             base.Draw(gameTime);
         }

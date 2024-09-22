@@ -14,7 +14,7 @@ namespace _3902_Project
 
         public LinkStateMachine()
         {
-            _moveState = MOVEMENT.MLEFT;
+            _moveState = MOVEMENT.MDOWN;
         }
 
         public int getMovementState()

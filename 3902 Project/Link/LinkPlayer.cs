@@ -16,6 +16,8 @@ namespace _3902_Project.Link
         ILinkMovement _linkMovement;
         ILinkStateMachine _linkStateMachine;
 
+        double x, y;
+
         private Dictionary<int, Action<double, double>> commandMap;
 
         public LinkPlayer(SpriteBatch sb, ContentManager content)
@@ -30,14 +32,6 @@ namespace _3902_Project.Link
 
         private void loadCommands()
         {
-            /*commandMap.Add((int)LinkStateMachine.MOVEMENT.MDOWN, _animation.AnimDownMoving);
-            commandMap.Add((int)LinkStateMachine.MOVEMENT.MUP, _animation.AnimUpMoving);
-            commandMap.Add((int)LinkStateMachine.MOVEMENT.MLEFT, _animation.AnimLeftMoving);
-            commandMap.Add((int)LinkStateMachine.MOVEMENT.MRIGHT, _animation.AnimRightMoving);
-            commandMap.Add((int)LinkStateMachine.MOVEMENT.SDOWN, _animation.AnimDownStationary);
-            commandMap.Add((int)LinkStateMachine.MOVEMENT.SUP, _animation.AnimUpStationary);
-            commandMap.Add((int)LinkStateMachine.MOVEMENT.SLEFT, _animation.AnimLeftStationary);
-            commandMap.Add((int)LinkStateMachine.MOVEMENT.SRIGHT, _animation.AnimRightStationary);*/
         }
 
         private bool IsMovementKeyPressed()
@@ -86,13 +80,32 @@ namespace _3902_Project.Link
 
         public void Update()
         {
-      
+            x = _linkMovement.getXPosition();
+            y = _linkMovement.getYPosition();
         }
 
         public void Draw()
         {
-            commandMap.TryGetValue((int)_linkStateMachine.getMovementState(), out Action<double, double> command);
-            command.Invoke(_linkMovement.getXPosition(), _linkMovement.getYPosition());
+
+            switch (_linkStateMachine.getMovementState())
+            {
+                case (int)LinkStateMachine.MOVEMENT.MUP:
+                case (int)LinkStateMachine.MOVEMENT.MDOWN:
+                case (int)LinkStateMachine.MOVEMENT.MLEFT:
+                case (int)LinkStateMachine.MOVEMENT.MRIGHT:
+                    _animation.AnimMoving(x, y); break;
+
+                case (int)LinkStateMachine.MOVEMENT.SUP:
+                case (int)LinkStateMachine.MOVEMENT.SDOWN:
+                case (int)LinkStateMachine.MOVEMENT.SLEFT:
+                case (int)LinkStateMachine.MOVEMENT.SRIGHT:
+                    _animation.AnimStationary(x, y); break;
+
+                default:
+                    break;
+            }
+
+            _animation.Update();
         }
 
     }
