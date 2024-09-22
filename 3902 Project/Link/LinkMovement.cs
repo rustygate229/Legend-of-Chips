@@ -10,10 +10,7 @@ namespace _3902_Project
     public class LinkMovement : ILinkMovement
     {
 
-        private float _movementTime;
-
         Vector2 _position;
-
         private float speed;
 
         public LinkMovement()
@@ -35,22 +32,22 @@ namespace _3902_Project
 
         public void moveDown()
         {
-            _position.Y += speed * _movementTime;
+            _position.Y += speed;
         }
 
         public void moveLeft()
         {
-            _position.X -= speed * _movementTime;
+            _position.X -= speed;
         }
 
         public void moveRight()
         {
-            _position.X += speed * _movementTime;
+            _position.X += speed;
         }
 
         public void moveUp()
         {
-            _position.Y -= speed * _movementTime;
+            _position.Y -= speed;
         }
     }
 }
