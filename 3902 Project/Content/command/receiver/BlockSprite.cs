@@ -27,7 +27,7 @@ public class BlockSprite : ISprite
     {
         spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         // Create a sourceRectangle.
-        Rectangle sourceRectangle = new Rectangle((int)SpriteDimensions.X, (int)SpriteDimensions.Y, (int)SpritePosition.X, (int)SpritePosition.Y);
+        Rectangle sourceRectangle = new Rectangle((int)SpritePosition.X, (int)SpritePosition.Y, (int)SpriteDimensions.X, (int)SpriteDimensions.Y);
         Rectangle destinationRectangle = new Rectangle((int)PositionOnWindow.X, (int)PositionOnWindow.Y, 64, 64);
 
         // Only draw the area contained within the sourceRectangle.
