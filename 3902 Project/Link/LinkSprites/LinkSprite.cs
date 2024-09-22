@@ -55,30 +55,38 @@ namespace _3902_Project
 
             Boolean reverseFlag = false; 
 
-            if (state.getDirectionState() == (int)LinkStateMachine.Direction.UP)
+            //sourceList = down, right, up, order from left to right in spritesheet
+
+
+            if (state.getDirectionState() == (int)LinkStateMachine.MOVEMENT.MDOWN)
             {
-                sourceRectangle = sourceList[2];
+                sourceRectangle = sourceList[frame];
             }
-            else if (state.getDirectionState() == (int)LinkStateMachine.Direction.DOWN)
+            else if (state.getDirectionState() == (int)LinkStateMachine.MOVEMENT.MRIGHT) 
             {
-                sourceRectangle = sourceList[0];
+                sourceRectangle = sourceList[frame + totalFrames];
             }
-            else if (state.getDirectionState() == (int)LinkStateMachine.Direction.LEFT) 
+            else if (state.getDirectionState() == (int)LinkStateMachine.MOVEMENT.MUP)
             {
-                sourceRectangle = sourceList[1];
-            } 
+                sourceRectangle = sourceList[frame + 2 * totalFrames];
+            }
+            else if (state.getDirectionState() == (int) LinkStateMachine.MOVEMENT.MLEFT) 
+            {
+                //reverse flag since spritesheet doesn't have left sprites
+                reverseFlag = true;
+                sourceRectangle = sourceList[frame + 2 * totalFrames];
+            }
             else
             {
-                //defaults to right for reverse, fix later
-                reverseFlag = true;
-                sourceRectangle = sourceList[0];
+                //defaults to down sprite animation
+                sourceRectangle = sourceList[frame];
             }
 
             sb.Begin(samplerState: SamplerState.PointClamp);
             if (reverseFlag)
             {
-                //commented out until i fix the reverse flag stuff
-                //sb.Draw(spritesheet, destinationRectangle, sourceRectangle, Color.White, SpriteEffects.FlipHorizontally, 0f);
+                //draws a reversed version of right sprites 
+                sb.Draw(spritesheet, destinationRectangle, sourceRectangle, Color.White, 0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0f);
             }
             else
             {//reverseFlag = false
