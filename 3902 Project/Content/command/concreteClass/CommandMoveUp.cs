@@ -1,11 +1,11 @@
-﻿using Zelda;
+﻿using _3902_Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Zelda.Content.command.receiver;
-namespace Zelda
+using _3902_Project.Content.command.receiver;
+namespace _3902_Project
 {
     public class CommandMoveUp : ICommand
     {

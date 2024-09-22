@@ -1,24 +1,33 @@
-﻿using Content.command.receiver;
+﻿using _3902_Project.Content.command.receiver;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 
-namespace Zelda
+namespace _3902_Project
 {
     public class BlockManager
-    {
+    {   
         //block inventory
-        private BlockSprite[] blocks = [];
-        private int currentBlockIndex = 0;
+        private List<BlockSprite> blocks = new List<BlockSprite>();  
+        private int currentBlockIndex = 0; 
+        BlockSpriteFactory _factory = new BlockSpriteFactory();
+        private ContentManager _contentManager;
 
        
-        public BlockManager()
+        public BlockManager(ContentManager contentManager)
         {
-            BlockSpriteFactory factory = BlockSpriteFactory.Instance;
+            _contentManager = contentManager;
             //example
-            
-            blocks.Add(factory.CreateSquareBlock);
-            blocks.Add(factory.CreateStairs);
-            blocks.Add(factory.CreateStatueDragon);
+            blocks.Add((BlockSprite)_factory.CreateDiamondLockedDoorLeftRightRoomBlock());
+            blocks.Add((BlockSprite)_factory.CreateDiamondLockedDoorTopBottomRoomBlock());
+
+        }
+
+        public void LoadAllTextures()
+        {
+            _factory.LoadAllTextures(_contentManager);
         }
 
        
@@ -36,7 +45,7 @@ namespace Zelda
         }
 
       
-        public string GetCurrentBlock()
+        public BlockSprite GetCurrentBlock()
         {
             return blocks[currentBlockIndex];
         }

@@ -1,8 +1,8 @@
 ﻿// CommandNextItem.cs
-using Zelda;
-using Zelda.Content.command.receiver;
+using _3902_Project;
+using _3902_Project.Content.command.receiver;
 
-namespace Zelda
+namespace _3902_Project
 {
     public class CommandNextItem : ICommand
     {

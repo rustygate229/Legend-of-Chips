@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-namespace Content.command.receiver
+namespace _3902_Project.Content.command.receiver
 {
     public class BlockSpriteFactory
     {
@@ -10,6 +10,8 @@ namespace Content.command.receiver
         private Texture2D blockSpritesheet;
         // vector that stores position all block will be placed at
         private Vector2 position;
+
+        private string name;
 
         // create a new instance of BlockSpriteFactory
         private static BlockSpriteFactory instance = new BlockSpriteFactory();
@@ -22,9 +24,9 @@ namespace Content.command.receiver
             }
         }
 
-        private BlockSpriteFactory()
+        public BlockSpriteFactory()
         {
-
+            BlockSpriteFactory.instance = this;
         }
 
         public void LoadAllTextures(ContentManager content)
@@ -33,17 +35,17 @@ namespace Content.command.receiver
         }
 
         // create all block sprites using 
-        public ISprite CreateStairs()
+        public ISprite CreateStairsBlock()
         {
             return new BlockSprite(blockSpritesheet, position, 259 * 4 * 16, 11 * 3 * 16, 16, 16);
         }
 
-        public ISprite CreateTile()
+        public ISprite CreateTileBlock()
         {
             return new BlockSprite(blockSpritesheet, position, 259 * 5 * 16, 11 * 3 * 16, 16, 16);
         }
 
-        public ISprite CreateStatueFish()
+        public ISprite CreateStatueFishBlock()
         {
             return new BlockSprite(blockSpritesheet, position, 259 * 5 * 16, 11 * 4 * 16, 16, 16);
         }
@@ -83,7 +85,7 @@ namespace Content.command.receiver
             return new BlockSprite(blockSpritesheet, position, 259 * 5 * 16, 11 * 5 * 16, 16, 16);
         }
 
-        public ISprite CreateStatueDragon()
+        public ISprite CreateStatueDragonBlock()
         {
             return new BlockSprite(blockSpritesheet, position, 259 * 6 * 16, 11 * 5 * 16, 16, 16);
         }
@@ -93,12 +95,12 @@ namespace Content.command.receiver
             return new BlockSprite(blockSpritesheet, position, 1001, 28, 16, 16);
         }
 
-        public ISprite CreateWhiteBrick()
+        public ISprite CreateWhiteBrickBlock()
         {
             return new BlockSprite(blockSpritesheet, position, 984, 45, 16, 16);
         }
 
-        public ISprite CreateWhiteTile()
+        public ISprite CreateWhiteTileBlock()
         {
             return new BlockSprite(blockSpritesheet, position, 1001, 45, 16, 16);
         }

@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _3902_Project.Content.command.receiver;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using System;
 
 namespace _3902_Project
 {
@@ -8,6 +11,15 @@ namespace _3902_Project
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+        // Game objects and managers
+        internal Player Player { get; private set; }  // Player object
+        internal BlockManager BlockManager { get; private set; }  // Block manager
+        internal EnemyManager EnemyManager { get; private set; }  // Enemy manager
+        internal CharacterState CharacterState { get; private set; }  // Character state
+
+        // Input controller
+        private IController keyboardController;
 
         public Game1()
         {
@@ -18,35 +30,54 @@ namespace _3902_Project
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            // Initialize the game objects and input system
+
+            // Initialize the player and character state
+            Player = new Player();
+            CharacterState = new CharacterState();
+
+            // Initialize the block manager
+            BlockManager = new BlockManager(Content);
+
+            // Initialize keyboard input controller
+            keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
             // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
 
-            // TODO: Add your update logic here
+                this.Exit();
+
+
+
+            // Update input controls
+            keyboardController.Update();
+
+            // TODO: Add your update logic here (e.g., update player, blocks, etc.)
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            
 
-            // TODO: Add your drawing code here
 
-            base.Draw(gameTime);
+        }
+
+        // Exiting the game logic
+        internal void ExitGame()
+        {
+
+            Environment.Exit(0);
         }
     }
 }

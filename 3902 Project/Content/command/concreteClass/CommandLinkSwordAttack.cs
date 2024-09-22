@@ -1,9 +1,9 @@
 ﻿// CommandLinkSwordAttack.cs
-using Zelda;
+using _3902_Project;
 using System;
-using Zelda.Content.command.receiver;
+using _3902_Project.Content.command.receiver;
 
-namespace Zelda
+namespace _3902_Project
 {
     public class CommandLinkSwordAttack : ICommand
     {

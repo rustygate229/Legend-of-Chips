@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Zelda;
+using _3902_Project;
 using Microsoft.Xna.Framework.Input;
-using Zelda.Content.command;
+using _3902_Project.Content.command;
 
-namespace Zelda
+namespace _3902_Project
 {
     // Implementing IController interface for keyboard input handling
     public class KeyboardInput : IController
