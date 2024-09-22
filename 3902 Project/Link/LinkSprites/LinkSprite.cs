@@ -74,7 +74,7 @@ namespace _3902_Project
             {
                 //reverse flag since spritesheet doesn't have left sprites
                 reverseFlag = true;
-                sourceRectangle = sourceList[frame + 2 * totalFrames];
+                sourceRectangle = sourceList[frame + totalFrames];
             }
             else
             {

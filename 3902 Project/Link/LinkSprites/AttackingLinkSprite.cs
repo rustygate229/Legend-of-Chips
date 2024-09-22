@@ -74,7 +74,7 @@ namespace _3902_Project
             {
                 //reverse flag since spritesheet doesn't have left sprites
                 reverseFlag = true;
-                sourceRectangle = sourceList[frame + 2 * totalFrames];
+                sourceRectangle = sourceList[frame + totalFrames];
             }
             else
             {
@@ -83,7 +83,13 @@ namespace _3902_Project
             }
 
             //destination rectangle dynamically scales with size of sourceRectangle size
-            destinationRectangle = new Rectangle((int)(x), (int)(y), (int)(sourceRectangle.Width * scale), (int)(sourceRectangle.Height * scale));
+            if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MUP)
+            {
+                destinationRectangle = new Rectangle((int)(x), (int)(y), (int)(sourceRectangle.Width * scale), (int)(sourceRectangle.Height * scale));
+            } else
+            {
+                destinationRectangle = new Rectangle((int)(x), (int)(y), (int)(sourceRectangle.Width * scale), (int)(sourceRectangle.Height * scale));
+            }
 
             sb.Begin(samplerState: SamplerState.PointClamp);
             if (reverseFlag)

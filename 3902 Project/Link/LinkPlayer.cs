@@ -24,6 +24,7 @@ namespace _3902_Project.Link
         {
             _linkMovement = new LinkMovement();
             _linkStateMachine = new LinkStateMachine();
+            _linkStateMachine.changeStateMovingLeft();
 
             _animation = new LinkAnimation(sb, content, _linkStateMachine);
 
