@@ -9,18 +9,23 @@ namespace _3902_Project
     public class LinkStateMachine : ILinkStateMachine
 {
         public enum MOVEMENT { SUP, SDOWN, SLEFT, SRIGHT , MUP, MDOWN, MLEFT, MRIGHT}
+        public enum ATTACK { YES, NO }
 
         private MOVEMENT _moveState;
+        private ATTACK _attack;
 
         public LinkStateMachine()
         {
-            _moveState = MOVEMENT.MDOWN;
+            _moveState = MOVEMENT.SDOWN;
+            _attack = ATTACK.NO;
         }
 
         public int getMovementState()
         {
             return (int) _moveState;
         }
+
+        public int getAttackState() { return (int) _attack; }
 
         public void changeStateMovingUp()
         {
@@ -60,6 +65,16 @@ namespace _3902_Project
         public void changeStateStillRight()
         {
             _moveState = MOVEMENT.SRIGHT;
+        }
+
+        public void setAttack()
+        {
+            _attack = ATTACK.YES;
+        }
+
+        public void stopAttack()
+        {
+            _attack = ATTACK.NO;
         }
     }
 }

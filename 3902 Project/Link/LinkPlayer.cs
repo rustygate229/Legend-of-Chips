@@ -24,7 +24,6 @@ namespace _3902_Project.Link
         {
             _linkMovement = new LinkMovement();
             _linkStateMachine = new LinkStateMachine();
-            _linkStateMachine.changeStateMovingRight();
 
             _animation = new LinkAnimation(sb, content, _linkStateMachine);
 
@@ -79,6 +78,32 @@ namespace _3902_Project.Link
             _linkMovement.moveRight();
         }
 
+        public void StayStill()
+        {
+            switch (_linkStateMachine.getMovementState())
+            {
+                case (int)LinkStateMachine.MOVEMENT.MUP:
+                    _linkStateMachine.changeStateStillUp(); break;
+                case (int)LinkStateMachine.MOVEMENT.MLEFT:
+                    _linkStateMachine.changeStateStillLeft(); break;
+                case (int)LinkStateMachine.MOVEMENT.MRIGHT:
+                    _linkStateMachine.changeStateStillRight(); break;
+                case (int)LinkStateMachine.MOVEMENT.MDOWN:
+                    _linkStateMachine.changeStateStillDown(); break;
+            }
+        }
+
+        public void Attack()
+        {
+            _linkStateMachine.setAttack();
+
+        }
+
+        public void StopAttack()
+        {
+            _linkStateMachine.stopAttack();
+        }
+
         public void Update()
         {
             x = _linkMovement.getXPosition();
@@ -104,6 +129,12 @@ namespace _3902_Project.Link
 
                 default:
                     break;
+            }
+            
+            switch (_linkStateMachine.getAttackState())
+            {
+                case (int)LinkStateMachine.ATTACK.YES:
+                    _animation.AnimAttack(x, y); break;
             }
 
             _animation.Update();

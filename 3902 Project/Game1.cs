@@ -43,8 +43,46 @@ namespace _3902_Project
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            KeyboardState keyboardState = Keyboard.GetState();
+
             player.Update();
 
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                player.Attack();
+            }
+            else
+            {
+                player.StopAttack();
+            }
+
+            if (keyboardState.IsKeyDown(Keys.Left))
+            {
+                player.MoveLeft();
+            }
+
+            else if (keyboardState.IsKeyDown(Keys.Right))
+            {
+                player.MoveRight();
+            }
+
+            else if (keyboardState.IsKeyDown(Keys.Up))
+            {
+                player.MoveUp();
+            }
+
+            else if (keyboardState.IsKeyDown(Keys.Down))
+            {
+                player.MoveDown();
+            }
+
+            else
+            {
+                player.StayStill();
+            }
+
+            
+            
             // TODO: Add your update logic here
             base.Update(gameTime);
             
