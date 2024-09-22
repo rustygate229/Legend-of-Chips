@@ -94,7 +94,7 @@ namespace _3902_Project.Link
                 case (int)LinkStateMachine.MOVEMENT.MDOWN:
                 case (int)LinkStateMachine.MOVEMENT.MLEFT:
                 case (int)LinkStateMachine.MOVEMENT.MRIGHT:
-                    _animation.AnimAttack(x, y); break;
+                    _animation.AnimMoving(x, y); break;
 
                 case (int)LinkStateMachine.MOVEMENT.SUP:
                 case (int)LinkStateMachine.MOVEMENT.SDOWN:
