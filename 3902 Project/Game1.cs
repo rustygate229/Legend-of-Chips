@@ -37,7 +37,7 @@ namespace _3902_Project
             CharacterState = new CharacterState();
 
             // Initialize the block manager
-            BlockManager = new BlockManager(Content);
+            BlockManager = new BlockManager(Content, _spriteBatch);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
@@ -47,7 +47,9 @@ namespace _3902_Project
 
         protected override void LoadContent()
         {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
+            BlockManager.LoadAllTextures();
         }
 
         protected override void Update(GameTime gameTime)
@@ -68,7 +70,11 @@ namespace _3902_Project
 
         protected override void Draw(GameTime gameTime)
         {
-            
+            GraphicsDevice.Clear(Color.CadetBlue);
+
+            BlockManager.Draw();
+
+            base.Draw(gameTime);
 
 
         }

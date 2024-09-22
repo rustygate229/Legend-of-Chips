@@ -9,9 +9,7 @@ namespace _3902_Project.Content.command.receiver
         // block sprite sheet
         private Texture2D blockSpritesheet;
         // vector that stores position all block will be placed at
-        private Vector2 position;
-
-        private string name;
+        private Vector2 position = new Vector2(200, 400);
 
         // create a new instance of BlockSpriteFactory
         private static BlockSpriteFactory instance = new BlockSpriteFactory();

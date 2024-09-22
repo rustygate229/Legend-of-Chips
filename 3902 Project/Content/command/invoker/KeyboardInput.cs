@@ -2,6 +2,7 @@
 using _3902_Project;
 using Microsoft.Xna.Framework.Input;
 using _3902_Project.Content.command;
+using System.Diagnostics;
 
 namespace _3902_Project
 {
@@ -67,9 +68,7 @@ namespace _3902_Project
                     KeysToCommands[key].Execute();
                 }
             }
-        }
-
-          
-        }
+        }    
     }
+}
 
