@@ -20,7 +20,8 @@ namespace _3902_Project
             void changeStateStillLeft();
             void changeStateStillRight();
 
-            void setAttack();
+            void setMelee();
+            void setThrow();
             void stopAttack();
     }
 }

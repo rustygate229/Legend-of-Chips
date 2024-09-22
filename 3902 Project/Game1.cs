@@ -47,9 +47,13 @@ namespace _3902_Project
 
             player.Update();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (keyboardState.IsKeyDown(Keys.Space))
             {
                 player.Attack();
+            }
+            else if (keyboardState.IsKeyDown(Keys.X))
+            {
+                player.Throw();
             }
             else
             {

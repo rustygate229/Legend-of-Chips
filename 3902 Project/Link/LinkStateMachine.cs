@@ -9,7 +9,7 @@ namespace _3902_Project
     public class LinkStateMachine : ILinkStateMachine
 {
         public enum MOVEMENT { SUP, SDOWN, SLEFT, SRIGHT , MUP, MDOWN, MLEFT, MRIGHT}
-        public enum ATTACK { YES, NO }
+        public enum ATTACK { MELEE, THROW, NO }
 
         private MOVEMENT _moveState;
         private ATTACK _attack;
@@ -67,9 +67,14 @@ namespace _3902_Project
             _moveState = MOVEMENT.SRIGHT;
         }
 
-        public void setAttack()
+        public void setMelee()
         {
-            _attack = ATTACK.YES;
+            _attack = ATTACK.MELEE;
+        }
+
+        public void setThrow()
+        {
+            _attack = ATTACK.THROW;
         }
 
         public void stopAttack()

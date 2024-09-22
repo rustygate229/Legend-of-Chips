@@ -17,64 +17,44 @@ namespace _3902_Project.Link
         ILinkStateMachine _linkStateMachine;
 
         double x, y;
-
-        private Dictionary<int, Action<double, double>> commandMap;
-
         public LinkPlayer(SpriteBatch sb, ContentManager content)
         {
             _linkMovement = new LinkMovement();
             _linkStateMachine = new LinkStateMachine();
 
             _animation = new LinkAnimation(sb, content, _linkStateMachine);
-
-            commandMap = new Dictionary<int, Action<double, double>>();
         }
 
-        private void loadCommands()
+        private bool CannotMove()
         {
-        }
-
-        private bool IsMovementKeyPressed()
-        {
-            KeyboardState state = Keyboard.GetState();
-
-            // Check for WASD or arrow keys
-            return state.IsKeyDown(Keys.W) ||
-                   state.IsKeyDown(Keys.A) ||
-                   state.IsKeyDown(Keys.S) ||
-                   state.IsKeyDown(Keys.D) ||
-                   state.IsKeyDown(Keys.Up) ||
-                   state.IsKeyDown(Keys.Down) ||
-                   state.IsKeyDown(Keys.Left) ||
-                   state.IsKeyDown(Keys.Right);
+            return (_linkStateMachine.getAttackState() == (int)LinkStateMachine.ATTACK.THROW);
         }
 
         public void MoveUp()
         {
+            if (CannotMove()) { return; }
             _linkStateMachine.changeStateMovingUp();
-
-            _linkMovement.moveUp();
-            
+            _linkMovement.moveUp();           
         }
 
         public void MoveDown()
         {
-            _linkStateMachine.changeStateMovingDown();
-            
+            if (CannotMove()) { return; }
+            _linkStateMachine.changeStateMovingDown();   
             _linkMovement.moveDown();
         }
 
         public void MoveLeft()
         {
+            if (CannotMove()) { return; }
             _linkStateMachine.changeStateMovingLeft();
-
             _linkMovement.moveLeft();
         }
 
         public void MoveRight()
         {
+            if (CannotMove()) { return; }
             _linkStateMachine.changeStateMovingRight();
-
             _linkMovement.moveRight();
         }
 
@@ -95,8 +75,11 @@ namespace _3902_Project.Link
 
         public void Attack()
         {
-            _linkStateMachine.setAttack();
+            _linkStateMachine.setMelee();
+        }
 
+        public void Throw() { 
+            _linkStateMachine.setThrow();
         }
 
         public void StopAttack()
@@ -112,6 +95,17 @@ namespace _3902_Project.Link
 
         public void Draw()
         {
+            _animation.Update();
+
+            switch (_linkStateMachine.getAttackState())
+            {
+                case (int)LinkStateMachine.ATTACK.MELEE:
+                    _animation.AnimAttack(x, y); return;
+                case (int)LinkStateMachine.ATTACK.THROW:
+                    _animation.AnimItem(x, y); return;
+
+                default: break;
+            }
 
             switch (_linkStateMachine.getMovementState())
             {
@@ -130,15 +124,6 @@ namespace _3902_Project.Link
                 default:
                     break;
             }
-            
-            switch (_linkStateMachine.getAttackState())
-            {
-                case (int)LinkStateMachine.ATTACK.YES:
-                    _animation.AnimAttack(x, y); break;
-            }
-
-            _animation.Update();
         }
-
     }
 }
