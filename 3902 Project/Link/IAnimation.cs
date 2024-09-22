@@ -8,14 +8,12 @@ namespace _3902_Project
 {
     public interface IAnimation
 {
-        public void AnimUpStationary(double x, double y);
-        public void AnimDownStationary(double x, double y);
-        public void AnimLeftStationary(double x, double y);
-        public void AnimRightStationary(double x, double y);
-        public void AnimUpMoving(double x, double y);
-        public void AnimDownMoving(double x, double y);
-        public void AnimLeftMoving(double x, double y);
-        public void AnimRightMoving(double x, double y);
+        public void AnimStationary(double x, double y);
+        public void AnimMoving(double x, double y);
+
+        public void AnimAttack(double x, double y);
+
+        public void AnimItem(double x, double y);
 
     }
 }

@@ -11,7 +11,7 @@ namespace _3902_Project
 
         private static LinkSpriteFactory instance = new LinkSpriteFactory();
 
-        private int spriteSize = 32;
+        private int spriteSize = 64;
 
         public static LinkSpriteFactory Instance
         {

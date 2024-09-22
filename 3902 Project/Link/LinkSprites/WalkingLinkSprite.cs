@@ -44,6 +44,11 @@ namespace _3902_Project
 
 
 		}
-	}
+
+        public void Draw(SpriteBatch sb, ILinkStateMachine state, int x, int y)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }

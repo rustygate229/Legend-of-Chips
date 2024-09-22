@@ -27,14 +27,14 @@ namespace _3902_Project.Link
 
         private void loadCommands()
         {
-            commandMap.Add((int)LinkStateMachine.MOVEMENT.MDOWN, _animation.AnimDownMoving);
+            /*commandMap.Add((int)LinkStateMachine.MOVEMENT.MDOWN, _animation.AnimDownMoving);
             commandMap.Add((int)LinkStateMachine.MOVEMENT.MUP, _animation.AnimUpMoving);
             commandMap.Add((int)LinkStateMachine.MOVEMENT.MLEFT, _animation.AnimLeftMoving);
             commandMap.Add((int)LinkStateMachine.MOVEMENT.MRIGHT, _animation.AnimRightMoving);
             commandMap.Add((int)LinkStateMachine.MOVEMENT.SDOWN, _animation.AnimDownStationary);
             commandMap.Add((int)LinkStateMachine.MOVEMENT.SUP, _animation.AnimUpStationary);
             commandMap.Add((int)LinkStateMachine.MOVEMENT.SLEFT, _animation.AnimLeftStationary);
-            commandMap.Add((int)LinkStateMachine.MOVEMENT.SRIGHT, _animation.AnimRightStationary);
+            commandMap.Add((int)LinkStateMachine.MOVEMENT.SRIGHT, _animation.AnimRightStationary);*/
         }
 
         private bool IsMovementKeyPressed()
