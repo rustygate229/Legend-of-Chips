@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-namespace blockSpriteFactory
+namespace Content.command.receiver
 {
     public class BlockSpriteFactory
     {
@@ -24,69 +24,68 @@ namespace blockSpriteFactory
 
         private BlockSpriteFactory()
         {
-            
+
         }
 
         public void LoadAllTextures(ContentManager content)
         {
             blockSpritesheet = content.Load<Texture2D>("Dungeon Block and Room Spritesheet");
-            
         }
 
         // create all block sprites using 
         public ISprite CreateStairs()
         {
-            return new BlockSprite(blockSpritesheet, position, 259 * (4*16), 11 * (3*16), 16, 16);
+            return new BlockSprite(blockSpritesheet, position, 259 * 4 * 16, 11 * 3 * 16, 16, 16);
         }
 
         public ISprite CreateTile()
         {
-            return new BlockSprite(blockSpritesheet, position, 259 * (5*16), 11 * (3*16), 16, 16);
+            return new BlockSprite(blockSpritesheet, position, 259 * 5 * 16, 11 * 3 * 16, 16, 16);
         }
 
         public ISprite CreateStatueFish()
         {
-            return new BlockSprite(blockSpritesheet, position, 259*(5*16), 11*(4*16), 16, 16);
+            return new BlockSprite(blockSpritesheet, position, 259 * 5 * 16, 11 * 4 * 16, 16, 16);
         }
 
         public ISprite CreateKeyholeLockedDoorTopRoomBlock()
         {
-            return new BlockSprite(blockSpritesheet, position, 259 * (6*16), 11 * (4*16), 16, 16);
+            return new BlockSprite(blockSpritesheet, position, 259 * 6 * 16, 11 * 4 * 16, 16, 16);
         }
 
         public ISprite CreateKeyholeLockedDoorBottomRoomBlock()
         {
-            return new BlockSprite(blockSpritesheet, position, 259 * (7*16), 11 * (4*16), 16, 16);
+            return new BlockSprite(blockSpritesheet, position, 259 * 7 * 16, 11 * 4 * 16, 16, 16);
         }
 
         public ISprite CreateKeyholeLockedDoorLeftRoomBlock()
         {
-            return new BlockSprite(blockSpritesheet, position, 259 * (1*16), 11 * (5*16), 16, 16);
+            return new BlockSprite(blockSpritesheet, position, 259 * 1 * 16, 11 * 5 * 16, 16, 16);
         }
 
         public ISprite CreateKeyholeLockedDoorRightRoomBlock()
         {
-            return new BlockSprite(blockSpritesheet, position, 259 * (2*16), 11 * (5*16), 16, 16);
+            return new BlockSprite(blockSpritesheet, position, 259 * 2 * 16, 11 * 5 * 16, 16, 16);
         }
 
         public ISprite CreateDiamondLockedDoorTopBottomRoomBlock()
         {
-            return new BlockSprite(blockSpritesheet, position, 259 * (3*16), 11 * (5*16), 16, 16);
+            return new BlockSprite(blockSpritesheet, position, 259 * 3 * 16, 11 * 5 * 16, 16, 16);
         }
 
         public ISprite CreateDiamondLockedDoorLeftRightRoomBlock()
         {
-            return new BlockSprite(blockSpritesheet, position, 259 * (4*16), 11 * (5*16), 16, 16);
+            return new BlockSprite(blockSpritesheet, position, 259 * 4 * 16, 11 * 5 * 16, 16, 16);
         }
 
         public ISprite CreateSquareBlock()
         {
-            return new BlockSprite(blockSpritesheet, position, 259 * (5*16), 11 * (5*16), 16, 16);
+            return new BlockSprite(blockSpritesheet, position, 259 * 5 * 16, 11 * 5 * 16, 16, 16);
         }
 
         public ISprite CreateStatueDragon()
         {
-            return new BlockSprite(blockSpritesheet, position, 259 * (6*16), 11 * (5*16), 16, 16);
+            return new BlockSprite(blockSpritesheet, position, 259 * 6 * 16, 11 * 5 * 16, 16, 16);
         }
 
         public ISprite CreateDirtBlock()
