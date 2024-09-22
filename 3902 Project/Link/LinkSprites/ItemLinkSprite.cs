@@ -55,15 +55,15 @@ namespace _3902_Project
             Rectangle destinationRectangle = new Rectangle(x, y, width, height);
             Rectangle sourceRectangle;
 
-            if (state.getDirectionState() == (int)LinkStateMachine.Direction.UP)
+            if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MUP)
             {
                 sourceRectangle = sourceList[2];
             }
-            else if (state.getDirectionState() == (int)LinkStateMachine.Direction.DOWN)
+            else if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MDOWN)
             {
                 sourceRectangle = sourceList[0];
             }
-            else if (state.getDirectionState() == (int)LinkStateMachine.Direction.LEFT) 
+            else if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MLEFT) 
             {
                 sourceRectangle = sourceList[1];
             } 
