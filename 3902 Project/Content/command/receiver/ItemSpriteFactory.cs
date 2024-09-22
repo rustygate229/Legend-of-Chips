@@ -55,7 +55,6 @@ namespace itemSpriteFactory
             return new ItemSprite(itemSpritesheet, position, 40, 0, 16, 16);
         }
 
-
         // More public ISprite returning methods follow
         // ...
     }

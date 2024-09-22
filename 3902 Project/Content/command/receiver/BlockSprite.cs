@@ -6,7 +6,7 @@ public class BlockSprite : ISprite
     private Texture2D SpriteSheet;
     private Vector2 SpritePosition;
     private Vector2 SpriteDimensions;
-    private Vector2 Position;
+    private Vector2 PositionOnWindow;
 
     public BlockSprite(Texture2D spriteSheet, Vector2 position, int x, int y, int width, int height)
     {
@@ -15,8 +15,7 @@ public class BlockSprite : ISprite
         SpritePosition.Y = y;
         SpriteDimensions.X = width;
         SpriteDimensions.Y = height;
-        Position = position;
-
+        PositionOnWindow = position;
     }
 
     public void Update()
@@ -26,12 +25,13 @@ public class BlockSprite : ISprite
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Begin();
+        spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         // Create a sourceRectangle.
         Rectangle sourceRectangle = new Rectangle((int)SpriteDimensions.X, (int)SpriteDimensions.Y, (int)SpritePosition.X, (int)SpritePosition.Y);
+        Rectangle destinationRectangle = new Rectangle((int)PositionOnWindow.X, (int)PositionOnWindow.Y, 64, 64);
 
         // Only draw the area contained within the sourceRectangle.
-        spriteBatch.Draw(SpriteSheet, Position, sourceRectangle, Color.White);
+        spriteBatch.Draw(SpriteSheet, destinationRectangle, sourceRectangle, Color.White);
         spriteBatch.End();
     }
 

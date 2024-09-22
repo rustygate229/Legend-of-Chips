@@ -31,6 +31,12 @@ namespace _3902_Project
         protected override void Initialize()
         {
             // Initialize the game objects and input system
+            base.Initialize();
+        }
+
+        protected override void LoadContent()
+        {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Initialize the player and character state
             Player = new Player();
@@ -41,13 +47,6 @@ namespace _3902_Project
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
-
-            base.Initialize();
-        }
-
-        protected override void LoadContent()
-        {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
             BlockManager.LoadAllTextures();
         }

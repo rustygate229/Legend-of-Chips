@@ -51,6 +51,7 @@ namespace _3902_Project
             Draw();
         }
 
+        // draw the block to above of current block
         public void CyclePreviousBlock()
         {
             currentBlockIndex = (currentBlockIndex - 1 + blocks.Count) % blocks.Count;
@@ -58,6 +59,7 @@ namespace _3902_Project
         }
 
       
+        // get current block
         public string GetCurrentBlock()
         {
             return blocks[currentBlockIndex];
@@ -76,25 +78,25 @@ namespace _3902_Project
                 case "KeyholeLockedDoorTopRoom":
                     _factory.CreateKeyholeLockedDoorTopRoomBlock().Draw(_spriteBatch); break;
                 case "KeyholeLockedDoorBottomRoom":
-                    _factory.CreateKeyholeLockedDoorBottomRoomBlock(); break;
+                    _factory.CreateKeyholeLockedDoorBottomRoomBlock().Draw(_spriteBatch); break;
                 case "KeyholeLockedDoorLeftRoom":
-                    _factory.CreateKeyholeLockedDoorLeftRoomBlock(); break;
+                    _factory.CreateKeyholeLockedDoorLeftRoomBlock().Draw(_spriteBatch); break;
                 case "KeyholeLockedDoorRightRoom":
-                    _factory.CreateKeyholeLockedDoorRightRoomBlock(); break;
+                    _factory.CreateKeyholeLockedDoorRightRoomBlock().Draw(_spriteBatch); break;
                 case "DiamondLockedDoorLeftRightRoom":
-                    _factory.CreateDiamondLockedDoorLeftRightRoomBlock(); break;
+                    _factory.CreateDiamondLockedDoorLeftRightRoomBlock().Draw(_spriteBatch); break;
                 case "DiamondLockedDoorTopButtomRoom":
-                    _factory.CreateDiamondLockedDoorTopBottomRoomBlock(); break;
+                    _factory.CreateDiamondLockedDoorTopBottomRoomBlock().Draw(_spriteBatch); break;
                 case "SquareBlock":
-                    _factory.CreateSquareBlock(); break;
+                    _factory.CreateSquareBlock().Draw(_spriteBatch); break;
                 case "StatueDragonBlock":
-                    _factory.CreateStatueDragonBlock(); break;
+                    _factory.CreateStatueDragonBlock().Draw(_spriteBatch); break;
                 case "DirtBlock":
-                    _factory.CreateDirtBlock(); break;
+                    _factory.CreateDirtBlock().Draw(_spriteBatch); break;
                 case "WhiteBrickBlock":
-                    _factory.CreateWhiteBrickBlock(); break;
+                    _factory.CreateWhiteBrickBlock().Draw(_spriteBatch); break;
                 case "WhiteTileBlock":
-                    _factory.CreateWhiteTileBlock(); break;
+                    _factory.CreateWhiteTileBlock().Draw(_spriteBatch); break;
                 default:
                     break;
             }
