@@ -8,11 +8,8 @@ namespace _3902_Project
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private ISprite stationaryLink;
-        private ISprite walkingLink;
-        private ISprite itemLink;
-        private ISprite attackingLink;
         private LinkStateMachine _stateMachine;
+        private IAnimation _animation;
 
 
         public Game1()
@@ -34,15 +31,13 @@ namespace _3902_Project
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             LinkSpriteFactory.Instance.LoadAllTextures(Content);
 
-            stationaryLink = LinkSpriteFactory.Instance.StationaryLinkSprite();
-            walkingLink = LinkSpriteFactory.Instance.CreateWalkingLinkSprite();
 
-            itemLink = LinkSpriteFactory.Instance.CreateItemUseLinkSprite();
-            attackingLink = LinkSpriteFactory.Instance.CreateAttackingLinkSprite();
 
             //default left
             _stateMachine = new LinkStateMachine();
             _stateMachine.changeStateMovingRight();
+
+            _animation = new LinkAnimation(_spriteBatch, Content, _stateMachine);
 
 
 
@@ -56,13 +51,9 @@ namespace _3902_Project
                 Exit();
 
             // TODO: Add your update logic here
-            stationaryLink.Update();
             base.Update(gameTime);
 
-            stationaryLink.Update();
-            walkingLink.Update();
-            itemLink.Update();
-            attackingLink.Update();
+            _animation.Update();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -70,11 +61,12 @@ namespace _3902_Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
-            stationaryLink.Draw(_spriteBatch, _stateMachine, 200, 150);
-            walkingLink.Draw(_spriteBatch, _stateMachine, 300, 150);
-            itemLink.Draw(_spriteBatch, _stateMachine, 400, 150);
-            attackingLink.Draw(_spriteBatch, _stateMachine, 450, 150);
+            int x = 0;
+            int y = 150;
+            _animation.AnimStationary(100, y);
+            _animation.AnimMoving(200, y);
+            _animation.AnimItem(300, y);
+            _animation.AnimAttack(400, y);
 
 
             base.Draw(gameTime);

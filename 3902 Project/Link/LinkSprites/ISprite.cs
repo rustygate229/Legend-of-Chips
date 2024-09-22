@@ -9,5 +9,5 @@ public interface ISprite
 
     void Draw(SpriteBatch spriteBatch);
 
-    void Draw(SpriteBatch sb, ILinkStateMachine state, int x, int y);
+    void Draw(SpriteBatch sb, ILinkStateMachine state, double x, double y);
 }

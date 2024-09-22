@@ -8,8 +8,6 @@ namespace _3902_Project
     public class AttackingLinkSprite : ISprite
     {
         private Texture2D spritesheet;
-        private int width;
-        private int height;
         private int frame;
         private int totalFrames;
         private List<Rectangle> sourceList;
@@ -20,8 +18,6 @@ namespace _3902_Project
         {
             //width and height are size of sprite
             spritesheet = sheet;
-            width = 16;
-            height = 16;
 
             //size scales sprite to whatever is needed
             scale = s;
@@ -50,7 +46,7 @@ namespace _3902_Project
             //just for interface reasons
         }
 
-        public void Draw(SpriteBatch sb, ILinkStateMachine state, int x, int y)
+        public void Draw(SpriteBatch sb, ILinkStateMachine state, double x, double y)
         {
             //needs access to state 
             //x and y are passed in by LinkAnimation from LinkMovement
@@ -87,7 +83,7 @@ namespace _3902_Project
             }
 
             //destination rectangle dynamically scales with size of sourceRectangle size
-            destinationRectangle = new Rectangle(x, y, (int)(sourceRectangle.Width * scale), (int)(sourceRectangle.Height * scale));
+            destinationRectangle = new Rectangle((int)(x), (int)(y), (int)(sourceRectangle.Width * scale), (int)(sourceRectangle.Height * scale));
 
             sb.Begin(samplerState: SamplerState.PointClamp);
             if (reverseFlag)

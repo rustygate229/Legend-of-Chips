@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +18,12 @@ namespace _3902_Project.Link
 
         private Dictionary<int, Action<double, double>> commandMap;
 
-        public LinkPlayer()
+        public LinkPlayer(SpriteBatch sb, ContentManager content)
         {
-            _animation = new LinkAnimation();
             _linkMovement = new LinkMovement();
             _linkStateMachine = new LinkStateMachine();
+
+            _animation = new LinkAnimation(sb, content, _linkStateMachine);
 
             commandMap = new Dictionary<int, Action<double, double>>();
         }

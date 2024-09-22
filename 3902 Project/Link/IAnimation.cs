@@ -15,5 +15,7 @@ namespace _3902_Project
 
         public void AnimItem(double x, double y);
 
+        public void Update();
+
     }
 }

@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace _3902_Project
 {
-	public class DamagedLinkSprite : ISprite
+	public class DamagedLinkSprite
 	{
         private Texture2D spritesheet;
         private int width;

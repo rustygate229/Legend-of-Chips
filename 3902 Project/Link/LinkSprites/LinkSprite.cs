@@ -46,11 +46,11 @@ namespace _3902_Project
             //just for interface reasons
         }
 
-		public void Draw(SpriteBatch sb, ILinkStateMachine state, int x, int y)
+		public void Draw(SpriteBatch sb, ILinkStateMachine state, double x, double y)
 		{
             //needs access to state 
             //x and y are passed in by LinkAnimation from LinkMovement
-            Rectangle destinationRectangle = new Rectangle(x, y, width, height);
+            Rectangle destinationRectangle = new Rectangle((int)x, (int)y, width, height);
             Rectangle sourceRectangle;
 
             Boolean reverseFlag = false; 
