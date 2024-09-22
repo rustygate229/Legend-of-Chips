@@ -24,7 +24,7 @@ namespace _3902_Project.Link
         {
             _linkMovement = new LinkMovement();
             _linkStateMachine = new LinkStateMachine();
-            _linkStateMachine.changeStateMovingLeft();
+            _linkStateMachine.changeStateMovingRight();
 
             _animation = new LinkAnimation(sb, content, _linkStateMachine);
 
@@ -94,7 +94,7 @@ namespace _3902_Project.Link
                 case (int)LinkStateMachine.MOVEMENT.MDOWN:
                 case (int)LinkStateMachine.MOVEMENT.MLEFT:
                 case (int)LinkStateMachine.MOVEMENT.MRIGHT:
-                    _animation.AnimMoving(x, y); break;
+                    _animation.AnimAttack(x, y); break;
 
                 case (int)LinkStateMachine.MOVEMENT.SUP:
                 case (int)LinkStateMachine.MOVEMENT.SDOWN:

@@ -85,8 +85,18 @@ namespace _3902_Project
             //destination rectangle dynamically scales with size of sourceRectangle size
             if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MUP)
             {
-                destinationRectangle = new Rectangle((int)(x), (int)(y), (int)(sourceRectangle.Width * scale), (int)(sourceRectangle.Height * scale));
-            } else
+                //offsets MUP sprites
+                int height = (int)((y) - ((sourceRectangle.Height - 16) * scale));
+
+                destinationRectangle = new Rectangle((int)(x), height, (int)(sourceRectangle.Width * scale), (int)(sourceRectangle.Height * scale));
+            }
+            else if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MLEFT)
+            {
+                int width = (int)(x - (sourceRectangle.Width - 16) * scale);
+
+                destinationRectangle = new Rectangle(width, (int)(y), (int)(sourceRectangle.Width * scale), (int)(sourceRectangle.Height * scale));
+            }
+            else
             {
                 destinationRectangle = new Rectangle((int)(x), (int)(y), (int)(sourceRectangle.Width * scale), (int)(sourceRectangle.Height * scale));
             }
