@@ -32,6 +32,7 @@ namespace _3902_Project
 
             // Mapping keys for other actions such as attack
             KeysToCommands.Add(Keys.Z, new CommandLinkSwordAttack(game));
+            KeysToCommands.Add(Keys.N, new CommandLinkSwordAttack(game));
             KeysToCommands.Add(Keys.C, new CommandLinkThrow(game));
 
             // Mapping keys for game control actions such as reset and quit
