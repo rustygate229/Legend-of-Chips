@@ -6,7 +6,7 @@
   - S/DOWN ARROW: Link Move Down
   - A/LEFT ARROW: Link Move Left
   - D/RIGHT ARROW: Link Move Right
-  - Z: Link Melee/Sword Attack
+  - Z/N: Link Melee/Sword Attack
   - C: Link Range Attack
   - 1,2,3...: NOT IMPLEMENTED
   - E: NOT IMPLEMENTED
