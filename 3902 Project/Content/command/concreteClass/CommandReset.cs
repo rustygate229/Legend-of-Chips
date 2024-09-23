@@ -16,13 +16,7 @@ namespace _3902_Project
 
         public void Execute()
         {
-            //reset player's position and status
-           
-            //reload the scene
-
-            //reset game score
-           
-
+            // TASK: Implement a new state that carries original loadup
         }
     }
 }

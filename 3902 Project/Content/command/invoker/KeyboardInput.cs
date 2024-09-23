@@ -15,7 +15,10 @@ namespace _3902_Project
    
         private Game1 game;
 
-        private int prevState = 0;
+        KeyboardState currentKeyboardState;
+        KeyboardState previousKeyboardState;
+
+        Keys[] pressedKeys;
 
         // Constructor to initialize the game and map keys to commands
         public KeyboardInput(Game1 game)
@@ -41,8 +44,8 @@ namespace _3902_Project
             KeysToCommands.Add(Keys.Q, new CommandQuit(game));
 
             // Mapping keys for cycling through items and blocks
-            KeysToCommands.Add(Keys.B, new CommandNextItem(game));
-            KeysToCommands.Add(Keys.X, new CommandPrevItem(game));
+            KeysToCommands.Add(Keys.U, new CommandNextItem(game));
+            KeysToCommands.Add(Keys.I, new CommandPrevItem(game));
 
             // Mapping keys for cycling through blocks
             KeysToCommands.Add(Keys.T, new CommandBlockPrev(game));
@@ -57,8 +60,8 @@ namespace _3902_Project
         public void Update()
         {
             // Get the current state of the keyboard
-            KeyboardState currentKeyboardState = Keyboard.GetState();
-            Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
+            currentKeyboardState = Keyboard.GetState();
+            pressedKeys = currentKeyboardState.GetPressedKeys();
 
             // check for previous press
 
@@ -72,6 +75,8 @@ namespace _3902_Project
                     KeysToCommands[key].Execute();
                 }
             }
+
+            previousKeyboardState = currentKeyboardState;
         }    
     }
 }
