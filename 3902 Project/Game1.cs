@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
 using System;
 
 namespace _3902_Project
@@ -15,6 +14,7 @@ namespace _3902_Project
         // Game objects and managers
         internal Player Player { get; private set; }  // Player object
         internal BlockManager BlockManager { get; private set; }  // Block manager
+        internal ItemManager ItemManager { get; private set; }  // Item manager
         internal EnemyManager EnemyManager { get; private set; }  // Enemy manager
         internal CharacterState CharacterState { get; private set; }  // Character state
 
@@ -42,13 +42,17 @@ namespace _3902_Project
             Player = new Player();
             CharacterState = new CharacterState();
 
-            // Initialize the block manager
+            // Initialize the block and item manager
             BlockManager = new BlockManager(Content, _spriteBatch);
+            ItemManager = new ItemManager(Content, _spriteBatch);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
+
             // TODO: use this.Content to load your game content here
+            // Block and Item Texture Loading
             BlockManager.LoadAllTextures();
+            ItemManager.LoadAllTextures();
         }
 
         protected override void Update(GameTime gameTime)
@@ -69,13 +73,12 @@ namespace _3902_Project
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CadetBlue);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             BlockManager.Draw();
+            ItemManager.Draw();
 
             base.Draw(gameTime);
-
-
         }
 
         // Exiting the game logic

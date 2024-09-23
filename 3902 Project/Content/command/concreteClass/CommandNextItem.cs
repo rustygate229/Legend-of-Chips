@@ -1,21 +1,21 @@
 ﻿// CommandNextItem.cs
 using _3902_Project;
-using _3902_Project.Content.command.receiver;
 
 namespace _3902_Project
 {
     public class CommandNextItem : ICommand
     {
-       Game1 game;
+        private ItemManager ItemManager;
 
         public CommandNextItem(Game1 game)
         {
-            this.game = game;
+            this.ItemManager = game.ItemManager;  // Access the ItemManager from the game
         }
 
         public void Execute()
         {
-           CharacterState.NextItem();  // Call the method to cycle to the next item
+            ItemManager.CycleNextItem();  // Call the method to cycle to the Nextious Item
         }
     }
 }
+

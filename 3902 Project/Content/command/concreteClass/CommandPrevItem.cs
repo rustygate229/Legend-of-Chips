@@ -1,21 +1,21 @@
-﻿
+﻿// CommandPrevItem.cs
 using _3902_Project;
-using _3902_Project.Content.command.receiver;
 
 namespace _3902_Project
 {
     public class CommandPrevItem : ICommand
     {
-        Game1 game;
+        private ItemManager ItemManager;
 
         public CommandPrevItem(Game1 game)
         {
-            this.game = game;
+            this.ItemManager = game.ItemManager;  // Access the ItemManager from the game
         }
 
         public void Execute()
         {
-            CharacterState.PrevItem();  // Call the method to cycle to the previous item
+            ItemManager.CyclePreviousItem();  // Call the method to cycle to the previous Item
         }
     }
 }
+

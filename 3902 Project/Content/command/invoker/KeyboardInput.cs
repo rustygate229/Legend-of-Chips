@@ -3,6 +3,7 @@ using _3902_Project;
 using Microsoft.Xna.Framework.Input;
 using _3902_Project.Content.command;
 using System.Diagnostics;
+using System.Threading;
 
 namespace _3902_Project
 {
@@ -13,6 +14,9 @@ namespace _3902_Project
         private Dictionary<Keys, ICommand> KeysToCommands = new Dictionary<Keys, ICommand>();
    
         private Game1 game;
+
+        // timer to add delay for button press
+        private int delay = 0;
 
         // Constructor to initialize the game and map keys to commands
         public KeyboardInput(Game1 game)
@@ -47,8 +51,6 @@ namespace _3902_Project
             // Mapping keys for cycling through enemies or NPCs
             KeysToCommands.Add(Keys.O, new CommandEnemyPrev(game));
             KeysToCommands.Add(Keys.P, new CommandEnemyNext(game));
-
-           
         }
 
         // Update method to check keyboard input and execute corresponding commands
@@ -58,15 +60,23 @@ namespace _3902_Project
             KeyboardState currentKeyboardState = Keyboard.GetState();
             Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
 
+
             // Loop through each pressed key
             foreach (Keys key in pressedKeys)
             {
                 // Check if the key is mapped to a command
-                if (KeysToCommands.ContainsKey(key))
+                if (KeysToCommands.ContainsKey(key) && delay < 0)
                 {
                     // Execute the corresponding command
                     KeysToCommands[key].Execute();
+                    delay = 10;
                 }
+            }
+
+            // in case of extreme cases, stop the delay ticks at a certain point
+            if (delay != -50)
+            {
+                delay--;
             }
         }    
     }

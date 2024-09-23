@@ -3,14 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using _3902_Project.Content.command.receiver;
 
-namespace itemSpriteFactory
+namespace _3902_Project
 {
     public class ItemSpriteFactory
     {
         // block sprite sheet
         private Texture2D itemSpritesheet;
         // vector that stores position all block will be placed at
-        private Vector2 position = new Vector2(400, 600);
+        private Vector2 position = new Vector2(600, 100);
 
         // create a new instance of BlockSpriteFactory
         private static ItemSpriteFactory instance = new ItemSpriteFactory();
@@ -23,7 +23,7 @@ namespace itemSpriteFactory
             }
         }
 
-        private ItemSpriteFactory()
+        public ItemSpriteFactory()
         {
             ItemSpriteFactory.instance = this;
         }
@@ -44,7 +44,6 @@ namespace itemSpriteFactory
         {
             return new ItemSprite(itemSpritesheet, position, 208, 0, 16, 16);
         }
-
       
         public ISprite CreateWaterPlate()
         {

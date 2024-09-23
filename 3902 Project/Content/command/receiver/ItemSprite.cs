@@ -28,7 +28,7 @@ public class ItemSprite : ISprite
         spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         // Create a sourceRectangle.
         Rectangle sourceRectangle = new Rectangle((int)SpritePosition.X, (int)SpritePosition.Y, (int)SpriteDimensions.X, (int)SpriteDimensions.Y);
-        Rectangle destinationRectangle = new Rectangle((int)PositionOnWindow.X, (int)PositionOnWindow.Y, 64, 64);
+        Rectangle destinationRectangle = new Rectangle((int)PositionOnWindow.X, (int)PositionOnWindow.Y, 48, 48);
 
         // Only draw the area contained within the sourceRectangle.
         spriteBatch.Draw(SpriteSheet, destinationRectangle, sourceRectangle, Color.White);
