@@ -42,49 +42,6 @@ namespace _3902_Project
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            KeyboardState keyboardState = Keyboard.GetState();
-
-            player.Update();
-
-            if (keyboardState.IsKeyDown(Keys.Space))
-            {
-                player.Attack();
-            }
-            else if (keyboardState.IsKeyDown(Keys.X))
-            {
-                player.Throw();
-            }
-            else
-            {
-                player.StopAttack();
-            }
-
-            if (keyboardState.IsKeyDown(Keys.Left))
-            {
-                player.MoveLeft();
-            }
-
-            else if (keyboardState.IsKeyDown(Keys.Right))
-            {
-                player.MoveRight();
-            }
-
-            else if (keyboardState.IsKeyDown(Keys.Up))
-            {
-                player.MoveUp();
-            }
-
-            else if (keyboardState.IsKeyDown(Keys.Down))
-            {
-                player.MoveDown();
-            }
-
-            else
-            {
-                player.StayStill();
-            }
-
             
             
             // TODO: Add your update logic here
@@ -97,7 +54,6 @@ namespace _3902_Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            player.Draw();
 
             base.Draw(gameTime);
         }
