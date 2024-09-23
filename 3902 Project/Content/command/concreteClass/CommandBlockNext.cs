@@ -1,8 +1,8 @@
 ﻿// CommandBlockNext.cs
 using _3902_Project;
-using Content.command.receiver;
+using _3902_Project.Content.command.receiver;
 
-namespace Zelda
+namespace _3902_Project
 {
     public class CommandBlockNext : ICommand
     {
@@ -10,7 +10,7 @@ namespace Zelda
 
         public CommandBlockNext(Game1 game)
         {
-            this.blockManager = game.blockManager;
+            this.blockManager = game.BlockManager;
         }
 
         public void Execute()

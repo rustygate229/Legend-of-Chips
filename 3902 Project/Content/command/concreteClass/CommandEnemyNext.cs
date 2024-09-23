@@ -1,7 +1,7 @@
 ﻿// CommandEnemyNext.cs
-using Zelda;
+using _3902_Project;
 
-namespace Zelda
+namespace _3902_Project
 {
     public class CommandEnemyNext : ICommand
     {

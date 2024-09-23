@@ -1,5 +1,5 @@
 ﻿
-namespace Zelda
+namespace _3902_Project
 {
     public interface ICommand
     {

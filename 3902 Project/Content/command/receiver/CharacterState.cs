@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-namespace Zelda.Content.command.receiver
+namespace _3902_Project.Content.command.receiver
 {
     public class CharacterState
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Zelda.Content.command.receiver
+namespace _3902_Project.Content.command.receiver
 {
     public class Player
     {
