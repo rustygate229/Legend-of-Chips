@@ -1,3 +1,4 @@
+﻿using _3902_Project.Link;
 ﻿using _3902_Project.Content.command.receiver;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,8 +12,9 @@ namespace _3902_Project
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+
         // Game objects and managers
-        internal Player Player { get; private set; }  // Player object
+        internal LinkPlayer Player { get; private set; }  // Player object
         internal BlockManager BlockManager { get; private set; }  // Block manager
         internal ItemManager ItemManager { get; private set; }  // Item manager
         internal EnemyManager EnemyManager { get; private set; }  // Enemy manager
@@ -37,6 +39,10 @@ namespace _3902_Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            LinkSpriteFactory.Instance.LoadAllTextures(Content);
+
+            player = new LinkPlayer(_spriteBatch, Content);
+
 
             // Initialize the player and character state
             Player = new Player();
@@ -58,17 +64,17 @@ namespace _3902_Project
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-
-                this.Exit();
-
-
+                Exit();
+            
+            
+            // TODO: Add your update logic here
 
             // Update input controls
             keyboardController.Update();
 
             // TODO: Add your update logic here (e.g., update player, blocks, etc.)
-
             base.Update(gameTime);
+            
         }
 
         protected override void Draw(GameTime gameTime)
