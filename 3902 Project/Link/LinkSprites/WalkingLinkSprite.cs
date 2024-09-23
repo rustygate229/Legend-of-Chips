@@ -13,7 +13,7 @@ namespace _3902_Project
         private int height;
         private int frame;
         private int totalFrames;
-        private List<Rectangle> sourceList;
+        // private List<Rectangle> sourceList;
 
 
         public WalkingLinkSprite(Texture2D sheet, int w, int h)
@@ -40,8 +40,6 @@ namespace _3902_Project
 		
 		public void Draw(SpriteBatch sb)
 		{
-			
-
 
 		}
 

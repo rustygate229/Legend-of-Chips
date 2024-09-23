@@ -30,6 +30,27 @@ namespace _3902_Project.Link
             return (_linkStateMachine.getAttackState() == (int)LinkStateMachine.ATTACK.THROW);
         }
 
+        private bool IsMovementKeysPressed()
+        {
+            KeyboardState keyboard = Keyboard.GetState();
+
+            return keyboard.IsKeyDown(Keys.W) ||
+                keyboard.IsKeyDown(Keys.A) ||
+                keyboard.IsKeyDown(Keys.S) ||
+                keyboard.IsKeyDown(Keys.D) ||
+                keyboard.IsKeyDown(Keys.Up) ||
+                keyboard.IsKeyDown(Keys.Left) ||
+                keyboard.IsKeyDown(Keys.Down) ||
+                keyboard.IsKeyDown(Keys.Right);
+        }
+
+        private bool IsAttackKeysPressed()
+        {
+            KeyboardState keyboard = Keyboard.GetState();
+
+            return keyboard.IsKeyDown(Keys.Z) || keyboard.IsKeyDown(Keys.C);
+        }
+
         public void MoveUp()
         {
             if (CannotMove()) { return; }
@@ -91,6 +112,9 @@ namespace _3902_Project.Link
         {
             x = _linkMovement.getXPosition();
             y = _linkMovement.getYPosition();
+
+            if (!IsMovementKeysPressed()) { StayStill(); }
+            if (!IsAttackKeysPressed()) { StopAttack(); }
         }
 
         public void Draw()

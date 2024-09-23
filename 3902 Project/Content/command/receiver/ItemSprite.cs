@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _3902_Project;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 public class ItemSprite : ISprite
@@ -35,4 +36,8 @@ public class ItemSprite : ISprite
         spriteBatch.End();
     }
 
+    public void Draw(SpriteBatch sb, ILinkStateMachine state, double x, double y)
+    {
+        throw new System.NotImplementedException();
+    }
 }

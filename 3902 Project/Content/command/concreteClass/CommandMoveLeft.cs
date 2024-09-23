@@ -1,12 +1,12 @@
 ﻿// CommandMoveLeft.cs
 using _3902_Project;
-using _3902_Project.Content.command.receiver;
+using _3902_Project.Link;
 
 namespace _3902_Project
 {
     public class CommandMoveLeft : ICommand
     {
-        private Player player;
+        private LinkPlayer player;
 
         public CommandMoveLeft(Game1 game)
         {

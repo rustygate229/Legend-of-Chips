@@ -41,11 +41,8 @@ namespace _3902_Project
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             LinkSpriteFactory.Instance.LoadAllTextures(Content);
 
-            player = new LinkPlayer(_spriteBatch, Content);
-
-
             // Initialize the player and character state
-            Player = new Player();
+            Player = new LinkPlayer(_spriteBatch, Content);
             CharacterState = new CharacterState();
 
             // Initialize the block and item manager
@@ -64,10 +61,12 @@ namespace _3902_Project
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
                 Exit();
-            
-            
+            }
+                
             // TODO: Add your update logic here
+            Player.Update();
 
             // Update input controls
             keyboardController.Update();
@@ -81,6 +80,8 @@ namespace _3902_Project
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            Player.Draw();
+
             BlockManager.Draw();
             ItemManager.Draw();
 
@@ -90,7 +91,6 @@ namespace _3902_Project
         // Exiting the game logic
         internal void ExitGame()
         {
-
             Environment.Exit(0);
         }
     }

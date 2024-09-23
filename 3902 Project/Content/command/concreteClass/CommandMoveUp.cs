@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using _3902_Project.Content.command.receiver;
+using _3902_Project.Link;
+
 namespace _3902_Project
 {
     public class CommandMoveUp : ICommand
     {
-        private Player player;
+        private LinkPlayer player;
 
         public CommandMoveUp(Game1 game)
         {

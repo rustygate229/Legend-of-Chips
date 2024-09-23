@@ -1,12 +1,12 @@
 ﻿// CommandMoveRight.cs
 using _3902_Project;
-using _3902_Project.Content.command.receiver;
+using _3902_Project.Link;
 
 namespace _3902_Project
 {
     public class CommandMoveRight : ICommand
     {
-        private Player player;
+        private LinkPlayer player;
 
         public CommandMoveRight(Game1 game)
         {

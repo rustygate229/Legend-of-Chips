@@ -1,13 +1,13 @@
 ﻿// CommandLinkSwordAttack.cs
 using _3902_Project;
+using _3902_Project.Link;
 using System;
-using _3902_Project.Content.command.receiver;
 
 namespace _3902_Project
 {
     public class CommandLinkSwordAttack : ICommand
     {
-        private Player player;
+        private LinkPlayer player;
 
         public CommandLinkSwordAttack(Game1 game)
         {
@@ -16,7 +16,7 @@ namespace _3902_Project
 
         public void Execute()
         {
-            player.SwordAttack();  // Call the SwordAttack method in the Player class
+            player.Attack();  // Call the SwordAttack method in the Player class
         }
     }
 }

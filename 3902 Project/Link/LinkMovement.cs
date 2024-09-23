@@ -16,7 +16,7 @@ namespace _3902_Project
         public LinkMovement()
         {
             _position = new Vector2(200, 200);
-            speed = 4;
+            speed = 15f;
         }
 
 
