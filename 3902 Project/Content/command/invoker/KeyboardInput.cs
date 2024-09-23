@@ -36,20 +36,22 @@ namespace _3902_Project
             KeysToCommands.Add(Keys.C, new CommandLinkThrow(game));
 
             // Mapping keys for game control actions such as reset and quit
-            KeysToCommands.Add(Keys.R, new CommandReset(game));
+            // * NOT IMPLEMENTED
+            // KeysToCommands.Add(Keys.R, new CommandReset(game));
             KeysToCommands.Add(Keys.Q, new CommandQuit(game));
 
             // Mapping keys for cycling through items and blocks
-            KeysToCommands.Add(Keys.B, new CommandNextItem(game));
-            KeysToCommands.Add(Keys.X, new CommandPrevItem(game));
+            KeysToCommands.Add(Keys.U, new CommandNextItem(game));
+            KeysToCommands.Add(Keys.I, new CommandPrevItem(game));
 
             // Mapping keys for cycling through blocks
             KeysToCommands.Add(Keys.T, new CommandBlockPrev(game));
             KeysToCommands.Add(Keys.Y, new CommandBlockNext(game));
 
+            // * NOT IMPLEMENTED/CAUSES CRASHING
             // Mapping keys for cycling through enemies or NPCs
-            KeysToCommands.Add(Keys.O, new CommandEnemyPrev(game));
-            KeysToCommands.Add(Keys.P, new CommandEnemyNext(game));
+            // KeysToCommands.Add(Keys.O, new CommandEnemyPrev(game));
+            // KeysToCommands.Add(Keys.P, new CommandEnemyNext(game));
         }
 
         // Update method to check keyboard input and execute corresponding commands
@@ -58,8 +60,6 @@ namespace _3902_Project
             // Get the current state of the keyboard
             KeyboardState currentKeyboardState = Keyboard.GetState();
             Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
-
-            // check for previous press
 
             // Loop through each pressed key
             foreach (Keys key in pressedKeys)
