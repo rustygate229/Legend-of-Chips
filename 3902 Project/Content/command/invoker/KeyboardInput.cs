@@ -15,8 +15,7 @@ namespace _3902_Project
    
         private Game1 game;
 
-        // timer to add delay for button press
-        private int delay = 0;
+        private int prevState = 0;
 
         // Constructor to initialize the game and map keys to commands
         public KeyboardInput(Game1 game)
@@ -61,23 +60,17 @@ namespace _3902_Project
             KeyboardState currentKeyboardState = Keyboard.GetState();
             Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
 
+            // check for previous press
 
             // Loop through each pressed key
             foreach (Keys key in pressedKeys)
             {
                 // Check if the key is mapped to a command
-                if (KeysToCommands.ContainsKey(key) && delay < 0)
+                if (KeysToCommands.ContainsKey(key))
                 {
                     // Execute the corresponding command
                     KeysToCommands[key].Execute();
-                    delay = 10;
                 }
-            }
-
-            // in case of extreme cases, stop the delay ticks at a certain point
-            if (delay != -50)
-            {
-                delay--;
             }
         }    
     }
