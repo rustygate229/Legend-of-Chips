@@ -1,7 +1,9 @@
 ﻿using _3902_Project.Link;
+﻿using _3902_Project.Content.command.receiver;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace _3902_Project
 {
@@ -10,8 +12,16 @@ namespace _3902_Project
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private LinkPlayer player;
 
+        // Game objects and managers
+        internal LinkPlayer Player { get; private set; }  // Player object
+        internal BlockManager BlockManager { get; private set; }  // Block manager
+        internal ItemManager ItemManager { get; private set; }  // Item manager
+        internal EnemyManager EnemyManager { get; private set; }  // Enemy manager
+        internal CharacterState CharacterState { get; private set; }  // Character state
+
+        // Input controller
+        private IController keyboardController;
 
         public Game1()
         {
@@ -22,8 +32,7 @@ namespace _3902_Project
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            // Initialize the game objects and input system
             base.Initialize();
         }
 
@@ -35,7 +44,21 @@ namespace _3902_Project
             player = new LinkPlayer(_spriteBatch, Content);
 
 
+            // Initialize the player and character state
+            Player = new Player();
+            CharacterState = new CharacterState();
+
+            // Initialize the block and item manager
+            BlockManager = new BlockManager(Content, _spriteBatch);
+            ItemManager = new ItemManager(Content, _spriteBatch);
+
+            // Initialize keyboard input controller
+            keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
+
             // TODO: use this.Content to load your game content here
+            // Block and Item Texture Loading
+            BlockManager.LoadAllTextures();
+            ItemManager.LoadAllTextures();
         }
 
         protected override void Update(GameTime gameTime)
@@ -45,6 +68,11 @@ namespace _3902_Project
             
             
             // TODO: Add your update logic here
+
+            // Update input controls
+            keyboardController.Update();
+
+            // TODO: Add your update logic here (e.g., update player, blocks, etc.)
             base.Update(gameTime);
             
         }
@@ -53,9 +81,17 @@ namespace _3902_Project
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            BlockManager.Draw();
+            ItemManager.Draw();
 
             base.Draw(gameTime);
+        }
+
+        // Exiting the game logic
+        internal void ExitGame()
+        {
+
+            Environment.Exit(0);
         }
     }
 }
