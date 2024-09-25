@@ -11,7 +11,7 @@ public class ItemSpriteAnimated : ISprite
     private Vector2 _spriteDimensions;
     private Vector2 _positionOnWindow;
 
-    public ItemSprite(Texture2D spriteSheet, Vector2 position, int x, int y, int width, int height)
+    public ItemSpriteAnimated(Texture2D spriteSheet, Vector2 position, int x, int y, int width, int height)
     {
         _spriteSheet = spriteSheet;
         _spritePosition.X = x;

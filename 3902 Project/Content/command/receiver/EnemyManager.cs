@@ -21,14 +21,14 @@ namespace _3902_Project
 
         public void CycleNextEnemy()
         {
-            _currentEnemyIndex = (_currentEnemyIndex + 1) % enemy.Count;
+            _currentEnemyIndex = (_currentEnemyIndex + 1) % _enemy.Count;
             Console.WriteLine($"Switched to next enermy: {_enemy[_currentEnemyIndex]}");
         }
 
         public void CyclePreviousEnemy()
         {
 
-            _currentEnemyIndex = (_currentEnemyIndex - 1 + _enemy.Count) % enemy.Count;
+            _currentEnemyIndex = (_currentEnemyIndex - 1 + _enemy.Count) % _enemy.Count;
             Console.WriteLine($"Switched to previous block: {_enemy[_currentEnemyIndex]}");
         }
 
