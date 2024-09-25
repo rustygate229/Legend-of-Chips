@@ -52,6 +52,7 @@ namespace _3902_Project
             //x and y are passed in by LinkAnimation from LinkMovement
             Rectangle destinationRectangle = new Rectangle((int)x, (int)y, width, height);
             Rectangle sourceRectangle;
+            Color tint = Color.White;
 
             Boolean reverseFlag = false; 
 
@@ -82,15 +83,22 @@ namespace _3902_Project
                 sourceRectangle = sourceList[frame];
             }
 
+
+            if(state.getAttackState() == (int)(LinkStateMachine.ATTACK.DAMAGED))
+            {
+                //System.Diagnostics.Debug.WriteLine("tint changed in LinkSprite");
+                tint = Color.Red;
+            }
+
             sb.Begin(samplerState: SamplerState.PointClamp);
             if (reverseFlag)
             {
                 //draws a reversed version of right sprites 
-                sb.Draw(spritesheet, destinationRectangle, sourceRectangle, Color.White, 0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0f);
+                sb.Draw(spritesheet, destinationRectangle, sourceRectangle, tint, 0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0f);
             }
             else
             {//reverseFlag = false
-                sb.Draw(spritesheet, destinationRectangle, sourceRectangle, Color.White);
+                sb.Draw(spritesheet, destinationRectangle, sourceRectangle, tint);
             }
             sb.End();
 

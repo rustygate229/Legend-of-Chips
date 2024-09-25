@@ -52,6 +52,7 @@ namespace _3902_Project
             //x and y are passed in by LinkAnimation from LinkMovement
             Rectangle destinationRectangle;
             Rectangle sourceRectangle;
+            Color tint = Color.White;
 
             Boolean reverseFlag = false;
 
@@ -101,14 +102,20 @@ namespace _3902_Project
                 destinationRectangle = new Rectangle((int)(x), (int)(y), (int)(sourceRectangle.Width * scale), (int)(sourceRectangle.Height * scale));
             }
 
+            if (state.getAttackState() == (int)(LinkStateMachine.ATTACK.DAMAGED))
+            {
+                tint = Color.Red;
+            }
+
+
             sb.Begin(samplerState: SamplerState.PointClamp);
             if (reverseFlag)
             {
-                sb.Draw(spritesheet, destinationRectangle, sourceRectangle, Color.White, 0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0f);
+                sb.Draw(spritesheet, destinationRectangle, sourceRectangle, tint, 0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0f);
             }
             else
             {//reverseFlag = false
-                sb.Draw(spritesheet, destinationRectangle, sourceRectangle, Color.White);
+                sb.Draw(spritesheet, destinationRectangle, sourceRectangle, tint);
             }
             sb.End();
 
