@@ -5,16 +5,16 @@ namespace _3902_Project
 {
     public class CommandPrevItem : ICommand
     {
-        private ItemManager ItemManager;
+        private ItemManager _itemManager;
 
         public CommandPrevItem(Game1 game)
         {
-            this.ItemManager = game.ItemManager;  // Access the ItemManager from the game
+            _itemManager = game.ItemManager;  // Access the ItemManager from the game
         }
 
         public void Execute()
         {
-            ItemManager.CyclePreviousItem();  // Call the method to cycle to the previous Item
+            _itemManager.CyclePreviousItem();  // Call the method to cycle to the previous Item
         }
     }
 }

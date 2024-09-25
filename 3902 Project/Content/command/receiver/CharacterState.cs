@@ -6,11 +6,12 @@ namespace _3902_Project.Content.command.receiver
     public class CharacterState
     {
         //inventory to keep track of items and their counts
-        private static Dictionary<string, int> inventoryItems = new Dictionary<string, int>();
+        private static Dictionary<string, int> _inventoryItems = new Dictionary<string, int>();
+
         public static Dictionary<string, int> InventoryItems
         {
-            get { return inventoryItems; }
-            set { inventoryItems = value; }
+            get { return _inventoryItems; }
+            set { _inventoryItems = value; }
         }
 
         //facing direction
@@ -56,7 +57,7 @@ namespace _3902_Project.Content.command.receiver
         public static void ResetState()
         {
             // Reset inventory to default items
-            inventoryItems = new Dictionary<string, int>
+            _inventoryItems = new Dictionary<string, int>
             {
                 { "Sword", 1 }, 
             };

@@ -7,16 +7,16 @@ namespace _3902_Project
 {
     public class CommandQuit : ICommand
     {
-        private Game1 game;
+        private Game1 _game;
 
-        public CommandQuit(Game1 game)
+        public CommandQuit(Game1 Game)
         {
-            this.game = game;
+            _game = Game;
         }
 
         public void Execute()
         {
-            game.Exit(); 
+            _game.Exit(); 
         }
     }
 }

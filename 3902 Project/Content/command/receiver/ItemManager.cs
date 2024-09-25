@@ -8,8 +8,10 @@ namespace _3902_Project
     public class ItemManager
     {
         // item inventory
-        private List<string> items = new List<string>();
-        private int currentItemIndex = 0;
+        private List<string> _items = new List<string>();
+        private int _currentItemIndex = 0;
+
+        // other
         ItemSpriteFactory _factory = new ItemSpriteFactory();
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
@@ -20,10 +22,10 @@ namespace _3902_Project
             _contentManager = contentManager;
             _spriteBatch = spriteBatch;
             //example
-            items.Add("FullHeart");
-            items.Add("Ladder");
-            items.Add("WaterPlate");
-            items.Add("AnimatedMan");
+            _items.Add("FullHeart");
+            _items.Add("Ladder");
+            _items.Add("WaterPlate");
+            _items.Add("AnimatedMan");
         }
 
         public void LoadAllTextures()
@@ -34,14 +36,14 @@ namespace _3902_Project
 
         public void CycleNextItem()
         {
-            currentItemIndex = (currentItemIndex + 1) % items.Count;
+            _currentItemIndex = (_currentItemIndex + 1) % _items.Count;
             Draw();
         }
 
         // draw the Item to above of current Item
         public void CyclePreviousItem()
         {
-            currentItemIndex = (currentItemIndex - 1 + items.Count) % items.Count;
+            _currentItemIndex = (_currentItemIndex - 1 + _items.Count) % _items.Count;
             Draw();
         }
 
@@ -49,7 +51,7 @@ namespace _3902_Project
         // get current Item
         public string GetCurrentItem()
         {
-            return items[currentItemIndex];
+            return _items[_currentItemIndex];
         }
 
         public void Draw()

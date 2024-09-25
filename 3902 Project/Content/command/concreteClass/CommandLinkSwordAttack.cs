@@ -7,16 +7,16 @@ namespace _3902_Project
 {
     public class CommandLinkSwordAttack : ICommand
     {
-        private LinkPlayer player;
+        private LinkPlayer _player;
 
         public CommandLinkSwordAttack(Game1 game)
         {
-            this.player = game.Player;
+            _player = game.Player;
         }
 
         public void Execute()
         {
-            player.Attack();  // Call the SwordAttack method in the Player class
+            _player.Attack();  // Call the SwordAttack method in the Player class
         }
     }
 }

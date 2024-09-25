@@ -11,8 +11,8 @@ namespace _3902_Project
     public class BlockManager
     {   
         //block inventory
-        private List<string> blocks = new List<string>();  
-        private int currentBlockIndex = 0; 
+        private List<string> _blocks = new List<string>();  
+        private int _currentBlockIndex = 0; 
         BlockSpriteFactory _factory = new BlockSpriteFactory();
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
@@ -23,20 +23,20 @@ namespace _3902_Project
             _contentManager = contentManager;
             _spriteBatch = spriteBatch;
             //example
-            blocks.Add("StairsBlock");
-            blocks.Add("TileBlock");
-            blocks.Add("StatueFishBlock");
-            blocks.Add("KeyholeLockedDoorTopRoom");
-            blocks.Add("KeyholeLockedDoorBottomRoom");
-            blocks.Add("KeyholeLockedDoorLeftRoom");
-            blocks.Add("KeyholeLockedDoorRightRoom");
-            blocks.Add("DiamondLockedDoorLeftRightRoom");
-            blocks.Add("DiamondLockedDoorTopButtomRoom");
-            blocks.Add("SquareBlock");
-            blocks.Add("StatueDragonBlock");
-            blocks.Add("DirtBlock");
-            blocks.Add("WhiteBrickBlock");
-            blocks.Add("WhiteTileBlock");
+            _blocks.Add("StairsBlock");
+            _blocks.Add("TileBlock");
+            _blocks.Add("StatueFishBlock");
+            _blocks.Add("KeyholeLockedDoorTopRoom");
+            _blocks.Add("KeyholeLockedDoorBottomRoom");
+            _blocks.Add("KeyholeLockedDoorLeftRoom");
+            _blocks.Add("KeyholeLockedDoorRightRoom");
+            _blocks.Add("DiamondLockedDoorLeftRightRoom");
+            _blocks.Add("DiamondLockedDoorTopButtomRoom");
+            _blocks.Add("SquareBlock");
+            _blocks.Add("StatueDragonBlock");
+            _blocks.Add("DirtBlock");
+            _blocks.Add("WhiteBrickBlock");
+            _blocks.Add("WhiteTileBlock");
         }
 
         public void LoadAllTextures()
@@ -47,14 +47,14 @@ namespace _3902_Project
        
         public void CycleNextBlock()
         {
-            currentBlockIndex = (currentBlockIndex + 1) % blocks.Count;
+            _currentBlockIndex = (_currentBlockIndex + 1) % _blocks.Count;
             Draw();
         }
 
         // draw the block to above of current block
         public void CyclePreviousBlock()
         {
-            currentBlockIndex = (currentBlockIndex - 1 + blocks.Count) % blocks.Count;
+            _currentBlockIndex = (_currentBlockIndex - 1 + _blocks.Count) % _blocks.Count;
             Draw();
         }
 
@@ -62,7 +62,7 @@ namespace _3902_Project
         // get current block
         public string GetCurrentBlock()
         {
-            return blocks[currentBlockIndex];
+            return _blocks[_currentBlockIndex];
         }
 
         public void Draw()

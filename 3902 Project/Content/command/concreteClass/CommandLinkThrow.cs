@@ -7,16 +7,16 @@ namespace _3902_Project
 {
     public class CommandLinkThrow : ICommand
     {
-        private LinkPlayer player;
+        private LinkPlayer _player;
 
         public CommandLinkThrow(Game1 game)
         {
-            this.player = game.Player;
+            _player = game.Player;
         }
 
         public void Execute()
         {
-            player.Throw();  // Call the Throw method in the Player class
+            _player.Throw();  // Call the Throw method in the Player class
         }
     }
 }

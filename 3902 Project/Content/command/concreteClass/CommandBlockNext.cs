@@ -6,16 +6,16 @@ namespace _3902_Project
 {
     public class CommandBlockNext : ICommand
     {
-        private BlockManager blockManager;
+        private BlockManager _blockManager;
 
         public CommandBlockNext(Game1 game)
         {
-            this.blockManager = game.BlockManager;
+            _blockManager = game.BlockManager;
         }
 
         public void Execute()
         {
-            blockManager.CycleNextBlock();  // Call the method to cycle to the next block
+            _blockManager.CycleNextBlock();  // Call the method to cycle to the next block
         }
     }
 }

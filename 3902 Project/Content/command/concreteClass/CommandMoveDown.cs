@@ -7,16 +7,16 @@ namespace _3902_Project
 {
     public class CommandMoveDown : ICommand
     {
-        private LinkPlayer player;
+        private LinkPlayer _player;
 
         public CommandMoveDown(Game1 game)
         {
-            this.player = game.Player;
+            _player = game.Player;
         }
 
         public void Execute()
         {
-            player.MoveDown();
+            _player.MoveDown();
         }
     }
 }

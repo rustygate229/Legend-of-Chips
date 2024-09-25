@@ -5,16 +5,16 @@ namespace _3902_Project
 {
     public class CommandEnemyNext : ICommand
     {
-        private EnemyManager enemyManager;
+        private EnemyManager _enemyManager;
 
         public CommandEnemyNext(Game1 game)
         {
-            this.enemyManager = game.EnemyManager;
+            _enemyManager = game.EnemyManager;
         }
 
         public void Execute()
         {
-            enemyManager.CycleNextEnemy();  // Call the method to cycle to the next enemy
+            _enemyManager.CycleNextEnemy();  // Call the method to cycle to the next enemy
         }
     }
 }

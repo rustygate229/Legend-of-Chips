@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _3902_Project.Content.command.receiver
+
+// CONNECT WITH OTHER LinkPlayer.cs
+namespace _3902_Project
 {
     public class Player
     {

@@ -7,11 +7,11 @@ namespace _3902_Project
 {
     public class CommandReset : ICommand
     {
-        private Game1 game;
+        private Game1 _game;
 
-        public CommandReset(Game1 game)
+        public CommandReset(Game1 Game)
         {
-            this.game = game;
+            _game = Game;
         }
 
         public void Execute()

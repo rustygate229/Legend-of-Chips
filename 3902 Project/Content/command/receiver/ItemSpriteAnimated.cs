@@ -2,22 +2,23 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+
+// NOT IMPLEMENTED YET
 public class ItemSpriteAnimated : ISprite
 {
-    private Texture2D SpriteSheet;
-    private Vector2 SpritePosition;
-    private Vector2 SpriteDimensions;
-    private Vector2 Position;
+    private Texture2D _spriteSheet;
+    private Vector2 _spritePosition;
+    private Vector2 _spriteDimensions;
+    private Vector2 _positionOnWindow;
 
-    public ItemSpriteAnimated(Texture2D spriteSheet, Vector2 position, int x, int y, int width, int height)
+    public ItemSprite(Texture2D spriteSheet, Vector2 position, int x, int y, int width, int height)
     {
-        SpriteSheet = spriteSheet;
-        SpritePosition.X = x;
-        SpritePosition.Y = y;
-        SpriteDimensions.X = width;
-        SpriteDimensions.Y = height;
-        Position = position;
-
+        _spriteSheet = spriteSheet;
+        _spritePosition.X = x;
+        _spritePosition.Y = y;
+        _spriteDimensions.X = width;
+        _spriteDimensions.Y = height;
+        _positionOnWindow = position;
     }
 
     public void Update()
@@ -27,15 +28,17 @@ public class ItemSpriteAnimated : ISprite
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Begin();
+        spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         // Create a sourceRectangle.
-        Rectangle sourceRectangle = new Rectangle((int)SpriteDimensions.X, (int)SpriteDimensions.Y, (int)SpritePosition.X, (int)SpritePosition.Y);
+        Rectangle sourceRectangle = new Rectangle((int)_spritePosition.X, (int)_spritePosition.Y, (int)_spriteDimensions.X, (int)_spriteDimensions.Y);
+        Rectangle destinationRectangle = new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, 48, 48);
 
         // Only draw the area contained within the sourceRectangle.
-        spriteBatch.Draw(SpriteSheet, Position, sourceRectangle, Color.White);
+        spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);
         spriteBatch.End();
     }
 
+    // never implemented (yet?)
     public void Draw(SpriteBatch sb, ILinkStateMachine state, double x, double y)
     {
         throw new System.NotImplementedException();

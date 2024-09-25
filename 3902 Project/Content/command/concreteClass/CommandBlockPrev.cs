@@ -5,16 +5,16 @@ namespace _3902_Project
 {
     public class CommandBlockPrev : ICommand
     {
-        private BlockManager blockManager;
+        private BlockManager _blockManager;
 
         public CommandBlockPrev(Game1 game)
         {
-            this.blockManager = game.BlockManager;  // Access the BlockManager from the game
+            _blockManager = game.BlockManager;  // Access the BlockManager from the game
         }
 
         public void Execute()
         {
-            blockManager.CyclePreviousBlock();  // Call the method to cycle to the previous block
+            _blockManager.CyclePreviousBlock();  // Call the method to cycle to the previous block
         }
     }
 }
