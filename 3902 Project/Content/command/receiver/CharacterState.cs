@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-namespace _3902_Project.Content.command.receiver
+namespace _3902_Project
 {
     public class CharacterState
     {

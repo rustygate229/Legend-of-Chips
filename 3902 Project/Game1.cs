@@ -1,5 +1,5 @@
 ﻿using _3902_Project.Link;
-﻿using _3902_Project.Content.command.receiver;
+﻿using _3902_Project.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
