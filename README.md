@@ -36,3 +36,21 @@
   - E: Cycle Link's Sprite to Damaged Variants
   - Animate/Add more Items and Enemies
   - Refactor, Add Comments, and Combine everyone's code neatly
+
+# Credits (so far)
+* Sprites
+  - https://www.spriters-resource.com/nes/legendofzelda/
+  - Sprite Editor: Rolina Qu
+* Command and Interfaces
+  - Hongxiang Wang
+* Link/Player Classes
+  - Mayank Karnati
+  - Rolina Qu
+* Block Classes
+  - Evan Csuhran
+  - Gary Zhu
+* Item Classes
+  - Evan Csuhran
+  - Gary Zhu
+* Enemy Classes
+  - Jiaqing Guan
