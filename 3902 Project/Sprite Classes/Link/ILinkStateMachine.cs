@@ -8,7 +8,8 @@ namespace _3902_Project
 {
     public interface ILinkStateMachine
     {
-            int getMovementState();
+
+        int getMovementState();
             int getAttackState();
 
             void changeStateMovingUp();
@@ -23,5 +24,8 @@ namespace _3902_Project
             void setMelee();
             void setThrow();
             void stopAttack();
+
+        bool getDamage();
+        void setDamage();
     }
 }

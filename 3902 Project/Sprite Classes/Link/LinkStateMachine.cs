@@ -9,7 +9,9 @@ namespace _3902_Project
     public class LinkStateMachine : ILinkStateMachine
 {
         public enum MOVEMENT { SUP, SDOWN, SLEFT, SRIGHT , MUP, MDOWN, MLEFT, MRIGHT}
-        public enum ATTACK { MELEE, THROW, NO, DAMAGED }
+        public enum ATTACK { MELEE, THROW, NO }
+
+        public bool Damage;
 
         private MOVEMENT _moveState;
         private ATTACK _attack;
@@ -18,6 +20,7 @@ namespace _3902_Project
         {
             _moveState = MOVEMENT.SDOWN;
             _attack = ATTACK.NO;
+            Damage = false;
         }
 
         public int getMovementState()
@@ -81,9 +84,14 @@ namespace _3902_Project
         {
             _attack = ATTACK.NO;
         }
-        public void setDamaged()
+
+        public bool getDamage()
         {
-            _attack = ATTACK.DAMAGED;
+            return Damage;
+        }
+        public void setDamage()
+        {
+            Damage = !Damage;
         }
     }
 }

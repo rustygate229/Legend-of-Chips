@@ -102,7 +102,7 @@ namespace _3902_Project
                 destinationRectangle = new Rectangle((int)(x), (int)(y), (int)(sourceRectangle.Width * scale), (int)(sourceRectangle.Height * scale));
             }
 
-            if (state.getAttackState() == (int)(LinkStateMachine.ATTACK.DAMAGED))
+            if (state.getDamage())
             {
                 tint = Color.Red;
             }

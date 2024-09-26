@@ -84,7 +84,7 @@ namespace _3902_Project
             }
 
 
-            if(state.getAttackState() == (int)(LinkStateMachine.ATTACK.DAMAGED))
+            if(state.getDamage()) 
             {
                 //System.Diagnostics.Debug.WriteLine("tint changed in LinkSprite");
                 tint = Color.Red;
