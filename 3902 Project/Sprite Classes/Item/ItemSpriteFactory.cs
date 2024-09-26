@@ -51,8 +51,9 @@ namespace _3902_Project
         }
         public ISprite CreateAnimatedMan()
         {
-            return new ItemSprite(_itemSpritesheet, _position, 40, 0, 16, 16);
+            return new ItemSpriteAnimated(_itemSpritesheet, _position, 1, 2, 40, 0, 16, 16);
         }
+
 
         // More public ISprite returning methods follow
         // ...
