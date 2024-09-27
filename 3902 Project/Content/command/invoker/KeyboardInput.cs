@@ -19,6 +19,7 @@ namespace _3902_Project
 
         private Game1 _game;
 
+
         // Constructor to initialize the game and map keys to commands
         public KeyboardInput(Game1 game)
         {
@@ -65,7 +66,7 @@ namespace _3902_Project
             KeyboardState currentKeyboardState = Keyboard.GetState();
             Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
 
-            //check all the pressed key
+
             foreach (Keys key in pressedKeys)
             {
                 if (keysToCommands.ContainsKey(key))

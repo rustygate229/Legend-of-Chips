@@ -4,11 +4,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 public class BlockSprite : ISprite
 {
+    // create variables
     private Texture2D _spriteSheet;
     private Vector2 _spritePosition;
     private Vector2 _spriteDimensions;
     private Vector2 _positionOnWindow;
 
+
+    // constructor linking variables
     public BlockSprite(Texture2D spriteSheet, Vector2 position, int x, int y, int width, int height)
     {
         _spriteSheet = spriteSheet;
@@ -19,24 +22,31 @@ public class BlockSprite : ISprite
         _positionOnWindow = position;
     }
 
+
+    // update: no logic since blocks are static and don't move - might need a BlockSpriteAnimated in future
     public void Update()
     {
             
     }
 
+
+    // draw the static blocks
     public void Draw(SpriteBatch spriteBatch)
     {
+        // removes anti-aliasing
         spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-        // Create a sourceRectangle.
+
+        // create a sourceRectangle and a destinationRectangle
         Rectangle sourceRectangle = new Rectangle((int)_spritePosition.X, (int)_spritePosition.Y, (int)_spriteDimensions.X, (int)_spriteDimensions.Y);
         Rectangle destinationRectangle = new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, 64, 64);
 
-        // Only draw the area contained within the sourceRectangle.
+        // draw the area contained by the sourceRectangle to the destinationRectangle
         spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);
         spriteBatch.End();
     }
 
-    // never implemented (yet?)
+
+    // used for link, apart of ISprite never used in these classes (yet?)
     public void Draw(SpriteBatch sb, ILinkStateMachine state, double x, double y)
     {
         throw new System.NotImplementedException();

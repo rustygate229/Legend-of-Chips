@@ -6,9 +6,10 @@ namespace _3902_Project.Content.command.receiver
 {
     public class BlockSpriteFactory
     {
-        // block sprite sheet
+        // block spritesheet
         private Texture2D _blockSpritesheet;
-        // vector that stores position all block will be placed at
+
+        // vector storing position that all blocks will be placed at in environment - can be rerouted later
         private Vector2 _position = new Vector2(200, 300);
 
         // create a new instance of BlockSpriteFactory
@@ -22,86 +23,49 @@ namespace _3902_Project.Content.command.receiver
             }
         }
 
+
+        // constructor to call the new instance method and initialize the sprite factory
         public BlockSpriteFactory()
         {
             BlockSpriteFactory.instance = this;
         }
 
+
+        // load all textures/spritesheet
         public void LoadAllTextures(ContentManager content)
         {
             _blockSpritesheet = content.Load<Texture2D>("Dungeon Block and Room Spritesheet");
         }
 
-        // create all block sprites using 
-        public ISprite CreateStairsBlock()
-        {
-            return new BlockSprite(_blockSpritesheet, _position, 259 + (4 * 16), 11 + (3 * 16), 16, 16);
-        }
 
-        public ISprite CreateTileBlock()
-        {
-            return new BlockSprite(_blockSpritesheet, _position, 259 + (5 * 16), 11 + (3 * 16), 16, 16);
-        }
+        // create static block sprites
+        public ISprite CreateStaticBlock_Stairs() { return new BlockSprite(_blockSpritesheet, _position, 259 + (4 * 16), 11 + (3 * 16), 16, 16); }
 
-        public ISprite CreateStatueFishBlock()
-        {
-            return new BlockSprite(_blockSpritesheet, _position, 259 + (5 * 16), 11 + (4 * 16), 16, 16);
-        }
+        public ISprite CreateStaticBlock_Tile() { return new BlockSprite(_blockSpritesheet, _position, 259 + (5 * 16), 11 + (3 * 16), 16, 16); }
 
-        public ISprite CreateKeyholeLockedDoorTopRoomBlock()
-        {
-            return new BlockSprite(_blockSpritesheet, _position, 259 + (6 * 16), 11 + (4 * 16), 16, 16);
-        }
+        public ISprite CreateStaticBlock_StatueFish() { return new BlockSprite(_blockSpritesheet, _position, 259 + (5 * 16), 11 + (4 * 16), 16, 16); }
 
-        public ISprite CreateKeyholeLockedDoorBottomRoomBlock()
-        {
-            return new BlockSprite(_blockSpritesheet, _position, 259 + (7 * 16), 11 + (4 * 16), 16, 16);
-        }
+        public ISprite CreateStaticBlock_KeyholeLockedDoorTopRoom() { return new BlockSprite(_blockSpritesheet, _position, 259 + (6 * 16), 11 + (4 * 16), 16, 16); }
 
-        public ISprite CreateKeyholeLockedDoorLeftRoomBlock()
-        {
-            return new BlockSprite(_blockSpritesheet, _position, 259 + (1 * 16), 11 + (5 * 16), 16, 16);
-        }
+        public ISprite CreateStaticBlock_KeyholeLockedDoorBottomRoom() { return new BlockSprite(_blockSpritesheet, _position, 259 + (7 * 16), 11 + (4 * 16), 16, 16); }
 
-        public ISprite CreateKeyholeLockedDoorRightRoomBlock()
-        {
-            return new BlockSprite(_blockSpritesheet, _position, 259 + (2 * 16), 11 + (5 * 16), 16, 16);
-        }
+        public ISprite CreateStaticBlock_KeyholeLockedDoorLeftRoom() { return new BlockSprite(_blockSpritesheet, _position, 259 + (1 * 16), 11 + (5 * 16), 16, 16); }
 
-        public ISprite CreateDiamondLockedDoorTopBottomRoomBlock()
-        {
-            return new BlockSprite(_blockSpritesheet, _position, 259 + (3 * 16), 11 + (5 * 16), 16, 16);
-        }
+        public ISprite CreateStaticBlock_KeyholeLockedDoorRightRoom() { return new BlockSprite(_blockSpritesheet, _position, 259 + (2 * 16), 11 + (5 * 16), 16, 16); }
 
-        public ISprite CreateDiamondLockedDoorLeftRightRoomBlock()
-        {
-            return new BlockSprite(_blockSpritesheet, _position, 259 + (4 * 16), 11 + (5 * 16), 16, 16);
-        }
+        public ISprite CreateStaticBlock_DiamondLockedDoorTopBottomRoom() { return new BlockSprite(_blockSpritesheet, _position, 259 + (3 * 16), 11 + (5 * 16), 16, 16); }
 
-        public ISprite CreateSquareBlock()
-        {
-            return new BlockSprite(_blockSpritesheet, _position, 259 + (5 * 16), 11 + (5 * 16), 16, 16);
-        }
+        public ISprite CreateStaticBlock_DiamondLockedDoorLeftRightRoom() { return new BlockSprite(_blockSpritesheet, _position, 259 + (4 * 16), 11 + (5 * 16), 16, 16); }
 
-        public ISprite CreateStatueDragonBlock()
-        {
-            return new BlockSprite(_blockSpritesheet, _position, 259 + (6 * 16), 11 + (5 * 16), 16, 16);
-        }
+        public ISprite CreateStaticBlock_Square() { return new BlockSprite(_blockSpritesheet, _position, 259 + (5 * 16), 11 + (5 * 16), 16, 16); }
 
-        public ISprite CreateDirtBlock()
-        {
-            return new BlockSprite(_blockSpritesheet, _position, 1001, 28, 16, 16);
-        }
+        public ISprite CreateStaticBlock_StatueDragon() { return new BlockSprite(_blockSpritesheet, _position, 259 + (6 * 16), 11 + (5 * 16), 16, 16); }
 
-        public ISprite CreateWhiteBrickBlock()
-        {
-            return new BlockSprite(_blockSpritesheet, _position, 984, 45, 16, 16);
-        }
+        public ISprite CreateStaticBlock_Dirt() { return new BlockSprite(_blockSpritesheet, _position, 1001, 28, 16, 16); }
 
-        public ISprite CreateWhiteTileBlock()
-        {
-            return new BlockSprite(_blockSpritesheet, _position, 1001, 45, 16, 16);
-        }
+        public ISprite CreateStaticBlock_WhiteBrick() { return new BlockSprite(_blockSpritesheet, _position, 984, 45, 16, 16); }
+
+        public ISprite CreateStaticBlock_WhiteTile() { return new BlockSprite(_blockSpritesheet, _position, 1001, 45, 16, 16); }
 
         // More public IBlock returning methods follow
         // ...
