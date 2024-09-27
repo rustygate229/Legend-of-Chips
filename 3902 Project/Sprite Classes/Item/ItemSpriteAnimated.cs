@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-
-// NOT IMPLEMENTED YET
 public class ItemSpriteAnimated : ISprite
 {
     // texture positioning requirements
@@ -18,17 +16,28 @@ public class ItemSpriteAnimated : ISprite
     private int _currentFrame;
     private int _totalFrames;
 
+    // frame rate to change speed of animations
+    private int _frameRate;
+    private int _framesPerSprite;
+    private int _framesCounter;
+
+
     // constructor for animated item sprites
-    public ItemSpriteAnimated(Texture2D spriteSheet, Vector2 position, int row, int column, int x, int y, int width, int height)
+    public ItemSpriteAnimated(Texture2D spriteSheet, Vector2 position, int x, int y, int width, int height, int row, int column, int frameRate)
     {
         // sprite sheet
         _spriteAnimatedSheet = spriteSheet;
 
-        // rows/columns for sprite animation
+        // rows/columns stuff for sprite animation
         _rows = row;
         _columns = column;
         _currentFrame = 0;
         _totalFrames = _rows * _columns;
+
+        // frame rate variables
+        _frameRate = frameRate;
+        _framesCounter = 0;
+        _framesPerSprite = _frameRate / _totalFrames;
 
         // sprite positioning
         _spritePosition.X = x;
@@ -38,17 +47,33 @@ public class ItemSpriteAnimated : ISprite
         _positionOnWindow = position;
     }
 
-    // count frames
+
+    // count/reset frames and sprite levels (levels meaning at what stage of animation)
     public void Update()
     {
-        _currentFrame++;
-        if (_currentFrame == _totalFrames)
+        // logic for creating a framerate
+        if (_framesCounter < _framesPerSprite)
+        {
+            _framesCounter++;
+        }
+        else if (_framesCounter == _frameRate)
+        {
             _currentFrame = 0;
+            _framesCounter = 0;
+            _framesPerSprite = _frameRate / _totalFrames;
+        }
+        else
+        {
+            _currentFrame++;
+            _framesPerSprite += _framesPerSprite;
+        }
     }
 
-    // draw the animation
+
+    // draw the animated sprites
     public void Draw(SpriteBatch spriteBatch)
     {
+        // logic for seperating sprites into columns/rows to animate
         int width = (int)_spriteDimensions.X / _columns;
         int height = (int)_spriteDimensions.Y / _rows;
         int row = _currentFrame / _columns;
@@ -56,17 +81,18 @@ public class ItemSpriteAnimated : ISprite
 
         // removes anti-aliasing
         spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
-        // Create a sourceRectangle.
-        Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+        
+        // create a sourceRectangle and a destinationRectangle
+        Rectangle sourceRectangle = new Rectangle((width * column) + (int)_spritePosition.X, (height * row) + (int)_spritePosition.Y, width, height);
         Rectangle destinationRectangle = new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, 48, 48);
 
-        // Only draw the area contained within the sourceRectangle.
+        // draw the area contained by the sourceRectangle to the destinationRectangle
         spriteBatch.Draw(_spriteAnimatedSheet, destinationRectangle, sourceRectangle, Color.White);
         spriteBatch.End();
     }
 
-    // never implemented (yet?)
+
+    // used for link, apart of ISprite never used in these classes (yet?)
     public void Draw(SpriteBatch sb, ILinkStateMachine state, double x, double y)
     {
         throw new System.NotImplementedException();
