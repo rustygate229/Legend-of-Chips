@@ -1,6 +1,7 @@
 ﻿using _3902_Project;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 public class ItemSpriteAnimated : ISprite
 {
@@ -20,6 +21,7 @@ public class ItemSpriteAnimated : ISprite
     private int _frameRate;
     private int _framesPerSprite;
     private int _framesCounter;
+    private int _frameTotalSpriteShift;
 
 
     // constructor for animated item sprites
@@ -33,6 +35,21 @@ public class ItemSpriteAnimated : ISprite
         _columns = column;
         _currentFrame = 0;
         _totalFrames = _rows * _columns;
+
+        // get the total amount of sprite shifts in animation
+        _frameTotalSpriteShift = 0;
+        while (_framesPerSprite < frameRate)
+        {
+            _frameTotalSpriteShift++;
+            _framesPerSprite += frameRate / _totalFrames;
+            if (_framesPerSprite > frameRate)
+                _frameTotalSpriteShift--;
+        }
+        _framesPerSprite = 0;
+
+        // if the framerate is not a clean division, fix it by shuffling down the value by the modulo
+        if (frameRate % _frameTotalSpriteShift != 0)
+            frameRate -= (frameRate % _frameTotalSpriteShift);
 
         // frame rate variables
         _frameRate = frameRate;
@@ -65,7 +82,7 @@ public class ItemSpriteAnimated : ISprite
         else
         {
             _currentFrame++;
-            _framesPerSprite += _framesPerSprite;
+            _framesPerSprite += _frameRate / _totalFrames;
         }
     }
 

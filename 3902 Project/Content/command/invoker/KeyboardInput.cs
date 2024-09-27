@@ -15,7 +15,6 @@ namespace _3902_Project
    
         private Game1 _game;
 
-        private int delay = 10;
 
         // Constructor to initialize the game and map keys to commands
         public KeyboardInput(Game1 Game)
@@ -69,14 +68,10 @@ namespace _3902_Project
             foreach (Keys key in pressedKeys)
             {
                 // Check if the key is mapped to a command
-                if (KeysToCommands.ContainsKey(key) && delay < 0)
+                if (KeysToCommands.ContainsKey(key))
                 {
                     // Execute the corresponding command
                     KeysToCommands[key].Execute();
-                    delay = 10;
-                }
-                else {
-                    delay--;
                 }
             }
         }    

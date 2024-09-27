@@ -76,25 +76,27 @@ namespace _3902_Project
         // create animated sprites
         public ISprite CreateAnimatedItem_Life() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 40, 0, 16, 16, 1, 2, 10); }
 
-        public ISprite CreateAnimatedItem_DepletingHeart() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 0, 0, 24, 8, 1, 3, 15); }
+        // testing non-0 modulo framerate
+        public ISprite CreateAnimatedItem_DepletingHeart() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 0, 0, 24, 8, 1, 3, 32); }
 
-        public ISprite CreateAnimatedItem_FlashingEmerald() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 72, 0, 8, 32, 2, 1, 10); }
+        public ISprite CreateAnimatedItem_FlashingEmerald() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 72, 0, 8, 32, 2, 1, 20); }
 
-        public ISprite CreateAnimatedItem_FlashingPotions() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 80, 0, 8, 32, 2, 1, 10); }
+        public ISprite CreateAnimatedItem_FlashingPotions() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 80, 0, 8, 32, 2, 1, 20); }
 
-        public ISprite CreateAnimatedItem_FlashingScripture() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 88, 0, 8, 32, 2, 1, 10); }
+        // testing non-0 modulo framerate
+        public ISprite CreateAnimatedItem_FlashingScripture() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 88, 0, 8, 32, 2, 1, 15); }
 
-        public ISprite CreateAnimatedItem_FlashingSword() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 104, 0, 8, 32, 2, 1, 10); }
+        public ISprite CreateAnimatedItem_FlashingSword() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 104, 0, 8, 32, 2, 1, 20); }
 
-        public ISprite CreateAnimatedItem_FlashingBanana() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 128, 0, 8, 32, 2, 1, 10); }
+        public ISprite CreateAnimatedItem_FlashingBanana() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 128, 0, 8, 32, 2, 1, 20); }
 
-        public ISprite CreateAnimatedItem_FlashingArrow() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 152, 0, 8, 32, 2, 1, 10); }
+        public ISprite CreateAnimatedItem_FlashingArrow() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 152, 0, 8, 32, 2, 1, 20); }
 
-        public ISprite CreateAnimatedItem_FlashingCandle() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 160, 0, 8, 32, 2, 1, 10); }
+        public ISprite CreateAnimatedItem_FlashingCandle() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 160, 0, 8, 32, 2, 1, 20); }
         
-        public ISprite CreateAnimatedItem_FlashingRing() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 168, 0, 8, 32, 2, 1, 10); }
+        public ISprite CreateAnimatedItem_FlashingRing() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 168, 0, 8, 32, 2, 1, 20); }
 
-        public ISprite CreateAnimatedItem_FlashingTriForce() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 272, 0, 16, 32, 2, 1, 10); }
+        public ISprite CreateAnimatedItem_FlashingTriForce() { return new ItemSpriteAnimated(_itemSpritesheet, _position, 272, 0, 16, 32, 2, 1, 20); }
 
         // More public ISprite returning methods follow
         // ...
