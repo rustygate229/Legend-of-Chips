@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using _3902_Project.Content.command;
 using System.Diagnostics;
 using System.Threading;
+using System;
 
 namespace _3902_Project
 {
@@ -11,68 +12,88 @@ namespace _3902_Project
     public class KeyboardInput : IController
     {
         // Dictionary to map keys to corresponding commands
-        private Dictionary<Keys, ICommand> KeysToCommands = new Dictionary<Keys, ICommand>();
-   
+        private Dictionary<Keys, ICommand> keysToCommands = new Dictionary<Keys, ICommand>();
+
+        // Record last command
+        private ICommand previousCommand = null;
+
         private Game1 _game;
 
         // Constructor to initialize the game and map keys to commands
-        public KeyboardInput(Game1 Game)
+        public KeyboardInput(Game1 game)
         {
-            _game = Game;
+            this._game = game;
 
             // Mapping keys to corresponding commands for player movement
-            KeysToCommands.Add(Keys.W, new CommandMoveUp(Game));
-            KeysToCommands.Add(Keys.S, new CommandMoveDown(Game));
-            KeysToCommands.Add(Keys.A, new CommandMoveLeft(Game));
-            KeysToCommands.Add(Keys.D, new CommandMoveRight(Game));
-            KeysToCommands.Add(Keys.Up, new CommandMoveUp(Game));
-            KeysToCommands.Add(Keys.Down, new CommandMoveDown(Game));
-            KeysToCommands.Add(Keys.Left, new CommandMoveLeft(Game));
-            KeysToCommands.Add(Keys.Right, new CommandMoveRight(Game));
+            keysToCommands.Add(Keys.W, new CommandMoveUp(game));
+            keysToCommands.Add(Keys.S, new CommandMoveDown(game));
+            keysToCommands.Add(Keys.A, new CommandMoveLeft(game));
+            keysToCommands.Add(Keys.D, new CommandMoveRight(game));
+            keysToCommands.Add(Keys.Up, new CommandMoveUp(game));
+            keysToCommands.Add(Keys.Down, new CommandMoveDown(game));
+            keysToCommands.Add(Keys.Left, new CommandMoveLeft(game));
+            keysToCommands.Add(Keys.Right, new CommandMoveRight(game));
 
             // Mapping keys for other actions such as attack
-            KeysToCommands.Add(Keys.Z, new CommandLinkSwordAttack(Game));
-            KeysToCommands.Add(Keys.N, new CommandLinkSwordAttack(Game));
-            // gets replaced when we add switching between items
-            KeysToCommands.Add(Keys.C, new CommandLinkThrow(Game));
+            keysToCommands.Add(Keys.Z, new CommandLinkSwordAttack(game));
+            keysToCommands.Add(Keys.N, new CommandLinkSwordAttack(game));
+            keysToCommands.Add(Keys.C, new CommandLinkThrow(game));
 
             // Mapping keys for game control actions such as reset and quit
-            // * NOT IMPLEMENTED
-            // KeysToCommands.Add(Keys.R, new CommandReset(game));
-            KeysToCommands.Add(Keys.Q, new CommandQuit(Game));
+            keysToCommands.Add(Keys.Q, new CommandQuit(game));
 
             // Mapping keys for cycling through items and blocks
-            KeysToCommands.Add(Keys.U, new CommandNextItem(Game));
-            KeysToCommands.Add(Keys.I, new CommandPrevItem(Game));
+            keysToCommands.Add(Keys.U, new CommandNextItem(game));
+            keysToCommands.Add(Keys.I, new CommandPrevItem(game));
 
             // Mapping keys for cycling through blocks
-            KeysToCommands.Add(Keys.T, new CommandBlockPrev(Game));
-            KeysToCommands.Add(Keys.Y, new CommandBlockNext(Game));
+            keysToCommands.Add(Keys.T, new CommandBlockPrev(game));
+            keysToCommands.Add(Keys.Y, new CommandBlockNext(game));
+        }
 
-            // * NOT IMPLEMENTED/CAUSES CRASHING
-            // Mapping keys for cycling through enemies or NPCs
-            // KeysToCommands.Add(Keys.O, new CommandEnemyPrev(Game));
-            // KeysToCommands.Add(Keys.P, new CommandEnemyNext(Game));
+        
+        private bool IsMoveKey(Keys key)
+        {
+            return key == Keys.W || key == Keys.A || key == Keys.S || key == Keys.D ||
+                   key == Keys.Up || key == Keys.Down || key == Keys.Left || key == Keys.Right;
         }
 
         // Update method to check keyboard input and execute corresponding commands
         public void Update()
         {
-            // Get the current state of the keyboard
+            //get the keyboard state
             KeyboardState currentKeyboardState = Keyboard.GetState();
             Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
 
-            // Loop through each pressed key
+            //check all the pressed key
             foreach (Keys key in pressedKeys)
             {
-                // Check if the key is mapped to a command
-                if (KeysToCommands.ContainsKey(key))
+                if (keysToCommands.ContainsKey(key))
                 {
-                    // Execute the corresponding command
-                    KeysToCommands[key].Execute();
+                    ICommand currentCommand = keysToCommands[key];
+
+                    //lag only of t and y
+                    if (IsMoveKey(key))
+                    {
+                        currentCommand.Execute();
+                    }
+                    else
+                    {
+                       
+                        if (currentCommand != previousCommand)
+                        {
+                            currentCommand.Execute();
+                            previousCommand = currentCommand;  //update to last command
+                        }
+                    }
                 }
             }
-        }    
+
+            // if no pressed key, reset previousCommand
+            if (pressedKeys.Length == 0)
+            {
+                previousCommand = null;
+            }
+        }
     }
 }
-
