@@ -5,22 +5,22 @@ using System.Collections.Generic;
 
 namespace _3902_Project
 {
-    public class ProjectileSpriteFactory
+    public class ProjectileFactory
     {
         private Texture2D linkSpriteSheet;
 
-        private static ProjectileSpriteFactory instance = new ProjectileSpriteFactory();
+        private static ProjectileFactory instance = new ProjectileFactory();
 
         //CAN BE TUNED INSIDE EACH SPRITEFACTORY
         private int spriteSize = 64;
-        public static ProjectileSpriteFactory Instance
+        public static ProjectileFactory Instance
         {
             get
             {
                 return instance;
             }
         }
-        private ProjectileSpriteFactory()
+        private ProjectileFactory()
         {
         }
 

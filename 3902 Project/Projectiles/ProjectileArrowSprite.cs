@@ -39,7 +39,7 @@ namespace _3902_Project
                 sourceRectangle= sourceList[1];
             } else
             {
-                //has to be equal to DESTROYED
+                //DIRECTION has to be equal to DESTROYED
                 sourceRectangle = sourceList[2];
 
             }

@@ -5,7 +5,7 @@ using System;
 
 namespace _3902_Project
 {
-	public class ProjectileBombSprite : IProjectileSprite
+	public class ProjectileBombSprite : IProjectileSprite, IProjectile
     {
         private Texture2D spritesheet;
         private float scale;
@@ -39,6 +39,16 @@ namespace _3902_Project
             sb.Begin(samplerState: SamplerState.PointClamp);
             sb.Draw(spritesheet, destinationRectangle, sourceRectangle, Color.White);
             sb.End();
+        }
+
+        public double getXPosition()
+        {
+            throw new NotImplementedException();
+        }
+
+        public double getYPosition()
+        {
+            throw new NotImplementedException();
         }
     }
 }

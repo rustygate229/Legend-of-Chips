@@ -7,12 +7,12 @@ namespace _3902_Project
 	public class ProjectileManager
 	{
 		List<IProjectile> projectiles;
-		List<IProjectileSprite> sprites;
+		//List<IProjectileSprite> sprites;
 
 		public ProjectileManager()
 		{
 			projectiles = new List<IProjectile>();
-			sprites = new List<IProjectileSprite>();
+			//sprites = new List<IProjectileSprite>();
 
 
 		}
