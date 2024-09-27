@@ -90,16 +90,6 @@ namespace _3902_Project
             source.Add(new Rectangle(52, 106, 16, 19));
             return new AttackingLinkSprite(linkSpriteSheet, source, 4, spriteSize / 16.0f);
         }
-        public ISprite CreateDamagedLinkSprite()
-        {
-            List<Rectangle> source = new List<Rectangle>();
-            //TODO: finish this method (mask damaged link??) 
-            source.Add(new Rectangle(1, 232, 16, 16));
-            source.Add(new Rectangle(1, 232, 16, 16));
-            source.Add(new Rectangle(1, 232, 16, 16));
-            return new LinkSprite(linkSpriteSheet, source, 1, spriteSize, spriteSize);
-        }
-
 
     }
 }
