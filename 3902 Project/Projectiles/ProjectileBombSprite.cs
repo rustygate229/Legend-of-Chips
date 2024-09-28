@@ -5,7 +5,7 @@ using System;
 
 namespace _3902_Project
 {
-	public class ProjectileBombSprite : IProjectileSprite, IProjectile
+	public class ProjectileBombSprite : IProjectileSprite
     {
         private Texture2D spritesheet;
         private float scale;
@@ -29,9 +29,12 @@ namespace _3902_Project
         public void Draw(SpriteBatch sb, IProjectile.DIRECTION dir, int x, int y)
         {
             Rectangle sourceRectangle = sourceList[frame];
-            if (dir == IProjectile.DIRECTION.DESTROYED)
+            if (dir == IProjectile.DIRECTION.UP && frame < 3)
             {
-                sourceRectangle = sourceList[4];
+                //START ON DESTRUCTION SEQUENCE
+                frame++;
+                sourceRectangle = sourceList[frame];
+                
             }
 
             Rectangle destinationRectangle = new Rectangle(x, y, sourceRectangle.Width * (int)scale, sourceRectangle.Height * (int)scale);
@@ -39,26 +42,6 @@ namespace _3902_Project
             sb.Begin(samplerState: SamplerState.PointClamp);
             sb.Draw(spritesheet, destinationRectangle, sourceRectangle, Color.White);
             sb.End();
-        }
-
-        public double getXPosition()
-        {
-            throw new NotImplementedException();
-        }
-
-        public double getYPosition()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Draw(SpriteBatch sb)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int getDirection()
-        {
-            throw new NotImplementedException();
         }
     }
 }

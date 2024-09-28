@@ -68,14 +68,6 @@ namespace _3902_Project
 
             ProjectileManager.Update();
 
-            //ProjectileManager.launchArrow(100, 100, LinkStateMachine.MOVEMENT.MRIGHT);
-            TEMP++;
-            if (TEMP >= 100)
-            {
-                ProjectileManager.launchArrow(500, 100, LinkStateMachine.MOVEMENT.MLEFT);
-                TEMP = 0;
-            }
-
             // Update input controls
             keyboardController.Update();
 

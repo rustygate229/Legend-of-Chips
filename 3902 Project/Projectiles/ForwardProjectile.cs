@@ -9,7 +9,7 @@ namespace _3902_Project
 		double x, y;
 		int speed;
 		int timer;
-		int currentTime;
+		int currentTime = 0;
 		private IProjectileSprite sprite;
 
         public ForwardProjectile(double x, double y, IProjectileSprite sprite, IProjectile.DIRECTION dir, int speed)
@@ -21,8 +21,7 @@ namespace _3902_Project
 			this.speed = speed;
 
 			//TUNE THIS VALUE LATER IF NEED BE. OR ADD TO CONSTRUCTOR
-			timer = 30;
-			currentTime = 0;
+			timer = 25;
 		}
 
         public ForwardProjectile(double x, double y, IProjectileSprite sprite, IProjectile.DIRECTION dir, int speed, int timer)
@@ -35,7 +34,6 @@ namespace _3902_Project
             this.speed = speed;
 
             this.timer = timer;
-            currentTime = 0;
         }
 
         public void Update()

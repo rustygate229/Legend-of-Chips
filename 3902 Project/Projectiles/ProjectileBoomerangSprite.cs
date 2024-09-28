@@ -41,7 +41,7 @@ namespace _3902_Project
             Rectangle sourceRectangle = sourceList[frame];
 
             if(dir == IProjectile.DIRECTION.DESTROYED) { 
-                sourceRectangle = sourceList[4]; 
+                sourceRectangle = sourceList[3]; 
             }
 
             Rectangle destinationRectangle = new Rectangle(x, y, sourceRectangle.Width * (int)scale, sourceRectangle.Height * (int)scale);

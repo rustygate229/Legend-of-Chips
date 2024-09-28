@@ -3,64 +3,113 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static _3902_Project.LinkStateMachine;
 
 
 namespace _3902_Project
 {
-	public class ProjectileManager
-	{
-		List<IProjectile> projectiles;
-		ContentManager content;
-		SpriteBatch spriteBatch;
-		ProjectileFactory factory;
-		private int currentFrame = 0;
-		private int totalFrames = 3;
+    public class ProjectileManager
+    {
+        List<IProjectile> projectiles;
+        ContentManager content;
+        SpriteBatch spriteBatch;
+        ProjectileFactory factory;
+        private int currentFrame = 0;
+        private int totalFrames = 3;
 
 
-		public ProjectileManager(ContentManager c, SpriteBatch _spritebatch)
-		{
-			projectiles = new List<IProjectile>();
-			content = c;
-			spriteBatch = _spritebatch;
+        public ProjectileManager(ContentManager c, SpriteBatch _spritebatch)
+        {
+            projectiles = new List<IProjectile>();
+            content = c;
+            spriteBatch = _spritebatch;
 
-			ProjectileFactory.Instance.LoadAllTextures(c);
-			factory = ProjectileFactory.Instance;
-		}
+            ProjectileFactory.Instance.LoadAllTextures(c);
+            factory = ProjectileFactory.Instance;
+        }
+
+        private static IProjectile.DIRECTION getDirection(LinkStateMachine.MOVEMENT movement)
+        {
+            IProjectile.DIRECTION direction;
+            if (movement == LinkStateMachine.MOVEMENT.SUP || movement == LinkStateMachine.MOVEMENT.MUP)
+            {
+                direction = IProjectile.DIRECTION.UP;
+            }
+            else if (movement == LinkStateMachine.MOVEMENT.SDOWN || movement == LinkStateMachine.MOVEMENT.MDOWN)
+            {
+                direction = IProjectile.DIRECTION.DOWN;
+            }
+            else if (movement == LinkStateMachine.MOVEMENT.MLEFT || movement == LinkStateMachine.MOVEMENT.SLEFT)
+            {
+                direction = IProjectile.DIRECTION.LEFT;
+            }
+            else if (movement == LinkStateMachine.MOVEMENT.MRIGHT || movement == LinkStateMachine.MOVEMENT.SRIGHT)
+            {
+                direction = IProjectile.DIRECTION.RIGHT;
+            }
+            else
+            {
+                //defaults to right
+                direction = IProjectile.DIRECTION.RIGHT;
+            }
+
+            return direction;
+        }
 
 		public void launchArrow(int x, int y, LinkStateMachine.MOVEMENT movement)
 		{
 			IProjectile arrow;
-			if (movement == LinkStateMachine.MOVEMENT.SUP || movement == LinkStateMachine.MOVEMENT.MUP)
-			{
-				arrow = factory.CreateArrowProjectile(x, y, IProjectile.DIRECTION.UP);
-			}
-			else if(movement == LinkStateMachine.MOVEMENT.SDOWN || movement == LinkStateMachine.MOVEMENT.MDOWN)
-			{
-				arrow = factory.CreateArrowProjectile(x, y, IProjectile.DIRECTION.DOWN);
-			}
-			else if(movement == LinkStateMachine.MOVEMENT.MLEFT || movement == LinkStateMachine.MOVEMENT.SLEFT)
-			{
-				arrow = factory.CreateArrowProjectile(x, y, IProjectile.DIRECTION.LEFT);
-            }
-			else
-			{
-				//defaults to right
-				arrow = factory.CreateArrowProjectile(x, y, IProjectile.DIRECTION.RIGHT);
-			}
+
+            IProjectile.DIRECTION arrowDirection = getDirection(movement);
+			
+            arrow = factory.CreateArrowProjectile(x, y, arrowDirection);
 
 			projectiles.Add(arrow);
 
 		}
-		public void launchBoomerang()
+
+        public void launchBlueArrow(int x, int y, LinkStateMachine.MOVEMENT movement)
+        {
+            IProjectile arrow;
+
+            IProjectile.DIRECTION arrowDirection = getDirection(movement);
+
+            arrow = factory.CreateBlueArrowProjectile(x, y, arrowDirection);
+
+            projectiles.Add(arrow);
+
+        }
+        public void launchWoodBoomerang(int x, int y, LinkStateMachine.MOVEMENT movement)
 		{
+            IProjectile boomerang;
 
-		}
+            IProjectile.DIRECTION direction = getDirection(movement);
+
+            boomerang = factory.CreateWoodBoomerangProjectile(x, y, direction);
+
+            projectiles.Add(boomerang);
+        }
+
+        public void launchBlueBoomerang(int x, int y, LinkStateMachine.MOVEMENT movement)
+        {
+            IProjectile boomerang;
+
+            IProjectile.DIRECTION direction = getDirection(movement);
+
+            boomerang = factory.CreateBlueBoomerangProjectile(x, y, direction);
+
+            projectiles.Add(boomerang);
+        }
 
 
-		public void launchBomb()
+        public void launchBomb(int x, int y)
 		{
+            IProjectile bomb;
 
-		}
+            bomb = factory.CreateBombProjectile(x, y);
+
+            projectiles.Add(bomb);
+        }
 
 
         public void Update()
@@ -70,13 +119,12 @@ namespace _3902_Project
             {
                 currentFrame = 0;
                 //updates each projectile in list
-                //may want to add some sort of timer to this later so projs aren't INSTANTLY removed when destroyed
                 foreach (IProjectile proj in projectiles.ToList())
                 {
-                    /*if (proj.getDirection() == (int)(IProjectile.DIRECTION.DESTROYED))
+                    if (proj.getDirection() == (int)(IProjectile.DIRECTION.DESTROYED))
                     {
                         projectiles.Remove(proj);
-                    }*/
+                    }
                     proj.Update();
                 }
 
