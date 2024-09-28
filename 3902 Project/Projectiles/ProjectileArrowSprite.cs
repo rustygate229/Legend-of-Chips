@@ -23,6 +23,7 @@ namespace _3902_Project
 
         public void Update()
         {
+            //nothing to update (no animations) timing is done by ForwardProjectile
         }
 
         //weirdly similar to IStateMachine call
@@ -56,7 +57,8 @@ namespace _3902_Project
             else if (dir == IProjectile.DIRECTION.DOWN)
             {
                 sb.Draw(spritesheet, destinationRectangle, sourceRectangle, Color.White, 0f, new Vector2(0, 0), SpriteEffects.FlipVertically, 0f);
-            } else
+            } 
+            else
             {
                 sb.Draw(spritesheet, destinationRectangle, sourceRectangle, Color.White);
             }

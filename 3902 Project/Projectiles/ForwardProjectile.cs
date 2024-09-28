@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace _3902_Project
 {
@@ -9,24 +10,27 @@ namespace _3902_Project
 		int speed;
 		int timer;
 		int currentTime;
+		private IProjectileSprite sprite;
 
-        public ForwardProjectile(double x, double y, IProjectile.DIRECTION dir, int speed)
+        public ForwardProjectile(double x, double y, IProjectileSprite sprite, IProjectile.DIRECTION dir, int speed)
 		{
 			this.x = x;
 			this.y = y;
+			this.sprite = sprite;
 			direction = dir;
 			this.speed = speed;
 
 			//TUNE THIS VALUE LATER IF NEED BE. OR ADD TO CONSTRUCTOR
-			timer = 100;
+			timer = 30;
 			currentTime = 0;
 		}
 
-        public ForwardProjectile(double x, double y, IProjectile.DIRECTION dir, int speed, int timer)
+        public ForwardProjectile(double x, double y, IProjectileSprite sprite, IProjectile.DIRECTION dir, int speed, int timer)
         {
 			//overloaded constructor with timer
             this.x = x;
             this.y = y;
+            this.sprite = sprite;
             direction = dir;
             this.speed = speed;
 
@@ -39,26 +43,27 @@ namespace _3902_Project
 			currentTime++;
 			if(direction == IProjectile.DIRECTION.UP)
 			{
-				y += speed;
+				y -= speed;
 			} 
 			else if (direction == IProjectile.DIRECTION.DOWN)
 			{
-				y -= speed;
+				y += speed;
 			} 
 			else if (direction == IProjectile.DIRECTION.LEFT)
 			{
 				x -= speed;
 			} 
-			else
-			{ // final is facing right 
-				x += speed;
-			}
+			else if(direction == IProjectile.DIRECTION.RIGHT) { x += speed; }
+            //do nothing if destroyed
 
-			if (currentTime >= timer || (-4000 <= x && x <= 4000 || -4000 <= y && y <= 4000)) 
+            if (currentTime >= timer) 
 			{
-				//if it gets too far offscreen or timer runs out
+				//if timer runs out
 				direction = IProjectile.DIRECTION.DESTROYED;
-			}
+
+            }
+
+			sprite.Update();
 		}
 
 		public double getXPosition()
@@ -70,9 +75,16 @@ namespace _3902_Project
 			return y;
 		}
 
+        public void Draw(SpriteBatch sb)
+        {
+			//draws sprite
+			sprite.Draw(sb, direction, (int)x, (int)y);
+        }
+
+
         public void changeStateMovingUp()
         {
-			direction = IProjectile.DIRECTION.UP;
+            direction = IProjectile.DIRECTION.UP;
         }
 
         public void changeStateMovingDown()
@@ -93,6 +105,11 @@ namespace _3902_Project
         public void changeStateDestroyed()
         {
             direction = IProjectile.DIRECTION.DESTROYED;
+        }
+
+        public int getDirection()
+        {
+            return (int)direction;
         }
     }
 }

@@ -30,30 +30,33 @@ namespace _3902_Project
         }
 
 
-        public IProjectileSprite CreateArrowSprite()
+        public IProjectile CreateArrowProjectile(int x, int y, IProjectile.DIRECTION dir)
         {
             List<Rectangle> source = new List<Rectangle>();
             source.Add(new Rectangle(1, 185, 8, 16));
             source.Add(new Rectangle(10, 185, 16, 16));
-            source.Add(new Rectangle(53, 185, 16, 16));
+            source.Add(new Rectangle(53, 185, 8, 16));
 
-            return new ProjectileArrowSprite(linkSpriteSheet, source, spriteSize / 16.0f);
+            IProjectileSprite s =  new ProjectileArrowSprite(linkSpriteSheet, source, spriteSize / 16.0f);
+            return new ForwardProjectile(x, y, s, dir, 6);
 
         }
 
-        public IProjectileSprite CreateBlueArrowSprite()
+        public IProjectile CreateBlueArrowProjectile(int x, int y, IProjectile.DIRECTION dir)
         {
             List<Rectangle> source = new List<Rectangle>();
             source.Add(new Rectangle(27, 185, 8, 16));
             source.Add(new Rectangle(36, 185, 16, 16));
-            source.Add(new Rectangle(53, 185, 16, 16));
+            source.Add(new Rectangle(53, 185, 8, 16));
 
-            return new ProjectileArrowSprite(linkSpriteSheet, source, spriteSize / 16.0f);
+            IProjectileSprite s = new ProjectileArrowSprite(linkSpriteSheet, source, spriteSize / 16.0f);
+            return new ForwardProjectile(x, y, s, dir, 30);
 
         }
 
-        public IProjectileSprite CreateWoodBoomerangSprite()
+        public IProjectileSprite CreateWoodBoomerangProjectile()
         {
+            //TODO: FINISH BOOMERANG AND BOMB PROJECTILES
             List<Rectangle> source = new List<Rectangle>();
             source.Add(new Rectangle(64, 185, 8, 16));
             source.Add(new Rectangle(73, 185, 8, 16));
@@ -63,7 +66,7 @@ namespace _3902_Project
             return new ProjectileBoomerangSprite(linkSpriteSheet, source, spriteSize / 16.0f);
         }
 
-        public IProjectileSprite CreateBlueBoomerangSprite()
+        public IProjectileSprite CreateBlueBoomerangProjectile()
         {
             List<Rectangle> source = new List<Rectangle>();
             source.Add(new Rectangle(91, 185, 8, 16));
@@ -74,7 +77,7 @@ namespace _3902_Project
             return new ProjectileBoomerangSprite(linkSpriteSheet, source, spriteSize / 16.0f);
         }
 
-        public IProjectileSprite CreateBombSprite()
+        public IProjectileSprite CreateBombProjectile()
         {
             List<Rectangle> source = new List<Rectangle>();
             source.Add(new Rectangle(129, 185, 8, 16));

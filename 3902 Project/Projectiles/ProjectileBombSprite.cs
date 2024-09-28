@@ -50,5 +50,15 @@ namespace _3902_Project
         {
             throw new NotImplementedException();
         }
+
+        public void Draw(SpriteBatch sb)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int getDirection()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

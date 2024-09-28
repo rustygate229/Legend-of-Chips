@@ -16,7 +16,10 @@ namespace _3902_Project
         internal BlockManager BlockManager { get; private set; }  // Block manager
         internal ItemManager ItemManager { get; private set; }  // Item manager
         internal EnemyManager EnemyManager { get; private set; }  // Enemy manager
+        internal ProjectileManager ProjectileManager { get; private set; } //projectile manager FOR LINK'S PROJECTILES ONLY
         internal CharacterState CharacterState { get; private set; }  // Character state
+
+        private int TEMP = 100;
 
         // Input controller
         private IController keyboardController;
@@ -46,6 +49,7 @@ namespace _3902_Project
             // Initialize the block and item manager
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
+            ProjectileManager = new ProjectileManager(Content, _spriteBatch);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
@@ -61,6 +65,16 @@ namespace _3902_Project
             // TODO: Add your update logic here
             Player.Update();
             ItemManager.Update();
+
+            ProjectileManager.Update();
+
+            //ProjectileManager.launchArrow(100, 100, LinkStateMachine.MOVEMENT.MRIGHT);
+            TEMP++;
+            if (TEMP >= 100)
+            {
+                ProjectileManager.launchArrow(500, 100, LinkStateMachine.MOVEMENT.MLEFT);
+                TEMP = 0;
+            }
 
             // Update input controls
             keyboardController.Update();
@@ -78,6 +92,8 @@ namespace _3902_Project
 
             BlockManager.Draw();
             ItemManager.Draw();
+
+            ProjectileManager.Draw();
 
             base.Draw(gameTime);
         }
