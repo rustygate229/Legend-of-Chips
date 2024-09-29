@@ -4,61 +4,42 @@ using Microsoft.Xna.Framework.Graphics;
 
 public class BulletSprite : ISprite
 {
-    private Texture2D[] frames;
+    private Texture2D spritesheet;
     private Vector2 position;
     private Vector2 velocity;
-    private float animationTimer;
-    private int currentFrame;
+    private Rectangle sourceRectangle;
 
-    // Constructor to initialize the bullet with frames, position, and velocity
-    public BulletSprite(Texture2D[] frames, Vector2 position, Vector2 velocity)
+    // Constructor to initialize the bullet with texture, position, velocity, and source rectangle
+    public BulletSprite(Texture2D spritesheet, Vector2 position, Vector2 velocity, int x, int y, int width, int height)
     {
-        this.frames = frames;
+        this.spritesheet = spritesheet;
         this.position = position;
         this.velocity = velocity;
-        currentFrame = 0;
-        animationTimer = 0f;
+        this.sourceRectangle = new Rectangle(x, y, width, height);
     }
 
-    // Implementing the ISprite Update method without parameters (empty because bullet always needs gameTime to update)
+    // Update method to update bullet position based on velocity
     public void Update()
     {
-        // Required by the ISprite interface, can be left empty or provide default behavior
+        // Updating the bullet's position based on velocity
+        position += velocity;
     }
 
-    // Update the bullet position and animate it
-    public void Update(GameTime gameTime)
-    {
-        // Update the bullet's position
-        position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-        // Update the animation frames
-        animationTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-        if (animationTimer >= 0.2f) // Change frame every 0.2 seconds
-        {
-            currentFrame = (currentFrame + 1) % frames.Length;
-            animationTimer = 0f;
-        }
-    }
-
-    // Implementing the ISprite Draw method (basic version)
+    // Basic Draw method to render the bullet at its current position
     public void Draw(SpriteBatch spriteBatch)
     {
-        float scale = 0.5f;
-        // Draw the bullet at its position with scaling and centered
-        spriteBatch.Draw(frames[currentFrame], position, null, Color.White, 0f, new Vector2(frames[currentFrame].Width / 2, frames[currentFrame].Height / 2), scale, SpriteEffects.None, 0f);
+        spriteBatch.Draw(spritesheet, position, sourceRectangle, Color.White);
     }
 
-    // Implementing the ISprite Draw method with extra parameters
-    public void Draw(SpriteBatch sb, ILinkStateMachine state, double x, double y)
+    // Draw method with extra parameters to support flexible rendering
+    public void Draw(SpriteBatch spriteBatch, ILinkStateMachine state, double x, double y)
     {
-        // Draw at the position defined by x and y (converted to float)
+        // Drawing the bullet at a specific position provided by x and y
         Vector2 drawPosition = new Vector2((float)x, (float)y);
-        float scale = 0.5f;
-        sb.Draw(frames[currentFrame], drawPosition, null, Color.White, 0f, new Vector2(frames[currentFrame].Width / 2, frames[currentFrame].Height / 2), scale, SpriteEffects.None, 0f);
+        spriteBatch.Draw(spritesheet, drawPosition, sourceRectangle, Color.White);
     }
 
-    // Method to check if the bullet is off-screen
+    // Additional method to check if the bullet is off-screen
     public bool IsOffScreen(int screenWidth, int screenHeight)
     {
         return position.X < 0 || position.X > screenWidth || position.Y < 0 || position.Y > screenHeight;

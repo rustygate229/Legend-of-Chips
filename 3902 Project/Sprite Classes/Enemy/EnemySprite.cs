@@ -35,6 +35,7 @@ public class EnemySprite : ISprite
     public void Update()
     {
         // This method is required by ISprite but may be left empty or contain default logic
+        position += velocity;
     }
 
 
@@ -78,7 +79,7 @@ public class EnemySprite : ISprite
             // Update all bullets
             foreach (var bullet in bullets)
             {
-                bullet.Update(gameTime);
+                bullet.Update();
             }
 
             // Remove bullets that are off-screen
@@ -89,18 +90,20 @@ public class EnemySprite : ISprite
     // Method to handle bullet shooting (if bullet frames exist)
     private void ShootBullet()
     {
-        if (bulletFrames == null) return; // No bullet shooting if no bullet frames are provided
+        if (bulletFrames == null || bulletFrames.Length == 0) return; // No bullet shooting if no bullet frames are provided
 
-        Vector2 bulletVelocity = Vector2.Normalize(velocity) * 300f;
-        Vector2 bulletPosition = position + new Vector2(sourceRectangle.Width / 2, sourceRectangle.Height / 2);
+        // Bullet's initial position and velocity
+        Vector2 bulletVelocity = new Vector2(0, -300f); // Example: Bullets move upwards at speed of 300
+        Vector2 bulletPosition = position + new Vector2(sourceRectangle.Width / 2, 0); // Bullet starts at the enemy's position
 
-        if (velocity.X > 0) bulletPosition.X += sourceRectangle.Width / 2;
-        else if (velocity.X < 0) bulletPosition.X -= sourceRectangle.Width / 2;
-        else if (velocity.Y > 0) bulletPosition.Y += sourceRectangle.Height / 2;
-        else if (velocity.Y < 0) bulletPosition.Y -= sourceRectangle.Height / 2;
+        // Determine the source rectangle from the bullet sprite sheet (assuming each frame is of the same size)
+        int bulletWidth = bulletFrames[0].Width; // Example: using the first frame for dimensions
+        int bulletHeight = bulletFrames[0].Height;
+        int x = 0; // Assuming frame starts at (0, 0) on the sprite sheet
+        int y = 0;
 
-        // Adding a new bullet to the list of bullets
-        bullets.Add(new BulletSprite(bulletFrames, bulletPosition, bulletVelocity));
+        // Add new bullet to the list of bullets
+        bullets.Add(new BulletSprite(bulletFrames[0], bulletPosition, bulletVelocity, x, y, bulletWidth, bulletHeight));
     }
 
     // Implementing the ISprite Draw method (basic version)

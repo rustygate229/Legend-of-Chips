@@ -34,19 +34,16 @@ namespace _3902_Project.Content.command.receiver
         // load all textures/spritesheet
         public void LoadAllTextures(ContentManager content)
         {
-            _bulletSpritesheet = content.Load<Texture2D>("Overworld Spritesheet");
+            _bulletSpritesheet = content.Load<Texture2D>("Miscellaneous Spritesheet");
         }
 
 
         // create static block sprites
-        public ISprite FireBall() { 
-            
-            return new BulletSprite(_bulletSpritesheet, _position, 259 + (4 * 16), 11 + (3 * 16), 16, 16); }
-
-       
-
-        // More public IBlock returning methods follow
-        // ...
+        public ISprite FireBall(Vector2 velocity)
+        {
+            // The source rectangle from the spritesheet (assuming (240, 59) is the FireBall location, size 16x16)
+            return new BulletSprite(_bulletSpritesheet, _position, velocity, 240, 59, 16, 16);
+        }
     }
 }
 
