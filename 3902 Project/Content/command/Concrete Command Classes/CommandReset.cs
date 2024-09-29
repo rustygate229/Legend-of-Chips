@@ -18,7 +18,7 @@ namespace _3902_Project
         {
             // TASK: Implement a new state that carries original loadup
             _game.ResetElapsedTime();
-            _game.();
+            _game.ResetGame();
         }
     }
 }
