@@ -9,9 +9,9 @@ using static _3902_Project.ILinkStateMachine;
 namespace _3902_Project
 {
     public class LinkStateMachine : ILinkStateMachine
-    { 
+    {
 
-        private int Inventory { get; set; }
+        private int Inventory;
         private bool Damage;
         private MOVEMENT _moveState;
         private ATTACK _attack;
@@ -60,6 +60,6 @@ namespace _3902_Project
         public void setInventory1() { Inventory = 1; }
         public void setInventory2() { Inventory = 2; }
         public void setInventory3() { Inventory = 3; }
-        public void setInventory4() { Inventory = 4; }
+        public int getInventory() { return Inventory;}
     }
 }

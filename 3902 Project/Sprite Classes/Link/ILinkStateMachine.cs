@@ -35,6 +35,6 @@ namespace _3902_Project
         void setInventory1();
         void setInventory2(); 
         void setInventory3();
-        void setInventory4();
+        int getInventory();
     }
 }

@@ -12,14 +12,19 @@ namespace _3902_Project.Link
 {
     public partial class LinkPlayer
     {
+        IAnimation _animation;
+        ILinkMovement _linkMovement;
+        ILinkStateMachine _linkStateMachine;
+        ProjectileManager _projectileManager;
 
         double x, y;
-        public LinkPlayer(SpriteBatch sb, ContentManager content)
+        public LinkPlayer(SpriteBatch sb, ContentManager content, ProjectileManager projectileManager)
         {
             _linkMovement = new LinkMovement();
             _linkStateMachine = new LinkStateMachine();
 
             _animation = new LinkAnimation(sb, content, _linkStateMachine);
+            _projectileManager = projectileManager;
         }
 
         private bool IsMovementKeysPressed()
@@ -39,7 +44,7 @@ namespace _3902_Project.Link
         private bool IsAttackKeysPressed()
         {
             KeyboardState keyboard = Keyboard.GetState();
-            return keyboard.IsKeyDown(Keys.Z) || keyboard.IsKeyDown(Keys.C);
+            return keyboard.IsKeyDown(Keys.Z) || keyboard.IsKeyDown(Keys.N) || keyboard.IsKeyDown(Keys.C);
         }
 
         private bool IsDamagedKeysPressed()
@@ -49,15 +54,17 @@ namespace _3902_Project.Link
         }
 
         public void Attack() { _linkStateMachine.setMelee(); }
-        public void Throw() { _linkStateMachine.setThrow(); }
+        public void Throw() { 
+            _linkStateMachine.setThrow();
+            FireProjectile();
+        }
         public void StopAttack() { _linkStateMachine.stopAttack(); }
         public void StopDamage() { _linkStateMachine.stopDamage(); }
         public void flipDamaged() { _linkStateMachine.setDamage(); }
 
         public void changeToItem1() { _linkStateMachine.setInventory1(); }
-        public void changeToItem2() { _linkStateMachine.setInventory1(); }
-        public void changeToItem3() { _linkStateMachine.setInventory1(); }
-        public void changeToItem4() { _linkStateMachine.setInventory1(); }
+        public void changeToItem2() { _linkStateMachine.setInventory2(); }
+        public void changeToItem3() { _linkStateMachine.setInventory3(); }
 
         public void Update()
         {

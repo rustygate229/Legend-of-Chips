@@ -56,7 +56,7 @@ namespace _3902_Project
             return direction;
         }
 
-		public void launchArrow(int x, int y, ILinkStateMachine.MOVEMENT movement)
+		public void launchArrow(int x, int y, MOVEMENT movement)
 		{
 			IProjectile arrow;
 
@@ -68,7 +68,7 @@ namespace _3902_Project
 
 		}
 
-        public void launchBlueArrow(int x, int y, ILinkStateMachine.MOVEMENT movement)
+        public void launchBlueArrow(int x, int y, MOVEMENT movement)
         {
             IProjectile arrow;
 
@@ -79,7 +79,7 @@ namespace _3902_Project
             projectiles.Add(arrow);
 
         }
-        public void launchWoodBoomerang(int x, int y, ILinkStateMachine.MOVEMENT movement)
+        public void launchWoodBoomerang(int x, int y, MOVEMENT movement)
 		{
             IProjectile boomerang;
 
@@ -90,7 +90,7 @@ namespace _3902_Project
             projectiles.Add(boomerang);
         }
 
-        public void launchBlueBoomerang(int x, int y, ILinkStateMachine.MOVEMENT movement)
+        public void launchBlueBoomerang(int x, int y, MOVEMENT movement)
         {
             IProjectile boomerang;
 

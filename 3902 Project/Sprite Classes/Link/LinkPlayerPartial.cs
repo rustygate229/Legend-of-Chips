@@ -10,9 +10,23 @@ namespace _3902_Project.Link
 {
     public partial class LinkPlayer
     {
-        IAnimation _animation;
-        ILinkMovement _linkMovement;
-        ILinkStateMachine _linkStateMachine;
+
+        public void FireProjectile()
+        {
+            MOVEMENT dir = _linkStateMachine.getMovementState();
+            switch (_linkStateMachine.getInventory())
+            {
+                case 1:
+                    _projectileManager.launchBlueArrow((int)x, (int)y, dir); break;
+                case 2:
+                    _projectileManager.launchBomb((int)x, (int)y); break;
+                case 3:
+                    _projectileManager.launchBlueBoomerang((int)x, (int)y, dir); break;
+
+                default:break;
+            }
+        }
+
         private bool CannotMove()
         {
             return (_linkStateMachine.getAttackState() == ATTACK.THROW

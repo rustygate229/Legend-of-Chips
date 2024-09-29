@@ -53,6 +53,11 @@ namespace _3902_Project
             // Mapping keys for cycling through blocks
             keysToCommands.Add(Keys.T, new CommandBlockPrev(game));
             keysToCommands.Add(Keys.Y, new CommandBlockNext(game));
+
+            // Mapping keys for moving through the inventory
+            keysToCommands.Add(Keys.D1, new CommandLinkSetInventory1(game));
+            keysToCommands.Add(Keys.D2, new CommandLinkSetInventory2(game));
+            keysToCommands.Add(Keys.D3, new CommandLinkSetInventory3(game));
         }
 
         
