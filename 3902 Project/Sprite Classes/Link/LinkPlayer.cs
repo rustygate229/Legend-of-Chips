@@ -27,7 +27,8 @@ namespace _3902_Project.Link
 
         private bool CannotMove()
         {
-            return (_linkStateMachine.getAttackState() == (int)LinkStateMachine.ATTACK.THROW);
+            return (_linkStateMachine.getAttackState() == (int)LinkStateMachine.ATTACK.THROW
+                || _linkStateMachine.getDamage());
         }
 
         private bool IsMovementKeysPressed()
@@ -47,8 +48,13 @@ namespace _3902_Project.Link
         private bool IsAttackKeysPressed()
         {
             KeyboardState keyboard = Keyboard.GetState();
-
             return keyboard.IsKeyDown(Keys.Z) || keyboard.IsKeyDown(Keys.C);
+        }
+
+        private bool IsDamagedKeysPressed()
+        {
+            KeyboardState keyboard = Keyboard.GetState();
+            return keyboard.IsKeyDown(Keys.E);
         }
 
         public void MoveUp()
@@ -91,28 +97,25 @@ namespace _3902_Project.Link
                     _linkStateMachine.changeStateStillRight(); break;
                 case (int)LinkStateMachine.MOVEMENT.MDOWN:
                     _linkStateMachine.changeStateStillDown(); break;
+
+                default: break;
             }
         }
 
-        public void Attack()
-        {
-            _linkStateMachine.setMelee();
-        }
+        public void Attack() { _linkStateMachine.setMelee(); }
 
-        public void Throw() { 
-            _linkStateMachine.setThrow();
-        }
+        public void Throw() { _linkStateMachine.setThrow(); }
 
-        public void StopAttack()
-        {
-            _linkStateMachine.stopAttack();
-        }
+        public void StopAttack() { _linkStateMachine.stopAttack(); }
+        public void StopDamage() { _linkStateMachine.stopDamage(); }
+        public void flipDamaged() { _linkStateMachine.setDamage(); }
 
         public void Update()
         {
             x = _linkMovement.getXPosition();
             y = _linkMovement.getYPosition();
 
+            if (!IsDamagedKeysPressed()) { StopDamage(); }
             if (!IsMovementKeysPressed()) { StayStill(); }
             if (!IsAttackKeysPressed()) { StopAttack(); }
         }
@@ -120,6 +123,11 @@ namespace _3902_Project.Link
         public void Draw()
         {
             _animation.Update();
+
+            if (_linkStateMachine.getDamage())
+            {
+                _animation.AnimDamaged(x, y); return;
+            }
 
             switch (_linkStateMachine.getAttackState())
             {

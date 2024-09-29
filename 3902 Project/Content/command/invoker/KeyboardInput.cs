@@ -35,6 +35,9 @@ namespace _3902_Project
             keysToCommands.Add(Keys.Left, new CommandMoveLeft(game));
             keysToCommands.Add(Keys.Right, new CommandMoveRight(game));
 
+            // Mapping keys for damaged state
+            keysToCommands.Add(Keys.E, new CommandLinkDamaged(game));
+
             // Mapping keys for other actions such as attack
             keysToCommands.Add(Keys.Z, new CommandLinkSwordAttack(game));
             keysToCommands.Add(Keys.N, new CommandLinkSwordAttack(game));

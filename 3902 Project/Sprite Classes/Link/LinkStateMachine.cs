@@ -91,7 +91,9 @@ namespace _3902_Project
         }
         public void setDamage()
         {
-            Damage = !Damage;
+            Damage = true;
         }
+
+        public void stopDamage() { Damage = false; }
     }
 }

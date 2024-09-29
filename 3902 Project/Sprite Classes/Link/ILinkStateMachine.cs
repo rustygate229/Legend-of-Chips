@@ -10,22 +10,23 @@ namespace _3902_Project
     {
 
         int getMovementState();
-            int getAttackState();
+        int getAttackState();
 
-            void changeStateMovingUp();
-            void changeStateMovingDown();
-            void changeStateMovingLeft();
-            void changeStateMovingRight();
-            void changeStateStillUp();
-            void changeStateStillDown();
-            void changeStateStillLeft();
-            void changeStateStillRight();
+        void changeStateMovingUp();
+        void changeStateMovingDown();
+        void changeStateMovingLeft();
+        void changeStateMovingRight();
+        void changeStateStillUp();
+        void changeStateStillDown();
+        void changeStateStillLeft();
+        void changeStateStillRight();
 
-            void setMelee();
-            void setThrow();
-            void stopAttack();
+        void setMelee();
+        void setThrow();
+        void stopAttack();
 
         bool getDamage();
         void setDamage();
+        void stopDamage();
     }
 }
