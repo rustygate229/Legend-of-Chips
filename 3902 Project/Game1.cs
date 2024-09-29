@@ -1,8 +1,6 @@
 ﻿using _3902_Project.Link;
-﻿using _3902_Project.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System;
 
 namespace _3902_Project
@@ -62,6 +60,7 @@ namespace _3902_Project
         {
             // TODO: Add your update logic here
             Player.Update();
+            ItemManager.Update();
 
             // Update input controls
             keyboardController.Update();
