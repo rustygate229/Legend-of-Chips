@@ -119,7 +119,10 @@ public class EnemySprite : ISprite
         }
 
         // Draw the enemy sprite using the given texture and source rectangle
+
+        spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         spriteBatch.Draw(texture, position, sourceRectangle, Color.White);
+        spriteBatch.End();
     }
 
     // Implementing the ISprite Draw method with extra parameters (as per interface)
@@ -138,6 +141,9 @@ public class EnemySprite : ISprite
         }
 
         // Drawing the sprite at the given position
+
+        sb.Begin(samplerState: SamplerState.PointClamp);
         sb.Draw(texture, drawPosition, sourceRectangle, Color.White);
+        sb.End();
     }
 }

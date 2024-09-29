@@ -1,4 +1,5 @@
-﻿using _3902_Project.Link;
+﻿using _3902_Project.Content.command.receiver;
+using _3902_Project.Link;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -38,6 +39,8 @@ namespace _3902_Project
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             LinkSpriteFactory.Instance.LoadAllTextures(Content);
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
+            BulletSpriteFactory.Instance.LoadAllTextures(Content);
 
             // Initialize the player and character state
             Player = new LinkPlayer(_spriteBatch, Content);
@@ -46,6 +49,7 @@ namespace _3902_Project
             // Initialize the block and item manager
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
+            EnemyManager = new EnemyManager(Content, _spriteBatch);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
@@ -54,6 +58,7 @@ namespace _3902_Project
             // Block and Item Texture Loading
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
+            EnemyManager.LoadAllTextures();
         }
 
         protected override void Update(GameTime gameTime)
@@ -61,6 +66,8 @@ namespace _3902_Project
             // TODO: Add your update logic here
             Player.Update();
             ItemManager.Update();
+            EnemyManager.Update();
+
 
             // Update input controls
             keyboardController.Update();
@@ -78,6 +85,7 @@ namespace _3902_Project
 
             BlockManager.Draw();
             ItemManager.Draw();
+            EnemyManager.Draw();
 
             base.Draw(gameTime);
         }

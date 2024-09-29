@@ -28,7 +28,9 @@ public class BulletSprite : ISprite
     // Basic Draw method to render the bullet at its current position
     public void Draw(SpriteBatch spriteBatch)
     {
+        spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         spriteBatch.Draw(spritesheet, position, sourceRectangle, Color.White);
+        spriteBatch.End();
     }
 
     // Draw method with extra parameters to support flexible rendering
@@ -36,7 +38,10 @@ public class BulletSprite : ISprite
     {
         // Drawing the bullet at a specific position provided by x and y
         Vector2 drawPosition = new Vector2((float)x, (float)y);
+
+        spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         spriteBatch.Draw(spritesheet, drawPosition, sourceRectangle, Color.White);
+        spriteBatch.End();
     }
 
     // Additional method to check if the bullet is off-screen

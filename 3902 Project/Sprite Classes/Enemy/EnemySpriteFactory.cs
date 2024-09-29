@@ -39,9 +39,9 @@ namespace _3902_Project.Content.command.receiver
             _enemySpritesheet = content.Load<Texture2D>("Dungeon Enemies Spritesheet");
 
             // Load the bullet textures for GreenMonster1
-            _bulletFrames = new Texture2D[2];  // Example with 2 frames, adjust as necessary
-            _bulletFrames[0] = content.Load<Texture2D>("BulletFrame1");
-            _bulletFrames[1] = content.Load<Texture2D>("BulletFrame2");
+            //_bulletFrames = new Texture2D[2];  // Example with 2 frames, adjust as necessary
+            //_bulletFrames[0] = content.Load<Texture2D>("BulletFrame1");
+            //_bulletFrames[1] = content.Load<Texture2D>("BulletFrame2");
         }
 
         // Create an instance of Green Monster 1 with bullets
