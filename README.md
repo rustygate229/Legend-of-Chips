@@ -6,9 +6,9 @@
   - S/DOWN ARROW: Link Moves Down
   - A/LEFT ARROW: Link Moves Left
   - D/RIGHT ARROW: Link Moves Right
-  - Z/N: Link Melee/Sword Attack
+  - Z: Link Melee/Sword Attack
   - 1,2, 3: Selects Blue Arrow, Blue Boomerang, and Bomb 
-  - C: Uses selected item
+  - N: Uses selected item
   - E: Link takes damage
 * Block/Obstacle Controls
   - T: Cycles Previous Block in List
@@ -28,6 +28,7 @@
 * Link cannot attack more than once while holding down a movement key
 * Holding U and Y at the same time cycles through both block and items very quickly
 * Link's attack animation is cut off prematurely when C is released
+* Cannot cycle items or blocks when Link is moving
 
 # Current Tasks Left
 * Implement:
