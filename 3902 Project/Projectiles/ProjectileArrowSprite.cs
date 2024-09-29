@@ -9,14 +9,11 @@ namespace _3902_Project
 	{
         private Texture2D spritesheet;
         private float scale;
-        private int frame;
-        //private int totalFrames;
         private List<Rectangle> sourceList;
         public ProjectileArrowSprite(Texture2D sheet, List<Rectangle> sources, float s)
 		{
             spritesheet = sheet;
             scale = s;
-            frame = 0;
             sourceList = sources;
 
 		}

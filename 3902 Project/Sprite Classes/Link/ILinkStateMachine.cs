@@ -31,5 +31,10 @@ namespace _3902_Project
         bool getDamage();
         void setDamage();
         void stopDamage();
+
+        void setInventory1();
+        void setInventory2(); 
+        void setInventory3();
+        void setInventory4();
     }
 }

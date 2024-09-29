@@ -49,12 +49,15 @@ namespace _3902_Project.Link
         }
 
         public void Attack() { _linkStateMachine.setMelee(); }
-
         public void Throw() { _linkStateMachine.setThrow(); }
-
         public void StopAttack() { _linkStateMachine.stopAttack(); }
         public void StopDamage() { _linkStateMachine.stopDamage(); }
         public void flipDamaged() { _linkStateMachine.setDamage(); }
+
+        public void changeToItem1() { _linkStateMachine.setInventory1(); }
+        public void changeToItem2() { _linkStateMachine.setInventory1(); }
+        public void changeToItem3() { _linkStateMachine.setInventory1(); }
+        public void changeToItem4() { _linkStateMachine.setInventory1(); }
 
         public void Update()
         {
@@ -64,44 +67,6 @@ namespace _3902_Project.Link
             if (!IsDamagedKeysPressed()) { StopDamage(); }
             if (!IsMovementKeysPressed()) { StayStill(); }
             if (!IsAttackKeysPressed()) { StopAttack(); }
-        }
-
-        public void Draw()
-        {
-            _animation.Update();
-
-            if (_linkStateMachine.getDamage())
-            {
-                _animation.AnimDamaged(x, y);
-            }
-
-            switch (_linkStateMachine.getAttackState())
-            {
-                case ATTACK.MELEE:
-                    _animation.AnimAttack(x, y); return;
-                case ATTACK.THROW:
-                    _animation.AnimItem(x, y); return;
-
-                default: break;
-            }
-
-            switch (_linkStateMachine.getMovementState())
-            {
-                case MOVEMENT.MUP:
-                case MOVEMENT.MDOWN:
-                case MOVEMENT.MLEFT:
-                case MOVEMENT.MRIGHT:
-                    _animation.AnimMoving(x, y); break;
-
-                case MOVEMENT.SUP:
-                case MOVEMENT.SDOWN:
-                case MOVEMENT.SLEFT:
-                case MOVEMENT.SRIGHT:
-                    _animation.AnimStationary(x, y); break;
-
-                default:
-                    break;
-            }
         }
     }
 }

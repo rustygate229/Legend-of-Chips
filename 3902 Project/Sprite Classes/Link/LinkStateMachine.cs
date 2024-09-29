@@ -11,7 +11,7 @@ namespace _3902_Project
     public class LinkStateMachine : ILinkStateMachine
     { 
 
-        private int Inventory;
+        private int Inventory { get; set; }
         private bool Damage;
         private MOVEMENT _moveState;
         private ATTACK _attack;
@@ -30,10 +30,7 @@ namespace _3902_Project
         public void changeStateMovingDown() { _moveState = MOVEMENT.MDOWN; }
         public void changeStateMovingLeft() { _moveState = MOVEMENT.MLEFT; }
 
-        public void changeStateMovingRight()
-        {
-            _moveState = MOVEMENT.MRIGHT;
-        }
+        public void changeStateMovingRight() { _moveState = MOVEMENT.MRIGHT; }
 
         public void changeStateStillUp()
         {
@@ -54,20 +51,10 @@ namespace _3902_Project
             _attack = ATTACK.MELEE;
         }
 
-        public void setThrow()
-        {
-            _attack = ATTACK.THROW;
-        }
+        public void setThrow() { _attack = ATTACK.THROW; }
+        public void stopAttack() { _attack = ATTACK.NO; }
+        public bool getDamage() { return Damage;}
 
-        public void stopAttack()
-        {
-            _attack = ATTACK.NO;
-        }
-
-        public bool getDamage()
-        {
-            return Damage;
-        }
         public void setDamage() { Damage = true; }
         public void stopDamage() { Damage = false; }
         public void setInventory1() { Inventory = 1; }
