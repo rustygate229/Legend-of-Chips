@@ -36,13 +36,16 @@ namespace _3902_Project.Content.command.receiver
         {
             _bulletSpritesheet = content.Load<Texture2D>("Miscellaneous Spritesheet");
         }
-
+        public Texture2D GetFireBallTexture()
+        {
+            // Return the fireball portion of the spritesheet
+            return _bulletSpritesheet;
+        }
 
         // create static block sprites
-        public ISprite FireBall(Vector2 velocity)
+        public BulletSprite FireBall(Vector2 position, Vector2 velocity)
         {
-            // The source rectangle from the spritesheet (assuming (240, 59) is the FireBall location, size 16x16)
-            return new BulletSprite(_bulletSpritesheet, _position, velocity, 240, 59, 16, 16);
+            return new BulletSprite(_bulletSpritesheet, position, velocity, 240, 59, 8, 16);
         }
     }
 }
