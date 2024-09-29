@@ -49,13 +49,17 @@ namespace _3902_Project
             // Mapping keys for cycling through blocks
             keysToCommands.Add(Keys.T, new CommandBlockPrev(game));
             keysToCommands.Add(Keys.Y, new CommandBlockNext(game));
+
+            // Mapping keys for enemy
+            keysToCommands.Add(Keys.O, new CommandEnemyPrev(game));
+            keysToCommands.Add(Keys.P, new CommandEnemyNext(game));
         }
 
         
         private bool IsMoveKey(Keys key)
         {
             return key == Keys.W || key == Keys.A || key == Keys.S || key == Keys.D ||
-                   key == Keys.Up || key == Keys.Down || key == Keys.Left || key == Keys.Right;
+                   key == Keys.Up || key == Keys.Down || key == Keys.Left || key == Keys.Right ||key == Keys.N || key == Keys.Z|| key == Keys.C;
         }
 
         // Update method to check keyboard input and execute corresponding commands
