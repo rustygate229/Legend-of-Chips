@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 
-namespace _3902_Project
+namespace Content.Projectiles
 {
     public class ProjectileFactory
     {
@@ -37,7 +37,7 @@ namespace _3902_Project
             source.Add(new Rectangle(10, 185, 16, 16));
             source.Add(new Rectangle(53, 185, 8, 16));
 
-            IProjectileSprite s =  new ProjectileArrowSprite(linkSpriteSheet, source, spriteSize / 16.0f);
+            IProjectileSprite s = new ProjectileArrowSprite(linkSpriteSheet, source, spriteSize / 16.0f);
             return new ForwardProjectile(x, y, s, dir, 6, 35);
 
         }
@@ -48,7 +48,7 @@ namespace _3902_Project
             source.Add(new Rectangle(27, 185, 8, 16));
             source.Add(new Rectangle(36, 185, 16, 16));
             source.Add(new Rectangle(53, 185, 8, 16));
-            
+
 
             IProjectileSprite s = new ProjectileArrowSprite(linkSpriteSheet, source, spriteSize / 16.0f);
             return new ForwardProjectile(x, y, s, dir, 12, 25);

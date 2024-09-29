@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using System;
 
-namespace _3902_Project
+namespace Content.Projectiles
 {
-	public class ProjectileBoomerangSprite : IProjectileSprite
+    public class ProjectileBoomerangSprite : IProjectileSprite
     {
         private Texture2D spritesheet;
         private float scale;
@@ -14,7 +14,7 @@ namespace _3902_Project
         private List<Rectangle> sourceList;
         bool reverse;
         public ProjectileBoomerangSprite(Texture2D sheet, List<Rectangle> sources, float s)
-		{
+        {
             spritesheet = sheet;
             scale = s;
             frame = 0;
@@ -22,7 +22,7 @@ namespace _3902_Project
             sourceList = sources;
             reverse = false;
 
-		}
+        }
 
         public void Update()
         {
@@ -40,8 +40,9 @@ namespace _3902_Project
             //no notion of direction for boomerangs
             Rectangle sourceRectangle = sourceList[frame];
 
-            if(dir == IProjectile.DIRECTION.DESTROYED) { 
-                sourceRectangle = sourceList[3]; 
+            if (dir == IProjectile.DIRECTION.DESTROYED)
+            {
+                sourceRectangle = sourceList[3];
             }
 
             Rectangle destinationRectangle = new Rectangle(x, y, sourceRectangle.Width * (int)scale, sourceRectangle.Height * (int)scale);
@@ -50,7 +51,7 @@ namespace _3902_Project
             if (reverse)
             {
                 sb.Draw(spritesheet, destinationRectangle, sourceRectangle, Color.White, 0f, new Vector2(0, 0), SpriteEffects.FlipVertically, 0f);
-            } 
+            }
             else
             {
                 sb.Draw(spritesheet, destinationRectangle, sourceRectangle, Color.White);

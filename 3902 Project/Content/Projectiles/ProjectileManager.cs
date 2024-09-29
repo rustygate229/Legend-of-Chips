@@ -6,7 +6,7 @@ using System.Linq;
 using static _3902_Project.LinkStateMachine;
 
 
-namespace _3902_Project
+namespace Content.Projectiles
 {
     public class ProjectileManager
     {
@@ -28,22 +28,22 @@ namespace _3902_Project
             factory = ProjectileFactory.Instance;
         }
 
-        private static IProjectile.DIRECTION getDirection(LinkStateMachine.MOVEMENT movement)
+        private static IProjectile.DIRECTION getDirection(MOVEMENT movement)
         {
             IProjectile.DIRECTION direction;
-            if (movement == LinkStateMachine.MOVEMENT.SUP || movement == LinkStateMachine.MOVEMENT.MUP)
+            if (movement == MOVEMENT.SUP || movement == MOVEMENT.MUP)
             {
                 direction = IProjectile.DIRECTION.UP;
             }
-            else if (movement == LinkStateMachine.MOVEMENT.SDOWN || movement == LinkStateMachine.MOVEMENT.MDOWN)
+            else if (movement == MOVEMENT.SDOWN || movement == MOVEMENT.MDOWN)
             {
                 direction = IProjectile.DIRECTION.DOWN;
             }
-            else if (movement == LinkStateMachine.MOVEMENT.MLEFT || movement == LinkStateMachine.MOVEMENT.SLEFT)
+            else if (movement == MOVEMENT.MLEFT || movement == MOVEMENT.SLEFT)
             {
                 direction = IProjectile.DIRECTION.LEFT;
             }
-            else if (movement == LinkStateMachine.MOVEMENT.MRIGHT || movement == LinkStateMachine.MOVEMENT.SRIGHT)
+            else if (movement == MOVEMENT.MRIGHT || movement == MOVEMENT.SRIGHT)
             {
                 direction = IProjectile.DIRECTION.RIGHT;
             }
@@ -56,19 +56,19 @@ namespace _3902_Project
             return direction;
         }
 
-		public void launchArrow(int x, int y, LinkStateMachine.MOVEMENT movement)
-		{
-			IProjectile arrow;
+        public void launchArrow(int x, int y, MOVEMENT movement)
+        {
+            IProjectile arrow;
 
             IProjectile.DIRECTION arrowDirection = getDirection(movement);
-			
+
             arrow = factory.CreateArrowProjectile(x, y, arrowDirection);
 
-			projectiles.Add(arrow);
+            projectiles.Add(arrow);
 
-		}
+        }
 
-        public void launchBlueArrow(int x, int y, LinkStateMachine.MOVEMENT movement)
+        public void launchBlueArrow(int x, int y, MOVEMENT movement)
         {
             IProjectile arrow;
 
@@ -79,8 +79,8 @@ namespace _3902_Project
             projectiles.Add(arrow);
 
         }
-        public void launchWoodBoomerang(int x, int y, LinkStateMachine.MOVEMENT movement)
-		{
+        public void launchWoodBoomerang(int x, int y, MOVEMENT movement)
+        {
             IProjectile boomerang;
 
             IProjectile.DIRECTION direction = getDirection(movement);
@@ -90,7 +90,7 @@ namespace _3902_Project
             projectiles.Add(boomerang);
         }
 
-        public void launchBlueBoomerang(int x, int y, LinkStateMachine.MOVEMENT movement)
+        public void launchBlueBoomerang(int x, int y, MOVEMENT movement)
         {
             IProjectile boomerang;
 
@@ -103,7 +103,7 @@ namespace _3902_Project
 
 
         public void launchBomb(int x, int y)
-		{
+        {
             IProjectile bomb;
 
             bomb = factory.CreateBombProjectile(x, y);
@@ -121,7 +121,7 @@ namespace _3902_Project
                 //updates each projectile in list
                 foreach (IProjectile proj in projectiles.ToList())
                 {
-                    if (proj.getDirection() == (int)(IProjectile.DIRECTION.DESTROYED))
+                    if (proj.getDirection() == (int)IProjectile.DIRECTION.DESTROYED)
                     {
                         projectiles.Remove(proj);
                     }
@@ -133,9 +133,9 @@ namespace _3902_Project
 
 
         public void Draw()
-		{
-			//draws each projectile in list
-			foreach(IProjectile projectile in projectiles) { projectile.Draw(spriteBatch); }
-		}
-	}
+        {
+            //draws each projectile in list
+            foreach (IProjectile projectile in projectiles) { projectile.Draw(spriteBatch); }
+        }
+    }
 }

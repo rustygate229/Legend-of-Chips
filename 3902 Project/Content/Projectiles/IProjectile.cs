@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace _3902_Project
+namespace Content.Projectiles
 {
-	public interface IProjectile
+    public interface IProjectile
     {
-        public enum DIRECTION { UP, DOWN, LEFT, RIGHT, DESTROYED}
-		void Update();
+        public enum DIRECTION { UP, DOWN, LEFT, RIGHT, DESTROYED }
+        void Update();
 
         void Draw(SpriteBatch sb);
 
@@ -15,7 +15,7 @@ namespace _3902_Project
 
         int getDirection();
 
-        
+
         /*
         abstract public void changeStateMovingUp();
         abstract public void changeStateMovingDown();

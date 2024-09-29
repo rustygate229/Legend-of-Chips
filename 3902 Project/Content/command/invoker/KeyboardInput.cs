@@ -42,6 +42,7 @@ namespace _3902_Project
 
             // Mapping keys for game control actions such as reset and quit
             keysToCommands.Add(Keys.Q, new CommandQuit(game));
+            keysToCommands.Add(Keys.R, new CommandReset(game));
 
             // Mapping keys for cycling through items and blocks
             keysToCommands.Add(Keys.U, new CommandNextItem(game));

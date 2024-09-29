@@ -1,4 +1,5 @@
 ﻿using _3902_Project.Link;
+using Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -54,42 +55,43 @@ namespace _3902_Project
             // Block and Item Texture Loading
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
+            
         }
 
         protected override void Update(GameTime gameTime)
-        {
-            // TODO: Add your update logic here
-            Player.Update();
-            ItemManager.Update();
+        
+            {
+                // TODO: Add your update logic here
+                Player.Update();
+                ItemManager.Update();
 
-            ProjectileManager.Update();
+                ProjectileManager.Update();
 
-            // Update input controls
-            keyboardController.Update();
+                // Update input controls
+                keyboardController.Update();
 
-            // TODO: Add your update logic here (e.g., update player, blocks, etc.)
-            base.Update(gameTime);
+                // TODO: Add your update logic here (e.g., update player, blocks, etc.)
+                base.Update(gameTime);
             
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+                GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            Player.Draw();
+                Player.Draw();
 
-            BlockManager.Draw();
-            ItemManager.Draw();
+                BlockManager.Draw();
+                ItemManager.Draw();
 
-            ProjectileManager.Draw();
+                ProjectileManager.Draw();
 
-            base.Draw(gameTime);
+                base.Draw(gameTime);
         }
 
-        // Exiting the game logic
-        internal void ExitGame()
+        public void ResetGame()
         {
-            Environment.Exit(0);
+            Initialize();
         }
     }
 }

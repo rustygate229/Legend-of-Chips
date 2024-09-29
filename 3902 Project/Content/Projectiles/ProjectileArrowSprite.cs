@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using System;
 
-namespace _3902_Project
+namespace Content.Projectiles
 {
-	public class ProjectileArrowSprite : IProjectileSprite
-	{
+    public class ProjectileArrowSprite : IProjectileSprite
+    {
         private Texture2D spritesheet;
         private float scale;
         private int frame;
         //private int totalFrames;
         private List<Rectangle> sourceList;
         public ProjectileArrowSprite(Texture2D sheet, List<Rectangle> sources, float s)
-		{
+        {
             spritesheet = sheet;
             scale = s;
             frame = 0;
             sourceList = sources;
 
-		}
+        }
 
         public void Update()
         {
@@ -33,12 +33,13 @@ namespace _3902_Project
             if (dir == IProjectile.DIRECTION.UP || dir == IProjectile.DIRECTION.DOWN)
             {
                 sourceRectangle = sourceList[0];
-            } 
-            else if(dir == IProjectile.DIRECTION.RIGHT ||  dir == IProjectile.DIRECTION.LEFT)
+            }
+            else if (dir == IProjectile.DIRECTION.RIGHT || dir == IProjectile.DIRECTION.LEFT)
             {
                 //horizontal sprite
-                sourceRectangle= sourceList[1];
-            } else
+                sourceRectangle = sourceList[1];
+            }
+            else
             {
                 //DIRECTION has to be equal to DESTROYED
                 sourceRectangle = sourceList[2];
@@ -46,10 +47,10 @@ namespace _3902_Project
             }
 
             Rectangle destinationRectangle = new Rectangle(x, y, sourceRectangle.Width * (int)scale, sourceRectangle.Height * (int)scale);
-            
+
 
             sb.Begin(samplerState: SamplerState.PointClamp);
-            
+
             if (dir == IProjectile.DIRECTION.LEFT)
             {
                 sb.Draw(spritesheet, destinationRectangle, sourceRectangle, Color.White, 0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0f);
@@ -57,7 +58,7 @@ namespace _3902_Project
             else if (dir == IProjectile.DIRECTION.DOWN)
             {
                 sb.Draw(spritesheet, destinationRectangle, sourceRectangle, Color.White, 0f, new Vector2(0, 0), SpriteEffects.FlipVertically, 0f);
-            } 
+            }
             else
             {
                 sb.Draw(spritesheet, destinationRectangle, sourceRectangle, Color.White);
