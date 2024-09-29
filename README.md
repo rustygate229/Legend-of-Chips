@@ -32,10 +32,8 @@
 
 # Current Tasks Left
 * Implement:
-  - O: Cycle to Previous Enemy Sprite in List
-  - P: Cycle to Next Enemy Sprite in List
   - Add more items and enemies
-  - Refactor, add comments, and combine everyone's code neatly
+  - Refactor and add comments and documentation
   - Create renderer class for animations
 
 # Credits
