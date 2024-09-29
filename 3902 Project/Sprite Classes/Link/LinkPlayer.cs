@@ -23,6 +23,9 @@ namespace _3902_Project.Link
             _linkStateMachine = new LinkStateMachine();
 
             _animation = new LinkAnimation(sb, content, _linkStateMachine);
+
+            x = _linkMovement.getXPosition();
+            y = _linkMovement.getYPosition();
         }
 
         private bool CannotMove()
