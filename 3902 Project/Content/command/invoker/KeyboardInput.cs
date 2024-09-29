@@ -35,10 +35,12 @@ namespace _3902_Project
             keysToCommands.Add(Keys.Left, new CommandMoveLeft(game));
             keysToCommands.Add(Keys.Right, new CommandMoveRight(game));
 
+            // Mapping keys for damaged state
+            keysToCommands.Add(Keys.E, new CommandLinkDamaged(game));
+
             // Mapping keys for other actions such as attack
             keysToCommands.Add(Keys.Z, new CommandLinkSwordAttack(game));
-            keysToCommands.Add(Keys.N, new CommandLinkSwordAttack(game));
-            keysToCommands.Add(Keys.C, new CommandLinkThrow(game));
+            keysToCommands.Add(Keys.N, new CommandLinkThrow(game));
 
             // Mapping keys for game control actions such as reset and quit
             keysToCommands.Add(Keys.Q, new CommandQuit(game));
@@ -52,14 +54,17 @@ namespace _3902_Project
             keysToCommands.Add(Keys.T, new CommandBlockPrev(game));
             keysToCommands.Add(Keys.Y, new CommandBlockNext(game));
 
-            // Mapping keys for enemy
+            // Mapping keys for moving through the inventory
+            keysToCommands.Add(Keys.D1, new CommandLinkSetInventory1(game));
+            keysToCommands.Add(Keys.D2, new CommandLinkSetInventory2(game));
+            keysToCommands.Add(Keys.D3, new CommandLinkSetInventory3(game));
         }
 
         
         private bool IsMoveKey(Keys key)
         {
             return key == Keys.W || key == Keys.A || key == Keys.S || key == Keys.D ||
-                   key == Keys.Up || key == Keys.Down || key == Keys.Left || key == Keys.Right ||key == Keys.N || key == Keys.Z|| key == Keys.C;
+                   key == Keys.Up || key == Keys.Down || key == Keys.Left || key == Keys.Right || key == Keys.Z;
         }
 
         // Update method to check keyboard input and execute corresponding commands

@@ -16,7 +16,6 @@ namespace _3902_Project
         internal LinkPlayer Player { get; private set; }  // Player object
         internal BlockManager BlockManager { get; private set; }  // Block manager
         internal ItemManager ItemManager { get; private set; }  // Item manager
-        //internal EnemyManager EnemyManager { get; private set; }  // Enemy manager
         internal ProjectileManager ProjectileManager { get; private set; } //projectile manager FOR LINK'S PROJECTILES ONLY
 
         // Input controller
@@ -40,13 +39,14 @@ namespace _3902_Project
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             LinkSpriteFactory.Instance.LoadAllTextures(Content);
 
-            // Initialize the player and character state
-            Player = new LinkPlayer(_spriteBatch, Content);
 
             // Initialize the block and item manager
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
+
+            // Initialize the player and character state
+            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
@@ -70,9 +70,8 @@ namespace _3902_Project
                 // Update input controls
                 keyboardController.Update();
 
-                // TODO: Add your update logic here (e.g., update player, blocks, etc.)
-                base.Update(gameTime);
-            
+            // TODO: Add your update logic here (e.g., update player, blocks, etc.)
+            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
