@@ -9,6 +9,7 @@ public partial class ItemSpriteAnimated : ISprite
     private Texture2D _spriteAnimatedSheet;
     private Vector2 _spritePosition;
     private Vector2 _spriteDimensions;
+    private Vector2 _spritePrintDimensions;
     private Vector2 _positionOnWindow;
 
     // item animation requirements
@@ -25,7 +26,7 @@ public partial class ItemSpriteAnimated : ISprite
 
 
     // constructor for animated item sprites
-    public ItemSpriteAnimated(Texture2D spriteSheet, Vector2 position, int x, int y, int width, int height, int row, int column, int frameRate)
+    public ItemSpriteAnimated(Texture2D spriteSheet, Vector2 spawnPosition, int xPosition, int yPosition, int xDimension, int yDimension, int xPrintDimension, int yPrintDimension, int row, int column, int frameRate)
     {
         // sprite sheet
         _spriteAnimatedSheet = spriteSheet;
@@ -57,10 +58,12 @@ public partial class ItemSpriteAnimated : ISprite
         _framesPerSprite = _frameRate / _totalFrames;
 
         // sprite positioning
-        _spritePosition.X = x;
-        _spritePosition.Y = y;
-        _spriteDimensions.X = width;
-        _spriteDimensions.Y = height;
-        _positionOnWindow = position;
+        _spritePosition.X = xPosition;
+        _spritePosition.Y = yPosition;
+        _spriteDimensions.X = xDimension;
+        _spriteDimensions.Y = yDimension;
+        _spritePrintDimensions.X = xPrintDimension;
+        _spritePrintDimensions.Y = yPrintDimension;
+        _positionOnWindow = spawnPosition;
     }
 }

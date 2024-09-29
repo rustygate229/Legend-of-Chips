@@ -42,7 +42,7 @@ public partial class ItemSpriteAnimated : ISprite
         
         // create a sourceRectangle and a destinationRectangle
         Rectangle sourceRectangle = new Rectangle((width * column) + (int)_spritePosition.X, (height * row) + (int)_spritePosition.Y, width, height);
-        Rectangle destinationRectangle = new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, 48, 48);
+        Rectangle destinationRectangle = new Rectangle((int)_positionOnWindow.X - ((int)_spritePrintDimensions.X / 2), (int)_positionOnWindow.Y - ((int)_spritePrintDimensions.Y / 2), (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y);
 
         // draw the area contained by the sourceRectangle to the destinationRectangle
         spriteBatch.Draw(_spriteAnimatedSheet, destinationRectangle, sourceRectangle, Color.White);
