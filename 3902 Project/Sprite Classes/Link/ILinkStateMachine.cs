@@ -9,8 +9,11 @@ namespace _3902_Project
     public interface ILinkStateMachine
     {
 
-        int getMovementState();
-        int getAttackState();
+        public enum MOVEMENT { SUP, SDOWN, SLEFT, SRIGHT, MUP, MDOWN, MLEFT, MRIGHT }
+        public enum ATTACK { MELEE, THROW, NO }
+
+        MOVEMENT getMovementState();
+        ATTACK getAttackState();
 
         void changeStateMovingUp();
         void changeStateMovingDown();

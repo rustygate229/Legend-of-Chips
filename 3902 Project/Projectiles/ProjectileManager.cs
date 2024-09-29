@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static _3902_Project.LinkStateMachine;
+using static _3902_Project.ILinkStateMachine;
 
 
 namespace _3902_Project
@@ -28,22 +28,22 @@ namespace _3902_Project
             factory = ProjectileFactory.Instance;
         }
 
-        private static IProjectile.DIRECTION getDirection(LinkStateMachine.MOVEMENT movement)
+        private static IProjectile.DIRECTION getDirection(MOVEMENT movement)
         {
             IProjectile.DIRECTION direction;
-            if (movement == LinkStateMachine.MOVEMENT.SUP || movement == LinkStateMachine.MOVEMENT.MUP)
+            if (movement == MOVEMENT.SUP || movement == MOVEMENT.MUP)
             {
                 direction = IProjectile.DIRECTION.UP;
             }
-            else if (movement == LinkStateMachine.MOVEMENT.SDOWN || movement == LinkStateMachine.MOVEMENT.MDOWN)
+            else if (movement == MOVEMENT.SDOWN || movement == MOVEMENT.MDOWN)
             {
                 direction = IProjectile.DIRECTION.DOWN;
             }
-            else if (movement == LinkStateMachine.MOVEMENT.MLEFT || movement == LinkStateMachine.MOVEMENT.SLEFT)
+            else if (movement == MOVEMENT.MLEFT || movement == MOVEMENT.SLEFT)
             {
                 direction = IProjectile.DIRECTION.LEFT;
             }
-            else if (movement == LinkStateMachine.MOVEMENT.MRIGHT || movement == LinkStateMachine.MOVEMENT.SRIGHT)
+            else if (movement == MOVEMENT.MRIGHT || movement == MOVEMENT.SRIGHT)
             {
                 direction = IProjectile.DIRECTION.RIGHT;
             }
@@ -56,7 +56,7 @@ namespace _3902_Project
             return direction;
         }
 
-		public void launchArrow(int x, int y, LinkStateMachine.MOVEMENT movement)
+		public void launchArrow(int x, int y, ILinkStateMachine.MOVEMENT movement)
 		{
 			IProjectile arrow;
 
@@ -68,7 +68,7 @@ namespace _3902_Project
 
 		}
 
-        public void launchBlueArrow(int x, int y, LinkStateMachine.MOVEMENT movement)
+        public void launchBlueArrow(int x, int y, ILinkStateMachine.MOVEMENT movement)
         {
             IProjectile arrow;
 
@@ -79,7 +79,7 @@ namespace _3902_Project
             projectiles.Add(arrow);
 
         }
-        public void launchWoodBoomerang(int x, int y, LinkStateMachine.MOVEMENT movement)
+        public void launchWoodBoomerang(int x, int y, ILinkStateMachine.MOVEMENT movement)
 		{
             IProjectile boomerang;
 
@@ -90,7 +90,7 @@ namespace _3902_Project
             projectiles.Add(boomerang);
         }
 
-        public void launchBlueBoomerang(int x, int y, LinkStateMachine.MOVEMENT movement)
+        public void launchBlueBoomerang(int x, int y, ILinkStateMachine.MOVEMENT movement)
         {
             IProjectile boomerang;
 

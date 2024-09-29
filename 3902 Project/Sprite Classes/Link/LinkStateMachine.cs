@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using static _3902_Project.ILinkStateMachine;
 
 namespace _3902_Project
 {
     public class LinkStateMachine : ILinkStateMachine
-{
-        public enum MOVEMENT { SUP, SDOWN, SLEFT, SRIGHT , MUP, MDOWN, MLEFT, MRIGHT}
-        public enum ATTACK { MELEE, THROW, NO }
+    { 
 
-        public bool Damage;
-
+        private int Inventory;
+        private bool Damage;
         private MOVEMENT _moveState;
         private ATTACK _attack;
 
@@ -21,29 +21,14 @@ namespace _3902_Project
             _moveState = MOVEMENT.SDOWN;
             _attack = ATTACK.NO;
             Damage = false;
+            Inventory = 1;
         }
 
-        public int getMovementState()
-        {
-            return (int) _moveState;
-        }
-
-        public int getAttackState() { return (int) _attack; }
-
-        public void changeStateMovingUp()
-        {
-            _moveState = MOVEMENT.MUP;
-        }
-
-        public void changeStateMovingDown()
-        {
-            _moveState = MOVEMENT.MDOWN;
-        }
-
-        public void changeStateMovingLeft()
-        {
-            _moveState = MOVEMENT.MLEFT;
-        }
+        public MOVEMENT getMovementState() { return _moveState; }
+        public ATTACK getAttackState() { return _attack; }
+        public void changeStateMovingUp() { _moveState = MOVEMENT.MUP; }
+        public void changeStateMovingDown() { _moveState = MOVEMENT.MDOWN; }
+        public void changeStateMovingLeft() { _moveState = MOVEMENT.MLEFT; }
 
         public void changeStateMovingRight()
         {
@@ -60,15 +45,9 @@ namespace _3902_Project
             _moveState = MOVEMENT.SDOWN;
         }
 
-        public void changeStateStillLeft()
-        {
-            _moveState = MOVEMENT.SLEFT;
-        }
+        public void changeStateStillLeft() { _moveState = MOVEMENT.SLEFT; }
 
-        public void changeStateStillRight()
-        {
-            _moveState = MOVEMENT.SRIGHT;
-        }
+        public void changeStateStillRight() { _moveState = MOVEMENT.SRIGHT; }
 
         public void setMelee()
         {
@@ -89,11 +68,11 @@ namespace _3902_Project
         {
             return Damage;
         }
-        public void setDamage()
-        {
-            Damage = true;
-        }
-
+        public void setDamage() { Damage = true; }
         public void stopDamage() { Damage = false; }
+        public void setInventory1() { Inventory = 1; }
+        public void setInventory2() { Inventory = 2; }
+        public void setInventory3() { Inventory = 3; }
+        public void setInventory4() { Inventory = 4; }
     }
 }
