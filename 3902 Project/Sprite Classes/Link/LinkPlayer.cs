@@ -126,7 +126,7 @@ namespace _3902_Project.Link
 
             if (_linkStateMachine.getDamage())
             {
-                _animation.AnimDamaged(x, y); return;
+                _animation.AnimDamaged(x, y);
             }
 
             switch (_linkStateMachine.getAttackState())
