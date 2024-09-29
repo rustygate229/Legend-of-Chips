@@ -16,7 +16,7 @@ namespace _3902_Project
         internal LinkPlayer Player { get; private set; }  // Player object
         internal BlockManager BlockManager { get; private set; }  // Block manager
         internal ItemManager ItemManager { get; private set; }  // Item manager
-        internal EnemyManager EnemyManager { get; private set; }  // Enemy manager
+        //internal EnemyManager EnemyManager { get; private set; }  // Enemy manager
         internal ProjectileManager ProjectileManager { get; private set; } //projectile manager FOR LINK'S PROJECTILES ONLY
 
         // Input controller

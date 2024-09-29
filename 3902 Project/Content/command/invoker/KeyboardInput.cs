@@ -53,8 +53,6 @@ namespace _3902_Project
             keysToCommands.Add(Keys.Y, new CommandBlockNext(game));
 
             // Mapping keys for enemy
-            keysToCommands.Add(Keys.O, new CommandEnemyPrev(game));
-            keysToCommands.Add(Keys.P, new CommandEnemyNext(game));
         }
 
         
