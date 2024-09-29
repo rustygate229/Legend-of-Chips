@@ -40,8 +40,7 @@ namespace _3902_Project
 
             // Mapping keys for other actions such as attack
             keysToCommands.Add(Keys.Z, new CommandLinkSwordAttack(game));
-            keysToCommands.Add(Keys.N, new CommandLinkSwordAttack(game));
-            keysToCommands.Add(Keys.C, new CommandLinkThrow(game));
+            keysToCommands.Add(Keys.N, new CommandLinkThrow(game));
 
             // Mapping keys for game control actions such as reset and quit
             keysToCommands.Add(Keys.Q, new CommandQuit(game));
@@ -65,7 +64,7 @@ namespace _3902_Project
         private bool IsMoveKey(Keys key)
         {
             return key == Keys.W || key == Keys.A || key == Keys.S || key == Keys.D ||
-                   key == Keys.Up || key == Keys.Down || key == Keys.Left || key == Keys.Right ||key == Keys.N || key == Keys.Z|| key == Keys.C;
+                   key == Keys.Up || key == Keys.Down || key == Keys.Left || key == Keys.Right || key == Keys.Z;
         }
 
         // Update method to check keyboard input and execute corresponding commands

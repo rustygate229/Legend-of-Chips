@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Content.Projectiles;
 using static _3902_Project.ILinkStateMachine;
 
 namespace _3902_Project.Link
@@ -32,7 +33,7 @@ namespace _3902_Project.Link
 
         private bool CannotMove()
         {
-            return (_linkStateMachine.getAttackState() == (int)LinkStateMachine.ATTACK.THROW);
+            return (_linkStateMachine.getAttackState() == ATTACK.THROW);
         }
 
         private bool IsMovementKeysPressed()

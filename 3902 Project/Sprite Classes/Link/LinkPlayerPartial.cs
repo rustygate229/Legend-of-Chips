@@ -27,12 +27,6 @@ namespace _3902_Project.Link
             }
         }
 
-        private bool CannotMove()
-        {
-            return (_linkStateMachine.getAttackState() == ATTACK.THROW
-                || _linkStateMachine.getDamage());
-        }
-
         public void MoveUp()
         {
             if (CannotMove()) { return; }
