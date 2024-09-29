@@ -26,7 +26,7 @@ public class ItemSprite : ISprite
     // update: no logic since items are static and don't move
     public void Update()
     {
-
+        
     }
 
 

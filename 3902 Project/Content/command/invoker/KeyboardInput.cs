@@ -35,6 +35,9 @@ namespace _3902_Project
             keysToCommands.Add(Keys.Left, new CommandMoveLeft(game));
             keysToCommands.Add(Keys.Right, new CommandMoveRight(game));
 
+            // Mapping keys for damaged state
+            keysToCommands.Add(Keys.E, new CommandLinkDamaged(game));
+
             // Mapping keys for other actions such as attack
             keysToCommands.Add(Keys.Z, new CommandLinkSwordAttack(game));
             keysToCommands.Add(Keys.N, new CommandLinkSwordAttack(game));
@@ -52,7 +55,10 @@ namespace _3902_Project
             keysToCommands.Add(Keys.T, new CommandBlockPrev(game));
             keysToCommands.Add(Keys.Y, new CommandBlockNext(game));
 
-            // Mapping keys for enemy
+            // Mapping keys for moving through the inventory
+            keysToCommands.Add(Keys.D1, new CommandLinkSetInventory1(game));
+            keysToCommands.Add(Keys.D2, new CommandLinkSetInventory2(game));
+            keysToCommands.Add(Keys.D3, new CommandLinkSetInventory3(game));
         }
 
         

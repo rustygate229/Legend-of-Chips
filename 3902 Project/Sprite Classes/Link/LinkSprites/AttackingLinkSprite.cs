@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using System;
+using static _3902_Project.ILinkStateMachine;
 
 namespace _3902_Project
 {
@@ -59,19 +60,19 @@ namespace _3902_Project
             //sourceList = down, right, up, order from left to right in spritesheet
 
 
-            if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MDOWN || state.getMovementState() == (int)LinkStateMachine.MOVEMENT.SDOWN)
+            if (state.getMovementState() == MOVEMENT.MDOWN || state.getMovementState() == MOVEMENT.SDOWN)
             {
                 sourceRectangle = sourceList[frame];
             }
-            else if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MRIGHT || state.getMovementState() == (int)LinkStateMachine.MOVEMENT.SRIGHT)
+            else if (state.getMovementState() == MOVEMENT.MRIGHT || state.getMovementState() == MOVEMENT.SRIGHT)
             {
                 sourceRectangle = sourceList[frame + totalFrames];
             }
-            else if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MUP || state.getMovementState() == (int)LinkStateMachine.MOVEMENT.SUP)
+            else if (state.getMovementState() == MOVEMENT.MUP || state.getMovementState() == MOVEMENT.SUP)
             {
                 sourceRectangle = sourceList[frame + 2 * totalFrames];
             }
-            else if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MLEFT || state.getMovementState() == (int)LinkStateMachine.MOVEMENT.SLEFT)
+            else if (state.getMovementState() == MOVEMENT.MLEFT || state.getMovementState() == MOVEMENT.SLEFT)
             {
                 //reverse flag since spritesheet doesn't have left sprites
                 reverseFlag = true;
@@ -84,14 +85,14 @@ namespace _3902_Project
             }
 
             //destination rectangle dynamically scales with size of sourceRectangle size
-            if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MUP || state.getMovementState() == (int)LinkStateMachine.MOVEMENT.SUP)
+            if (state.getMovementState() == MOVEMENT.MUP || state.getMovementState() == MOVEMENT.SUP)
             {
                 //offsets MUP sprites
                 int height = (int)((y) - ((sourceRectangle.Height - 16) * scale));
 
                 destinationRectangle = new Rectangle((int)(x), height, (int)(sourceRectangle.Width * scale), (int)(sourceRectangle.Height * scale));
             }
-            else if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MLEFT || state.getMovementState() == (int)LinkStateMachine.MOVEMENT.SLEFT)
+            else if (state.getMovementState() == MOVEMENT.MLEFT || state.getMovementState() == MOVEMENT.SLEFT)
             {
                 int width = (int)(x - (sourceRectangle.Width - 16) * scale);
 

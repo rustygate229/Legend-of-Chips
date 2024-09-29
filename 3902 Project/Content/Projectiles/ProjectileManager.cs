@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static _3902_Project.LinkStateMachine;
+using static _3902_Project.ILinkStateMachine;
 
 
 namespace Content.Projectiles
@@ -56,9 +56,9 @@ namespace Content.Projectiles
             return direction;
         }
 
-        public void launchArrow(int x, int y, MOVEMENT movement)
-        {
-            IProjectile arrow;
+		public void launchArrow(int x, int y, MOVEMENT movement)
+		{
+			IProjectile arrow;
 
             IProjectile.DIRECTION arrowDirection = getDirection(movement);
 

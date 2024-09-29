@@ -9,23 +9,32 @@ namespace _3902_Project
     public interface ILinkStateMachine
     {
 
-        int getMovementState();
-            int getAttackState();
+        public enum MOVEMENT { SUP, SDOWN, SLEFT, SRIGHT, MUP, MDOWN, MLEFT, MRIGHT }
+        public enum ATTACK { MELEE, THROW, NO }
 
-            void changeStateMovingUp();
-            void changeStateMovingDown();
-            void changeStateMovingLeft();
-            void changeStateMovingRight();
-            void changeStateStillUp();
-            void changeStateStillDown();
-            void changeStateStillLeft();
-            void changeStateStillRight();
+        MOVEMENT getMovementState();
+        ATTACK getAttackState();
 
-            void setMelee();
-            void setThrow();
-            void stopAttack();
+        void changeStateMovingUp();
+        void changeStateMovingDown();
+        void changeStateMovingLeft();
+        void changeStateMovingRight();
+        void changeStateStillUp();
+        void changeStateStillDown();
+        void changeStateStillLeft();
+        void changeStateStillRight();
+
+        void setMelee();
+        void setThrow();
+        void stopAttack();
 
         bool getDamage();
         void setDamage();
+        void stopDamage();
+
+        void setInventory1();
+        void setInventory2(); 
+        void setInventory3();
+        int getInventory();
     }
 }
