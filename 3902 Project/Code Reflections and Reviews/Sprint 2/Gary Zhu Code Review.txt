@@ -1,0 +1,31 @@
+Readbility
+
+Author of the code review: Gary Zhu
+
+Date of the code review: 09/30/2024
+
+Sprint number: Sprint 2
+
+Name of the .cs file being reviewed: LinkPlayer.cs
+
+Author of the .cs file being reviewed: Mayank Karnati
+
+Number of minutes taken to complete the review: 20 minitues
+
+Specific comments on what is readable and what is not: 
+
+Since I take review of this code, 
+I felt this code have a really good strucuture and clear variable name. 
+I can clearly understand the functionallity of different constructors and classes. 
+One thing need to get improved might be the there are many duplication code in some classes.
+For example, it might have a better way to avoid duplication  "private bool IsMovementKeysPressed"
+
+
+Specific comments on code quality
+A hypothetical change to make to the game related to file being reviewed and how the current implementation could or could not easily support that change:
+
+In my view, I think this code have a really good quality and include all of action that link needed. 
+Also, this file did not put many alogirthm part since 
+all of them get seperated in different folders. 
+So I think if we try to add more action in here, 
+it will be pretty to support the change since they have different algorithm to deal different actions. 
