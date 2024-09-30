@@ -1,0 +1,16 @@
+READABILITY & CODE REVIEW 
+AUTHOR: Jiaqing Guan
+DATE: 9/30/24
+SPRINT NUMBER: 2
+.cs FILE NAME: ItemManager.cs
+CODE AUTHOR: Hongxiang Wang
+TIME TAKEN: 25 minutes
+
+Readability: : This part of code has high readability. The variables are named descriptively, making the logic easy to understand, 
+and the use of a dictionary for item management is very efficient. Also, I think there are a lot of switch statements in the Draw() and Update() methods, 
+and this way is not flexible and simple enough. Instead of writing a separate case for each item, Draw() and Update() could be called directly from the items in the dictionary.
+
+Code Quality: This part of code shows good practices of modularity and reusability. The responsibility for item creation is clearly separated from the rest of the logic. 
+ItemManager is only responsible for switching, updating, and drawing items, while the factory is responsible for creating different types of items, which is a good design choice, 
+and allows the system to expand easily as game become complex.
+
