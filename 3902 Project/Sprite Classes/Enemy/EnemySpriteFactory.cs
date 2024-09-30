@@ -10,7 +10,7 @@ namespace _3902_Project.Content.command.receiver
         private Texture2D _enemySpritesheet;
 
         // Position that all enemies will initially be placed at 
-        private Vector2 _initialPosition = new Vector2(100, 200);
+        private Vector2 _initialPosition = new Vector2(20, 100);
 
         // Create a singleton instance of EnemySpriteFactory
         private static EnemySpriteFactory instance = new EnemySpriteFactory();

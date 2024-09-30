@@ -38,18 +38,25 @@ public class EnemySprite : ISprite
     private bool canShoot; // Indicates if the enemy can shoot
 
     // Screen dimensions (update these as per your game's settings)
-    private int screenWidth = 800;  // Example screen width
-    private int screenHeight = 800; // Example screen height
+    private int screenWidth = 600;  // Example screen width
+    private int screenHeight = 500; // Example screen height
 
-    // Actual sprite size when drawn on screen
-    private int spriteWidth;  // Will be set based on frame width
-    private int spriteHeight; // Will be set based on frame height
+   
+    private int customSpriteWidth;
+    private int customSpriteHeight;
+
+    private int spriteWidth;  // Calculated based on source rectangle
+    private int spriteHeight; // Calculated based on source rectangle
+
 
     // Static Random instance to prevent repeat random numbers
     private static Random rand = new Random();
 
-    // Constructor
-    public EnemySprite(Texture2D texture, Vector2 initialPosition, Rectangle sourceRectangle, int rows, int columns, int frameRate, bool canShoot = false)
+    // Constructor with default or custom size
+    public EnemySprite(Texture2D texture, 
+        Vector2 initialPosition, 
+        Rectangle sourceRectangle, 
+        int rows, int columns, int frameRate, bool canShoot = false, int customWidth=48, int customHeight = 48)
     {
         this.position = initialPosition;
         this.bullets = new List<BulletSprite>();
@@ -73,6 +80,10 @@ public class EnemySprite : ISprite
         // Calculate sprite width and height based on frame dimensions
         spriteWidth = sourceRectangle.Width / _columns;
         spriteHeight = sourceRectangle.Height / _rows;
+
+        // Set custom sprite size, defaulting to the provided constants
+        customSpriteWidth = customWidth;
+        customSpriteHeight = customHeight;
 
         // Randomly choose initial direction
         int initialDirection = rand.Next(4);
@@ -203,7 +214,7 @@ public class EnemySprite : ISprite
         bullets.Add(bullet);
     }
 
-    // Draw method
+    // Draw method with custom size or default size
     public void Draw(SpriteBatch spriteBatch)
     {
         // Draw bullets
@@ -212,7 +223,7 @@ public class EnemySprite : ISprite
             bullet.Draw(spriteBatch);
         }
 
-        // Calculate frame dimensions
+        // Calculate frame dimensions from the sprite sheet
         int frameWidth = (int)_spriteDimensions.X / _columns;
         int frameHeight = (int)_spriteDimensions.Y / _rows;
 
@@ -226,17 +237,17 @@ public class EnemySprite : ISprite
             frameHeight
         );
 
-        // Define destination rectangle on the screen
+        // Define destination rectangle on the screen using custom or default size
         Rectangle destinationRect = new Rectangle(
             (int)position.X,
             (int)position.Y,
-            frameWidth,
-            frameHeight
+            customSpriteWidth,   // Use custom or default width
+            customSpriteHeight   // Use custom or default height
         );
 
         // Draw the sprite
         spriteBatch.Begin();
-            spriteBatch.Draw(_spriteAnimatedSheet, destinationRect, sourceRect, Color.White);
+        spriteBatch.Draw(_spriteAnimatedSheet, destinationRect, sourceRect, Color.White);
         spriteBatch.End();
     }
 
