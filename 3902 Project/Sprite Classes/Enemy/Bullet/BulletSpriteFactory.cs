@@ -34,7 +34,7 @@ namespace _3902_Project.Content.command.receiver
         // load all textures/spritesheet
         public void LoadAllTextures(ContentManager content)
         {
-            _bulletSpritesheet = content.Load<Texture2D>("Miscellaneous Spritesheet");
+            _bulletSpritesheet = content.Load<Texture2D>("Miscellaneous_Spritesheet_transparent");
         }
         public Texture2D GetFireBallTexture()
         {
@@ -45,7 +45,7 @@ namespace _3902_Project.Content.command.receiver
         // create static block sprites
         public BulletSprite FireBall(Vector2 position, Vector2 velocity)
         {
-            return new BulletSprite(_bulletSpritesheet, position, velocity, 231, 59, 8, 16);
+            return new BulletSprite(_bulletSpritesheet, position, velocity, 113, 14, 8, 10);
         }
     }
 }

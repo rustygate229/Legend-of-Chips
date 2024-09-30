@@ -74,7 +74,7 @@ public class EnemySprite : ISprite
         spriteWidth = sourceRectangle.Width / _columns;
         spriteHeight = sourceRectangle.Height / _rows;
 
-        // Randomly choose initial direction: 0 = left, 1 = right, 2 = up, 3 = down
+        // Randomly choose initial direction
         int initialDirection = rand.Next(4);
         switch (initialDirection)
         {
@@ -124,7 +124,7 @@ public class EnemySprite : ISprite
             velocity.X = Math.Abs(velocityx); // Move right
             velocity.Y = 0;
         }
-        else if (position.X + spriteWidth > screenWidth)
+        else if (position.X + spriteWidth >= screenWidth)
         {
             position.X = screenWidth - spriteWidth;
             velocity.X = -Math.Abs(velocityx); // Move left
@@ -138,7 +138,7 @@ public class EnemySprite : ISprite
             velocity.Y = Math.Abs(velocityy); // Move down
             velocity.X = 0;
         }
-        else if (position.Y + spriteHeight > screenHeight)
+        else if (position.Y + spriteHeight >= screenHeight)
         {
             position.Y = screenHeight - spriteHeight;
             velocity.Y = -Math.Abs(velocityy); // Move up

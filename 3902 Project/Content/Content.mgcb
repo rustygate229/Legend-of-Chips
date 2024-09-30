@@ -37,6 +37,18 @@
 /processorParam:TextureFormat=Color
 /build:Dungeon Enemies Spritesheet.png
 
+#begin Dungeon_Enemies_Spritesheet_transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Dungeon_Enemies_Spritesheet_transparent.png
+
 #begin Items Spritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -84,6 +96,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Miscellaneous Spritesheet.png
+
+#begin Miscellaneous_Spritesheet_transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Miscellaneous_Spritesheet_transparent.png
 
 #begin Overworld Spritesheet.png
 /importer:TextureImporter

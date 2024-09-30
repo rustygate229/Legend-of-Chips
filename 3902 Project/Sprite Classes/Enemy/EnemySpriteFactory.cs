@@ -9,8 +9,8 @@ namespace _3902_Project.Content.command.receiver
         // Enemy spritesheet
         private Texture2D _enemySpritesheet;
 
-        // Position that all enemies will initially be placed at (can modify this later)
-        private Vector2 _initialPosition = new Vector2(200, 300);
+        // Position that all enemies will initially be placed at 
+        private Vector2 _initialPosition = new Vector2(100, 200);
 
         // Create a singleton instance of EnemySpriteFactory
         private static EnemySpriteFactory instance = new EnemySpriteFactory();
@@ -33,7 +33,7 @@ namespace _3902_Project.Content.command.receiver
         public void LoadAllTextures(ContentManager content)
         {
             // Load the enemy spritesheet
-            _enemySpritesheet = content.Load<Texture2D>("Dungeon Enemies Spritesheet");
+            _enemySpritesheet = content.Load<Texture2D>("Dungeon_Enemies_Spritesheet_transparent");
 
             // Load bullet textures using BulletSpriteFactory
             BulletSpriteFactory.Instance.LoadAllTextures(content);
