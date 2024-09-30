@@ -39,7 +39,7 @@ public class EnemySprite : ISprite
 
     // Screen dimensions (update these as per your game's settings)
     private int screenWidth = 600;  // Example screen width
-    private int screenHeight = 500; // Example screen height
+    private int screenHeight = 450; // Example screen height
 
    
     private int customSpriteWidth;

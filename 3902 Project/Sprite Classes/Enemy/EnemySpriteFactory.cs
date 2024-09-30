@@ -43,10 +43,10 @@ namespace _3902_Project.Content.command.receiver
         public ISprite GreenMonster1()
         {
             // Source rectangle for Green Monster 1
-            Rectangle sourceRectangle = new Rectangle(77, 11, 33, 16);
+            Rectangle sourceRectangle = new Rectangle(79, 11, 30, 16);
 
             // Number of frames in the animation
-            int columns = 3; // Assuming 3 frames horizontally within the sourceRectangle
+            int columns = 2; // Assuming 2 frames horizontally within the sourceRectangle
             int rows = 1;    // Assuming 1 frame vertically within the sourceRectangle
 
             // Frame rate for the animation
@@ -70,12 +70,12 @@ namespace _3902_Project.Content.command.receiver
         public ISprite GreenMonster2()
         {
             // Source rectangle for Green Monster 2
-            Rectangle sourceRectangle = new Rectangle(77, 28, 33, 16);
+            Rectangle sourceRectangle = new Rectangle(79, 28, 30, 16);
 
             // Animation parameters
-            int columns = 1; // Assuming 1 frame (static sprite)
+            int columns = 2; // Assuming 1 frame (static sprite)
             int rows = 1;
-            int frameRate = 1; // No animation
+            int frameRate = 30; // No animation
 
             // Create the enemy sprite without shooting capability
             ISprite enemySprite = new EnemySprite(
@@ -95,12 +95,12 @@ namespace _3902_Project.Content.command.receiver
         public ISprite Rope1()
         {
             // Source rectangle for Rope 1
-            Rectangle sourceRectangle = new Rectangle(126, 59, 16, 16);
+            Rectangle sourceRectangle = new Rectangle(127, 107, 66, 16);
 
             // Animation parameters
-            int columns = 1; // Assuming 1 frame (static sprite)
+            int columns = 4; 
             int rows = 1;
-            int frameRate = 1; // No animation
+            int frameRate = 30; // No animation
 
             // Create the enemy sprite without shooting capability
             ISprite enemySprite = new EnemySprite(
@@ -120,12 +120,12 @@ namespace _3902_Project.Content.command.receiver
         public ISprite Rope2()
         {
             // Source rectangle for Rope 2
-            Rectangle sourceRectangle = new Rectangle(1, 90, 84, 16);
+            Rectangle sourceRectangle = new Rectangle(3, 146, 13, 33);
 
             // Animation parameters
-            int columns = 1; // Assuming 1 frame (static sprite)
+            int columns = 2; 
             int rows = 1;
-            int frameRate = 1; // No animation
+            int frameRate = 30; // No animation
 
             // Create the enemy sprite without shooting capability
             ISprite enemySprite = new EnemySprite(
