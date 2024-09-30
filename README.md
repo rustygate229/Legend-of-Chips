@@ -23,10 +23,10 @@
   - Q: Quit/Close Program
   - R: Resets Program
 
-# Current Bugs
+# Known Bugs
 * Link moves faster moving diagonally than moving horizontally or vertically
 * Link cannot attack more than once while holding down a movement key
-* Holding U and Y at the same time cycles through both block and items very quickly
+* Holding U and Y at the same time cycles through both blocks and items very quickly
 * Link's attack animation is cut off prematurely when C is released
 * Cannot cycle items or blocks when Link is moving
 
@@ -56,3 +56,5 @@
   - Gary Zhu
 * Projectile Classes
   - Rolina Qu
+ 
+  - Code Reflections are in the Sprint2 folder in the Code Reflections and Reviews folder
