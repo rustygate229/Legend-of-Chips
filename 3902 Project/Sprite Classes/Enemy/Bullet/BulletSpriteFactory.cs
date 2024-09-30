@@ -45,7 +45,7 @@ namespace _3902_Project.Content.command.receiver
         // create static block sprites
         public BulletSprite FireBall(Vector2 position, Vector2 velocity)
         {
-            return new BulletSprite(_bulletSpritesheet, position, velocity, 240, 59, 8, 16);
+            return new BulletSprite(_bulletSpritesheet, position, velocity, 231, 59, 8, 16);
         }
     }
 }

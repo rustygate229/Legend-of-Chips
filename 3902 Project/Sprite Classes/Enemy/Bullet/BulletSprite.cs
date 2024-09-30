@@ -8,14 +8,25 @@ public class BulletSprite : ISprite
     private Vector2 position;
     private Vector2 velocity;
     private Rectangle sourceRectangle;
+    private int size; // Size of the bullet (width and height)
 
-    // Constructor to initialize the bullet with texture, position, velocity, and source rectangle
-    public BulletSprite(Texture2D spritesheet, Vector2 position, Vector2 velocity, int x, int y, int width, int height)
+    // Constructor to initialize the bullet with texture, position, velocity, source rectangle, and size
+    public BulletSprite(
+        Texture2D spritesheet,
+        Vector2 position,
+        Vector2 velocity,
+        int x,
+        int y,
+        int width,
+        int height,
+        int size = 20 
+    )
     {
         this.spritesheet = spritesheet;
         this.position = position;
         this.velocity = velocity;
         this.sourceRectangle = new Rectangle(x, y, width, height);
+        this.size = size; // Initialize size
     }
 
     // Update method to update bullet position based on velocity
@@ -25,29 +36,36 @@ public class BulletSprite : ISprite
         position += velocity;
     }
 
-    // Basic Draw method to render the bullet at its current position
+    // Basic Draw method to render the bullet at its current position with default size
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-        spriteBatch.Draw(spritesheet, position, sourceRectangle, Color.White);
+        spriteBatch.Begin();
+        spriteBatch.Draw(
+            spritesheet,
+            new Rectangle(
+                (int)position.X,
+                (int)position.Y,
+                size,
+                size
+            ),
+            sourceRectangle,
+            Color.White
+        );
         spriteBatch.End();
     }
 
     // Draw method with extra parameters to support flexible rendering
     public void Draw(SpriteBatch spriteBatch, ILinkStateMachine state, double x, double y)
     {
-        // Drawing the bullet at a specific position provided by x and y
-        Vector2 drawPosition = new Vector2((float)x, (float)y);
-
-        spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-        spriteBatch.Draw(spritesheet, drawPosition, sourceRectangle, Color.White);
-        spriteBatch.End();
+        throw new System.NotImplementedException();
     }
 
-    // Additional method to check if the bullet is off-screen
+    // Additional method to check if the bullet is off-screen, adjusted for size
     public bool IsOffScreen(int screenWidth, int screenHeight)
     {
-        return position.X < 0 || position.X > screenWidth || position.Y < 0 || position.Y > screenHeight;
+        return position.X + size < 0 ||
+               position.X > screenWidth ||
+               position.Y + size < 0 ||
+               position.Y > screenHeight;
     }
 }
-
