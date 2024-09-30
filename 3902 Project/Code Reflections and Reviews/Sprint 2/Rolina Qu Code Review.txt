@@ -1,0 +1,11 @@
+READABILITY & CODE REVIEW 
+AUTHOR: Rolina Qu
+DATE: 9/30/24
+SPRINT NUMBER: 2
+.cs FILE NAME: ItemSpriteAnimatedMethods.cs
+CODE AUTHOR: Evan Csuhran
+TIME TAKEN: 20 minutes
+
+Readability: The code is generally clear and readable, with clearly labelled variables, descriptive comments, and low nesting. The only method that is somewhat difficult to read is the Draw(SpriteBatch spritebatch) method since much of the math to calculate the source and destination Rectangles is done directly in the Rectangle constructor itself, resulting in one very long line of code to create the destination Rectangle. 
+
+Code Quality: The code quality of this class is also fairly high since it has clearly defined and standardized Update() and Draw(SpriteBatch spritebatch) methods as outlined in the constructor, and does not have any responsibilities beyond drawing and animating itself on the screen. If we added more animated item sprites to the game, this class could be very easily reused for all of these item sprites.
