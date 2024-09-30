@@ -20,6 +20,7 @@ I can clearly understand the functionallity of different constructors and classe
 One thing need to get improved might be the there are many duplication code in some classes.
 For example, it might have a better way to avoid duplication  "private bool IsMovementKeysPressed"
 
+Quality
 
 Specific comments on code quality
 A hypothetical change to make to the game related to file being reviewed and how the current implementation could or could not easily support that change:
