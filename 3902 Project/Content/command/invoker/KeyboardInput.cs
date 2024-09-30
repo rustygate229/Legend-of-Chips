@@ -50,6 +50,10 @@ namespace _3902_Project
             // Mapping keys for cycling through blocks
             keysToCommands.Add(Keys.T, new CommandBlockPrev(game));
             keysToCommands.Add(Keys.Y, new CommandBlockNext(game));
+
+            // Mapping keys for cycling through enemy
+            keysToCommands.Add(Keys.O, new CommandEnemyPrev(game));
+            keysToCommands.Add(Keys.P, new CommandEnemyNext(game));
         }
 
         

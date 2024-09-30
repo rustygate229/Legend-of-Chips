@@ -31,6 +31,7 @@ namespace _3902_Project
             _enemies.Add(0, _factory.GreenMonster1());
             _enemies.Add(1, _factory.GreenMonster2());
             _enemies.Add(2, _factory.Rope1());
+            _enemies.Add(3, _factory.Rope2());
         }
 
         // Cycle to the next enemy
@@ -57,15 +58,7 @@ namespace _3902_Project
         public void Draw()
         {
             GetCurrentEnemy().Draw(_spriteBatch);
-            /*switch (_currentEnemyIndex)
-            {
-                case 0:
-                    _enemies[0].Draw(_spriteBatch); break;
-                case 1:
-                    _enemies[1].Draw(_spriteBatch); break;
-                case 2:
-                    _enemies[2].Draw(_spriteBatch); break;
-            }*/
+           
         }
 
         public void Update()
