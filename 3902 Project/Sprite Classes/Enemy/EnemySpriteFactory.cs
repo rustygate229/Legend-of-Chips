@@ -45,12 +45,12 @@ namespace _3902_Project.Content.command.receiver
             // Source rectangle for Green Monster 1
             Rectangle sourceRectangle = new Rectangle(79, 11, 30, 16);
 
-            // Number of frames in the animation
-            int columns = 2; // Assuming 2 frames horizontally within the sourceRectangle
-            int rows = 1;    // Assuming 1 frame vertically within the sourceRectangle
+            
+            int columns = 2; 
+            int rows = 1;    
 
-            // Frame rate for the animation
-            int frameRate = 30; // Adjust as necessary for desired animation speed
+           
+            int frameRate = 30; 
 
             // Create the enemy sprite with shooting capability
             ISprite enemySprite = new EnemySprite(
@@ -60,7 +60,7 @@ namespace _3902_Project.Content.command.receiver
                 rows,
                 columns,
                 frameRate,
-                canShoot: true // Green Monster 1 can shoot
+                canShoot: true 
             );
 
             return enemySprite;
@@ -73,9 +73,9 @@ namespace _3902_Project.Content.command.receiver
             Rectangle sourceRectangle = new Rectangle(79, 28, 30, 16);
 
             // Animation parameters
-            int columns = 2; // Assuming 1 frame (static sprite)
+            int columns = 2; 
             int rows = 1;
-            int frameRate = 30; // No animation
+            int frameRate = 30; 
 
             // Create the enemy sprite without shooting capability
             ISprite enemySprite = new EnemySprite(
@@ -100,7 +100,7 @@ namespace _3902_Project.Content.command.receiver
             // Animation parameters
             int columns = 4; 
             int rows = 1;
-            int frameRate = 30; // No animation
+            int frameRate = 30; 
 
             // Create the enemy sprite without shooting capability
             ISprite enemySprite = new EnemySprite(
@@ -120,10 +120,10 @@ namespace _3902_Project.Content.command.receiver
         public ISprite Rope2()
         {
             // Source rectangle for Rope 2
-            Rectangle sourceRectangle = new Rectangle(3, 146, 13, 33);
+            Rectangle sourceRectangle = new Rectangle(198, 90, 66, 16);
 
             // Animation parameters
-            int columns = 2; 
+            int columns = 4; 
             int rows = 1;
             int frameRate = 30; // No animation
 
