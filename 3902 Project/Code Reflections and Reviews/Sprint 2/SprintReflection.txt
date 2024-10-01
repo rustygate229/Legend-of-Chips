@@ -1,0 +1,16 @@
+Legend of Chip Sprint 2 Report
+
+What we accomplished: 
+
+	In this sprint 2 assignment, every single member of our group contributed to the assignments. We basically achieved all of the required functionality of every part of the game. So, the player moves and shoots the projectile by keyboard command. 
+	Block and item could be changed by keyboard command. The enemy moved randomly and could shoot some bullets as well. Also, players, enemies, and some items could be animated in this game. 
+	Before we start this project, we assign different parts to different subgroups. Rolina and Mayank focused on the link player, and Evan focused on items and blocks. Xiang focused on the command design and keyboard. 
+	Gary and Jiaqing focused on the enemy. So we work separately first. Then, each sub-group tests the code functionality by themselves. If everything works well, we will use the command to check the command functionality with different stuff. 
+	Finally, we merged everything together as the final version of our project. 
+
+What we need to improve: 
+
+	During the whole project process, I felt the most challenging thing was scheduling a group meeting with all six people. Also, this is the first time most group members have learned to use Github and Visual Studio. 
+	We spent much time learning about the basic functionalities of GitHub and Visual Studio. In order to improve that, we need to require everyone to learn some basic functionalities of Github and Visual Studio individually. 
+	Also, we need to have a clear plan about the task of every single person. Some of the parts could be pre-made individually.  If someone cannot come to the group meeting for personal reasons, they can work on the individual part first. 
+	Then, it will make our group meetings more efficient. Moving forward, we also want to break down each team member’s individual task into smaller tasks, so everyone else has a better idea on what the scope of the task is.
