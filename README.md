@@ -56,5 +56,6 @@
   - Gary Zhu
 * Projectile Classes
   - Rolina Qu
+  - Mayank Karnati
  
   - Code Reflections are in the Sprint2 folder in the Code Reflections and Reviews folder
