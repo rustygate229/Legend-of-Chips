@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-namespace _3902_Project.Content.command.receiver
+namespace _3902_Project
 {
     public class BulletSpriteFactory
     {
