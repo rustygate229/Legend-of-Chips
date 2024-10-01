@@ -1,0 +1,18 @@
+READABILITY & CODE REVIEW 
+AUTHOR: Mayank Karnati
+DATE: 9/30/24
+SPRINT NUMBER: 2
+.cs FILE NAME: EnemySpriteFactory.cs
+CODE AUTHOR: Gary Zhu
+TIME TAKEN: 20 minutes
+
+Readability: : The code is readable. The variables are descriptively named, and they use proper camel case which makes them easy to read as well. The code does not have 
+layers of nesting, so the logic is easy to follow. One thing to improve is the name of the methods. While Rope1 and Rope2 do indicate a difference in the textures, it is 
+impossible to tell which sprite they are corresponding to unless I match it with the spritesheet. Therefore, it would be better if they were named a bit more appropriately with
+their description. 
+
+Code Quality: The code included in this file seems extremely modular. The logic that the methods follow to return the sprite instance is similar; therefore, adding more sprites
+later is a matter of copying previous methods and changing the location on the spritesheet. One thing to change would be to set the framerate as a private member instead of creating a value
+in each method since the framerate is common among all the animations. Another thing to improve is to encapsulate the animation parameters for similar sprites. Rope1() and Rope2() have the same
+values for columns and rows.
+
