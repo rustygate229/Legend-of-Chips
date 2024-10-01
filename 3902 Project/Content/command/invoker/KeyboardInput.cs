@@ -58,6 +58,9 @@ namespace _3902_Project
             keysToCommands.Add(Keys.D1, new CommandLinkSetInventory1(game));
             keysToCommands.Add(Keys.D2, new CommandLinkSetInventory2(game));
             keysToCommands.Add(Keys.D3, new CommandLinkSetInventory3(game));
+            // Mapping keys for cycling through enemy
+            keysToCommands.Add(Keys.O, new CommandEnemyPrev(game));
+            keysToCommands.Add(Keys.P, new CommandEnemyNext(game));
         }
 
         
