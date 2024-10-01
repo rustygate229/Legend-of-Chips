@@ -6,8 +6,8 @@ SPRINT NUMBER: 2
 CODE AUTHOR: Hongxiang Wang
 TIME TAKEN: 25 minutes
 
-Readability: : This part of code has high readability. The variables are named descriptively, making the logic easy to understand, 
-and the use of a dictionary for item management is very efficient. Also, I think there are a lot of switch statements in the Draw() and Update() methods, 
+Readability: : This part of code has high readability. The variables are named descriptively, and the logic easy to understand.
+The use of a dictionary for item management is very efficient. Also, I think there are a lot of switch statements in the Draw() and Update() methods, 
 and this way is not flexible and simple enough. Instead of writing a separate case for each item, Draw() and Update() could be called directly from the items in the dictionary.
 
 Code Quality: This part of code shows good practices of modularity and reusability. The responsibility for item creation is clearly separated from the rest of the logic. 

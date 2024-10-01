@@ -17,6 +17,7 @@ namespace _3902_Project
         internal BlockManager BlockManager { get; private set; }  // Block manager
         internal ItemManager ItemManager { get; private set; }  // Item manager
         internal ProjectileManager ProjectileManager { get; private set; } //projectile manager FOR LINK'S PROJECTILES ONLY
+        internal EnemyManager EnemyManager { get; private set; }
 
         // Input controller
         private IController keyboardController;
@@ -38,6 +39,8 @@ namespace _3902_Project
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             LinkSpriteFactory.Instance.LoadAllTextures(Content);
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
+            BulletSpriteFactory.Instance.LoadAllTextures(Content);
 
 
             // Initialize the block and item manager
@@ -47,6 +50,7 @@ namespace _3902_Project
 
             // Initialize the player and character state
             Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
+            EnemyManager = new EnemyManager(Content, _spriteBatch);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
@@ -55,20 +59,21 @@ namespace _3902_Project
             // Block and Item Texture Loading
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
-            
+            EnemyManager.LoadAllTextures();
         }
 
         protected override void Update(GameTime gameTime)
-        
-            {
-                // TODO: Add your update logic here
-                Player.Update();
-                ItemManager.Update();
+        {
+            // TODO: Add your update logic here
+            Player.Update();
+            ItemManager.Update();
+            EnemyManager.Update();
 
-                ProjectileManager.Update();
 
-                // Update input controls
-                keyboardController.Update();
+            ProjectileManager.Update();
+
+            // Update input controls
+            keyboardController.Update();
 
             // TODO: Add your update logic here (e.g., update player, blocks, etc.)
             base.Update(gameTime);
@@ -76,16 +81,15 @@ namespace _3902_Project
 
         protected override void Draw(GameTime gameTime)
         {
-                GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
-                Player.Draw();
+            Player.Draw();
+            BlockManager.Draw();
+            ItemManager.Draw();
+            EnemyManager.Draw();
+            ProjectileManager.Draw();
 
-                BlockManager.Draw();
-                ItemManager.Draw();
-
-                ProjectileManager.Draw();
-
-                base.Draw(gameTime);
+            base.Draw(gameTime);
         }
 
         public void ResetGame()
