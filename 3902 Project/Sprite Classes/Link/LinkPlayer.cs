@@ -31,6 +31,9 @@ namespace _3902_Project.Link
             y = _linkMovement.getYPosition();
         }
 
+        public double getXPosition() { return x; }
+        public double getYPosition() { return y; }
+
         private bool CannotMove()
         {
             return (_linkStateMachine.getAttackState() == ATTACK.THROW);
