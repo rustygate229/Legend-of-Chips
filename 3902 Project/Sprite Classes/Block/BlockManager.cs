@@ -38,7 +38,7 @@ namespace _3902_Project
             _blocks.Add(1, _factory.CreateStaticBlock_Tile());
             _blocks.Add(2, _factory.CreateStaticBlock_StatueFish());
             _blocks.Add(3, _factory.CreateStaticBlock_KeyholeLockedDoorTopRoom());
-            _blocks.Add(4, _factory.CreateStaticBlock_KeyholeLockedDoorBottomRoom());
+            _blocks.Add(4, _factory.CreateStaticBlock_KeyholeLockedDoorBottomRoom() );
             _blocks.Add(5, _factory.CreateStaticBlock_KeyholeLockedDoorLeftRoom());
             _blocks.Add(6, _factory.CreateStaticBlock_KeyholeLockedDoorRightRoom());
             _blocks.Add(7, _factory.CreateStaticBlock_DiamondLockedDoorLeftRightRoom());

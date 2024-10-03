@@ -1,10 +1,5 @@
 ﻿using System.Collections.Generic;
-using _3902_Project;
 using Microsoft.Xna.Framework.Input;
-using _3902_Project.Content.command;
-using System.Diagnostics;
-using System.Threading;
-using System;
 
 namespace _3902_Project
 {
@@ -14,9 +9,10 @@ namespace _3902_Project
         // Dictionary to map keys to corresponding commands
         private Dictionary<Keys, ICommand> keysToCommands = new Dictionary<Keys, ICommand>();
 
-        // Record last command
-        private ICommand previousCommand = null;
+        // Create a set of previous keys for previous 
+        private HashSet<Keys> _previousKeys = new HashSet<Keys>();
 
+        // use game for inputs
         private Game1 _game;
 
 
@@ -58,16 +54,17 @@ namespace _3902_Project
             keysToCommands.Add(Keys.D1, new CommandLinkSetInventory1(game));
             keysToCommands.Add(Keys.D2, new CommandLinkSetInventory2(game));
             keysToCommands.Add(Keys.D3, new CommandLinkSetInventory3(game));
+
             // Mapping keys for cycling through enemy
             keysToCommands.Add(Keys.O, new CommandEnemyPrev(game));
             keysToCommands.Add(Keys.P, new CommandEnemyNext(game));
         }
 
-        
+
         private bool IsMoveKey(Keys key)
         {
             return key == Keys.W || key == Keys.A || key == Keys.S || key == Keys.D ||
-                   key == Keys.Up || key == Keys.Down || key == Keys.Left || key == Keys.Right || key == Keys.Z;
+                   key == Keys.Up || key == Keys.Down || key == Keys.Left || key == Keys.Right;
         }
 
         // Update method to check keyboard input and execute corresponding commands
@@ -75,37 +72,24 @@ namespace _3902_Project
         {
             //get the keyboard state
             KeyboardState currentKeyboardState = Keyboard.GetState();
-            Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
+            Keys[] currentKeyboardPressed = currentKeyboardState.GetPressedKeys();
+            HashSet<Keys> newPreviousKeys = new HashSet<Keys>();
 
-
-            foreach (Keys key in pressedKeys)
+            // for each key, find if it is either previously pressed or a movement key
+            foreach (Keys key in currentKeyboardPressed)
             {
-                if (keysToCommands.ContainsKey(key))
+                // if key passes check, then execute
+                if (keysToCommands.ContainsKey(key) && (!_previousKeys.Contains(key) || IsMoveKey(key)))
                 {
-                    ICommand currentCommand = keysToCommands[key];
-
-                    //lag only of t and y
-                    if (IsMoveKey(key))
-                    {
-                        currentCommand.Execute();
-                    }
-                    else
-                    {
-                       
-                        if (currentCommand != previousCommand)
-                        {
-                            currentCommand.Execute();
-                            previousCommand = currentCommand;  //update to last command
-                        }
-                    }
+                    ICommand setKeyboardCommand = keysToCommands[key];
+                    setKeyboardCommand.Execute();
                 }
+                // add keys to a new previous
+                newPreviousKeys.Add(key);
             }
 
-            // if no pressed key, reset previousCommand
-            if (pressedKeys.Length == 0)
-            {
-                previousCommand = null;
-            }
+            // set old previous keys = new previous keys
+            _previousKeys = newPreviousKeys;
         }
     }
 }

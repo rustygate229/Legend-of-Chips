@@ -30,9 +30,11 @@
 * Link's attack animation is cut off prematurely when C is released
 * Cannot cycle items or blocks when Link is moving
 
-# Current Tasks Left
+# Some Tasks before Sprint 3
 * Implement:
-  - Add more items and enemies
+  - Add more blocks/items and enemies
+  - Create a boss enemy
+  - Mainstream projectile classes
   - Refactor and add comments and documentation
   - Create renderer class for animations
 
@@ -57,5 +59,4 @@
 * Projectile Classes
   - Rolina Qu
   - Mayank Karnati
- 
-  - Code Reflections are in the Sprint2 folder in the Code Reflections and Reviews folder
+* Code Reviews/Sprint Reflections are in the Sprint2 folder in the Code Reflections and Reviews folder
