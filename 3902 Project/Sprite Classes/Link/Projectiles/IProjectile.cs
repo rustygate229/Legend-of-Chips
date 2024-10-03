@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace Content.Projectiles
