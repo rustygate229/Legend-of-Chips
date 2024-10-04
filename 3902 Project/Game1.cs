@@ -38,7 +38,6 @@ namespace _3902_Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            LinkSpriteFactory.Instance.LoadAllTextures(Content);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             BulletSpriteFactory.Instance.LoadAllTextures(Content);
 

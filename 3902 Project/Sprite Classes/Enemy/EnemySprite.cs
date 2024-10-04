@@ -252,7 +252,7 @@ public class EnemySprite : ISprite
     }
 
     // Draw method with extra parameters (not implemented)
-    public void Draw(SpriteBatch sb, ILinkStateMachine state, double x, double y)
+    public void Draw(SpriteBatch sb, double x, double y)
     {
         throw new NotImplementedException();
     }

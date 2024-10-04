@@ -47,7 +47,7 @@ public class ItemSprite : ISprite
     }
 
     // used for link, apart of ISprite never used in these classes (yet?)
-    public void Draw(SpriteBatch sb, ILinkStateMachine state, double x, double y)
+    public void Draw(SpriteBatch sb, double x, double y)
     {
         throw new System.NotImplementedException();
     }

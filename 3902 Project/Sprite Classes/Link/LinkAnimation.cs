@@ -22,7 +22,7 @@ namespace _3902_Project
         public LinkAnimation(SpriteBatch sb, ContentManager content, ILinkStateMachine state)
 		{
             _spriteBatch = sb;
-            LinkSpriteFactory.Instance.LoadAllTextures(content);
+            LinkSpriteFactory.Instance.LoadAllTextures(content, state);
             _stateMachine = state;
 
             stationaryLink = LinkSpriteFactory.Instance.StationaryLinkSprite();
@@ -42,32 +42,32 @@ namespace _3902_Project
 
         public void AnimAttack(double x, double y)
         {
-            attackingLink.Draw(_spriteBatch, _stateMachine, x, y);
+            attackingLink.Draw(_spriteBatch, x, y);
             currentLink = attackingLink;
 
         }
 
         public void AnimItem(double x, double y)
         {
-            itemLink.Draw(_spriteBatch, _stateMachine, x, y);
+            itemLink.Draw(_spriteBatch, x, y);
             currentLink = itemLink;
         }
 
         public void AnimMoving(double x, double y)
         {
-            walkingLink.Draw(_spriteBatch, _stateMachine, x, y);
+            walkingLink.Draw(_spriteBatch, x, y);
             currentLink = walkingLink;
         }
 
         public void AnimStationary(double x, double y)
         {
-            stationaryLink.Draw(_spriteBatch, _stateMachine, x, y);
+            stationaryLink.Draw(_spriteBatch, x, y);
             currentLink = stationaryLink;
         }
 
         public void AnimDamaged(double x, double y)
         {
-            currentLink.Draw(_spriteBatch, _stateMachine, x, y);
+            currentLink.Draw(_spriteBatch, x, y);
         }
 
         public void Update()

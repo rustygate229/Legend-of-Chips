@@ -66,4 +66,10 @@ public partial class ItemSpriteAnimated : ISprite
         _spritePrintDimensions.Y = yPrintDimension;
         _positionOnWindow = spawnPosition;
     }
+
+
+    public void Draw(SpriteBatch sb, double x, double y)
+    {
+        throw new NotImplementedException();
+    }
 }

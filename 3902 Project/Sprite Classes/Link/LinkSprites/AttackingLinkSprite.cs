@@ -13,9 +13,10 @@ namespace _3902_Project
         private int totalFrames;
         private List<Rectangle> sourceList;
         private float scale;
+        private ILinkStateMachine linkStateMachine;
 
 
-        public AttackingLinkSprite(Texture2D sheet, List<Rectangle> sources, int numFrames, float s)
+        public AttackingLinkSprite(Texture2D sheet, List<Rectangle> sources, int numFrames, float s, ILinkStateMachine state)
         {
             //width and height are size of sprite
             spritesheet = sheet;
@@ -25,6 +26,7 @@ namespace _3902_Project
             totalFrames = numFrames;
             frame = 0;
             sourceList = sources;
+            linkStateMachine = state;
 
             //hard coded values for sheet
             //sourceList[0] = down, 1 = right, 2 = up
@@ -47,7 +49,7 @@ namespace _3902_Project
             //just for interface reasons
         }
 
-        public void Draw(SpriteBatch sb, ILinkStateMachine state, double x, double y)
+        public void Draw(SpriteBatch sb, double x, double y)
         {
             //needs access to state 
             //x and y are passed in by LinkAnimation from LinkMovement
@@ -59,20 +61,21 @@ namespace _3902_Project
 
             //sourceList = down, right, up, order from left to right in spritesheet
 
+            ILinkStateMachine.MOVEMENT direction = linkStateMachine.getMovementState();
 
-            if (state.getMovementState() == MOVEMENT.MDOWN || state.getMovementState() == MOVEMENT.SDOWN)
+            if (direction == MOVEMENT.MDOWN || direction == MOVEMENT.SDOWN)
             {
                 sourceRectangle = sourceList[frame];
             }
-            else if (state.getMovementState() == MOVEMENT.MRIGHT || state.getMovementState() == MOVEMENT.SRIGHT)
+            else if (direction == MOVEMENT.MRIGHT ||direction == MOVEMENT.SRIGHT)
             {
                 sourceRectangle = sourceList[frame + totalFrames];
             }
-            else if (state.getMovementState() == MOVEMENT.MUP || state.getMovementState() == MOVEMENT.SUP)
+            else if (direction == MOVEMENT.MUP || direction == MOVEMENT.SUP)
             {
                 sourceRectangle = sourceList[frame + 2 * totalFrames];
             }
-            else if (state.getMovementState() == MOVEMENT.MLEFT || state.getMovementState() == MOVEMENT.SLEFT)
+            else if (direction == MOVEMENT.MLEFT || direction == MOVEMENT.SLEFT)
             {
                 //reverse flag since spritesheet doesn't have left sprites
                 reverseFlag = true;
@@ -85,14 +88,14 @@ namespace _3902_Project
             }
 
             //destination rectangle dynamically scales with size of sourceRectangle size
-            if (state.getMovementState() == MOVEMENT.MUP || state.getMovementState() == MOVEMENT.SUP)
+            if (direction == MOVEMENT.MUP || direction == MOVEMENT.SUP)
             {
                 //offsets MUP sprites
                 int height = (int)((y) - ((sourceRectangle.Height - 16) * scale));
 
                 destinationRectangle = new Rectangle((int)(x), height, (int)(sourceRectangle.Width * scale), (int)(sourceRectangle.Height * scale));
             }
-            else if (state.getMovementState() == MOVEMENT.MLEFT || state.getMovementState() == MOVEMENT.SLEFT)
+            else if (direction == MOVEMENT.MLEFT || direction == MOVEMENT.SLEFT)
             {
                 int width = (int)(x - (sourceRectangle.Width - 16) * scale);
 
@@ -103,7 +106,7 @@ namespace _3902_Project
                 destinationRectangle = new Rectangle((int)(x), (int)(y), (int)(sourceRectangle.Width * scale), (int)(sourceRectangle.Height * scale));
             }
 
-            if (state.getDamage())
+            if (linkStateMachine.getDamage())
             {
                 tint = Color.Red;
             }

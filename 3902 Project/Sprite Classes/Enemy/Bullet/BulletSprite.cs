@@ -55,7 +55,7 @@ public class BulletSprite : ISprite
     }
 
     // Draw method with extra parameters to support flexible rendering
-    public void Draw(SpriteBatch spriteBatch, ILinkStateMachine state, double x, double y)
+    public void Draw(SpriteBatch spriteBatch, double x, double y)
     {
         throw new System.NotImplementedException();
     }
