@@ -94,6 +94,6 @@ public partial class CreateSprite : ISprite
         _spriteDimensions.Y = yDimension;
         _spritePrintDimensions.X = xPrintDimension;
         _spritePrintDimensions.Y = yPrintDimension;
-        _positionOnWindow = spawnPosition;
+        _positionOnWindow = windowPosition;
     }
 }

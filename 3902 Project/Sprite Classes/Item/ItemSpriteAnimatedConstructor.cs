@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-public partial class ItemSpriteAnimated
+public partial class ItemSpriteAnimated : ISprite
 {
     // texture positioning requirements
     private Texture2D _spriteAnimatedSheet;
