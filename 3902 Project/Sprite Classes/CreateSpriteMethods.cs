@@ -1,16 +1,35 @@
-﻿using _3902_Project;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System;
 
-public partial class ItemSpriteAnimated
+public class CreateSpriteConstructor : ISprite
 {
-    // texture positioning requirements
-    private Texture2D _spriteAnimatedSheet;
+    // NON-ANIMATED SPRITE
+    
+
+    // create variables
+    private Texture2D _spriteSheet;
     private Vector2 _spritePosition;
     private Vector2 _spriteDimensions;
     private Vector2 _spritePrintDimensions;
     private Vector2 _positionOnWindow;
+
+
+    // constructor linking variables
+    public CreateSpriteConstructor(Texture2D spriteSheet, Vector2 spawnPosition, int xSpritePosition, int ySpritePosition, int xDimension, int yDimension, int xPrintDimension, int yPrintDimension)
+    {
+        _spriteSheet = spriteSheet;
+        _spritePosition.X = xSpritePosition;
+        _spritePosition.Y = ySpritePosition;
+        _spriteDimensions.X = xDimension;
+        _spriteDimensions.Y = yDimension;
+        _spritePrintDimensions.X = xPrintDimension;
+        _spritePrintDimensions.Y = yPrintDimension;
+        _positionOnWindow = spawnPosition;
+    }
+
+
+    // ANIMATOR
+
 
     // item animation requirements
     public int _rows;
@@ -26,7 +45,7 @@ public partial class ItemSpriteAnimated
 
 
     // constructor for animated item sprites
-    public ItemSpriteAnimated(Texture2D spriteSheet, Vector2 spawnPosition, int xPosition, int yPosition, int xDimension, int yDimension, int xPrintDimension, int yPrintDimension, int row, int column, int frameRate)
+    public CreateSpriteConstructor(Texture2D spriteSheet, Vector2 spawnPosition, int xPosition, int yPosition, int xDimension, int yDimension, int xPrintDimension, int yPrintDimension, int row, int column, int frameRate)
     {
         // sprite sheet
         _spriteAnimatedSheet = spriteSheet;
