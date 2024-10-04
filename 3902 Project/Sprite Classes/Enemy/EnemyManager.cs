@@ -11,7 +11,7 @@ namespace _3902_Project
         // Enemy inventory
         private Dictionary<int, ISprite> _enemies = new Dictionary<int, ISprite>();
         private int _currentEnemyIndex = 0;
-        private static EnemySpriteFactory _factory = new EnemySpriteFactory();
+        private static EnemySpriteFactory _factory = EnemySpriteFactory.Instance;
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
         

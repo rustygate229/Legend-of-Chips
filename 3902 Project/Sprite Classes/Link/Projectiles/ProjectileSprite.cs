@@ -44,10 +44,5 @@ namespace Content.Projectiles
         {
             throw new NotImplementedException();
         }
-
-        public void Draw(SpriteBatch sb, double x, double y)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -13,7 +13,7 @@ namespace _3902_Project
         private Dictionary<int, ISprite> _items = new Dictionary<int, ISprite>();
 
         // create variables for passing
-        ItemSpriteFactory _factory = new ItemSpriteFactory();
+        private static ItemSpriteFactory _factory = ItemSpriteFactory.Instance;
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
 

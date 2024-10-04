@@ -6,8 +6,8 @@ using static _3902_Project.ILinkStateMachine;
 
 namespace _3902_Project
 {
-	public class LinkSprite : ISprite
-	{
+    public class LinkSprite : ISprite
+    {
         private Texture2D spritesheet;
         private int width;
         private int height;
@@ -15,6 +15,8 @@ namespace _3902_Project
         private int totalFrames;
         private List<Rectangle> sourceList;
         private ILinkStateMachine linkStateMachine;
+        public double x {get; set; }
+        public double y {get; set; }
 
 
         public LinkSprite(Texture2D sheet, List<Rectangle> sources, int numFrames, int w, int h, ILinkStateMachine state)
@@ -27,6 +29,8 @@ namespace _3902_Project
             frame = 0;
             sourceList = sources;
             linkStateMachine = state;
+
+            x = y = 0;
 
             //hard coded values for sheet
             //sourceList[0] = down, 1 = right, 2 = up
@@ -44,12 +48,8 @@ namespace _3902_Project
             }
 
         }
-		public void Draw(SpriteBatch spritebatch)
-        {
-            //just for interface reasons
-        }
 
-		public void Draw(SpriteBatch sb, double x, double y)
+		public void Draw(SpriteBatch sb)
 		{
             //needs access to state 
             //x and y are passed in by LinkAnimation from LinkMovement

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using System;
 using static _3902_Project.ILinkStateMachine;
+using _3902_Project.Link;
 
 namespace _3902_Project
 {
@@ -14,6 +15,8 @@ namespace _3902_Project
         private List<Rectangle> sourceList;
         private float scale;
         private ILinkStateMachine linkStateMachine;
+        public double x { get; set; }
+        public double y { get; set; }
 
 
         public AttackingLinkSprite(Texture2D sheet, List<Rectangle> sources, int numFrames, float s, ILinkStateMachine state)
@@ -27,6 +30,8 @@ namespace _3902_Project
             frame = 0;
             sourceList = sources;
             linkStateMachine = state;
+
+            x = 0; y = 0;
 
             //hard coded values for sheet
             //sourceList[0] = down, 1 = right, 2 = up
@@ -44,12 +49,8 @@ namespace _3902_Project
             }
 
         }
-        public void Draw(SpriteBatch spritebatch)
-        {
-            //just for interface reasons
-        }
 
-        public void Draw(SpriteBatch sb, double x, double y)
+        public void Draw(SpriteBatch sb)
         {
             //needs access to state 
             //x and y are passed in by LinkAnimation from LinkMovement

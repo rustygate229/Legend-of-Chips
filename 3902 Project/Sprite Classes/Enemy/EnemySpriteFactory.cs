@@ -24,7 +24,7 @@ namespace _3902_Project
         }
 
         // Constructor to initialize the factory instance
-        public EnemySpriteFactory()
+        private EnemySpriteFactory()
         {
             EnemySpriteFactory.instance = this;
         }

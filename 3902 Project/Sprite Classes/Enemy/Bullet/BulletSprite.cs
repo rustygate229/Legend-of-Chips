@@ -54,12 +54,6 @@ public class BulletSprite : ISprite
         spriteBatch.End();
     }
 
-    // Draw method with extra parameters to support flexible rendering
-    public void Draw(SpriteBatch spriteBatch, double x, double y)
-    {
-        throw new System.NotImplementedException();
-    }
-
     // Additional method to check if the bullet is off-screen, adjusted for size
     public bool IsOffScreen(int screenWidth, int screenHeight)
     {

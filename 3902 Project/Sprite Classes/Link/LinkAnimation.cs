@@ -42,32 +42,49 @@ namespace _3902_Project
 
         public void AnimAttack(double x, double y)
         {
-            attackingLink.Draw(_spriteBatch, x, y);
+
+            ((AttackingLinkSprite)attackingLink).x = x;
+            ((AttackingLinkSprite)attackingLink).y = y;
+
+
+            attackingLink.Draw(_spriteBatch);
             currentLink = attackingLink;
 
         }
 
         public void AnimItem(double x, double y)
         {
-            itemLink.Draw(_spriteBatch, x, y);
+            ((LinkSprite)itemLink).x = x;
+            ((LinkSprite)itemLink).y = y;
+
+            itemLink.Draw(_spriteBatch);
             currentLink = itemLink;
         }
 
         public void AnimMoving(double x, double y)
         {
-            walkingLink.Draw(_spriteBatch, x, y);
+            ((LinkSprite)walkingLink).x = x;
+            ((LinkSprite)walkingLink).y = y;
+
+            walkingLink.Draw(_spriteBatch);
             currentLink = walkingLink;
         }
 
         public void AnimStationary(double x, double y)
         {
-            stationaryLink.Draw(_spriteBatch, x, y);
+            ((LinkSprite)stationaryLink).x = x;
+            ((LinkSprite)stationaryLink).y = y;
+
+            stationaryLink.Draw(_spriteBatch);
             currentLink = stationaryLink;
         }
 
         public void AnimDamaged(double x, double y)
         {
-            currentLink.Draw(_spriteBatch, x, y);
+            ((LinkSprite)currentLink).x = x;
+            ((LinkSprite)currentLink).y = y;
+
+            currentLink.Draw(_spriteBatch);
         }
 
         public void Update()

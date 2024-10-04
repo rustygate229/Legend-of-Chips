@@ -45,10 +45,4 @@ public class ItemSprite : ISprite
         spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);
         spriteBatch.End();
     }
-
-    // used for link, apart of ISprite never used in these classes (yet?)
-    public void Draw(SpriteBatch sb, double x, double y)
-    {
-        throw new System.NotImplementedException();
-    }
 }

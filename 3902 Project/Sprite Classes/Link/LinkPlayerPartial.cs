@@ -70,7 +70,6 @@ namespace _3902_Project.Link
         }
         public void Draw()
         {
-            _animation.Update();
 
             if (_linkStateMachine.getDamage())
             {

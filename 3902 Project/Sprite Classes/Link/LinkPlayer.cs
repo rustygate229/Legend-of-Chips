@@ -80,6 +80,8 @@ namespace _3902_Project.Link
 
         public void Update()
         {
+            _animation.Update();
+
             x = _linkMovement.getXPosition();
             y = _linkMovement.getYPosition();
 

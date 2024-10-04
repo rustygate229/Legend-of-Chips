@@ -26,7 +26,7 @@ namespace _3902_Project
 
 
         // constructor to call the new instance method and initialize the sprite factory
-        public ItemSpriteFactory()
+        private ItemSpriteFactory()
         {
             ItemSpriteFactory.instance = this;
         }
@@ -102,11 +102,3 @@ namespace _3902_Project
         // ...
     }
 }
-
-/*
-// Client code in main game class' LoadContent method:
-EnemySpriteFactory.Instance.LoadAllTextures(Content);
-
-// Client code in Goomba class:
-ISprite mySprite = EnemySpriteFactory.Instance.CreateBigEnemySprite();
-*/

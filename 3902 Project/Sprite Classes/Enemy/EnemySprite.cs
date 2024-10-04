@@ -250,10 +250,4 @@ public class EnemySprite : ISprite
         spriteBatch.Draw(_spriteAnimatedSheet, destinationRect, sourceRect, Color.White);
         spriteBatch.End();
     }
-
-    // Draw method with extra parameters (not implemented)
-    public void Draw(SpriteBatch sb, double x, double y)
-    {
-        throw new NotImplementedException();
-    }
 }

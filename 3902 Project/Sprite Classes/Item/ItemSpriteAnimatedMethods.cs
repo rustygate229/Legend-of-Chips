@@ -48,11 +48,4 @@ public partial class ItemSpriteAnimated : ISprite
         spriteBatch.Draw(_spriteAnimatedSheet, destinationRectangle, sourceRectangle, Color.White);
         spriteBatch.End();
     }
-
-
-    // used for link, apart of ISprite never used in these classes (yet?)
-    public void Draw(SpriteBatch sb, ILinkStateMachine state, double x, double y)
-    {
-        throw new System.NotImplementedException();
-    }
 }
