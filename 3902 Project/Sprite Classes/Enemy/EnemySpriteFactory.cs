@@ -39,10 +39,10 @@ namespace _3902_Project
             BulletSpriteFactory.Instance.LoadAllTextures(content);
         }
 
-        // Create an instance of Green Monster 1 with shooting capability
+        // Create an instance of Green Monster with shooting capability
         public ISprite GreenMonster1()
         {
-            // Source rectangle for Green Monster 1
+            // Source rectangle for Green Monster
             Rectangle sourceRectangle = new Rectangle(79, 11, 30, 16);
 
             
@@ -66,8 +66,8 @@ namespace _3902_Project
             return enemySprite;
         }
 
-        // Create an instance of Green Monster 2 without shooting capability
-        public ISprite GreenMonster2()
+        // Create an instance of Brown Monster without shooting capability
+        public ISprite BrownMonster2()
         {
             // Source rectangle for Green Monster 2
             Rectangle sourceRectangle = new Rectangle(79, 28, 30, 16);
@@ -91,14 +91,14 @@ namespace _3902_Project
             return enemySprite;
         }
 
-        // Create an instance of Rope1 without shooting capability
-        public ISprite Rope1()
+        // Create an instance of wizzrobe without shooting capability
+        public ISprite wizzrobe()
         {
             // Source rectangle for Rope 1
-            Rectangle sourceRectangle = new Rectangle(127, 107, 66, 16);
+            Rectangle sourceRectangle = new Rectangle(127, 107, 32, 16);
 
             // Animation parameters
-            int columns = 4; 
+            int columns = 2; 
             int rows = 1;
             int frameRate = 30; 
 
@@ -116,14 +116,14 @@ namespace _3902_Project
             return enemySprite;
         }
 
-        // Create an instance of Rope2 without shooting capability
-        public ISprite Rope2()
+        // Create an instance of proto without shooting capability
+        public ISprite Proto()
         {
             // Source rectangle for Rope 2
-            Rectangle sourceRectangle = new Rectangle(198, 90, 66, 16);
+            Rectangle sourceRectangle = new Rectangle(300, 194, 32, 16);
 
             // Animation parameters
-            int columns = 4; 
+            int columns = 2; 
             int rows = 1;
             int frameRate = 30; // No animation
 
