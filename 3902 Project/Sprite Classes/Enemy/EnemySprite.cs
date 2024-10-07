@@ -33,21 +33,19 @@ public class EnemySprite : ISprite
     private List<BulletSprite> bullets;
 
     // Speed and other constants
-    private float velocityx = 2f; // Horizontal speed
-    private float velocityy = 2f; // Vertical speed
+    private float velocityx;
+    private float velocityy;
     private bool canShoot; // Indicates if the enemy can shoot
 
-    // Screen dimensions (update these as per your game's settings)
-    private int screenWidth = 600;  // Example screen width
-    private int screenHeight = 450; // Example screen height
-
+    // Screen dimensions
+    private int screenWidth;
+    private int screenHeight;
 
     private int customSpriteWidth;
     private int customSpriteHeight;
 
     private int spriteWidth;  // Calculated based on source rectangle
     private int spriteHeight; // Calculated based on source rectangle
-
 
     // Static Random instance to prevent repeat random numbers
     private static Random rand = new Random();
@@ -56,13 +54,17 @@ public class EnemySprite : ISprite
     public EnemySprite(Texture2D texture,
         Vector2 initialPosition,
         Rectangle sourceRectangle,
-        int rows, int columns, int frameRate, bool canShoot = false, int customWidth = 50, int customHeight = 50)
+        int rows, int columns, int frameRate, bool canShoot = false, int customWidth = 50, int customHeight = 50, float velocityX = 2f, float velocityY = 2f, int screenWidth = 600, int screenHeight = 450)
     {
         this.position = initialPosition;
         this.bullets = new List<BulletSprite>();
         changeDirectionTimer = 0f;
         shootTimer = 0f;
         this.canShoot = canShoot;
+        this.velocityx = velocityX;
+        this.velocityy = velocityY;
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
 
         // Initialize the animated sprite parameters
         _spriteAnimatedSheet = texture;
@@ -114,6 +116,9 @@ public class EnemySprite : ISprite
         // Update position
         position += velocity;
 
+        // Handle screen boundary collisions
+        (position, velocity) = Collision.BoundaryCollisions(position, velocity, velocityx, velocityy, spriteWidth, spriteHeight, screenWidth, screenHeight);
+
         // Update animation frames
         _framesCounter++;
         if (_framesCounter >= _framesPerSprite)
@@ -125,9 +130,6 @@ public class EnemySprite : ISprite
             }
             _framesCounter = 0;
         }
-
-        // Handle screen boundary collisions
-        (position, velocity) = Collision.BoundaryCollisions(position, velocity, velocityx, velocityy, spriteWidth, spriteHeight, screenWidth, screenHeight);
 
         // Change direction periodically (random horizontal or vertical movement)
         if (changeDirectionTimer >= ChangeDirectionInterval)

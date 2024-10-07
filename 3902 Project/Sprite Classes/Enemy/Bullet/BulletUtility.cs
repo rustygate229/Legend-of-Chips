@@ -31,7 +31,7 @@ public static class BulletUtility
         }
 
         Vector2 bulletPosition = position + new Vector2(spriteWidth / 2, spriteHeight / 2);
-        BulletSprite bullet = BulletSpriteFactory.Instance.FireBall(bulletPosition, bulletVelocity);
+        BulletSprite bullet = (BulletSprite)BulletSpriteFactory.Instance.FireBall(bulletPosition, bulletVelocity);
         bullets.Add(bullet);
     }
 }
