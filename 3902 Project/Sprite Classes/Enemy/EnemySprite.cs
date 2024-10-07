@@ -41,7 +41,7 @@ public class EnemySprite : ISprite
     private int screenWidth = 600;  // Example screen width
     private int screenHeight = 450; // Example screen height
 
-   
+
     private int customSpriteWidth;
     private int customSpriteHeight;
 
@@ -53,10 +53,10 @@ public class EnemySprite : ISprite
     private static Random rand = new Random();
 
     // Constructor with default or custom size
-    public EnemySprite(Texture2D texture, 
-        Vector2 initialPosition, 
-        Rectangle sourceRectangle, 
-        int rows, int columns, int frameRate, bool canShoot = false, int customWidth=48, int customHeight = 48)
+    public EnemySprite(Texture2D texture,
+        Vector2 initialPosition,
+        Rectangle sourceRectangle,
+        int rows, int columns, int frameRate, bool canShoot = false, int customWidth = 50, int customHeight = 50)
     {
         this.position = initialPosition;
         this.bullets = new List<BulletSprite>();
@@ -127,34 +127,7 @@ public class EnemySprite : ISprite
         }
 
         // Handle screen boundary collisions
-
-        // Horizontal boundaries
-        if (position.X < 0)
-        {
-            position.X = 0;
-            velocity.X = Math.Abs(velocityx); // Move right
-            velocity.Y = 0;
-        }
-        else if (position.X + spriteWidth >= screenWidth)
-        {
-            position.X = screenWidth - spriteWidth;
-            velocity.X = -Math.Abs(velocityx); // Move left
-            velocity.Y = 0;
-        }
-
-        // Vertical boundaries
-        if (position.Y < 0)
-        {
-            position.Y = 0;
-            velocity.Y = Math.Abs(velocityy); // Move down
-            velocity.X = 0;
-        }
-        else if (position.Y + spriteHeight >= screenHeight)
-        {
-            position.Y = screenHeight - spriteHeight;
-            velocity.Y = -Math.Abs(velocityy); // Move up
-            velocity.X = 0;
-        }
+        (position, velocity) = Collision.BoundaryCollisions(position, velocity, velocityx, velocityy, spriteWidth, spriteHeight, screenWidth, screenHeight);
 
         // Change direction periodically (random horizontal or vertical movement)
         if (changeDirectionTimer >= ChangeDirectionInterval)
@@ -186,7 +159,7 @@ public class EnemySprite : ISprite
         // Shooting logic (only if the enemy can shoot)
         if (canShoot && shootTimer >= ShootInterval)
         {
-            ShootBullet();
+            BulletUtility.ShootBullet(position, spriteWidth, spriteHeight, bullets, rand);
             shootTimer = 0f; // Reset the timer after shooting
         }
 
@@ -198,20 +171,6 @@ public class EnemySprite : ISprite
 
         // Remove bullets that are off-screen
         bullets.RemoveAll(b => b.IsOffScreen(screenWidth, screenHeight));
-    }
-
-    // Method to handle bullet shooting
-    private void ShootBullet()
-    {
-        // Bullet's initial position and velocity
-        Vector2 bulletVelocity = new Vector2(0, -5f); // Bullets move upwards
-        Vector2 bulletPosition = position + new Vector2(spriteWidth / 2, 0); // Start at the enemy's position
-
-        // Create the bullet using FireBall method
-        BulletSprite bullet = BulletSpriteFactory.Instance.FireBall(bulletPosition, bulletVelocity);
-
-        // Add new bullet to the list of bullets
-        bullets.Add(bullet);
     }
 
     // Draw method with custom size or default size
