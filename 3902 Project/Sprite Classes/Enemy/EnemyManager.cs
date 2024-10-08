@@ -64,7 +64,6 @@ namespace _3902_Project
         public void Update()
         {
             GetCurrentEnemy().Update();
-
         }
     }
 }

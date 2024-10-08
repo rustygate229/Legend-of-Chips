@@ -208,7 +208,7 @@ public class EnemySprite : ISprite
         Vector2 bulletPosition = position + new Vector2(spriteWidth / 2, 0); // Start at the enemy's position
 
         // Create the bullet using FireBall method
-       // BulletSprite bullet = BulletSpriteFactory.Instance.FireBall(bulletPosition, bulletVelocity);
+       //BulletSprite bullet = BulletSpriteFactory.Instance.FireBall(bulletPosition, bulletVelocity);
 
         // Add new bullet to the list of bullets
         //bullets.Add(bullet);
