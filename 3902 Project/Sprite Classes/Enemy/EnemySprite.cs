@@ -41,7 +41,11 @@ public class EnemySprite : ISprite
     public EnemySprite(Texture2D texture,
         Vector2 initialPosition,
         Rectangle sourceRectangle,
-        int rows, int columns, int frameRate, bool canShoot = false, int customWidth = 50, int customHeight = 50, float velocityX = 2f, float velocityY = 2f, int screenWidth = 600, int screenHeight = 450)
+        int rows, int columns,
+        int frameRate, bool canShoot = false,
+        int customWidth = 50, int customHeight = 50, 
+        float velocityX = 2f, float velocityY = 2f, 
+        int screenWidth = 600, int screenHeight = 450)
     {
         this.position = initialPosition;
         this.bullets = new List<BulletSprite>();
