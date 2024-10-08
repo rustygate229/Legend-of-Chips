@@ -95,10 +95,10 @@ namespace _3902_Project
         public ISprite wizzrobe()
         {
             // Source rectangle for Rope 1
-            Rectangle sourceRectangle = new Rectangle(127, 107, 66, 16);
+            Rectangle sourceRectangle = new Rectangle(127, 107, 32, 16);
 
             // Animation parameters
-            int columns = 4; 
+            int columns = 2; 
             int rows = 1;
             int frameRate = 30; 
 
@@ -120,10 +120,10 @@ namespace _3902_Project
         public ISprite Proto()
         {
             // Source rectangle for Rope 2
-            Rectangle sourceRectangle = new Rectangle(198, 90, 66, 16);
+            Rectangle sourceRectangle = new Rectangle(300, 194, 32, 16);
 
             // Animation parameters
-            int columns = 4; 
+            int columns = 2; 
             int rows = 1;
             int frameRate = 30; // No animation
 
