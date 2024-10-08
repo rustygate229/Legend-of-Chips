@@ -1,8 +1,4 @@
 ﻿// CommandMoveDown.cs
-using _3902_Project;
-using System;
-using _3902_Project.Link;
-
 namespace _3902_Project
 {
     public class CommandMoveDown : ICommand

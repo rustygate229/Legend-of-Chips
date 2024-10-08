@@ -1,11 +1,4 @@
-﻿using _3902_Project;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using _3902_Project.Link;
-
+﻿// CommandMoveUp.cs
 namespace _3902_Project
 {
     public class CommandMoveUp : ICommand
