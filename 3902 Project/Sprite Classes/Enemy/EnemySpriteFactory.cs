@@ -92,7 +92,7 @@ namespace _3902_Project
         }
 
         // Create an instance of Rope1 without shooting capability
-        public ISprite Rope1()
+        public ISprite wizzrobe()
         {
             // Source rectangle for Rope 1
             Rectangle sourceRectangle = new Rectangle(127, 107, 66, 16);
@@ -117,7 +117,7 @@ namespace _3902_Project
         }
 
         // Create an instance of Rope2 without shooting capability
-        public ISprite Rope2()
+        public ISprite Proto()
         {
             // Source rectangle for Rope 2
             Rectangle sourceRectangle = new Rectangle(198, 90, 66, 16);
