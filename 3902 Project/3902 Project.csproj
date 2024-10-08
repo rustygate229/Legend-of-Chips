@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
@@ -15,6 +15,14 @@
     <None Remove="Icon.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" />
+    <Compile Include="obj\Debug\net6.0\3902 Project.AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="obj\3902 Project.csproj.nuget.dgspec.json" />
+    <Content Include="obj\project.assets.json" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
     <EmbeddedResource Include="Icon.bmp" />
   </ItemGroup>
@@ -24,7 +32,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GamePlay\WorldMechanics\" />
-    <Folder Include="Sprite Classes\Enemy\" />
+    <Folder Include="obj\Debug\net6.0\refint\" />
+    <Folder Include="obj\Debug\net6.0\ref\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obj\3902 Project.csproj.nuget.g.props" />
+    <None Include="obj\3902 Project.csproj.nuget.g.targets" />
+    <None Include="obj\Debug\net6.0\3902 Project.AssemblyInfoInputs.cache" />
+    <None Include="obj\Debug\net6.0\3902 Project.assets.cache" />
+    <None Include="obj\Debug\net6.0\3902 Project.csproj.AssemblyReference.cache" />
+    <None Include="obj\Debug\net6.0\3902 Project.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="obj\project.nuget.cache" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
