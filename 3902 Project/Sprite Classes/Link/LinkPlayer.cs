@@ -6,28 +6,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Content.Projectiles;
+using static _3902_Project.ILinkStateMachine;
 
 namespace _3902_Project.Link
 {
-    public class LinkPlayer
+    public partial class LinkPlayer
     {
-
         IAnimation _animation;
         ILinkMovement _linkMovement;
         ILinkStateMachine _linkStateMachine;
+        ProjectileManager _projectileManager;
 
         double x, y;
-        public LinkPlayer(SpriteBatch sb, ContentManager content)
+        public LinkPlayer(SpriteBatch sb, ContentManager content, ProjectileManager projectileManager)
         {
             _linkMovement = new LinkMovement();
             _linkStateMachine = new LinkStateMachine();
-
             _animation = new LinkAnimation(sb, content, _linkStateMachine);
+
+            _projectileManager = projectileManager;
+
+            x = _linkMovement.getXPosition();
+            y = _linkMovement.getYPosition();
         }
+
+        public double getXPosition() { return x; }
+        public double getYPosition() { return y; }
 
         private bool CannotMove()
         {
-            return (_linkStateMachine.getAttackState() == (int)LinkStateMachine.ATTACK.THROW);
+            return (_linkStateMachine.getAttackState() == ATTACK.THROW);
         }
 
         private bool IsMovementKeysPressed()
@@ -47,107 +56,38 @@ namespace _3902_Project.Link
         private bool IsAttackKeysPressed()
         {
             KeyboardState keyboard = Keyboard.GetState();
-
-            return keyboard.IsKeyDown(Keys.Z) || keyboard.IsKeyDown(Keys.C);
+            return keyboard.IsKeyDown(Keys.Z) || keyboard.IsKeyDown(Keys.N) || keyboard.IsKeyDown(Keys.C);
         }
 
-        public void MoveUp()
+        private bool IsDamagedKeysPressed()
         {
-            if (CannotMove()) { return; }
-            _linkStateMachine.changeStateMovingUp();
-            _linkMovement.moveUp();           
+            KeyboardState keyboard = Keyboard.GetState();
+            return keyboard.IsKeyDown(Keys.E);
         }
 
-        public void MoveDown()
-        {
-            if (CannotMove()) { return; }
-            _linkStateMachine.changeStateMovingDown();   
-            _linkMovement.moveDown();
-        }
-
-        public void MoveLeft()
-        {
-            if (CannotMove()) { return; }
-            _linkStateMachine.changeStateMovingLeft();
-            _linkMovement.moveLeft();
-        }
-
-        public void MoveRight()
-        {
-            if (CannotMove()) { return; }
-            _linkStateMachine.changeStateMovingRight();
-            _linkMovement.moveRight();
-        }
-
-        public void StayStill()
-        {
-            switch (_linkStateMachine.getMovementState())
-            {
-                case (int)LinkStateMachine.MOVEMENT.MUP:
-                    _linkStateMachine.changeStateStillUp(); break;
-                case (int)LinkStateMachine.MOVEMENT.MLEFT:
-                    _linkStateMachine.changeStateStillLeft(); break;
-                case (int)LinkStateMachine.MOVEMENT.MRIGHT:
-                    _linkStateMachine.changeStateStillRight(); break;
-                case (int)LinkStateMachine.MOVEMENT.MDOWN:
-                    _linkStateMachine.changeStateStillDown(); break;
-            }
-        }
-
-        public void Attack()
-        {
-            _linkStateMachine.setMelee();
-        }
-
+        public void Attack() { _linkStateMachine.setMelee(); }
         public void Throw() { 
             _linkStateMachine.setThrow();
+            FireProjectile();
         }
+        public void StopAttack() { _linkStateMachine.stopAttack(); }
+        public void StopDamage() { _linkStateMachine.stopDamage(); }
+        public void flipDamaged() { _linkStateMachine.setDamage(); }
 
-        public void StopAttack()
-        {
-            _linkStateMachine.stopAttack();
-        }
+        public void changeToItem1() { _linkStateMachine.setInventory1(); }
+        public void changeToItem2() { _linkStateMachine.setInventory2(); }
+        public void changeToItem3() { _linkStateMachine.setInventory3(); }
 
         public void Update()
         {
+            _animation.Update();
+
             x = _linkMovement.getXPosition();
             y = _linkMovement.getYPosition();
 
+            if (!IsDamagedKeysPressed()) { StopDamage(); }
             if (!IsMovementKeysPressed()) { StayStill(); }
             if (!IsAttackKeysPressed()) { StopAttack(); }
-        }
-
-        public void Draw()
-        {
-            _animation.Update();
-
-            switch (_linkStateMachine.getAttackState())
-            {
-                case (int)LinkStateMachine.ATTACK.MELEE:
-                    _animation.AnimAttack(x, y); return;
-                case (int)LinkStateMachine.ATTACK.THROW:
-                    _animation.AnimItem(x, y); return;
-
-                default: break;
-            }
-
-            switch (_linkStateMachine.getMovementState())
-            {
-                case (int)LinkStateMachine.MOVEMENT.MUP:
-                case (int)LinkStateMachine.MOVEMENT.MDOWN:
-                case (int)LinkStateMachine.MOVEMENT.MLEFT:
-                case (int)LinkStateMachine.MOVEMENT.MRIGHT:
-                    _animation.AnimMoving(x, y); break;
-
-                case (int)LinkStateMachine.MOVEMENT.SUP:
-                case (int)LinkStateMachine.MOVEMENT.SDOWN:
-                case (int)LinkStateMachine.MOVEMENT.SLEFT:
-                case (int)LinkStateMachine.MOVEMENT.SRIGHT:
-                    _animation.AnimStationary(x, y); break;
-
-                default:
-                    break;
-            }
         }
     }
 }

@@ -2,48 +2,49 @@
 
 # How to Run
 * Player Controls:
-  - W/UP ARROW: Link Move Up
-  - S/DOWN ARROW: Link Move Down
-  - A/LEFT ARROW: Link Move Left
-  - D/RIGHT ARROW: Link Move Right
-  - Z/N: Link Melee/Sword Attack
-  - C: Link Range Attack
-  - 1,2,3...: NOT IMPLEMENTED
-  - E: NOT IMPLEMENTED
+  - W/UP ARROW: Link Moves Up
+  - S/DOWN ARROW: Link Moves Down
+  - A/LEFT ARROW: Link Moves Left
+  - D/RIGHT ARROW: Link Moves Right
+  - Z: Link Melee/Sword Attack
+  - 1,2, 3: Selects Blue Arrow, Blue Boomerang, and Bomb 
+  - N: Uses selected item
+  - E: Link takes damage
 * Block/Obstacle Controls
-  - T: Cycle to Previous Block in List
-  - Y: Cycle to Next Block in List
+  - T: Cycles Previous Block in List
+  - Y: Cycles Next Block in List
 * Item Controls
-  - U: Cycle to Previous Item in List
-  - I: Cycle to Next Item in List
+  - U: Cycles Previous Item in List
+  - I: Cycles Next Item in List
 * Enemy/NPC Controls
-  - O: NOT IMPLEMENTED
-  - P: NOT IMPLEMENTED
+  - O: Cycles Previous Enemy in List
+  - P: Cycles Next Enemy in List
 * Other
   - Q: Quit/Close Program
-  - RL NOT IMPLEMENTED
+  - R: Resets Program
 
-# Current Bugs
-* Keyboard transitions too fast, need to account in delay
-* Having trouble with Enemy, so it's removed
+# Known Bugs
+* Link moves faster moving diagonally than moving horizontally or vertically
+* Link cannot attack more than once while holding down a movement key
+* Holding U and Y at the same time cycles through both blocks and items very quickly
+* Link's attack animation is cut off prematurely when C is released
+* Cannot cycle items or blocks when Link is moving
 
-# Current Task Left
+# Some Tasks before Sprint 3
 * Implement:
-  - O: Cycle to Previous Enemy Sprite in List
-  - P: Cycle to Next Enemy Sprite in List
-  - R: Reset Program to Original State
-  - 1,2,3...: Link's Swapping Different Items/Weapons
-  - E: Cycle Link's Sprite to Damaged Variants
-  - Animate/Add more Items and Enemies
-  - Refactor, Add Comments, and Combine everyone's code neatly
+  - Add more blocks/items and enemies
+  - Create a boss enemy
+  - Mainstream projectile classes
+  - Refactor and add comments and documentation
+  - Create renderer class for animations
 
-# Credits (so far)
+# Credits
 * Sprites
   - https://www.spriters-resource.com/nes/legendofzelda/
   - Sprite Editor: Rolina Qu
-* Command and Interfaces
+* Command and Keyboard Interfaces
   - Hongxiang Wang
-* Link/Player Classes
+* Link/Player Movement and Sprite Animations
   - Mayank Karnati
   - Rolina Qu
 * Block Classes
@@ -54,3 +55,8 @@
   - Gary Zhu
 * Enemy Classes
   - Jiaqing Guan
+  - Gary Zhu
+* Projectile Classes
+  - Rolina Qu
+  - Mayank Karnati
+* Code Reviews/Sprint Reflections are in the Sprint2 folder in the Code Reflections and Reviews folder

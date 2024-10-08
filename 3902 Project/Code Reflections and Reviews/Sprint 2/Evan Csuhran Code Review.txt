@@ -1,0 +1,23 @@
+# CODE REVIEW
+* AUTHOR: EVAN CSUHRAN
+* DATE: 9/30/24
+* SPRINT #2
+* FILE NAME: KeyBoardController.cs and ICommand/Command Classes
+* FILE AUTHOR: HONGXIANG WANG
+
+# READABILITY:
+* All code is well-laid out in the ICommand inherited methods and serves a distinct purpose to be used in later sprints.
+* As for KeyboardController.cs, it is well laid out/commented on.
+
+# CODE QUALITY:
+* Great technique when implementing the ICommand design, with it being in content, under a commands folder, and generally clear comments on
+all of the command's purpose(s).
+* As for KeyboardController.cs, it uses all the commands well (also that all commands link and work 
+properly to certain classes - NOT all classes, however, mainly Link() stuff).
+* There are some bugs with how our Queue is currently set up, but they seem small (hopefully).
+
+# FEELINGS ABOUT SPRINT:
+* Feeling pretty good about our code so far, it can be better. Enemy classes are definitely our weak point, but
+we also need to work on refactoring/moving code to more accesible classes (for example, we could have one global animation 
+class, since itemAnimatedSprite can be used on almost any sprite, I think).
+* We will also have to have a "World.cs", where we link all functionalities together, to help unify the code.

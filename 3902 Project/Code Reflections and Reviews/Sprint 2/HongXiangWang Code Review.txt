@@ -1,0 +1,19 @@
+READABILITY & CODE REVIEW 
+AUTHOR: HongxiangWang
+DATE: 9/30/24
+SPRINT NUMBER: 2
+.cs FILE NAME: BulletSprite.cs
+CODE AUTHOR: JiaqingGuan
+TIME TAKEN: 20 minutes
+
+Readability: The naming in your code is clear and consistent, all the comments are helpful, but a little more explannation could make
+it clearer. The constructor provides a clear idea of what’s needed to create a BulletSprite, and including default values like 
+size = 20 is a great touch! 
+
+
+Code Quality: Overal, the code quality is good, showing clear structure and excellent focus on simplicity. All the method are well-defined
+and logic are also easy to follow. Also, The use of overload Draw method is a good approach since it will be adaptable for future needs.
+Overall, your approach makes the code robust while maintaining readability and efficiency.
+
+
+Some advice: Remove the unused Draw() method or add a comment explaining its future use.

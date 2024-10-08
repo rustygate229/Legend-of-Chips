@@ -1,5 +1,6 @@
-﻿// CommandEnemyNext.cs
+﻿// CommandBlockNext.cs
 using _3902_Project;
+using _3902_Project.Content.command.receiver;
 
 namespace _3902_Project
 {
@@ -14,7 +15,7 @@ namespace _3902_Project
 
         public void Execute()
         {
-            _enemyManager.CycleNextEnemy();  // Call the method to cycle to the next enemy
+            _enemyManager.CyclePreviousEnemy();  // Call the method to cycle to the previous enemy
         }
     }
 }

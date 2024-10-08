@@ -9,33 +9,29 @@ namespace _3902_Project
     public class EnemyManager
     {
         // Enemy inventory
-        private List<string> _enemies = new List<string>();
+        private Dictionary<int, ISprite> _enemies = new Dictionary<int, ISprite>();
         private int _currentEnemyIndex = 0;
-        EnemySpriteFactory _factory = new EnemySpriteFactory();
+        private static EnemySpriteFactory _factory = EnemySpriteFactory.Instance;
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
-
-        // Constructor
-        public EnemyManager(ContentManager contentManager, SpriteBatch spriteBatch)
+        
+        public EnemyManager(ContentManager c, SpriteBatch spriteBatch)
         {
-            _contentManager = contentManager;
+            _contentManager = c;
             _spriteBatch = spriteBatch;
-
-            // Example enemies
-            _enemies.Add("Octorok");
-            _enemies.Add("Moblin");
-            _enemies.Add("Goriya");
-            _enemies.Add("Stalfos");
-            _enemies.Add("Keese");
-            _enemies.Add("Darknut");
-            _enemies.Add("Wizzrobe");
-            _enemies.Add("Lynel");
         }
 
+
+        
         // Load all enemy textures
         public void LoadAllTextures()
         {
             _factory.LoadAllTextures(_contentManager);
+
+            _enemies.Add(0, _factory.GreenMonster1());
+            _enemies.Add(1, _factory.GreenMonster2());
+            _enemies.Add(2, _factory.Rope1());
+            _enemies.Add(3, _factory.Rope2());
         }
 
         // Cycle to the next enemy
@@ -53,7 +49,7 @@ namespace _3902_Project
         }
 
         // Get current enemy
-        public string GetCurrentEnemy()
+        public ISprite GetCurrentEnemy()
         {
             return _enemies[_currentEnemyIndex];
         }
@@ -61,27 +57,14 @@ namespace _3902_Project
         // Draw the current enemy
         public void Draw()
         {
-            switch (GetCurrentEnemy())
-            {
-                case "Octorok":
-                    _factory.CreateOctorok().Draw(_spriteBatch); break;
-                case "Moblin":
-                    _factory.CreateMoblin().Draw(_spriteBatch); break;
-                case "Goriya":
-                    _factory.CreateGoriya().Draw(_spriteBatch); break;
-                case "Stalfos":
-                    _factory.CreateStalfos().Draw(_spriteBatch); break;
-                case "Keese":
-                    _factory.CreateKeese().Draw(_spriteBatch); break;
-                case "Darknut":
-                    _factory.CreateDarknut().Draw(_spriteBatch); break;
-                case "Wizzrobe":
-                    _factory.CreateWizzrobe().Draw(_spriteBatch); break;
-                case "Lynel":
-                    _factory.CreateLynel().Draw(_spriteBatch); break;
-                default:
-                    break;
-            }
+            GetCurrentEnemy().Draw(_spriteBatch);
+           
+        }
+
+        public void Update()
+        {
+            GetCurrentEnemy().Update();
+
         }
     }
 }

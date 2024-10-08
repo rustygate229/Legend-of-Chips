@@ -2,20 +2,24 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using System;
+using static _3902_Project.ILinkStateMachine;
 
 namespace _3902_Project
 {
-	public class LinkSprite : ISprite
-	{
+    public class LinkSprite : ISprite
+    {
         private Texture2D spritesheet;
         private int width;
         private int height;
         private int frame;
         private int totalFrames;
         private List<Rectangle> sourceList;
+        private ILinkStateMachine linkStateMachine;
+        public double x {get; set; }
+        public double y {get; set; }
 
 
-        public LinkSprite(Texture2D sheet, List<Rectangle> sources, int numFrames, int w, int h)
+        public LinkSprite(Texture2D sheet, List<Rectangle> sources, int numFrames, int w, int h, ILinkStateMachine state)
         {
             //width and height are size of sprite
             spritesheet = sheet;
@@ -24,6 +28,9 @@ namespace _3902_Project
             totalFrames = numFrames;
             frame = 0;
             sourceList = sources;
+            linkStateMachine = state;
+
+            x = y = 0;
 
             //hard coded values for sheet
             //sourceList[0] = down, 1 = right, 2 = up
@@ -41,12 +48,8 @@ namespace _3902_Project
             }
 
         }
-		public void Draw(SpriteBatch spritebatch)
-        {
-            //just for interface reasons
-        }
 
-		public void Draw(SpriteBatch sb, ILinkStateMachine state, double x, double y)
+		public void Draw(SpriteBatch sb)
 		{
             //needs access to state 
             //x and y are passed in by LinkAnimation from LinkMovement
@@ -54,24 +57,26 @@ namespace _3902_Project
             Rectangle sourceRectangle;
             Color tint = Color.White;
 
-            Boolean reverseFlag = false; 
+            Boolean reverseFlag = false;
 
             //sourceList = down, right, up, order from left to right in spritesheet
 
 
-            if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MDOWN || state.getMovementState() == (int)LinkStateMachine.MOVEMENT.SDOWN)
+            ILinkStateMachine.MOVEMENT direction = linkStateMachine.getMovementState();
+
+            if (direction == MOVEMENT.MDOWN || direction == MOVEMENT.SDOWN)
             {
                 sourceRectangle = sourceList[frame];
             }
-            else if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MRIGHT || state.getMovementState() == (int)LinkStateMachine.MOVEMENT.SRIGHT) 
+            else if (direction == MOVEMENT.MRIGHT || direction == MOVEMENT.SRIGHT)
             {
                 sourceRectangle = sourceList[frame + totalFrames];
             }
-            else if (state.getMovementState() == (int)LinkStateMachine.MOVEMENT.MUP || state.getMovementState() == (int)LinkStateMachine.MOVEMENT.SUP)
+            else if (direction == MOVEMENT.MUP || direction == MOVEMENT.SUP)
             {
                 sourceRectangle = sourceList[frame + 2 * totalFrames];
             }
-            else if (state.getMovementState() == (int) LinkStateMachine.MOVEMENT.MLEFT || state.getMovementState() == (int)LinkStateMachine.MOVEMENT.SLEFT) 
+            else if (direction == MOVEMENT.MLEFT || direction == MOVEMENT.SLEFT)
             {
                 //reverse flag since spritesheet doesn't have left sprites
                 reverseFlag = true;
@@ -84,7 +89,7 @@ namespace _3902_Project
             }
 
 
-            if(state.getDamage()) 
+            if (linkStateMachine.getDamage()) 
             {
                 //System.Diagnostics.Debug.WriteLine("tint changed in LinkSprite");
                 tint = Color.Red;

@@ -1,0 +1,19 @@
+Legend of Chip Sprint 2 Reflection
+
+What we accomplished: 
+
+	In this sprint 2 assignment, every member of our group contributed to the assignments. We successfully achieved all of the required functionality of every part of the game. Link moves with the correct animation and can attack 
+	and use items. Block and item animated correctly and cycled with the T and Y keys. The enemy moved randomly and shot bullets as well, and could be cycled with the O and P keys.
+	Before we started this project, we assigned different features to different members. Rolina and Mayank worked on the Link player and animation logic, and Evan focused on items and blocks. Xiang worked 
+	on the command design and keyboard inputs, and Gary and Jiaqing worked on the enemy. Then, each sub-group tested the code functionality by themselves and used pull requests to merge each feature onto the master branch.  Finally, 
+	we merged everything together into the final version of our project. 
+
+What we need to improve: 
+
+	Over the course of the project, one of the major problems we had was how to divide the work evenly, since everyone’s features are somewhat interdependent. We had several problems with interface naming or 
+	different design ideas, and there were some disagreements on how to integrate these features cohesively. Our primary solution was for everyone to meet in-person at the library so we could discuss these issues and 
+	work together to fix them, since we could get direct and immediate feedback and explanation from the person implementing the feature we were working with. Also, this is the first time most group members have used Github 
+	and Visual Studio. As a result, we were forced to spend some time learning about the basic functionalities of GitHub and Visual Studio, which resulted in some difficulty down the line due to problems like merge conflicts, difficulty 
+	managing branches, and file namespaces. Also, we need to have a clear plan about the task of every single person. Some of the parts could be pre-made individually.  If someone cannot come to the group meeting for personal reasons, 
+	they can work on the individual part first. Then, it will make our group meetings more efficient. Moving forward, we also want to break down each team member’s individual task into smaller tasks, so everyone else has a better
+	idea on what the scope of the task is and how to implement it.

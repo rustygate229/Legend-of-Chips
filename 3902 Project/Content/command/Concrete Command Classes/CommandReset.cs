@@ -17,6 +17,8 @@ namespace _3902_Project
         public void Execute()
         {
             // TASK: Implement a new state that carries original loadup
+            _game.ResetElapsedTime();
+            _game.ResetGame();
         }
     }
 }
