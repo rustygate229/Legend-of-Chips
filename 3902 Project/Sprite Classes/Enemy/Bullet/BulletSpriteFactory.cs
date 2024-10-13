@@ -46,10 +46,10 @@ namespace _3902_Project
         // create static block sprites
         public ISprite FireBall(Vector2 position, Vector2 velocity)
         {
-            int x = 351;
-            int y = 60;
-            int width = 17;
-            int height = 14;
+            int x = 240;      
+            int y = 62;
+            int width = 9;
+            int height = 10;
 
             Rectangle sourceRectangle = new Rectangle(x, y, width, height);
 

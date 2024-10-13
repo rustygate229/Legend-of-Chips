@@ -1,6 +1,7 @@
 ﻿using _3902_Project;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 public class BulletSprite : ISprite
 {
@@ -21,6 +22,10 @@ public class BulletSprite : ISprite
 
     private int customSpriteWidth;
     private int customSpriteHeight;
+    private int x;
+    private int y;
+    private int width;
+    private int height;
 
 
     // Constructor to initialize the bullet with texture, position, velocity, source rectangle, and size
@@ -48,8 +53,13 @@ public class BulletSprite : ISprite
         this.columns = columns;
         this.spriteDimensions = new Vector2(width * columns, height * rows);
         this.spritePosition = new Vector2(x, y);
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
 
-        currentFrame = 0;
+        currentFrame = 1;
+        framesPerSprite = 2;
 
     }
 
@@ -58,16 +68,18 @@ public class BulletSprite : ISprite
     {
         // Updating the bullet's position based on velocity
         position += velocity;
-        framesCounter++;
-        if (framesCounter >= framesPerSprite)
+        this.framesCounter++;
+
+        //this.sourceRectangle = new Rectangle(x + currentFrame * 8, y, width, height);
+
+        if (this.framesCounter >= 10)
         {
-            currentFrame++;
-            if (currentFrame >= totalFrames)
-            {
-                currentFrame = 0;
-            }
-            framesCounter = 0;
+            Random random = new Random();
+            currentFrame = random.Next(0, 2); // 0 和 1
+
+            this.framesCounter = 0;
         }
+        this.spritePosition = new Vector2(240 + currentFrame * 8, y);
     }
 
     // Basic Draw method to render the bullet at its current position with default size
