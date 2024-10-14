@@ -14,7 +14,7 @@ namespace _3902_Project
         private BlockManager _blockManager;
         private int _level;
 
-        List<List<string>> _environment;
+        public List<List<string>> _environment;
 
         public EnvironmentFactory(BlockManager block) 
         {
@@ -65,7 +65,8 @@ namespace _3902_Project
 
         public void loadLevel()
         {
-            _environment = ReadCsvFile("Content/Levels/Level" + _level.ToString() + ".csv");
+            string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Levels/Level" + _level.ToString() + ".csv";
+            _environment = ReadCsvFile(filepath);
         }
 
         public void setLevel(int level)
