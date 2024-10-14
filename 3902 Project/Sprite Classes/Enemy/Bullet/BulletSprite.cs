@@ -75,7 +75,7 @@ public class BulletSprite : ISprite
         if (this.framesCounter >= 10)
         {
             Random random = new Random();
-            currentFrame = random.Next(0, 2); // 0 和 1
+            currentFrame = random.Next(0, 2); // 0 and 1
 
             this.framesCounter = 0;
         }
