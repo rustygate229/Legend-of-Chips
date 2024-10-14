@@ -18,6 +18,7 @@ namespace _3902_Project
         internal ItemManager ItemManager { get; private set; }  // Item manager
         internal ProjectileManager ProjectileManager { get; private set; } //projectile manager FOR LINK'S PROJECTILES ONLY
         internal EnemyManager EnemyManager { get; private set; }
+        internal EnvironmentFactory EnvironmentFactory { get; private set; }
 
         // Input controller
         private IController keyboardController;
@@ -51,6 +52,8 @@ namespace _3902_Project
             Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
             EnemyManager = new EnemyManager(Content, _spriteBatch);
 
+            EnvironmentFactory = new EnvironmentFactory(BlockManager);
+
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
 
@@ -59,6 +62,8 @@ namespace _3902_Project
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
             EnemyManager.LoadAllTextures();
+
+            EnvironmentFactory.loadLevel();
         }
 
         protected override void Update(GameTime gameTime)

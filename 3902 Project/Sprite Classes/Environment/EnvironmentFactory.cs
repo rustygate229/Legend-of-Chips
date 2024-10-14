@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.IO;
+using Microsoft.Xna.Framework;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,10 +14,33 @@ namespace _3902_Project
         private BlockManager _blockManager;
         private int _level;
 
+        List<List<string>> _environment;
+
         public EnvironmentFactory(BlockManager block) 
         {
             _blockManager = block;
             _level = 0;
+        }
+
+        private List<List<string>> ReadCsvFile(string filePath)
+        {
+            var matrix = new List<List<string>>();
+
+            // Use StreamReader to read the file
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    // Split each line by commas (or other delimiter)
+                    var values = line.Split(',');
+
+                    // Add the row (as a list of strings) to the matrix
+                    matrix.Add(new List<string>(values));
+                }
+            }
+
+            return matrix;
         }
 
         public void Draw()
@@ -24,7 +48,7 @@ namespace _3902_Project
             throw new NotImplementedException();
         }
 
-        public ArraySegment<Rectangle> getCollidables()
+        public List<Rectangle> getCollidables()
         {
             throw new NotImplementedException();
         }
@@ -41,7 +65,7 @@ namespace _3902_Project
 
         public void loadLevel()
         {
-            throw new NotImplementedException();
+            _environment = ReadCsvFile("Content/Levels/Level" + _level.ToString() + ".csv");
         }
 
         public void setLevel(int level)

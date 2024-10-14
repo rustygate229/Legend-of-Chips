@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+using Microsoft.Xna.Framework;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -14,7 +14,7 @@ namespace _3902_Project
         void setLevel(int level);
         int getLevel();
         void loadLevel();
-        ArraySegment<Rectangle> getCollidables();
+        List<Rectangle> getCollidables();
         void Draw();
         Rectangle getDimensions();
     }
