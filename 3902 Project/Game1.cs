@@ -1,5 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace _3902_Project
 {
@@ -15,6 +18,7 @@ namespace _3902_Project
         internal ItemManager ItemManager { get; private set; }  // Item manager
         internal ProjectileManager ProjectileManager { get; private set; } //projectile manager FOR LINK'S PROJECTILES ONLY
         internal EnemyManager EnemyManager { get; private set; }
+        internal EnvironmentFactory EnvironmentFactory { get; private set; }
 
         // Input controller
         private IController keyboardController;
@@ -48,6 +52,8 @@ namespace _3902_Project
             Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
             EnemyManager = new EnemyManager(Content, _spriteBatch);
 
+            EnvironmentFactory = new EnvironmentFactory(BlockManager);
+
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
 
@@ -56,6 +62,8 @@ namespace _3902_Project
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
             EnemyManager.LoadAllTextures();
+
+            EnvironmentFactory.loadLevel();
         }
 
         protected override void Update(GameTime gameTime)
@@ -64,10 +72,7 @@ namespace _3902_Project
             Player.Update();
             ItemManager.Update();
             EnemyManager.Update();
-
-
             ProjectileManager.Update();
-
             // Update input controls
             keyboardController.Update();
 
@@ -77,11 +82,9 @@ namespace _3902_Project
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             Player.Draw();
-            BlockManager.Draw();
-            ItemManager.Draw();
             EnemyManager.Draw();
             ProjectileManager.Draw();
 
