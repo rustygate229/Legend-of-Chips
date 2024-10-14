@@ -42,14 +42,6 @@ namespace _3902_Project
             keysToCommands.Add(Keys.Q, new CommandQuit(game));
             keysToCommands.Add(Keys.R, new CommandReset(game));
 
-            // Mapping keys for cycling through items and blocks
-            keysToCommands.Add(Keys.U, new CommandNextItem(game));
-            keysToCommands.Add(Keys.I, new CommandPrevItem(game));
-
-            // Mapping keys for cycling through blocks
-            keysToCommands.Add(Keys.T, new CommandBlockPrev(game));
-            keysToCommands.Add(Keys.Y, new CommandBlockNext(game));
-
             // Mapping keys for moving through the inventory
             keysToCommands.Add(Keys.D1, new CommandLinkSetInventory1(game));
             keysToCommands.Add(Keys.D2, new CommandLinkSetInventory2(game));

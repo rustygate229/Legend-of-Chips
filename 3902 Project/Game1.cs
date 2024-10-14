@@ -67,10 +67,7 @@ namespace _3902_Project
             Player.Update();
             ItemManager.Update();
             EnemyManager.Update();
-
-
             ProjectileManager.Update();
-
             // Update input controls
             keyboardController.Update();
 
@@ -80,11 +77,9 @@ namespace _3902_Project
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             Player.Draw();
-            BlockManager.Draw();
-            ItemManager.Draw();
             EnemyManager.Draw();
             ProjectileManager.Draw();
 
