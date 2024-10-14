@@ -1,8 +1,4 @@
-﻿
-using _3902_Project;
-
-using System;
-
+﻿// CommandQuit.cs
 namespace _3902_Project
 {
     public class CommandQuit : ICommand

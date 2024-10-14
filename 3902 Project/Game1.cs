@@ -1,8 +1,5 @@
-﻿using _3902_Project.Link;
-using Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace _3902_Project
 {

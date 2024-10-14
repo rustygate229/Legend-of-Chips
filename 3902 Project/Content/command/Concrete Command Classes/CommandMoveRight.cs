@@ -1,7 +1,4 @@
 ﻿// CommandMoveRight.cs
-using _3902_Project;
-using _3902_Project.Link;
-
 namespace _3902_Project
 {
     public class CommandMoveRight : ICommand

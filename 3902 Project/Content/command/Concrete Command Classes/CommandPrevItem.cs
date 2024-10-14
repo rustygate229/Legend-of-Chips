@@ -1,6 +1,4 @@
 ﻿// CommandPrevItem.cs
-using _3902_Project;
-
 namespace _3902_Project
 {
     public class CommandPrevItem : ICommand
