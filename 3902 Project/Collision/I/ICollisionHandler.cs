@@ -11,6 +11,7 @@ namespace Collision.I
 
     public interface ICollisionHandler
     {
+        //PlayerCollisionHandler, EnemyCollisionHandler, BlockCollisionHandler, ItemCollisionHandler
         void HandleCollision(IGameObject objectA, IGameObject objectB, CollisionType side);
     }
 }

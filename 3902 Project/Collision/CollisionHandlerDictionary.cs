@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 namespace _3902_Project;
 
     public class CollisionHandlerDictionary
+    //rename to CollisionHandlerManager
 {
+
+    //in charge of actually calling the different handlers 
+
     private Dictionary<(Type, Type), Action<IGameObject, IGameObject, CollisionType>> _handlers;
 
     public CollisionHandlerDictionary()
