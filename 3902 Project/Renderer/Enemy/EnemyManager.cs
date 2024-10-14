@@ -28,8 +28,8 @@ namespace _3902_Project
 
             _enemies.Add(0, _factory.GreenMonster1());
             _enemies.Add(1, _factory.GreenMonster2());
-            _enemies.Add(2, _factory.Rope1());
-            _enemies.Add(3, _factory.Rope2());
+            _enemies.Add(2, _factory.Wizzrobe());
+            _enemies.Add(3, _factory.Proto());
         }
 
         // Cycle to the next enemy

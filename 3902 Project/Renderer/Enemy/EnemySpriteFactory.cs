@@ -92,13 +92,13 @@ namespace _3902_Project
         }
 
         // Create an instance of Rope1 without shooting capability
-        public ISprite Rope1()
+        public ISprite Wizzrobe()
         {
             // Source rectangle for Rope 1
-            Rectangle sourceRectangle = new Rectangle(127, 107, 66, 16);
+            Rectangle sourceRectangle = new Rectangle(127, 107, 32, 16);
 
             // Animation parameters
-            int columns = 4; 
+            int columns = 2; 
             int rows = 1;
             int frameRate = 30; 
 
@@ -117,13 +117,13 @@ namespace _3902_Project
         }
 
         // Create an instance of Rope2 without shooting capability
-        public ISprite Rope2()
+        public ISprite Proto()
         {
             // Source rectangle for Rope 2
-            Rectangle sourceRectangle = new Rectangle(198, 90, 66, 16);
+            Rectangle sourceRectangle = new Rectangle(300, 194, 32, 16);
 
             // Animation parameters
-            int columns = 4; 
+            int columns = 2; 
             int rows = 1;
             int frameRate = 30; // No animation
 

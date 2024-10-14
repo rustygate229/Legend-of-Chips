@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
+
 namespace _3902_Project
 {
     public class BulletSpriteFactory
@@ -34,7 +35,7 @@ namespace _3902_Project
         // load all textures/spritesheet
         public void LoadAllTextures(ContentManager content)
         {
-            _bulletSpritesheet = content.Load<Texture2D>("Miscellaneous_Spritesheet_transparent");
+            _bulletSpritesheet = content.Load<Texture2D>("Dungeon_Enemies_Spritesheet_transparent");
         }
         public Texture2D GetFireBallTexture()
         {
@@ -43,9 +44,39 @@ namespace _3902_Project
         }
 
         // create static block sprites
-        public BulletSprite FireBall(Vector2 position, Vector2 velocity)
+        public ISprite FireBall(Vector2 position, Vector2 velocity)
         {
-            return new BulletSprite(_bulletSpritesheet, position, velocity, 113, 14, 8, 10);
+            int x = 240;      
+            int y = 62;
+            int width = 9;
+            int height = 10;
+
+            Rectangle sourceRectangle = new Rectangle(x, y, width, height);
+
+
+            // Animation parameters
+            int columns = 2;
+            int rows = 1;
+            int frameRate = 30;
+            int size = 20;
+
+            // Create the enemy sprite without shooting capability
+            ISprite BulletSprite = new BulletSprite(
+            _bulletSpritesheet,
+            position,
+            velocity,
+            rows,
+            columns,
+            x,
+            y,
+            frameRate,
+            width,
+            height,
+            sourceRectangle,
+            size
+            );
+
+            return BulletSprite;
         }
     }
 }
