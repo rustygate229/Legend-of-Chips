@@ -27,7 +27,7 @@ namespace _3902_Project
         }
 
 
-        // load all textures relating to items
+        // load all textures relating to items.
         public void LoadAllTextures()
         {
             // loading sprite sheet
