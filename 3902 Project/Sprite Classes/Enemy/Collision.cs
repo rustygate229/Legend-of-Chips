@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
-public static class Collision
+public static class CollisionBoundary
 {
     public static (Vector2 position, Vector2 velocity) BoundaryCollisions(Vector2 position, Vector2 velocity, float velocityx, float velocityy, int spriteWidth, int spriteHeight, int screenWidth, int screenHeight)
     {

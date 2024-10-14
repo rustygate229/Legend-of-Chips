@@ -94,7 +94,7 @@ public class EnemySprite : ISprite
         position += velocity;
 
         // Handle screen boundary collisions
-        (position, velocity) = Collision.BoundaryCollisions(position, velocity, velocityx, velocityy, customSpriteWidth, customSpriteHeight, screenWidth, screenHeight);
+        (position, velocity) = CollisionBoundary.BoundaryCollisions(position, velocity, velocityx, velocityy, customSpriteWidth, customSpriteHeight, screenWidth, screenHeight);
 
         // Update animation frames
         animation.Update();
