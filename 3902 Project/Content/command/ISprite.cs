@@ -1,7 +1,6 @@
-﻿using _3902_Project;
+﻿// create interface necessities for ISprite
 using Microsoft.Xna.Framework.Graphics;
 
-// create interface necessities for ISprite
 public interface ISprite
 {
 

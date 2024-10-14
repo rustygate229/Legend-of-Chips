@@ -1,8 +1,4 @@
 ﻿// CommandReset.cs
-using _3902_Project;
-using Microsoft.Xna.Framework.Media;
-using System;
-
 namespace _3902_Project
 {
     public class CommandReset : ICommand

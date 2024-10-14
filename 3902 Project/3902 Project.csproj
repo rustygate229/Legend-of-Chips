@@ -11,6 +11,11 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="GamePlay\**" />
+    <EmbeddedResource Remove="GamePlay\**" />
+    <None Remove="GamePlay\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
   </ItemGroup>
@@ -31,7 +36,6 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GamePlay\WorldMechanics\" />
     <Folder Include="obj\Debug\net6.0\refint\" />
     <Folder Include="obj\Debug\net6.0\ref\" />
   </ItemGroup>

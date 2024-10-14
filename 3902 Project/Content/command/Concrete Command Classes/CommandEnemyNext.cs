@@ -1,7 +1,4 @@
 ﻿// CommandBlockNext.cs
-using _3902_Project;
-using _3902_Project.Content.command.receiver;
-
 namespace _3902_Project
 {
     public class CommandEnemyNext : ICommand
