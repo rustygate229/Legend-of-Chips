@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _3902_Project
 {
-    public class EnemySpriteFactory
+    public class OldEnemySpriteFactory
     {
         // Enemy spritesheet
         private Texture2D _enemySpritesheet;
@@ -13,9 +13,9 @@ namespace _3902_Project
         private Vector2 _initialPosition = new Vector2(20, 100);
 
         // Create a singleton instance of EnemySpriteFactory
-        private static EnemySpriteFactory instance = new EnemySpriteFactory();
+        private static OldEnemySpriteFactory instance = new OldEnemySpriteFactory();
 
-        public static EnemySpriteFactory Instance
+        public static OldEnemySpriteFactory Instance
         {
             get
             {
@@ -24,9 +24,9 @@ namespace _3902_Project
         }
 
         // Constructor to initialize the factory instance
-        private EnemySpriteFactory()
+        private OldEnemySpriteFactory()
         {
-            EnemySpriteFactory.instance = this;
+            OldEnemySpriteFactory.instance = this;
         }
 
         // Load all necessary textures (both enemy sprites and bullet textures for shooters)

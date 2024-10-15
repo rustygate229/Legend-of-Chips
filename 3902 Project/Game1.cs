@@ -36,23 +36,19 @@ namespace _3902_Project
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
-            BulletSpriteFactory.Instance.LoadAllTextures(Content);
 
 
-            // Initialize the block and item manager
+            // initialize all managers
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
-            ProjectileManager = new ProjectileManager(Content, _spriteBatch);
-
-            // Initialize the player and character state
-            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
             EnemyManager = new EnemyManager(Content, _spriteBatch);
+            ProjectileManager = new ProjectileManager(Content, _spriteBatch);
+            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
 
-            // TODO: use this.Content to load your game content here
-            // Block and Item Texture Loading
+            // load all textures
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
             EnemyManager.LoadAllTextures();
@@ -64,8 +60,6 @@ namespace _3902_Project
             Player.Update();
             ItemManager.Update();
             EnemyManager.Update();
-
-
             ProjectileManager.Update();
 
             // Update input controls

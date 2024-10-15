@@ -7,7 +7,8 @@ namespace _3902_Project
     public class Renderer : ISprite
     {
         // animation status
-        private bool _isAnimated;
+        public enum _status { Still, Animated, SingleAnimated };
+        private int _statusNumber = 0;
 
 
         // NON-ANIMATED SPRITE
@@ -22,10 +23,10 @@ namespace _3902_Project
 
 
         // constructor linking variables
-        public Renderer(bool IsAnimated, Texture2D spriteSheet, Vector2 spawnPosition, int xSpritePosition, int ySpritePosition, int xDimension, int yDimension, int xPrintDimension, int yPrintDimension)
+        public Renderer(Renderer._status status, Texture2D spriteSheet, Vector2 spawnPosition, int xSpritePosition, int ySpritePosition, int xDimension, int yDimension, int xPrintDimension, int yPrintDimension)
         {
             // set animated state and import spritesheet
-            _isAnimated = IsAnimated;
+            _statusNumber = (int)status;
             _spriteSheet = spriteSheet;
 
             // set all positions
@@ -56,17 +57,20 @@ namespace _3902_Project
 
 
         // constructor for animated item sprites
-        public Renderer(bool IsAnimated, Texture2D spriteSheet, Vector2 windowPosition, int xPosition, int yPosition, int xDimension, int yDimension, int xPrintDimension, int yPrintDimension, int row, int column, int frameRate)
+        public Renderer(Renderer._status status, Texture2D spriteSheet, Vector2 windowPosition, int xPosition, int yPosition, int xDimension, int yDimension, int xPrintDimension, int yPrintDimension, int row, int column, int frameRate)
         {
             // set animated state and import spritesheet
-            _isAnimated = IsAnimated;
+            _statusNumber = (int)status;
             _spriteSheet = spriteSheet;
 
             // rows/columns stuff for sprite animation
             _rows = row;
             _columns = column;
             _currentFrame = 0;
-            _totalFrames = _rows * _columns;
+            if (_rows * _columns == 1)
+                _totalFrames = 2;
+            else
+                _totalFrames = _rows * _columns;
 
             // get the total amount of sprite shifts in animation
             _frameTotalSpriteShift = 0;
@@ -102,7 +106,7 @@ namespace _3902_Project
         // count/reset frames and sprite levels (levels meaning at what stage of animation)
         public void Update()
         {
-            if (_isAnimated)
+            if (_statusNumber > 0)
             {
                 // logic for creating a framerate
                 if (_framesCounter < _framesPerSprite)
@@ -138,21 +142,26 @@ namespace _3902_Project
             Rectangle sourceRectangle = new Rectangle();
             Rectangle destinationRectangle = new Rectangle((int)_positionOnWindow.X - ((int)_spritePrintDimensions.X / 2), (int)_positionOnWindow.Y - ((int)_spritePrintDimensions.Y / 2), (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y);
 
-            if (_isAnimated)
+            switch (_statusNumber)
             {
-                // logic for seperating sprites into columns/rows to animate
-                width = (int)_spriteDimensions.X / _columns;
-                height = (int)_spriteDimensions.Y / _rows;
-                row = _currentFrame / _columns;
-                column = _currentFrame % _columns;
+                case 0: // Still Sprite
+                    sourceRectangle = new Rectangle((int)_spritePosition.X, (int)_spritePosition.Y, (int)_spriteDimensions.X, (int)_spriteDimensions.Y);
+                    break;
+                case 1: // Animated Sprite
+                    width = (int)_spriteDimensions.X / _columns;
+                    height = (int)_spriteDimensions.Y / _rows;
+                    row = _currentFrame / _columns;
+                    column = _currentFrame % _columns;
 
-                // create a sourceRectangle for animated sprites
-                sourceRectangle = new Rectangle((width * column) + (int)_spritePosition.X, (height * row) + (int)_spritePosition.Y, width, height);
-            }
-            else
-            {
-                // create a source rectangle for non-animated sprites
-                sourceRectangle = new Rectangle((int)_spritePosition.X, (int)_spritePosition.Y, (int)_spriteDimensions.X, (int)_spriteDimensions.Y);
+                    // create a sourceRectangle for animated sprites
+                    sourceRectangle = new Rectangle((width * column) + (int)_spritePosition.X, (height * row) + (int)_spritePosition.Y, width, height);
+                    break;
+                case 2:
+                    if (_currentFrame == 0)
+                        sourceRectangle = new Rectangle((int)_spritePosition.X, (int)_spritePosition.Y, (int)_spriteDimensions.X, (int)_spriteDimensions.Y);
+                    else
+                        sourceRectangle = new Rectangle((int)_spritePosition.X + (int)_spriteDimensions.X, (int)_spritePosition.Y, -(int)_spriteDimensions.X, (int)_spriteDimensions.Y);
+                    break;
             }
 
             // draw the area contained by the sourceRectangle to the destinationRectangle
