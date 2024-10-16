@@ -1,7 +1,9 @@
-﻿namespace _3902_Project
+﻿using Collision.Handlers;
+
+namespace _3902_Project
 {
 
-public interface ICollisionHandler
+    public interface ICollisionHandler
 {
         //PlayerCollisionHandler, EnemyCollisionHandler, BlockCollisionHandler, ItemCollisionHandler
         void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side);

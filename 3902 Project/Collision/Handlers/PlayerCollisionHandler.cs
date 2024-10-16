@@ -2,6 +2,7 @@
 using _3902_Project;
 using Microsoft.Xna.Framework;
 using _3902_Project.Link;
+using Collision.Handlers;
 
 public class CollisionData
 {

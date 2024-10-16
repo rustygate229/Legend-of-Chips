@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using _3902_Project;
 
-namespace _3902_Project;
+namespace Collision.Handlers;
 
-    public class CollisionHandlerManager
-    //rename to CollisionHandlerManager
+public class CollisionHandlerManager
+//rename to CollisionHandlerManager
 {
 
     //in charge of actually calling the different handlers 
@@ -51,5 +52,5 @@ namespace _3902_Project;
 
 public enum CollisionType
 {
-NONE, LEFT, RIGHT, TOP, BOTTOM
+    NONE, LEFT, RIGHT, TOP, BOTTOM
 }
