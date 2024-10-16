@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using _3902_Project;
 using Microsoft.Xna.Framework;
+using _3902_Project.Link;
 
 public class CollisionData
 {
@@ -87,16 +88,16 @@ public class PlayerMoveCommand : ICollisionCommand
     {
         switch (_side)
         {
-            case CollisionType.Left:
+            case CollisionType.LEFT:
                 _player.MoveRight();
                 break;
-            case CollisionType.Right:
+            case CollisionType.RIGHT:
                 _player.MoveLeft();
                 break;
-            case CollisionType.Top:
+            case CollisionType.TOP:
                 _player.MoveDown();
                 break;
-            case CollisionType.Bottom:
+            case CollisionType.BOTTOM:
                 _player.MoveUp();
                 break;
         }
