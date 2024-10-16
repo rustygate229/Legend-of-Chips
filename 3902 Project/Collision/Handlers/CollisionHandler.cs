@@ -6,34 +6,34 @@ using System;
 
 namespace _3902_Project;
 
-    public class CollisionHandler : ICollisionHandler
+public class CollisionHandler : ICollisionHandler
+{
+    // Method to handle collisions using CollisionHandlerDictionary
+    public void HandleCollision(IGameObject objectA, IGameObject objectB)
     {
-        public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
-        {
-            if (objectB is BlockCollisionBox)
-            {
-                // Prevent player from moving through the block
-                if (objectA is LinkCollisionBox player)
-                {
-                    switch (side)
-                    {
-                        case CollisionType.Left:
-                            //player.SetPosition(player.Bounds.Right, player.Bounds.Y);
-                            break;
-                        case CollisionType.Right:
-                            //player.SetPosition(player.Bounds.Left - player.Bounds.Width, player.Bounds.Y);
-                            break;
-                        case CollisionType.Top:
-                            //player.SetPosition(player.Bounds.X, player.Bounds.Bottom);
-                            break;
-                        case CollisionType.Bottom:
-                            //player.SetPosition(player.Bounds.X, player.Bounds.Top - player.Bounds.Height);
-                            break;
-                    }
-                }
-            }
-        }
-}
+        // Create a collisionBoxes list to store collidable objects
+        var collisionBoxes = new List<ICollisionBox>();
 
+        // Check if the objects are collidable and add to the list
+        if (objectA.IsCollidable && objectB.IsCollidable)
+        {
+            collisionBoxes.Add((ICollisionBox)objectA);
+            collisionBoxes.Add((ICollisionBox)objectB);
+        }
+
+        // Create an instance of CollisionHandlerDictionary to manage different collision cases
+        var collisionHandlerDictionary = new CollisionHandlerDictionary();
+
+        // Get the key representing the types of the two colliding objects
+        var key = (objectA.GetType(), objectB.GetType());
+
+        // Check if the dictionary contains a handler for the specific collision types
+        if (collisionHandlerDictionary.ContainsKey(key))
+        {
+            // Invoke the collision handler if it exists in the dictionary
+            collisionHandlerDictionary[key].Invoke(objectA, objectB);
+        }
+    }
+}
 
 

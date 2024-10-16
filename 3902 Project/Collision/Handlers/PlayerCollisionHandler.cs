@@ -22,28 +22,15 @@ public class CollisionDetector
                 var objectB = gameObjects[j];
                 if (objectA.Bounds.Intersects(objectB.Bounds))
                 {
-                    CollisionType side = DetermineCollisionSide(objectA, objectB);
-                    collisions.Add(new CollisionData { ObjectA = objectA, ObjectB = objectB, CollisionSide = side });
+                    collisions.Add(new CollisionData { ObjectA = objectA, ObjectB = objectB });
                 }
             }
         }
         return collisions;
     }
 
-    private CollisionType DetermineCollisionSide(ICollisionBox objectA, ICollisionBox objectB)
-    {
-        // Determine collision side based on positions and overlap areas
-        Rectangle intersection = Rectangle.Intersect(objectA.Bounds, objectB.Bounds);
-        if (intersection.Width >= intersection.Height)
-        {
-            return objectA.Bounds.Top < objectB.Bounds.Top ? CollisionType.Bottom : CollisionType.Top;
-        }
-        else
-        {
-            return objectA.Bounds.Left < objectB.Bounds.Left ? CollisionType.Right : CollisionType.Left;
-        }
-    }
-}
+   
+
 
 public class PlayerCollisionHandler : ICollisionHandler
 {
