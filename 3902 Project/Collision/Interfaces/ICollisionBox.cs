@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+
+namespace _3902_Project;
+public interface ICollisionBox
+{
+    //GamePlayer, GameEnemy, GameItem, GameBlock implements ICollisionBox
+    //Rectangle Bounds { get; set; }
+
+    Rectangle Bounds
+    {
+        get;
+        set;
+
+    }
+
+    bool IsCollidable
+    {
+        get;
+        set;
+
+    }
+    
+    
+    //void HandleCollisions(List<ICollisionBox> gameObjects);
+    //void OnCollision(CollisionType collisionType, ICollisionBox otherObject);
+
+
+}
+
+
+

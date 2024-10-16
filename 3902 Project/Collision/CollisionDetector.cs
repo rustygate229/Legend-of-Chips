@@ -1,14 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
-using Collision.I;
+using _3902_Project;
 
 namespace _3902_Project
 {
 
     public class CollisionDetector : ICollisionDetector
     {
-        public bool DetectCollision(IGameObject objectA, IGameObject objectB)
+        public bool DetectCollision(ICollisionBox objectA, ICollisionBox objectB)
         {
             return objectA.Bounds.Intersects(objectB.Bounds);
         }

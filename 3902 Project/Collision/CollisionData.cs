@@ -8,8 +8,8 @@ namespace _3902_Project
 {
     public class CollisionData
     {
-        public IGameObject ObjectA { get; set; }
-        public IGameObject ObjectB { get; set; }
+        public ICollisionBox ObjectA { get; set; }
+        public ICollisionBox ObjectB { get; set; }
         public CollisionType CollisionSide { get; set; }
     }
 }
