@@ -4,28 +4,29 @@ using Microsoft.Xna.Framework;
 
 public class EnemyCollisionHandler
 {
-    public EnemyCollisionHandler()
+    EnemyManager _enemyManager;
+    public EnemyCollisionHandler(EnemyManager enemyManager)
     {
-       
+        _enemyManager = enemyManager;
     }
 
-    public void HandleCollision(Enemy objectA, BlockCollisionBox objectB, CollisionType side)
+    public void HandleCollision(EnemyCollisionBox objectA, BlockCollisionBox objectB, CollisionType side)
     {
         //assuming some eventual generalized enemy and block class - will likely have to code some case for
         //each individual class
 
         switch (side)
         {
-            case CollisionType.Left:
+            case CollisionType.LEFT:
                 //moves enemy to the left
                 break;
-            case CollisionType.Right:
+            case CollisionType.RIGHT:
                 //moves enemy to the right
                 break;
-            case CollisionType.Top:
+            case CollisionType.TOP:
                 //moves enemy to the top
                 break;
-            case CollisionType.Bottom:
+            case CollisionType.BOTTOM:
                 //moves enemy down
                 break;
             default:

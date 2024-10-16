@@ -66,10 +66,12 @@ namespace _3902_Project.Link
         }
 
         public void Attack() { _linkStateMachine.setMelee(); }
-        public void Throw() { 
+        public void Throw() {
             _linkStateMachine.setThrow();
             FireProjectile();
         }
+
+
         public void StopAttack() { _linkStateMachine.stopAttack(); }
         public void StopDamage() { _linkStateMachine.stopDamage(); }
         public void flipDamaged() { _linkStateMachine.setDamage(); }
@@ -89,5 +91,16 @@ namespace _3902_Project.Link
             if (!IsMovementKeysPressed()) { StayStill(); }
             if (!IsAttackKeysPressed()) { StopAttack(); }
         }
+
+        public ILinkStateMachine.MOVEMENT getState()
+        {
+            return _linkStateMachine.getMovementState();
+        }
+
+        public ILinkStateMachine.ATTACK getAttack()
+        {
+            return _linkStateMachine.getAttackState();
+        }
+
     }
 }
