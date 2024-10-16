@@ -66,7 +66,7 @@ namespace _3902_Project
         // draw the enemy
         public void Draw(SpriteBatch spriteBatch)
         {
-            _enemy.Draw(spriteBatch);
+            _enemy.Draw(spriteBatch, _position);
         }
     }
 }

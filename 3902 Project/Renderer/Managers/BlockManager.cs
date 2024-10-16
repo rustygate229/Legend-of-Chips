@@ -1,16 +1,17 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 namespace _3902_Project
 {
     public class BlockManager
     {
-        // current selected block
-        private int _currentBlockIndex = 0;
+        // out of bound vector that will never affect environment loading
+        private Vector2 _brokenPosition = new Vector2(-1000, -1000);
 
         // block dictionary/inventory
-        private Dictionary<int, ISprite> _blocks = new Dictionary<int, ISprite>();
+        private Dictionary<ISprite, Vector2> _blocks = new Dictionary<ISprite, Vector2>();
 
         // create variables for passing
         private BlockSpriteFactory _factory = new BlockSpriteFactory();
@@ -33,50 +34,55 @@ namespace _3902_Project
             _factory.LoadAllTextures(_contentManager);
 
             // loading still block sprites
-            _blocks.Add(0, _factory.CreateStillBlock_Stairs());
-            _blocks.Add(1, _factory.CreateStillBlock_Tile());
-            _blocks.Add(2, _factory.CreateStillBlock_StatueFish());
-            _blocks.Add(3, _factory.CreateStillBlock_KeyholeLockedDoorTopRoom());
-            _blocks.Add(4, _factory.CreateStillBlock_KeyholeLockedDoorBottomRoom() );
-            _blocks.Add(5, _factory.CreateStillBlock_KeyholeLockedDoorLeftRoom());
-            _blocks.Add(6, _factory.CreateStillBlock_KeyholeLockedDoorRightRoom());
-            _blocks.Add(7, _factory.CreateStillBlock_DiamondLockedDoorLeftRightRoom());
-            _blocks.Add(8, _factory.CreateStillBlock_DiamondLockedDoorTopBottomRoom());
-            _blocks.Add(9, _factory.CreateStillBlock_Square());
-            _blocks.Add(10, _factory.CreateStillBlock_StatueDragon());
-            _blocks.Add(11, _factory.CreateStillBlock_Dirt());
-            _blocks.Add(12, _factory.CreateStillBlock_WhiteBrick());
-            _blocks.Add(13, _factory.CreateStillBlock_WhiteTile());
+            _blocks.Add(_factory.CreateStillBlock_Stairs(), _brokenPosition);
+            _blocks.Add(_factory.CreateStillBlock_Tile(), _brokenPosition);
+            _blocks.Add(_factory.CreateStillBlock_StatueFish(), _brokenPosition);
+            _blocks.Add(_factory.CreateStillBlock_Square(), _brokenPosition);
+            _blocks.Add(_factory.CreateStillBlock_StatueDragon(), _brokenPosition);
+            _blocks.Add(_factory.CreateStillBlock_Dirt(), _brokenPosition);
+            _blocks.Add(_factory.CreateStillBlock_WhiteBrick(), _brokenPosition);
+            _blocks.Add(_factory.CreateStillBlock_WhiteTile(), _brokenPosition);
         }
 
-
-        // draw the block ABOVE the current selected block
-        public void CycleNextBlock()
+        private void ReplaceDictValue(ISprite Key, Vector2 newValue)
         {
-            _currentBlockIndex = (_currentBlockIndex + 1) % _blocks.Count;
-            Draw();
+            _blocks.Remove(Key);
+            _blocks.Add(Key, newValue);
         }
 
+        public void PlaceStillBlock_Stairs(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillBlock_Stairs(), placementPosition); }
+        public void PlaceStillBlock_Tile(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillBlock_Tile(), placementPosition); }
+        public void PlaceStillBlock_StatueFish(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillBlock_StatueFish(), placementPosition); }
+        public void PlaceStillBlock_Square(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillBlock_Square(), placementPosition); }
+        public void PlaceStillBlock_StatueDragon(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillBlock_StatueDragon(), placementPosition); }
+        public void PlaceStillBlock_Dirt(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillBlock_Dirt(), placementPosition); }
+        public void PlaceStillBlock_WhiteBrick(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillBlock_WhiteBrick(), placementPosition); }
+        public void PlaceStillBlock_WhiteTile(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillBlock_WhiteTile(), placementPosition); }
 
-        // draw the block BELOW the current selected block
-        public void CyclePreviousBlock()
-        {
-            _currentBlockIndex = (_currentBlockIndex - 1 + _blocks.Count) % _blocks.Count;
-            Draw();
-        }
-
-      
-        // get current block sprite
-        public ISprite GetCurrentBlock()
-        {
-            return _blocks.GetValueOrDefault(_currentBlockIndex);
-        }
 
 
         // draw block sprite based on current selected block
         public void Draw()
         {
-            GetCurrentBlock().Draw(_spriteBatch);
+            foreach (var block in _blocks)
+            {
+                if (!block.Value.Equals(_brokenPosition))
+                {
+                    block.Key.Draw(_spriteBatch, block.Value);
+                }
+            }
+        }
+
+        // update used for each of the animated sprites
+        public void Update()
+        {
+            foreach (var block in _blocks)
+            {
+                if (!block.Value.Equals(_brokenPosition))
+                {
+                    block.Key.Update();
+                }
+            }
         }
     }
 }

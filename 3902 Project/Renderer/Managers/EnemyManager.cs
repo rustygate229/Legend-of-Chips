@@ -1,68 +1,78 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 namespace _3902_Project
 {
     public class EnemyManager
     {
-        // Enemy inventory
-        private Dictionary<int, ISprite> _enemies = new Dictionary<int, ISprite>();
-        private int _currentEnemyIndex = 0;
-        private static EnemySpriteFactory _factory = EnemySpriteFactory.Instance;
+        // out of bound vector that will never affect environment loading
+        private Vector2 _brokenPosition = new Vector2(-1000, -1000);
+
+        // item dictionary/inventory
+        private Dictionary<ISprite, Vector2> _enemies = new Dictionary<ISprite, Vector2>();
+
+        // create variables for passing
+        private EnemySpriteFactory _factory = EnemySpriteFactory.Instance;
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
-        
-        public EnemyManager(ContentManager c, SpriteBatch spriteBatch)
+
+
+        // constructor
+        public EnemyManager(ContentManager contentManager, SpriteBatch spriteBatch)
         {
-            _contentManager = c;
+            _contentManager = contentManager;
             _spriteBatch = spriteBatch;
         }
 
 
-        
         // Load all enemy textures
         public void LoadAllTextures()
         {
             _factory.LoadAllTextures(_contentManager);
 
-            _enemies.Add(0, _factory.CreateHolsteringEnemy_GreenSlime());
-            _enemies.Add(1, _factory.CreateHolsteringEnemy_BrownSlime());
-            _enemies.Add(2, _factory.CreateHolsteringEnemy_Wizzrope());
-            _enemies.Add(3, _factory.CreateHolsteringEnemy_Proto());
+            _enemies.Add(_factory.CreateHolsteringEnemy_GreenSlime(), _brokenPosition);
+            _enemies.Add(_factory.CreateHolsteringEnemy_BrownSlime(), _brokenPosition);
+            _enemies.Add(_factory.CreateHolsteringEnemy_Wizzrope(), _brokenPosition);
+            _enemies.Add(_factory.CreateHolsteringEnemy_Proto(), _brokenPosition);
         }
 
-        // Cycle to the next enemy
-        public void CycleNextEnemy()
+
+        private void ReplaceDictValue(ISprite Key, Vector2 newValue)
         {
-            _currentEnemyIndex = (_currentEnemyIndex + 1) % _enemies.Count;
-            Draw();
+            _enemies.Remove(Key);
+            _enemies.Add(Key, newValue);
         }
 
-        // Cycle to the previous enemy
-        public void CyclePreviousEnemy()
-        {
-            _currentEnemyIndex = (_currentEnemyIndex - 1 + _enemies.Count) % _enemies.Count;
-            Draw();
-        }
+        public void PlaceHolsteringEnemy_GreenSlime(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateHolsteringEnemy_GreenSlime(), placementPosition); }
+        public void PlaceHolsteringEnemy_BrownSlime(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateHolsteringEnemy_BrownSlime(), placementPosition); }
+        public void PlaceHolsteringEnemy_Wizzrope(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateHolsteringEnemy_Wizzrope(), placementPosition); }
+        public void PlaceHolsteringEnemy_Proto(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateHolsteringEnemy_Proto(), placementPosition); }
 
-        // Get current enemy
-        public ISprite GetCurrentEnemy()
-        {
-            return _enemies[_currentEnemyIndex];
-        }
+
 
         // Draw the current enemy
         public void Draw()
         {
-            GetCurrentEnemy().Draw(_spriteBatch);
-           
+            foreach (var enemy in _enemies)
+            {
+                if (!enemy.Value.Equals(_brokenPosition))
+                {
+                    enemy.Key.Draw(_spriteBatch, enemy.Value);
+                }
+            }
         }
 
         public void Update()
         {
-            GetCurrentEnemy().Update();
-
+            foreach (var enemy in _enemies)
+            {
+                if (!enemy.Value.Equals(_brokenPosition))
+                {
+                    enemy.Key.Update();
+                }
+            }
         }
     }
 }

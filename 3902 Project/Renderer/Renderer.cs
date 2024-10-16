@@ -129,8 +129,10 @@ namespace _3902_Project
 
 
         // draw the animated sprites
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Vector2 updatedPosition)
         {
+            // update position based on new given position
+            _positionOnWindow = updatedPosition;
 
             // logic for seperating sprites into columns/rows to animate
             int width, height, row, column;
