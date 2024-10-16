@@ -24,6 +24,12 @@ public interface ICollisionBox
         set;
 
     }
+
+    int Health
+        { get; set; }
+
+    int Damage
+        { get; set; }
     
     
     //void HandleCollisions(List<ICollisionBox> gameObjects);

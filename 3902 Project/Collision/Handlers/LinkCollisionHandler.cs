@@ -31,6 +31,7 @@ public class LinkCollisionHandler : ICollisionHandler
                 if ((move == ILinkStateMachine.MOVEMENT.SUP || move == ILinkStateMachine.MOVEMENT.MUP) && side == CollisionType.TOP)
                 {
                     //link is attacking in the right direction, deal damage to enemy
+                    //deal damage is missing 
 
                 }
                 else if ((move == ILinkStateMachine.MOVEMENT.SDOWN || move == ILinkStateMachine.MOVEMENT.MDOWN) && side == CollisionType.BOTTOM)
@@ -45,8 +46,17 @@ public class LinkCollisionHandler : ICollisionHandler
                 {
 
                 }
-                else { _link.flipDamaged(); }
+                else
+                {
+                    //int dmg = objectB.getDamage();
+                    //_link.takeDamage(dmg);
+                    _link.flipDamaged();
+                }
 
+            }
+            else
+            {
+                _link.flipDamaged();
             }
 
         }

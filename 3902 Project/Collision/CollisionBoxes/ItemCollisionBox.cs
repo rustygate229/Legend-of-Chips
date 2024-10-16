@@ -2,14 +2,14 @@
 
 namespace _3902_Project;
 
-public class EnemyCollisionBox : ICollisionBox
+public class ItemCollisionBox : ICollisionBox
 {
     private Rectangle _bounds;
     private bool _collidable;
     private int _health;
     public int _damage;
 
-    public EnemyCollisionBox()
+    public ItemCollisionBox()
     {
         //default constructor creates a new rectangle at 0,0, with no concept of health and damage
         //and cannot be collided with
@@ -20,12 +20,12 @@ public class EnemyCollisionBox : ICollisionBox
 
     }
 
-    public EnemyCollisionBox(Rectangle bounds, bool isCollidable, int health, int damage)
+    public ItemCollisionBox(Rectangle bounds, bool isCollidable)
     {
         _bounds = bounds;
         _collidable = isCollidable;
-        _health = health;
-        _damage = damage;
+        _health = 9999;
+        _damage = 0;
 
     }
     public Rectangle Bounds
