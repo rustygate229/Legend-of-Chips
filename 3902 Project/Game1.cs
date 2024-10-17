@@ -1,10 +1,5 @@
-﻿using _3902_Project.Link;
-using Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace _3902_Project
 {
@@ -28,6 +23,8 @@ namespace _3902_Project
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferWidth = 1024;
+            _graphics.PreferredBackBufferHeight = 960;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -42,35 +39,39 @@ namespace _3902_Project
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
-            BulletSpriteFactory.Instance.LoadAllTextures(Content);
 
 
-            // Initialize the block and item manager
+            // initialize all managers
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
-            ProjectileManager = new ProjectileManager(Content, _spriteBatch);
-
-            // Initialize the player and character state
-            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
             EnemyManager = new EnemyManager(Content, _spriteBatch);
+            ProjectileManager = new ProjectileManager(Content, _spriteBatch);
+            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
 
             EnvironmentFactory = new EnvironmentFactory(BlockManager);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
 
-            // TODO: use this.Content to load your game content here
-            // Block and Item Texture Loading
+            // load all textures
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
             EnemyManager.LoadAllTextures();
 
-            EnvironmentFactory.loadLevel();
+            BlockManager.PlaceBlock(BlockManager.BlockNames.DungeonExterior, new Vector2(0, 0));
+            BlockManager.PlaceBlock(BlockManager.BlockNames.Dirt, new Vector2(128, 128));
+            BlockManager.PlaceBlock(BlockManager.BlockNames.Dirt, new Vector2(128, 128 * 2));
+            BlockManager.PlaceBlock(BlockManager.BlockNames.Dirt, new Vector2(128 * 2, 128));
+            BlockManager.PlaceBlock(BlockManager.BlockNames.Dirt, new Vector2(128 * 2, 128 * 2));
+            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.BrownSlime, new Vector2(800, 480));
+            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.GreenSlime, new Vector2(800, 480));
+            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.Wizzrope, new Vector2(800, 480));
+            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.Proto, new Vector2(800, 480));
+            ItemManager.PlaceItem(ItemManager.ItemNames.DepletingHeart, new Vector2(800, 480));
         }
 
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
             Player.Update();
             ItemManager.Update();
             EnemyManager.Update();
@@ -78,7 +79,6 @@ namespace _3902_Project
             // Update input controls
             keyboardController.Update();
 
-            // TODO: Add your update logic here (e.g., update player, blocks, etc.)
             base.Update(gameTime);
         }
 
@@ -86,9 +86,11 @@ namespace _3902_Project
         {
             GraphicsDevice.Clear(Color.Black);
 
-            Player.Draw();
+            BlockManager.Draw();
+            ItemManager.Draw();
             EnemyManager.Draw();
             ProjectileManager.Draw();
+            Player.Draw();
 
             base.Draw(gameTime);
         }
