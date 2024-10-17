@@ -25,16 +25,16 @@ namespace _3902_Project
         {
             //assumes that if it's getting called, objectA is link bounding box and objectB is something else
 
-            if (objectB is EnemyCollisionBox)
+        if (objectB is EnemyCollisionBox)
+        {
+            // Handle player collision with enemy
+            if (_link.getAttack() == ILinkStateMachine.ATTACK.MELEE)
+            //LINK IS ATTACKING, check direction of attack
             {
-                // Handle player collision with enemy
-                if (_link.getAttack() == ILinkStateMachine.ATTACK.MELEE)
-                //LINK IS ATTACKING, check direction of attack
+                ILinkStateMachine.MOVEMENT move = _link.getState();
+                if ((move == ILinkStateMachine.MOVEMENT.SUP || move == ILinkStateMachine.MOVEMENT.MUP) && side == CollisionType.TOP)
                 {
-                    ILinkStateMachine.MOVEMENT move = _link.getState();
-                    if ((move == ILinkStateMachine.MOVEMENT.SUP || move == ILinkStateMachine.MOVEMENT.MUP) && side == CollisionType.TOP)
-                    {
-                        //link is attacking in the right direction, deal damage to enemy
+                    //link is attacking in the right direction, deal damage to enemy
 
                     }
                     else if ((move == ILinkStateMachine.MOVEMENT.SDOWN || move == ILinkStateMachine.MOVEMENT.MDOWN) && side == CollisionType.BOTTOM)
@@ -48,10 +48,10 @@ namespace _3902_Project
                     else if ((move == ILinkStateMachine.MOVEMENT.SRIGHT || move == ILinkStateMachine.MOVEMENT.MRIGHT) && side == CollisionType.RIGHT)
                     {
 
-                    }
-                    else { _link.flipDamaged(); }
-
                 }
+                else { _link.flipDamaged(); }
+
+            }
 
             }
             else if (objectB is BlockCollisionBox)
