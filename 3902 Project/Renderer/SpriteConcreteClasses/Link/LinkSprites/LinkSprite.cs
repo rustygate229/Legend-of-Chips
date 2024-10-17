@@ -6,7 +6,7 @@ using static _3902_Project.ILinkStateMachine;
 
 namespace _3902_Project
 {
-    public class LinkSprite : ISprite
+    public class LinkSprite : ILinkSprite
     {
         private Texture2D spritesheet;
         private int width;

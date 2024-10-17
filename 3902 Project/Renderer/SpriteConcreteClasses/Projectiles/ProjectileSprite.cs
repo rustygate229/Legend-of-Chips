@@ -39,7 +39,7 @@ namespace _3902_Project
 
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Vector2 updatedPosition)
         {
             throw new NotImplementedException();
         }

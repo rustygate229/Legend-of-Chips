@@ -33,7 +33,7 @@ namespace _3902_Project
             linkStateMachine = state;
         }
 
-        public ISprite StationaryLinkSprite()
+        public ILinkSprite StationaryLinkSprite()
         {
             List<Rectangle> source = new List<Rectangle>();
             source.Add(new Rectangle(1, 11, 16, 16));
@@ -43,7 +43,7 @@ namespace _3902_Project
             return new LinkSprite(linkSpriteSheet, source, 1, spriteSize, spriteSize, linkStateMachine);
         }
 
-        public ISprite CreateWalkingLinkSprite()
+        public ILinkSprite CreateWalkingLinkSprite()
         {
             //opted to initialize the list of textures here
             //instead of in LinkSprite
@@ -62,7 +62,7 @@ namespace _3902_Project
             return new LinkSprite(linkSpriteSheet, source, 2, spriteSize, spriteSize, linkStateMachine);
         }
 
-        public ISprite CreateItemUseLinkSprite()
+        public ILinkSprite CreateItemUseLinkSprite()
         {
             List<Rectangle> source = new List<Rectangle>();
             source.Add(new Rectangle(107, 11, 16, 16));
@@ -71,7 +71,7 @@ namespace _3902_Project
             return new LinkSprite(linkSpriteSheet, source, 1, spriteSize, spriteSize, linkStateMachine);
         }
 
-        public ISprite CreateAttackingLinkSprite()
+        public ILinkSprite CreateAttackingLinkSprite()
         {
             List<Rectangle> source = new List<Rectangle>();
             //down

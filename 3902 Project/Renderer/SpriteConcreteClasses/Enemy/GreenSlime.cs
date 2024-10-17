@@ -8,23 +8,23 @@ namespace _3902_Project
     {
         // variables for constructor assignments
         private Texture2D _spriteSheet;
-        private Vector2 _position;
+        private Vector2 _previousPosition = new Vector2(-1000, -1000);
+        private Vector2 _currentPosition;
         private Renderer _enemy;
 
         // variables for moving the enemy
         private int _moveCounter = 0;
-        private int _moveTotal = 10;
+        private int _moveTotal = 100;
         private int _positionSpeed = 2;
-        private Vector2 _updatedPosition;
+        private Vector2 _updatePosition;
         private static Random random = new Random();
 
 
         // constructor for enemy
-        public GreenSlime(Texture2D spriteSheet, Vector2 startPosition)
+        public GreenSlime(Texture2D spriteSheet)
         {
             _spriteSheet = spriteSheet;
-            _position = startPosition;
-            _enemy = new Renderer(Renderer._status.Animated, _spriteSheet, _position, 79, 11, 30, 16, 64, 64, 1, 2, 30);
+            _enemy = new Renderer(Renderer._status.Animated, _spriteSheet, _previousPosition, 79, 11, 30, 16, 64, 64, 1, 2, 30);
         }
 
 
@@ -35,7 +35,7 @@ namespace _3902_Project
             _enemy.Update();
 
             // update position and movement counter
-            _position += _updatedPosition;
+            _currentPosition += _updatePosition;
             _moveCounter++;
 
             // Change direction periodically (random horizontal or vertical movement)
@@ -45,28 +45,37 @@ namespace _3902_Project
                 switch (random.Next(4))
                 {
                     case 0: // Move left
-                        _updatedPosition = new Vector2(-(Math.Abs(_positionSpeed)), 0);
+                        _updatePosition = new Vector2(-(Math.Abs(_positionSpeed)), 0);
                         break;
                     case 1: // Move right
-                        _updatedPosition = new Vector2(Math.Abs(_positionSpeed), 0);
+                        _updatePosition = new Vector2(Math.Abs(_positionSpeed), 0);
                         break;
                     case 2: // Move up
-                        _updatedPosition = new Vector2(0, -(Math.Abs(_positionSpeed)));
+                        _updatePosition = new Vector2(0, -(Math.Abs(_positionSpeed)));
                         break;
                     case 3: // Move down
-                        _updatedPosition = new Vector2(0, Math.Abs(_positionSpeed));
+                        _updatePosition = new Vector2(0, Math.Abs(_positionSpeed));
                         break;
                 }
                 _moveCounter = 0; // Reset the timer
             }
-
         }
 
 
         // draw the enemy
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Vector2 updatedPosition)
         {
-            _enemy.Draw(spriteBatch, _position);
+            if (_previousPosition.Equals(new Vector2(-1000, -1000)))
+            {
+                _previousPosition = updatedPosition;
+                _currentPosition = updatedPosition;
+                _enemy.Draw(spriteBatch, _previousPosition);
+            }
+            else
+            {
+                _previousPosition = _currentPosition;
+                _enemy.Draw(spriteBatch, _currentPosition);
+            }
         }
     }
 }

@@ -37,17 +37,17 @@ namespace _3902_Project
         }
 
         // Create an instance of Green Monster 1 with shooting capability
-        public ISprite CreateHolsteringEnemy_GreenSlime() { return new GreenSlime(_enemySpritesheet, _position); }
+        public ISprite CreateHolsteringEnemy_GreenSlime() { return new GreenSlime(_enemySpritesheet); }
 
 
         // Create an instance of Green Monster 2 without shooting capability
-        public ISprite CreateHolsteringEnemy_BrownSlime() { return new BrownSlime(_enemySpritesheet, _position); }
+        public ISprite CreateHolsteringEnemy_BrownSlime() { return new BrownSlime(_enemySpritesheet); }
 
         // Create an instance of Rope1 without shooting capability
-        public ISprite CreateHolsteringEnemy_Wizzrope() { return new Wizzrope(_enemySpritesheet, _position); }
+        public ISprite CreateHolsteringEnemy_Wizzrope() { return new Wizzrope(_enemySpritesheet); }
 
         // Create an instance of Rope2 without shooting capability
-        public ISprite CreateHolsteringEnemy_Proto() { return new Proto(_enemySpritesheet, _position); }
+        public ISprite CreateHolsteringEnemy_Proto() { return new Proto(_enemySpritesheet); }
 
         // Add more enemy types as necessary by specifying their source rectangles and positions
         // public ISprite OtherEnemy() { ... }

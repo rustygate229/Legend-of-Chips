@@ -22,6 +22,8 @@ namespace _3902_Project
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferWidth = 1024;
+            _graphics.PreferredBackBufferHeight = 960;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -52,11 +54,21 @@ namespace _3902_Project
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
             EnemyManager.LoadAllTextures();
+
+            BlockManager.PlaceBlock(BlockManager.BlockNames.DungeonExterior, new Vector2(0, 0));
+            BlockManager.PlaceBlock(BlockManager.BlockNames.Dirt, new Vector2(128, 128));
+            BlockManager.PlaceBlock(BlockManager.BlockNames.Dirt, new Vector2(128, 128 * 2));
+            BlockManager.PlaceBlock(BlockManager.BlockNames.Dirt, new Vector2(128 * 2, 128));
+            BlockManager.PlaceBlock(BlockManager.BlockNames.Dirt, new Vector2(128 * 2, 128 * 2));
+            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.BrownSlime, new Vector2(800, 480));
+            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.GreenSlime, new Vector2(800, 480));
+            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.Wizzrope, new Vector2(800, 480));
+            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.Proto, new Vector2(800, 480));
+            ItemManager.PlaceItem(ItemManager.ItemNames.DepletingHeart, new Vector2(800, 480));
         }
 
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
             Player.Update();
             ItemManager.Update();
             EnemyManager.Update();
@@ -65,19 +77,18 @@ namespace _3902_Project
             // Update input controls
             keyboardController.Update();
 
-            // TODO: Add your update logic here (e.g., update player, blocks, etc.)
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            Player.Draw();
             BlockManager.Draw();
             ItemManager.Draw();
             EnemyManager.Draw();
             ProjectileManager.Draw();
+            Player.Draw();
 
             base.Draw(gameTime);
         }

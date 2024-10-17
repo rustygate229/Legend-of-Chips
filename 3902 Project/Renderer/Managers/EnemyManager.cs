@@ -7,11 +7,12 @@ namespace _3902_Project
 {
     public class EnemyManager
     {
-        // out of bound vector that will never affect environment loading
-        private Vector2 _brokenPosition = new Vector2(-1000, -1000);
+        // create enemy names for finding them
+        public enum EnemyNames { GreenSlime, BrownSlime, Wizzrope, Proto }
 
-        // item dictionary/inventory
-        private Dictionary<ISprite, Vector2> _enemies = new Dictionary<ISprite, Vector2>();
+        // enemy dictionary/inventory
+        private Dictionary<EnemyNames, ISprite> _enemies = new Dictionary<EnemyNames, ISprite>();
+        private HashSet<Dictionary<ISprite, Vector2>> _runningEnemies = new HashSet<Dictionary<ISprite, Vector2>>();
 
         // create variables for passing
         private EnemySpriteFactory _factory = EnemySpriteFactory.Instance;
@@ -32,32 +33,31 @@ namespace _3902_Project
         {
             _factory.LoadAllTextures(_contentManager);
 
-            _enemies.Add(_factory.CreateHolsteringEnemy_GreenSlime(), _brokenPosition);
-            _enemies.Add(_factory.CreateHolsteringEnemy_BrownSlime(), _brokenPosition);
-            _enemies.Add(_factory.CreateHolsteringEnemy_Wizzrope(), _brokenPosition);
-            _enemies.Add(_factory.CreateHolsteringEnemy_Proto(), _brokenPosition);
+            _enemies.Add(EnemyNames.GreenSlime, _factory.CreateHolsteringEnemy_GreenSlime());
+            _enemies.Add(EnemyNames.BrownSlime, _factory.CreateHolsteringEnemy_BrownSlime());
+            _enemies.Add(EnemyNames.Wizzrope, _factory.CreateHolsteringEnemy_Wizzrope());
+            _enemies.Add(EnemyNames.Proto, _factory.CreateHolsteringEnemy_Proto());
         }
 
 
-        private void ReplaceDictValue(ISprite Key, Vector2 newValue)
+        public void PlaceEnemy(EnemyNames name, Vector2 placementPosition)
         {
-            _enemies.Remove(Key);
-            _enemies.Add(Key, newValue);
+            Dictionary<ISprite, Vector2> newItem = new Dictionary<ISprite, Vector2>();
+            newItem.Add(_enemies.GetValueOrDefault(name), placementPosition);
+            _runningEnemies.Add(newItem);
         }
 
-        public void PlaceHolsteringEnemy_GreenSlime(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateHolsteringEnemy_GreenSlime(), placementPosition); }
-        public void PlaceHolsteringEnemy_BrownSlime(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateHolsteringEnemy_BrownSlime(), placementPosition); }
-        public void PlaceHolsteringEnemy_Wizzrope(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateHolsteringEnemy_Wizzrope(), placementPosition); }
-        public void PlaceHolsteringEnemy_Proto(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateHolsteringEnemy_Proto(), placementPosition); }
+        public void UnloadAllEnemies() { _runningEnemies = new HashSet<Dictionary<ISprite, Vector2>>(); }
 
 
 
         // Draw the current enemy
         public void Draw()
         {
-            foreach (var enemy in _enemies)
+            foreach (var enemies in _runningEnemies)
             {
-                if (!enemy.Value.Equals(_brokenPosition))
+                // always one value
+                foreach (var enemy in enemies)
                 {
                     enemy.Key.Draw(_spriteBatch, enemy.Value);
                 }
@@ -66,9 +66,10 @@ namespace _3902_Project
 
         public void Update()
         {
-            foreach (var enemy in _enemies)
+            foreach (var enemies in _runningEnemies)
             {
-                if (!enemy.Value.Equals(_brokenPosition))
+                // always one value
+                foreach (var enemy in enemies)
                 {
                     enemy.Key.Update();
                 }

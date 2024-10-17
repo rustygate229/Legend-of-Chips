@@ -7,11 +7,18 @@ namespace _3902_Project
 {
     public class ItemManager
     {
-        // out of bound vector that will never affect environment loading
-        private Vector2 _brokenPosition = new Vector2(-1000, -1000);
+        // create item names for finding them
+        public enum ItemNames 
+        { 
+            FullHeart, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Ladder, 
+            MagicStaff, Game, NormalKey, BossKey, Compass, FlashingLife, DepletingHeart, FlashingEmerald, 
+            FlashingPotion, FlashingScripture, FlashingSword, FlashingBanana, FlashingArrow, 
+            FlashingCandle, FlashingRing, FlashingTriForce
+        }
 
         // item dictionary/inventory
-        private Dictionary<ISprite, Vector2> _items = new Dictionary<ISprite, Vector2>();
+        private Dictionary<ItemNames, ISprite> _items = new Dictionary<ItemNames, ISprite>();
+        private HashSet<Dictionary<ISprite, Vector2>> _runningItems = new HashSet<Dictionary<ISprite, Vector2>>();
 
         // create variables for passing
         private ItemSpriteFactory _factory = ItemSpriteFactory.Instance;
@@ -34,81 +41,55 @@ namespace _3902_Project
             _factory.LoadAllTextures(_contentManager);
 
             // loading still sprites
-            _items.Add(_factory.CreateStillItem_FullHeart(), _brokenPosition);
-            _items.Add(_factory.CreateStillItem_Clock(), _brokenPosition);
-            _items.Add(_factory.CreateStillItem_Meat(), _brokenPosition);
-            _items.Add(_factory.CreateStillItem_Sword(), _brokenPosition);
-            _items.Add(_factory.CreateStillItem_Shield(), _brokenPosition);
-            _items.Add(_factory.CreateStillItem_Bomb(), _brokenPosition);
-            _items.Add(_factory.CreateStillItem_Bow(), _brokenPosition);
-            _items.Add(_factory.CreateStillItem_Horn(), _brokenPosition);
-            _items.Add(_factory.CreateStillItem_Flute(), _brokenPosition);
-            _items.Add(_factory.CreateStillItem_WaterPlate(), _brokenPosition);
-            _items.Add(_factory.CreateStillItem_Ladder(), _brokenPosition);
-            _items.Add(_factory.CreateStillItem_MagicStaff(), _brokenPosition);
-            _items.Add(_factory.CreateStillItem_Game(), _brokenPosition);
-            _items.Add(_factory.CreateStillItem_NormalKey(), _brokenPosition);
-            _items.Add(_factory.CreateStillItem_BossKey(), _brokenPosition);
-            _items.Add(_factory.CreateStillItem_Compass(), _brokenPosition);
+            _items.Add(ItemNames.FullHeart, _factory.CreateStillItem_FullHeart());
+            _items.Add(ItemNames.Clock, _factory.CreateStillItem_Clock());
+            _items.Add(ItemNames.Meat, _factory.CreateStillItem_Meat());
+            _items.Add(ItemNames.Sword, _factory.CreateStillItem_Sword());
+            _items.Add(ItemNames.Shield, _factory.CreateStillItem_Shield());
+            _items.Add(ItemNames.Bomb, _factory.CreateStillItem_Bomb());
+            _items.Add(ItemNames.Bow, _factory.CreateStillItem_Bow());
+            _items.Add(ItemNames.Horn, _factory.CreateStillItem_Horn());
+            _items.Add(ItemNames.Flute, _factory.CreateStillItem_Flute());
+            _items.Add(ItemNames.WaterPlate, _factory.CreateStillItem_WaterPlate());
+            _items.Add(ItemNames.Ladder, _factory.CreateStillItem_Ladder());
+            _items.Add(ItemNames.MagicStaff, _factory.CreateStillItem_MagicStaff());
+            _items.Add(ItemNames.Game, _factory.CreateStillItem_Game());
+            _items.Add(ItemNames.NormalKey, _factory.CreateStillItem_NormalKey());
+            _items.Add(ItemNames.BossKey, _factory.CreateStillItem_BossKey());
+            _items.Add(ItemNames.Compass, _factory.CreateStillItem_Compass());
 
             // loading animated sprites
-            _items.Add(_factory.CreateAnimatedItem_Life(), _brokenPosition);
-            _items.Add(_factory.CreateAnimatedItem_DepletingHeart(), _brokenPosition);
-            _items.Add(_factory.CreateAnimatedItem_FlashingEmerald(), _brokenPosition);
-            _items.Add(_factory.CreateAnimatedItem_FlashingPotions(), _brokenPosition);
-            _items.Add(_factory.CreateAnimatedItem_FlashingScripture(), _brokenPosition);
-            _items.Add(_factory.CreateAnimatedItem_FlashingSword(), _brokenPosition);
-            _items.Add(_factory.CreateAnimatedItem_FlashingBanana(), _brokenPosition);
-            _items.Add(_factory.CreateAnimatedItem_FlashingArrow(), _brokenPosition);
-            _items.Add(_factory.CreateAnimatedItem_FlashingCandle(), _brokenPosition);
-            _items.Add(_factory.CreateAnimatedItem_FlashingRing(), _brokenPosition);
-            _items.Add(_factory.CreateAnimatedItem_FlashingTriForce(), _brokenPosition);
+            _items.Add(ItemNames.FlashingLife, _factory.CreateAnimatedItem_FlashingLife());
+            _items.Add(ItemNames.DepletingHeart, _factory.CreateAnimatedItem_DepletingHeart());
+            _items.Add(ItemNames.FlashingEmerald, _factory.CreateAnimatedItem_FlashingEmerald());
+            _items.Add(ItemNames.FlashingPotion, _factory.CreateAnimatedItem_FlashingPotion());
+            _items.Add(ItemNames.FlashingScripture, _factory.CreateAnimatedItem_FlashingScripture());
+            _items.Add(ItemNames.FlashingSword, _factory.CreateAnimatedItem_FlashingSword());
+            _items.Add(ItemNames.FlashingBanana, _factory.CreateAnimatedItem_FlashingBanana());
+            _items.Add(ItemNames.FlashingArrow, _factory.CreateAnimatedItem_FlashingArrow());
+            _items.Add(ItemNames.FlashingCandle, _factory.CreateAnimatedItem_FlashingCandle());
+            _items.Add(ItemNames.FlashingRing, _factory.CreateAnimatedItem_FlashingRing());
+            _items.Add(ItemNames.FlashingTriForce, _factory.CreateAnimatedItem_FlashingTriForce());
         }
 
 
-        private void ReplaceDictValue(ISprite Key, Vector2 newValue)
+        public void PlaceItem(ItemNames name, Vector2 placementPosition)
         {
-            _items.Remove(Key);
-            _items.Add(Key, newValue);
+            Dictionary<ISprite, Vector2> newItem = new Dictionary<ISprite, Vector2>();
+            newItem.Add(_items.GetValueOrDefault(name), placementPosition);
+            _runningItems.Add(newItem);
         }
 
-        public void PlaceStillItem_FullHeart(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillItem_FullHeart(), placementPosition); }
-        public void PlaceStillItem_Clock(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillItem_Clock(), placementPosition); }
-        public void PlaceStillItem_Meat(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillItem_Meat(), placementPosition); }
-        public void PlaceStillItem_Sword(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillItem_Sword(), placementPosition); }
-        public void PlaceStillItem_Shield(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillItem_Shield(), placementPosition); }
-        public void PlaceStillItem_Bomb(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillItem_Bomb(), placementPosition); }
-        public void PlaceStillItem_Bow(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillItem_Bow(), placementPosition); }
-        public void PlaceStillItem_Horn(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillItem_Horn(), placementPosition); }
-        public void PlaceStillItem_Flute(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillItem_Flute(), placementPosition); }
-        public void PlaceStillItem_WaterPlate(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillItem_WaterPlate(), placementPosition); }
-        public void PlaceStillItem_Ladder(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillItem_Ladder(), placementPosition); }
-        public void PlaceStillItem_MagicStaff(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillItem_MagicStaff(), placementPosition); }
-        public void PlaceStillItem_Game(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillItem_Game(), placementPosition); }
-        public void PlaceStillItem_NormalKey(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillItem_NormalKey(), placementPosition); }
-        public void PlaceStillItem_BossKey(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillItem_BossKey(), placementPosition); }
-        public void PlaceStillItem_Compass(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateStillItem_Compass(), placementPosition); }
-
-        public void PlaceAnimatedItem_Life(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateAnimatedItem_Life(), placementPosition); }
-        public void PlaceAnimatedItem_DepletingHeart(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateAnimatedItem_DepletingHeart(), placementPosition); }
-        public void PlaceAnimatedItem_FlashingEmerald(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateAnimatedItem_FlashingEmerald(), placementPosition); }
-        public void PlaceAnimatedItem_FlashingPotions(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateAnimatedItem_FlashingPotions(), placementPosition); }
-        public void PlaceAnimatedItem_FlashingScripture(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateAnimatedItem_FlashingScripture(), placementPosition); }
-        public void PlaceAnimatedItem_FlashingSword(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateAnimatedItem_FlashingSword(), placementPosition); }
-        public void PlaceAnimatedItem_FlashingBanana(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateAnimatedItem_FlashingBanana(), placementPosition); }
-        public void PlaceAnimatedItem_FlashingArrow(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateAnimatedItem_FlashingArrow(), placementPosition); }
-        public void PlaceAnimatedItem_FlashingCandle(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateAnimatedItem_FlashingCandle(), placementPosition); }
-        public void PlaceAnimatedItem_FlashingRing(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateAnimatedItem_FlashingRing(), placementPosition); }
-        public void PlaceAnimatedItem_FlashingTriForce(Vector2 placementPosition) { ReplaceDictValue(_factory.CreateAnimatedItem_FlashingTriForce(), placementPosition); }
-
+        public void UnloadAllItems() { _runningItems = new HashSet<Dictionary<ISprite, Vector2>>(); }
 
 
         // draw item sprite based on current selected item
         public void Draw()
         {
-            foreach (var item in _items)
+            foreach(var items in _runningItems)
             {
-                if (!item.Value.Equals(_brokenPosition))
+                // always one value
+                foreach (var item in items)
                 {
                     item.Key.Draw(_spriteBatch, item.Value);
                 }
@@ -119,9 +100,10 @@ namespace _3902_Project
         // update used for each of the animated sprites
         public void Update()
         {
-            foreach (var item in _items)
+            foreach (var items in _runningItems)
             {
-                if (!item.Value.Equals(_brokenPosition))
+                // always one value
+                foreach (var item in items)
                 {
                     item.Key.Update();
                 }

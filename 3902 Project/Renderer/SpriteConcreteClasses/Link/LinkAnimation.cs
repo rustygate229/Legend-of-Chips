@@ -6,12 +6,12 @@ namespace _3902_Project
 	public class LinkAnimation : IAnimation
     {
 
-        private ISprite stationaryLink;
-        private ISprite walkingLink;
-        private ISprite itemLink;
-        private ISprite attackingLink;
+        private ILinkSprite stationaryLink;
+        private ILinkSprite walkingLink;
+        private ILinkSprite itemLink;
+        private ILinkSprite attackingLink;
 
-        private ISprite currentLink;
+        private ILinkSprite currentLink;
 
         private ILinkStateMachine _stateMachine;
         private SpriteBatch _spriteBatch;

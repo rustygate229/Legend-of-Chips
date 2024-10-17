@@ -58,11 +58,11 @@ namespace _3902_Project
 
 
         // create animated sprites
-        public ISprite CreateAnimatedItem_Life() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 40, 0, 16, 16, 32, 32, 1, 2, 10); }
+        public ISprite CreateAnimatedItem_FlashingLife() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 40, 0, 16, 16, 32, 32, 1, 2, 10); }
         // testing non-0 modulo framerate
         public ISprite CreateAnimatedItem_DepletingHeart() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 0, 0, 24, 8, 32, 32, 1, 3, 32); }
         public ISprite CreateAnimatedItem_FlashingEmerald() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 72, 0, 8, 32, 32, 32, 2, 1, 20); }
-        public ISprite CreateAnimatedItem_FlashingPotions() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 80, 0, 8, 32, 32, 32, 2, 1, 20); }
+        public ISprite CreateAnimatedItem_FlashingPotion() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 80, 0, 8, 32, 32, 32, 2, 1, 20); }
         // testing non-0 modulo framerate
         public ISprite CreateAnimatedItem_FlashingScripture() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 88, 0, 8, 32, 32, 32, 2, 1, 15); }
         public ISprite CreateAnimatedItem_FlashingSword() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 104, 0, 8, 32, 32, 32, 2, 1, 20); }

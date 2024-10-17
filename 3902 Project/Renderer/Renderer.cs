@@ -142,7 +142,7 @@ namespace _3902_Project
 
             // create source and destination rectangles
             Rectangle sourceRectangle = new Rectangle();
-            Rectangle destinationRectangle = new Rectangle((int)_positionOnWindow.X - ((int)_spritePrintDimensions.X / 2), (int)_positionOnWindow.Y - ((int)_spritePrintDimensions.Y / 2), (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y);
+            Rectangle destinationRectangle = new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y);
 
             switch (_statusNumber)
             {
