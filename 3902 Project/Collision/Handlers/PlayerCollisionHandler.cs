@@ -31,63 +31,64 @@ public class CollisionDetector
         return collisions;
     }
 
-   
 
 
-public class PlayerCollisionHandler : ICollisionHandler
-{
-    public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
+
+    public class PlayerCollisionHandler : ICollisionHandler
     {
-        if (objectA is LinkCollisionBox player)
+        public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
         {
-            if (objectB is EnemyCollisionBox)
+            if (objectA is LinkCollisionBox player)
             {
-                // Handle player collision with enemy
-                var command = new PlayerTakeDamageCommand(player);
-                command.Execute();
-            }
-            else if (objectB is BlockCollisionBox)
-            {
-                // Handle player collision with block
-                var command = new PlayerMoveCommand(player, side);
-                command.Execute();
+                if (objectB is EnemyCollisionBox)
+                {
+                    // Handle player collision with enemy
+                    var command = new PlayerTakeDamageCommand(player);
+                    command.Execute();
+                }
+                else if (objectB is BlockCollisionBox)
+                {
+                    // Handle player collision with block
+                    var command = new PlayerMoveCommand(player, side);
+                    command.Execute();
+                }
             }
         }
     }
-}
 
-public interface ICollisionCommand
-{
-    void Execute();
-}
-
-public class PlayerMoveCommand : ICollisionCommand
-{
-    private Player _player;
-    private CollisionType _side;
-
-    public PlayerMoveCommand(Player player, CollisionType side)
+    public interface ICollisionCommand
     {
-        _player = player;
-        _side = side;
+        void Execute();
     }
 
-    public void Execute()
+    public class PlayerMoveCommand : ICollisionCommand
     {
-        switch (_side)
+        private Player _player;
+        private CollisionType _side;
+
+        public PlayerMoveCommand(Player player, CollisionType side)
         {
-            case CollisionType.LEFT:
-                _player.MoveRight();
-                break;
-            case CollisionType.RIGHT:
-                _player.MoveLeft();
-                break;
-            case CollisionType.TOP:
-                _player.MoveDown();
-                break;
-            case CollisionType.BOTTOM:
-                _player.MoveUp();
-                break;
+            _player = player;
+            _side = side;
+        }
+
+        public void Execute()
+        {
+            switch (_side)
+            {
+                case CollisionType.LEFT:
+                    _player.MoveRight();
+                    break;
+                case CollisionType.RIGHT:
+                    _player.MoveLeft();
+                    break;
+                case CollisionType.TOP:
+                    _player.MoveDown();
+                    break;
+                case CollisionType.BOTTOM:
+                    _player.MoveUp();
+                    break;
+            }
         }
     }
 }

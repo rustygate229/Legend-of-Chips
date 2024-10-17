@@ -11,6 +11,11 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Collision\CollisionHandlerManager.cs" />
+    <Compile Remove="Collision\Handlers\PlayerCollisionHandler.cs" />
+    <Compile Remove="Collision\Interfaces\IGameObject.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
   </ItemGroup>

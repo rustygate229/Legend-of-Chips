@@ -11,7 +11,7 @@ public class ItemCollisionHandler : ICollisionHandler
     //no need for block manager
 
 
-    ItemCollisionHandler(LinkPlayer link, ItemManager itemManager)
+    public ItemCollisionHandler(LinkPlayer link, ItemManager itemManager)
     {
         _link = link;
         _itemManager = itemManager;

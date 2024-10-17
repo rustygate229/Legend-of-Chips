@@ -42,13 +42,14 @@ public class CollisionHandlerManager
 
     public bool ContainsKey((Type, Type) key)
     {
-        return _handlers.ContainsKey(key);
+        //return _handlers.ContainsKey(key);
+        return true;
     }
 
-    public Action<ICollisionBox, ICollisionBox, CollisionType> this[(Type, Type) key]
+    /*public Action<ICollisionBox, ICollisionBox, CollisionType> this[(Type, Type) key]
     {
         get => _handlers[key];
-    }
+    }*/
 
     public List<CollisionData> DetectCollisions(List<ICollisionBox> gameObjects)
     {

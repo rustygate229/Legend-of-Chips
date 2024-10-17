@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using _3902_Project;
-using Collision.Handlers;
 using Microsoft.Xna.Framework;
 
 public class EnemyCollisionHandler : ICollisionHandler
@@ -35,9 +34,7 @@ public class EnemyCollisionHandler : ICollisionHandler
         }
 
     }
-
-    //EXAMPLE OVERLOAD FOR HANDLING COLLISION
-    public void HandleCollision(Gibdo objectA, BlockCollisionBox objectB, CollisionType side)
+    public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
     {
         switch (side)
         {
@@ -56,6 +53,5 @@ public class EnemyCollisionHandler : ICollisionHandler
             default:
                 break;
         }
-        //NO METHOD FOR LINK SINCE THAT IS IN THE LinkCollisionHandler CLASS
     }
 }

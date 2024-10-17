@@ -23,10 +23,14 @@ namespace _3902_Project
         // Method to handle collision using specific handlers.
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
         {
-            foreach (var handler in _collisionHandlers)
+            /*foreach (var handler in _collisionHandlers)
             {
-                handler.HandleCollision(objectA as IGameObject, objectB as IGameObject);
-            }
+                handler.HandleCollision(objectA, objectB, side);
+            }*/
+
+            //code for handling possible differences in collision
+
+
         }
     }
 }
