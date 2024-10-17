@@ -11,7 +11,7 @@ public class LinkCollisionBox : ICollisionBox
 
     public LinkCollisionBox()
     {
-        //default constructor creates a new rectangle at 0,0, with no concept of health and damage
+        //default constructor creates a new rectangle at 0,0, with no concept of health and damage.
         //and cannot be collided with
         _bounds = new Rectangle();
         _collidable = false;
