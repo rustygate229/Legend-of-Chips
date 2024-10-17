@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
+using _3902_Project;
+using static _3902_Project.ICollisionHandler;
 
 namespace _3902_Project;
 
-    public class CollisionHandlerManager
-    //rename to CollisionHandlerManager
+public class CollisionHandlerManager
 {
 
     //in charge of actually calling the different handlers 
@@ -47,7 +49,7 @@ namespace _3902_Project;
     {
         get => _handlers[key];
     }
-}
+
     public List<CollisionData> DetectCollisions(List<ICollisionBox> gameObjects)
     {
         var collisions = new List<CollisionData>();
@@ -66,23 +68,18 @@ namespace _3902_Project;
         }
         return collisions;
     }
-
     private CollisionType DetermineCollisionSide(ICollisionBox objectA, ICollisionBox objectB)
     {
         // Determine collision side based on positions and overlap areas
         Rectangle intersection = Rectangle.Intersect(objectA.Bounds, objectB.Bounds);
         if (intersection.Width >= intersection.Height)
         {
-            return objectA.Bounds.Top < objectB.Bounds.Top ? CollisionType.Bottom : CollisionType.Top;
+            return objectA.Bounds.Top < objectB.Bounds.Top ? CollisionType.BOTTOM : CollisionType.TOP;
         }
         else
         {
-            return objectA.Bounds.Left < objectB.Bounds.Left ? CollisionType.Right : CollisionType.Left;
+            return objectA.Bounds.Left < objectB.Bounds.Left ? CollisionType.RIGHT : CollisionType.LEFT;
         }
     }
 }
 
-public enum CollisionType
-{
-NONE, LEFT, RIGHT, TOP, BOTTOM
-}

@@ -1,6 +1,6 @@
-﻿using _3902_Project;
-using _3902_Project.Link;
-using Collision.Handlers;
+﻿using _3902_Project.Link;
+using static _3902_Project.ICollisionHandler;
+
 
 namespace _3902_Project
 {
@@ -25,33 +25,40 @@ namespace _3902_Project
         {
             //assumes that if it's getting called, objectA is link bounding box and objectB is something else
 
-        if (objectB is EnemyCollisionBox)
-        {
-            // Handle player collision with enemy
-            if (_link.getAttack() == ILinkStateMachine.ATTACK.MELEE)
-            //LINK IS ATTACKING, check direction of attack
+            if (objectB.IsCollidable && objectB is EnemyCollisionBox)
             {
-                ILinkStateMachine.MOVEMENT move = _link.getState();
-                if ((move == ILinkStateMachine.MOVEMENT.SUP || move == ILinkStateMachine.MOVEMENT.MUP) && side == CollisionType.TOP)
+                // Handle player collision with enemy
+                if (_link.getAttack() == ILinkStateMachine.ATTACK.MELEE)
+                //LINK IS ATTACKING, check direction of attack
                 {
-                    //link is attacking in the right direction, deal damage to enemy
+                    int dmg = objectA.Damage;
+                    ILinkStateMachine.MOVEMENT move = _link.getState();
+                    if ((move == ILinkStateMachine.MOVEMENT.SUP || move == ILinkStateMachine.MOVEMENT.MUP) && side == CollisionType.TOP)
+                    {
+                        //link is attacking in the right direction, deal damage to enemy
+                        objectB.Health = objectB.Health - dmg;
 
                     }
                     else if ((move == ILinkStateMachine.MOVEMENT.SDOWN || move == ILinkStateMachine.MOVEMENT.MDOWN) && side == CollisionType.BOTTOM)
                     {
-
+                        objectB.Health = objectB.Health - dmg;
                     }
                     else if ((move == ILinkStateMachine.MOVEMENT.SLEFT || move == ILinkStateMachine.MOVEMENT.MLEFT) && side == CollisionType.LEFT)
                     {
-
+                        objectB.Health = objectB.Health - dmg;
                     }
                     else if ((move == ILinkStateMachine.MOVEMENT.SRIGHT || move == ILinkStateMachine.MOVEMENT.MRIGHT) && side == CollisionType.RIGHT)
                     {
+                        objectB.Health = objectB.Health - dmg;
+                    }
+                    else
+                    {
+                        //link is not attacking
+                        objectA.Health = objectA.Health - objectB.Damage;
+                        _link.flipDamaged();
+                    }
 
                 }
-                else { _link.flipDamaged(); }
-
-            }
 
             }
             else if (objectB is BlockCollisionBox)
@@ -74,11 +81,6 @@ namespace _3902_Project
                 }
             }
 
-        }
-
-        public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

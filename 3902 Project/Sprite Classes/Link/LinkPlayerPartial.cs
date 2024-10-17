@@ -14,6 +14,9 @@ namespace _3902_Project.Link
         public void FireProjectile()
         {
             MOVEMENT dir = _linkStateMachine.getMovementState();
+            int x = _linkCollisionBox.Bounds.X;
+            int y = _linkCollisionBox.Bounds.Y;
+
             switch (_linkStateMachine.getInventory())
             {
                 case 1:
@@ -70,6 +73,11 @@ namespace _3902_Project.Link
         }
         public void Draw()
         {
+            int x = _linkCollisionBox.Bounds.X;
+            int y = _linkCollisionBox.Bounds.Y;
+
+            _linkMovement.setXPosition((double)x);
+            _linkMovement.setYPosition((double)y);
 
             if (_linkStateMachine.getDamage())
             {

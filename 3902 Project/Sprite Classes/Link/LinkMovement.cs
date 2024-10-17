@@ -49,5 +49,15 @@ namespace _3902_Project
         {
             _position.Y -= speed;
         }
+
+        public void setXPosition(double x)
+        {
+            _position = new Vector2((float)x, _position.Y);
+        }
+
+        public void setYPosition(double y)
+        {
+            _position = new Vector2(_position.X, (float)y);
+        }
     }
 }

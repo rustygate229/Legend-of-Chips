@@ -1,13 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Content.Projectiles;
 using static _3902_Project.ILinkStateMachine;
+using System.Drawing;
 
 namespace _3902_Project.Link
 {
@@ -17,8 +13,9 @@ namespace _3902_Project.Link
         ILinkMovement _linkMovement;
         ILinkStateMachine _linkStateMachine;
         ProjectileManager _projectileManager;
+        LinkCollisionBox _linkCollisionBox;
 
-        double x, y;
+        //double x, y;
         public LinkPlayer(SpriteBatch sb, ContentManager content, ProjectileManager projectileManager)
         {
             _linkMovement = new LinkMovement();
@@ -27,12 +24,24 @@ namespace _3902_Project.Link
 
             _projectileManager = projectileManager;
 
-            x = _linkMovement.getXPosition();
-            y = _linkMovement.getYPosition();
+            Microsoft.Xna.Framework.Rectangle bounds = new Microsoft.Xna.Framework.Rectangle((int)_linkMovement.getXPosition(), (int)_linkMovement.getYPosition(), 64, 64);
+
+            //temporarily hard coding health and damage values
+            _linkCollisionBox = new LinkCollisionBox(bounds, true, 100, 10);
+
+
         }
 
-        public double getXPosition() { return x; }
-        public double getYPosition() { return y; }
+        public double getXPosition() {
+            //also updates x and y just to be sure 
+            return _linkCollisionBox.Bounds.X;
+
+
+        }
+        public double getYPosition() {
+            return _linkCollisionBox.Bounds.Y;
+
+        }
 
         private bool CannotMove()
         {
@@ -84,8 +93,11 @@ namespace _3902_Project.Link
         {
             _animation.Update();
 
-            x = _linkMovement.getXPosition();
-            y = _linkMovement.getYPosition();
+            int x = _linkCollisionBox.Bounds.X;
+            int y = _linkCollisionBox.Bounds.Y;
+            //updates linkMovement according to any collisions
+            _linkMovement.setXPosition((double)x);
+            _linkMovement.setYPosition((double)y);
 
             if (!IsDamagedKeysPressed()) { StopDamage(); }
             if (!IsMovementKeysPressed()) { StayStill(); }
