@@ -1,75 +1,84 @@
 ﻿using _3902_Project;
 using _3902_Project.Link;
 using Collision.Handlers;
-public class LinkCollisionHandler : ICollisionHandler
+
+namespace _3902_Project
 {
-    //maintains reference to link class 
-    LinkPlayer _link;
-
-    //reference to enemy manager as well? 
-    EnemyManager _enemyManager;
-    //no need for block manager
-
-
-    LinkCollisionHandler(LinkPlayer link, EnemyManager enemyManager)
+    public class LinkCollisionHandler : ICollisionHandler
     {
-        _link = link;
-        _enemyManager = enemyManager;
-    }
+        //maintains reference to link class 
+        LinkPlayer _link;
+
+        //reference to enemy manager as well? 
+        EnemyManager _enemyManager;
+        //no need for block manager
 
 
-    public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
-    {
-        //assumes that if it's getting called, objectA is link bounding box and objectB is something else
-
-        if (objectB is EnemyCollisionBox)
+        public LinkCollisionHandler(LinkPlayer link, EnemyManager enemyManager)
         {
-            // Handle player collision with enemy
-            if (_link.getAttack() == ILinkStateMachine.ATTACK.MELEE)
-            //LINK IS ATTACKING, check direction of attack
+            _link = link;
+            _enemyManager = enemyManager;
+        }
+
+
+        public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
+        {
+            //assumes that if it's getting called, objectA is link bounding box and objectB is something else
+
+            if (objectB is EnemyCollisionBox)
             {
-                ILinkStateMachine.MOVEMENT move = _link.getState();
-                if ((move == ILinkStateMachine.MOVEMENT.SUP || move == ILinkStateMachine.MOVEMENT.MUP) && side == CollisionType.TOP)
+                // Handle player collision with enemy
+                if (_link.getAttack() == ILinkStateMachine.ATTACK.MELEE)
+                //LINK IS ATTACKING, check direction of attack
                 {
-                    //link is attacking in the right direction, deal damage to enemy
+                    ILinkStateMachine.MOVEMENT move = _link.getState();
+                    if ((move == ILinkStateMachine.MOVEMENT.SUP || move == ILinkStateMachine.MOVEMENT.MUP) && side == CollisionType.TOP)
+                    {
+                        //link is attacking in the right direction, deal damage to enemy
+
+                    }
+                    else if ((move == ILinkStateMachine.MOVEMENT.SDOWN || move == ILinkStateMachine.MOVEMENT.MDOWN) && side == CollisionType.BOTTOM)
+                    {
+
+                    }
+                    else if ((move == ILinkStateMachine.MOVEMENT.SLEFT || move == ILinkStateMachine.MOVEMENT.MLEFT) && side == CollisionType.LEFT)
+                    {
+
+                    }
+                    else if ((move == ILinkStateMachine.MOVEMENT.SRIGHT || move == ILinkStateMachine.MOVEMENT.MRIGHT) && side == CollisionType.RIGHT)
+                    {
+
+                    }
+                    else { _link.flipDamaged(); }
 
                 }
-                else if ((move == ILinkStateMachine.MOVEMENT.SDOWN || move == ILinkStateMachine.MOVEMENT.MDOWN) && side == CollisionType.BOTTOM)
+
+            }
+            else if (objectB is BlockCollisionBox)
+            {
+                // Handle player collision with block
+                switch (side)
                 {
-
+                    case CollisionType.LEFT:
+                        _link.MoveRight();
+                        break;
+                    case CollisionType.RIGHT:
+                        _link.MoveLeft();
+                        break;
+                    case CollisionType.TOP:
+                        _link.MoveDown();
+                        break;
+                    case CollisionType.BOTTOM:
+                        _link.MoveUp();
+                        break;
                 }
-                else if ((move == ILinkStateMachine.MOVEMENT.SLEFT || move == ILinkStateMachine.MOVEMENT.MLEFT) && side == CollisionType.LEFT)
-                {
-
-                }
-                else if ((move == ILinkStateMachine.MOVEMENT.SRIGHT || move == ILinkStateMachine.MOVEMENT.MRIGHT) && side == CollisionType.RIGHT)
-                {
-
-                }
-                else { _link.flipDamaged(); }
-
             }
 
         }
-        else if (objectB is BlockCollisionBox)
-        {
-            // Handle player collision with block
-            switch (side)
-            {
-                case CollisionType.LEFT:
-                    _link.MoveRight();
-                    break;
-                case CollisionType.RIGHT:
-                    _link.MoveLeft();
-                    break;
-                case CollisionType.TOP:
-                    _link.MoveDown();
-                    break;
-                case CollisionType.BOTTOM:
-                    _link.MoveUp();
-                    break;
-            }
-        }
 
+        public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

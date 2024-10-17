@@ -1,6 +1,6 @@
 ﻿using _3902_Project;
 using _3902_Project.Link;
-using Collision.Handlers;
+
 public class ItemCollisionHandler : ICollisionHandler
 {
     //maintains reference to link class 

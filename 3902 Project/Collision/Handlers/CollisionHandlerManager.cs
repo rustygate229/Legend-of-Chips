@@ -1,56 +1,32 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
-using _3902_Project;
+using _3902_Project.Link;
 
-namespace Collision.Handlers;
 
-public class CollisionHandlerManager
-//rename to CollisionHandlerManager
+namespace _3902_Project
 {
-
-    //in charge of actually calling the different handlers 
-
-    //private Dictionary<(Type, Type), Action<ICollisionBox, ICollisionBox, CollisionType>> _handlers;
-
-    EnemyCollisionHandler _enemyHandler;
-    LinkCollisionHandler _linkCollisionHandler;
-
-
-    public CollisionHandlerManager()
+    public class CollisionHandlerManager
     {
-        //_handlers = new Dictionary<(Type, Type), Action<ICollisionBox, ICollisionBox, CollisionType>>();
-    }
+        private List<ICollisionHandler> _collisionHandlers;
 
-    /*public void AddHandler(Type typeA, Type typeB, Action<ICollisionBox, ICollisionBox, CollisionType> handler)
-    {
-        _handlers[(typeA, typeB)] = handler;
-        _handlers[(typeB, typeA)] = (a, b, side) => handler(b, a, GetOppositeSide(side));
-    }*/
-
-    private CollisionType GetOppositeSide(CollisionType side)
-    {
-        return side switch
+        public CollisionHandlerManager(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager)
         {
-            CollisionType.LEFT => CollisionType.RIGHT,
-            CollisionType.RIGHT => CollisionType.LEFT,
-            CollisionType.TOP => CollisionType.BOTTOM,
-            CollisionType.BOTTOM => CollisionType.TOP,
-            _ => CollisionType.NONE,
-        };
-    }
+            _collisionHandlers = new List<ICollisionHandler>
+            {
+                new EnemyCollisionHandler(enemyManager) as ICollisionHandler,
+                new LinkCollisionHandler(link, enemyManager) as ICollisionHandler,
+                new ItemCollisionHandler(link, itemManager) as ICollisionHandler
+            };
+        }
 
-    public bool ContainsKey((Type, Type) key)
-    {
-        return _handlers.ContainsKey(key);
+        // Method to handle collision using specific handlers
+        public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
+        {
+            foreach (var handler in _collisionHandlers)
+            {
+                handler.HandleCollision(objectA as IGameObject, objectB as IGameObject);
+            }
+        }
     }
-
-    public Action<ICollisionBox, ICollisionBox, CollisionType> this[(Type, Type) key]
-    {
-        get => _handlers[key];
-    }
-}
-
-public enum CollisionType
-{
-    NONE, LEFT, RIGHT, TOP, BOTTOM
 }

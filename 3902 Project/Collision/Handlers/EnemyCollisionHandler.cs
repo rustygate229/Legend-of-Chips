@@ -3,7 +3,7 @@ using _3902_Project;
 using Collision.Handlers;
 using Microsoft.Xna.Framework;
 
-public class EnemyCollisionHandler
+public class EnemyCollisionHandler : ICollisionHandler
 {
     EnemyManager _enemyManager;
     public EnemyCollisionHandler(EnemyManager enemyManager)
@@ -41,16 +41,16 @@ public class EnemyCollisionHandler
     {
         switch (side)
         {
-            case CollisionType.Left:
+            case CollisionType.LEFT:
                 //moves enemy to the left
                 break;
-            case CollisionType.Right:
+            case CollisionType.RIGHT:
                 //moves enemy to the right
                 break;
-            case CollisionType.Top:
+            case CollisionType.TOP:
                 //moves enemy to the top
                 break;
-            case CollisionType.Bottom:
+            case CollisionType.BOTTOM:
                 //moves enemy down
                 break;
             default:

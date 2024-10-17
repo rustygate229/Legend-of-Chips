@@ -7,10 +7,11 @@ namespace _3902_Project
 {
     public interface IGameObject
     {
-     
+
+        // Property representing the bounds of the object, used for collision detection
         Rectangle Bounds { get; }
 
-      
+        // Boolean indicating whether the object is collidable
         bool IsCollidable { get; }
 
         // Property representing the health of the game object (if applicable)
@@ -24,5 +25,7 @@ namespace _3902_Project
 
         // Method to take damage when a collision occurs
         void TakeDamage(int damageAmount);
+
+       
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Collision.Handlers;
+
 
 namespace _3902_Project
 {
@@ -12,5 +12,11 @@ namespace _3902_Project
         public ICollisionBox ObjectA { get; set; }
         public ICollisionBox ObjectB { get; set; }
         public CollisionType CollisionSide { get; set; }
+
+       
+    }
+    public enum CollisionType
+    {
+        NONE, LEFT, RIGHT, TOP, BOTTOM
     }
 }
