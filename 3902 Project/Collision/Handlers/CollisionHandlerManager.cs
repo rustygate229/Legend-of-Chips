@@ -20,7 +20,7 @@ namespace _3902_Project
             };
         }
 
-        // Method to handle collision using specific handlers
+        // Method to handle collision using specific handlers.
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
         {
             foreach (var handler in _collisionHandlers)
