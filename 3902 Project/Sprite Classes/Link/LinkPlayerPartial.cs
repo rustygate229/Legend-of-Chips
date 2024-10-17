@@ -14,17 +14,17 @@ namespace _3902_Project.Link
         public void FireProjectile()
         {
             MOVEMENT dir = _linkStateMachine.getMovementState();
-            int x = _linkCollisionBox.Bounds.X;
-            int y = _linkCollisionBox.Bounds.Y;
+            int x = (int)_linkMovement.getXPosition();
+            int y = (int)_linkMovement.getYPosition();
 
             switch (_linkStateMachine.getInventory())
             {
                 case 1:
-                    _projectileManager.launchBlueArrow((int)x, (int)y, dir); break;
+                    _projectileManager.launchBlueArrow(x, y, dir); break;
                 case 2:
-                    _projectileManager.launchBomb((int)x, (int)y); break;
+                    _projectileManager.launchBomb(x, y); break;
                 case 3:
-                    _projectileManager.launchBlueBoomerang((int)x, (int)y, dir); break;
+                    _projectileManager.launchBlueBoomerang(x, y, dir); break;
 
                 default:break;
             }
@@ -73,11 +73,8 @@ namespace _3902_Project.Link
         }
         public void Draw()
         {
-            int x = _linkCollisionBox.Bounds.X;
-            int y = _linkCollisionBox.Bounds.Y;
-
-            _linkMovement.setXPosition((double)x);
-            _linkMovement.setYPosition((double)y);
+            int x = (int)_linkMovement.getXPosition();
+            int y = (int)_linkMovement.getYPosition();
 
             if (_linkStateMachine.getDamage())
             {

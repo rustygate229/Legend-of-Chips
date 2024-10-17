@@ -13,7 +13,6 @@ namespace _3902_Project.Link
         ILinkMovement _linkMovement;
         ILinkStateMachine _linkStateMachine;
         ProjectileManager _projectileManager;
-        LinkCollisionBox _linkCollisionBox;
 
         //double x, y;
         public LinkPlayer(SpriteBatch sb, ContentManager content, ProjectileManager projectileManager)
@@ -24,22 +23,23 @@ namespace _3902_Project.Link
 
             _projectileManager = projectileManager;
 
-            Microsoft.Xna.Framework.Rectangle bounds = new Microsoft.Xna.Framework.Rectangle((int)_linkMovement.getXPosition(), (int)_linkMovement.getYPosition(), 64, 64);
-
-            //temporarily hard coding health and damage values
-            _linkCollisionBox = new LinkCollisionBox(bounds, true, 100, 10);
 
 
+        }
+
+        public ICollisionBox getCollisionBox()
+        {
+            return ((LinkMovement)_linkMovement).getCollisionBox();
         }
 
         public double getXPosition() {
             //also updates x and y just to be sure 
-            return _linkCollisionBox.Bounds.X;
+            return _linkMovement.getXPosition();
 
 
         }
         public double getYPosition() {
-            return _linkCollisionBox.Bounds.Y;
+            return _linkMovement.getYPosition();
 
         }
 
@@ -93,11 +93,9 @@ namespace _3902_Project.Link
         {
             _animation.Update();
 
-            int x = _linkCollisionBox.Bounds.X;
-            int y = _linkCollisionBox.Bounds.Y;
+            int x = (int)_linkMovement.getXPosition();
+            int y = (int)_linkMovement.getYPosition();
             //updates linkMovement according to any collisions
-            _linkMovement.setXPosition((double)x);
-            _linkMovement.setYPosition((double)y);
 
             if (!IsDamagedKeysPressed()) { StopDamage(); }
             if (!IsMovementKeysPressed()) { StayStill(); }
