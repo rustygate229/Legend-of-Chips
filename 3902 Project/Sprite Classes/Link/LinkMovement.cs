@@ -13,7 +13,7 @@ namespace _3902_Project
         {
             //_position = new Vector2(200, 200);
 
-            Rectangle bounds = new Rectangle(200, 200, 64, 64);
+            Rectangle bounds = new Rectangle(200, 200, 60, 64);
             _linkCollisionBox = new LinkCollisionBox(bounds, true, 100, 10);
             speed = 5f;
         }

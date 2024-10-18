@@ -30,7 +30,7 @@ namespace _3902_Project
 
             if (objectB.IsCollidable && objectB is EnemyCollisionBox)
             {
-                Debug.WriteLine("ENEMY COLLIDED");
+                //Debug.WriteLine("ENEMY COLLIDED");
                 // Handle player collision with enemy
                 if (_link.getAttack() == ILinkStateMachine.ATTACK.MELEE)
                 //LINK IS ATTACKING, check direction of attack
@@ -68,35 +68,38 @@ namespace _3902_Project
             else if (objectB is BlockCollisionBox)
             {
                 // Handle player collision with block
-                Rectangle bounds = objectA.Bounds;
+                Rectangle ABounds = objectA.Bounds;
+                Rectangle BBounds = objectB.Bounds;
                 switch (side)
                 {
                     
                     case CollisionType.LEFT:
                         Debug.Print("left collision");
-                        int offset = objectB.Bounds.X + objectB.Bounds.Width - objectA.Bounds.X;
-                        bounds.X = bounds.X + offset;
+
+                        int offset = BBounds.X + BBounds.Width - ABounds.X;
+                        ABounds.X = ABounds.X + offset;
                         break;
                     case CollisionType.RIGHT:
-                        Debug.Print("right collision");
                         //_link.MoveLeft();
-                        offset = objectB.Bounds.X + objectB.Bounds.Width - objectA.Bounds.X;
-                        bounds.X = bounds.X + offset;
+                        //Debug.Print("right collision");
+                        offset = ABounds.X + ABounds.Width - BBounds.X;
+                        ABounds.X = ABounds.X - offset;
 
                         break;
                     case CollisionType.TOP:
-                        Debug.Print("top collision");
-                        offset = objectB.Bounds.X + objectB.Bounds.Width - objectA.Bounds.X;
-                        bounds.X = bounds.X + offset;
+                        //Debug.Print("top collision");
+                        offset = BBounds.Height + BBounds.Y - ABounds.Y;
+                        ABounds.Y = ABounds.Y + offset;
                         //_link.MoveDown();
                         break;
                     case CollisionType.BOTTOM:
-                        Debug.Print("down collision");
-                        _link.MoveUp();
+                        //Debug.Print("down collision");
+                        offset = ABounds.Y - objectB.Bounds.Y + BBounds.Height;
+                        ABounds.Y = ABounds.Y - offset;
                         break;
                 }
 
-                objectA.Bounds = bounds;
+                objectA.Bounds = ABounds;
             }
 
         }

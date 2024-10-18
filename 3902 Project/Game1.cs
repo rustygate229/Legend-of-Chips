@@ -70,7 +70,7 @@ namespace _3902_Project
             collisionBoxes = new List<ICollisionBox>();
             collisionBoxes.Add(Player.getCollisionBox());
             collisionBoxes.Add(new BlockCollisionBox(new Rectangle(400, 200, 64, 64), true));
-            collisionBoxes.Add(new EnemyCollisionBox(new Rectangle(300, 250, 32, 32), true, 100, 10));
+            collisionBoxes.Add(new EnemyCollisionBox(new Rectangle(300, 100, 32, 32), true, 100, 10));
 
 
             // TODO: use this.Content to load your game content here
