@@ -88,7 +88,7 @@ namespace _3902_Project
             return result;
         }
 
-        public Rectangle getDimensions()
+        public Rectangle getRoomDimensions()
         {
             return new Rectangle(128, 128, 768, 448);
         }
