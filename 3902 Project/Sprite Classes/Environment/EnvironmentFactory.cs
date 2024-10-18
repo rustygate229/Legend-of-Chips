@@ -12,14 +12,20 @@ namespace _3902_Project
     {
 
         private BlockManager _blockManager;
+        private ItemManager _itemManager;
+        private EnemyManager _enemyManager;
+
         private int _level;
         private Dictionary<string, BlockManager.BlockNames> _csvTranslations;
         
         public List<List<string>> _environment;
 
-        public EnvironmentFactory(BlockManager block) 
+        public EnvironmentFactory(BlockManager block, ItemManager item, EnemyManager enemy) 
         {
             _blockManager = block;
+            _itemManager = item;
+            _enemyManager = enemy;
+
             _level = 0;
 
             _csvTranslations = new Dictionary<string, BlockManager.BlockNames>();
@@ -54,14 +60,37 @@ namespace _3902_Project
             _csvTranslations.Add("d", BlockManager.BlockNames.Dirt);
         }
 
-        public List<Rectangle> getCollidables()
+        public Dictionary<BlockManager.BlockNames, List<Rectangle>> getCollidables()
         {
-            throw new NotImplementedException();
+            Dictionary<BlockManager.BlockNames, List<Rectangle>> result = new Dictionary<BlockManager.BlockNames, List<Rectangle>>();
+
+            // List the collidables
+            HashSet<BlockManager.BlockNames> collidables = new HashSet<BlockManager.BlockNames>();
+            collidables.Add(BlockManager.BlockNames.Square);
+
+            for (int i = 0; i < _environment.Count; i++)
+            {
+                for (int j = 0; j < _environment[i].Count; j++)
+                {
+                    string blockToCheck = _environment[i][j];
+                    if (collidables.Contains(_csvTranslations[blockToCheck]))
+                    {
+                        //Add collidable to dictionary
+                        if (!result.ContainsKey(_csvTranslations[blockToCheck]))
+                        {
+                            result[_csvTranslations[blockToCheck]] = new List<Rectangle>();
+                        }
+                        result[_csvTranslations[blockToCheck]].Add(new Rectangle(128 + (j * 64), 128 + (i * 64), 64, 64));
+                    }
+                }
+            }
+
+            return result;
         }
 
         public Rectangle getDimensions()
         {
-            throw new NotImplementedException();
+            return new Rectangle(128, 128, 768, 448);
         }
 
         public int getLevel()
@@ -69,7 +98,7 @@ namespace _3902_Project
             return _level;
         }
 
-        public void loadLevel()
+        private void loadBlocks()
         {
             string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Levels/Level" + _level.ToString() + ".csv";
             _environment = ReadCsvFile(filepath);
@@ -84,6 +113,11 @@ namespace _3902_Project
                     _blockManager.PlaceBlock(_csvTranslations[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
                 }
             }
+        }
+
+        public void loadLevel()
+        {
+            loadBlocks();
         }
 
         public void setLevel(int level)
