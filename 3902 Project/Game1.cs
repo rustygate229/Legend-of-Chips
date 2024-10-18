@@ -70,6 +70,7 @@ namespace _3902_Project
             collisionBoxes = new List<ICollisionBox>();
             collisionBoxes.Add(Player.getCollisionBox());
             collisionBoxes.Add(new BlockCollisionBox(new Rectangle(400, 200, 64, 64), true));
+            collisionBoxes.Add(new EnemyCollisionBox(new Rectangle(300, 250, 32, 32), true, 100, 10));
 
 
             // TODO: use this.Content to load your game content here
@@ -99,10 +100,7 @@ namespace _3902_Project
             keyboardController.Update();
 
             List<CollisionData> collisions = CollisionDetector.DetectCollisions(collisionBoxes);
-            foreach (CollisionData collisionData in collisions)
-            {
-                CollisionHandlerManager.HandleCollision(collisionData.ObjectA, collisionData.ObjectB, collisionData.CollisionSide);
-            }
+            CollisionHandlerManager.HandleCollisions(collisions);
 
             // TODO: Add your update logic here (e.g., update player, blocks, etc.)
             base.Update(gameTime);
@@ -120,6 +118,7 @@ namespace _3902_Project
 
             _spriteBatch.Begin();
             _spriteBatch.Draw(whiteRectangle, collisionBoxes[1].Bounds, Color.White);
+            _spriteBatch.Draw(whiteRectangle, collisionBoxes[2].Bounds, Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);

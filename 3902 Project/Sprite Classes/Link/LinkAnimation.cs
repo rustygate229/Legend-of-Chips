@@ -81,8 +81,15 @@ namespace _3902_Project
 
         public void AnimDamaged(double x, double y)
         {
-            ((LinkSprite)currentLink).x = x;
-            ((LinkSprite)currentLink).y = y;
+            if (currentLink.GetType() == typeof(LinkSprite))
+            {
+                ((LinkSprite)currentLink).x = x;
+                ((LinkSprite)currentLink).y = y;
+            }
+            else if(currentLink.GetType() == typeof(AttackingLinkSprite)) {
+                ((AttackingLinkSprite)currentLink).x = x;
+                ((AttackingLinkSprite)currentLink).x = y;
+            }
 
             currentLink.Draw(_spriteBatch);
         }

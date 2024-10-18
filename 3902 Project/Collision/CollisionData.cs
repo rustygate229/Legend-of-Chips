@@ -13,8 +13,17 @@ namespace _3902_Project
         public ICollisionBox ObjectB { get; set; }
         public CollisionType CollisionSide { get; set; }
 
-       
+
+        public CollisionData(ICollisionBox a, ICollisionBox b, CollisionType dir)
+        {
+            ObjectA = a;
+            ObjectB = b;
+            CollisionSide = dir;
+
+        }
+
     }
+
     public enum CollisionType
     {
         NONE, LEFT, RIGHT, TOP, BOTTOM

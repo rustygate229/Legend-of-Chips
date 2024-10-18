@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System;
-using _3902_Project;
 
 namespace _3902_Project
 {
@@ -20,7 +18,21 @@ namespace _3902_Project
                     if (objectA.Bounds.Intersects(objectB.Bounds))
                     {
                         CollisionType side = DetermineCollisionSide(objectA, objectB);
-                        collisions.Add(new CollisionData { ObjectA = objectA, ObjectB = objectB, CollisionSide = side });
+
+                        if (objectB.GetType() == typeof(LinkCollisionBox))
+                        {
+                            //Link, <Other> collision
+                            collisions.Add(new CollisionData(objectB, objectA, side));
+                        }
+                        else if (objectB.GetType() == typeof(LinkCollisionBox))
+                        {
+                            //Enemy, <Other> collision (NOT link.) 
+                            collisions.Add(new CollisionData(objectB, objectA, side));
+                        }
+                        else
+                        {
+                            collisions.Add(new CollisionData(objectA, objectB, side));
+                        }
                     }
                 }
             }
@@ -40,6 +52,6 @@ namespace _3902_Project
                 return objectA.Bounds.Left < objectB.Bounds.Left ? CollisionType.RIGHT : CollisionType.LEFT;
             }
         }
-        
+
     }
 }

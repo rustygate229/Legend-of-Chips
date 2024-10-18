@@ -1,4 +1,5 @@
 ﻿using _3902_Project.Link;
+using System.Diagnostics;
 using static _3902_Project.ICollisionHandler;
 
 
@@ -27,6 +28,7 @@ namespace _3902_Project
 
             if (objectB.IsCollidable && objectB is EnemyCollisionBox)
             {
+                Debug.WriteLine("ENEMY COLLIDED");
                 // Handle player collision with enemy
                 if (_link.getAttack() == ILinkStateMachine.ATTACK.MELEE)
                 //LINK IS ATTACKING, check direction of attack
@@ -51,13 +53,13 @@ namespace _3902_Project
                     {
                         objectB.Health = objectB.Health - dmg;
                     }
-                    else
-                    {
-                        //link is not attacking
-                        objectA.Health = objectA.Health - objectB.Damage;
-                        _link.flipDamaged();
-                    }
 
+                }
+                else
+                {
+                    //link is not attacking
+                    objectA.Health = objectA.Health - objectB.Damage;
+                    _link.flipDamaged();
                 }
 
             }

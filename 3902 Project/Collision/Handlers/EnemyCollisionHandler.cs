@@ -9,33 +9,9 @@ public class EnemyCollisionHandler : ICollisionHandler
     {
         _enemyManager = enemyManager;
     }
-
-    public void HandleCollision(EnemyCollisionBox objectA, BlockCollisionBox objectB, CollisionType side)
-    {
-        //assuming some eventual generalized enemy and block class - will likely have to code some case for
-        //each individual class
-
-        switch (side)
-        {
-            case CollisionType.LEFT:
-                //moves enemy to the left
-                break;
-            case CollisionType.RIGHT:
-                //moves enemy to the right
-                break;
-            case CollisionType.TOP:
-                //moves enemy to the top
-                break;
-            case CollisionType.BOTTOM:
-                //moves enemy down
-                break;
-            default:
-                break;
-        }
-
-    }
     public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
     {
+        //most likely enemy and block, link takes priority and link-related collisions are in LinkCollisionHandler
         switch (side)
         {
             case CollisionType.LEFT:

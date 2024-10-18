@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using _3902_Project.Link;
 
 
@@ -27,16 +28,32 @@ namespace _3902_Project
             ItemCollisionHandler = new ItemCollisionHandler(link, itemManager);
         }
 
+        public void HandleCollisions(List<CollisionData> collisions)
+        {
+            foreach (CollisionData collisionData in collisions)
+            {
+                HandleCollision(collisionData.ObjectA, collisionData.ObjectB, collisionData.CollisionSide);
+            }
+
+        }
+
         // Method to handle collision using specific handlers.
-        public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
+        private void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
         {
             if (objectA.GetType() == typeof(LinkCollisionBox))
             {
                 LinkCollisionHandler.HandleCollision(objectA, objectB, side);
+                //Debug.WriteLine("LinkCollisionHandler");
             }
-            if(objectB.GetType() == typeof(LinkCollisionBox))
+            else if (objectA.GetType() == typeof(EnemyCollisionBox))
             {
-                LinkCollisionHandler.HandleCollision(objectB, objectA, side);
+                EnemyCollisionHandler.HandleCollision(objectA, objectB, side);
+                //Debug.WriteLine("EnemyCollisionHandler");
+            }
+            else
+            {
+                ItemCollisionHandler.HandleCollision(objectA, objectB, side);
+                //Debug.WriteLine("ItemCollisionHandler");
             }
 
 
