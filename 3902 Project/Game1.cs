@@ -63,7 +63,7 @@ namespace _3902_Project
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
 
-
+            EnemyCollisionManager enemyCollision = new EnemyCollisionManager(EnemyManager);
             CollisionHandlerManager = new CollisionHandlerManager(Player, EnemyManager, ItemManager);
             CollisionDetector = new CollisionDetector();
 

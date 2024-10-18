@@ -13,11 +13,11 @@ namespace _3902_Project
         LinkPlayer _link;
 
         //reference to enemy manager as well? 
-        EnemyManager _enemyManager;
+        EnemyCollisionManager _enemyManager;
         //no need for block manager
 
 
-        public LinkCollisionHandler(LinkPlayer link, EnemyManager enemyManager)
+        public LinkCollisionHandler(LinkPlayer link, EnemyCollisionManager enemyManager)
         {
             _link = link;
             _enemyManager = enemyManager;
