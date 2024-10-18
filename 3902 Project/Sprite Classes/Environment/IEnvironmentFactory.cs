@@ -15,7 +15,6 @@ namespace _3902_Project
         int getLevel();
         void loadLevel();
         List<Rectangle> getCollidables();
-        void Draw();
         Rectangle getDimensions();
     }
 }

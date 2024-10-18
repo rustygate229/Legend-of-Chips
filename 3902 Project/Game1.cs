@@ -24,7 +24,7 @@ namespace _3902_Project
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.PreferredBackBufferWidth = 1024;
-            _graphics.PreferredBackBufferHeight = 960;
+            _graphics.PreferredBackBufferHeight = 700;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -58,16 +58,8 @@ namespace _3902_Project
             ItemManager.LoadAllTextures();
             EnemyManager.LoadAllTextures();
 
-            BlockManager.PlaceBlock(BlockManager.BlockNames.DungeonExterior, new Vector2(0, 0));
-            BlockManager.PlaceBlock(BlockManager.BlockNames.Dirt, new Vector2(128, 128));
-            BlockManager.PlaceBlock(BlockManager.BlockNames.Dirt, new Vector2(128, 128 * 2));
-            BlockManager.PlaceBlock(BlockManager.BlockNames.Dirt, new Vector2(128 * 2, 128));
-            BlockManager.PlaceBlock(BlockManager.BlockNames.Dirt, new Vector2(128 * 2, 128 * 2));
-            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.BrownSlime, new Vector2(800, 480));
-            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.GreenSlime, new Vector2(800, 480));
-            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.Wizzrope, new Vector2(800, 480));
-            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.Proto, new Vector2(800, 480));
-            ItemManager.PlaceItem(ItemManager.ItemNames.DepletingHeart, new Vector2(800, 480));
+            //Meant for Sprint3
+            EnvironmentFactory.loadLevel();
         }
 
         protected override void Update(GameTime gameTime)

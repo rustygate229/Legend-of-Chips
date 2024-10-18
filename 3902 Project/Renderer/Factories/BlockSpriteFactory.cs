@@ -12,7 +12,7 @@ namespace _3902_Project
         // storing the block outside build range, then rerouting later
         private Vector2 _position = new Vector2(-1000, -1000);
         private int xScale = 64;
-        private int yScale = 44;
+        private int yScale = 64;
 
         // create a new instance of BlockSpriteFactory
         private static BlockSpriteFactory instance = new BlockSpriteFactory();
