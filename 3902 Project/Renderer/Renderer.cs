@@ -12,7 +12,7 @@ namespace _3902_Project
         public enum STATUS { Still, SingleAnimated, Animated };
         private int _statusNumber = 0;
 
-        public enum DIRECTION { UP, DOWN, LEFT, RIGHT }
+        public enum DIRECTION { DOWN, UP, RIGHT, LEFT }
 
 
         // NON-ANIMATED SPRITE
@@ -26,7 +26,15 @@ namespace _3902_Project
         private Vector2 _positionOnWindow;
 
 
-        // constructor linking variables
+        /// <summary>
+        /// constructor for getting information for rendering STILL sprites
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="spriteSheet"></param>
+        /// <param name="spawnPosition"></param>
+        /// <param name="spritePosition"></param>
+        /// <param name="spriteDimension"></param>
+        /// <param name="spritePrintDimension"></param>
         public Renderer(Renderer.STATUS status, Texture2D spriteSheet, Vector2 spawnPosition, Vector2 spritePosition, Vector2 spriteDimension, Vector2 spritePrintDimension)
         {
             // set animated state and import spritesheet
@@ -56,7 +64,17 @@ namespace _3902_Project
         private int _frameTotalSpriteShift;
 
 
-        // constructor for animated item sprites
+        /// <summary>
+        /// constructor for getting information for rendering ANIMATED sprites
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="spriteSheet"></param>
+        /// <param name="windowPosition"></param>
+        /// <param name="spritePosition"></param>
+        /// <param name="spriteDimension"></param>
+        /// <param name="spritePrintDimension"></param>
+        /// <param name="rowAndColumn"></param>
+        /// <param name="frameRate"></param>
         public Renderer(Renderer.STATUS status, Texture2D spriteSheet, Vector2 windowPosition, Vector2 spritePosition, Vector2 spriteDimension, Vector2 spritePrintDimension, Vector2 rowAndColumn, int frameRate)
         {
             // set animated state and import spritesheet
@@ -75,6 +93,10 @@ namespace _3902_Project
             _positionOnWindow = windowPosition;
         }
 
+
+        /// <summary>
+        /// sets up frame variables and their values for UpdateFrames()
+        /// </summary>
         public void SetUpFrames()
         {
             // rows/columns stuff for sprite animation
@@ -105,27 +127,27 @@ namespace _3902_Project
         }
 
 
-        // count/reset frames and sprite levels (levels meaning at what stage of animation)
+        /// <summary>
+        /// count/reset frames and sprite levels (levels meaning at what stage of animation)
+        /// </summary>
         public void UpdateFrames()
         {
+            // if crea
             if (_statusNumber > 0)
             {
                 // logic for creating a framerate
                 if (_framesCounter < _framesPerSprite)
                 {
-                    Debug.WriteLine("_framesCounter < _framesPerSprite");
                     _framesCounter++;
                 }
                 else if (_framesCounter == _frameRate)
                 {
-                    Debug.WriteLine("_framesCounter == _frameRate");
                     _currentFrame = 0;
                     _framesCounter = 0;
                     _framesPerSprite = _frameRate / _totalFrames;
                 }
                 else
                 {
-                    Debug.WriteLine("increment frame and _framesPerSprite");
                     _currentFrame++;
                     _framesPerSprite += _frameRate / _totalFrames;
                 }
@@ -133,7 +155,10 @@ namespace _3902_Project
         }
 
 
-        // draw the animated sprites
+        /// <summary>
+        /// draws a sourceRectangle in an int array based on what status of animation was selected
+        /// </summary>
+        /// <returns></returns>
         public int[] GetSourceRectangle()
         {
             int[] sourceRectangle = new int[4];
@@ -150,7 +175,6 @@ namespace _3902_Project
             // set sourceRectangle depending on animation type of sprite
             if (_statusNumber == 1 && _currentFrame == 1) // opposite frame for Single Animated Sprite
             {
-                Debug.WriteLine("in Single Animated");
                 sourceRectangle[0] = (int)_spritePosition.X + (int)_spriteDimensions.X;
                 sourceRectangle[1] = (int)_spritePosition.Y;
                 sourceRectangle[2] = -(int)_spriteDimensions.X;
@@ -158,7 +182,6 @@ namespace _3902_Project
             }
             else if (_statusNumber == 2) // Animated Sprite
             {
-                Debug.WriteLine("In Aminated");
                 width = (int)_spriteDimensions.X / (int)_rowsAndColumns.Y;
                 height = (int)_spriteDimensions.Y / (int)_rowsAndColumns.X;
                 row = _currentFrame / (int)_rowsAndColumns.Y;
@@ -175,21 +198,51 @@ namespace _3902_Project
             return sourceRectangle;
         }
 
-        // general get position method from IPosition
+
+        /// <summary>
+        /// gets current position of block
+        /// </summary>
         public Vector2 GetPosition()
         {
             return _positionOnWindow;
         }
 
-        // general set position method from IPosition
+
+        /// <summary>
+        /// sets current position of block
+        /// </summary>
         public void SetPosition(Vector2 position)
         {
             _positionOnWindow = position;
         }
 
+        /// <summary>
+        /// get the destinationRectangle of your current sprite
+        /// </summary>
         public Rectangle GetDestinationRectangle()
         {
             return new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y);
+        }
+
+        /// <summary>
+        /// performs rotation on the sprite depending on which direction is inputed
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <returns></returns>
+        public float GetRotation(Renderer.DIRECTION direction)
+        {
+            float rotation = 0f;
+
+            switch ((int)direction)
+            {
+                case 0: rotation = 0f; break;                           // DOWN - Facing Down
+                case 1: rotation = MathHelper.ToRadians(180); break;    // UP - Facing Up
+                case 2: rotation = MathHelper.ToRadians(270); break;    // RIGHT - Facing Right
+                case 3: rotation = MathHelper.ToRadians(90); break;     // LEFT - Facing Left
+                default: break;                                         // DEFAULT
+            }
+
+            return rotation;
         }
     }
 }

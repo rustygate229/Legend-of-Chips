@@ -19,32 +19,45 @@ namespace _3902_Project
         private Renderer _block;
 
 
-        // constructor for block
+        /// <summary>
+        /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
+        /// </summary>
         public PBlocks_Tile(Texture2D spriteSheet)
         {
             _spriteSheet = spriteSheet;
             _block = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spritePosition, _spriteDimensions, _spritePrintDimensions);
         }
 
-        // general get position method from IPosition
+
+        /// <summary>
+        /// Passes to the Renderer GetPosition method
+        /// </summary>
         public Vector2 GetPosition()
         {
-            return _position;
+            return _block.GetPosition();
         }
 
-        // general set position method from IPosition
+
+        /// <summary>
+        /// Passes to the Renderer SetPosition method
+        /// </summary>
         public void SetPosition(Vector2 position)
         {
-            _position = position;
+            _block.SetPosition(position);
         }
 
-        // update the movement for enemy
+
+        /// <summary>
+        /// Updates the block (movement, animation, etc.)
+        /// </summary>
         public void Update()
         {
         }
 
 
-        // draw the block
+        /// <summary>
+        /// Draws the block in the given SpriteBatch
+        /// </summary>
         public void Draw(SpriteBatch spriteBatch)
         {
             int[] sR = _block.GetSourceRectangle();

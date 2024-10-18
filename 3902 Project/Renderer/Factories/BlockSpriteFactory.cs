@@ -36,29 +36,37 @@ namespace _3902_Project
 
 
         // create still block sprites
-        public ISprite CreateStillFBlock_StairsTopRoom() { return new FBlock_Stairs(_blockSpritesheet, Renderer.DIRECTION.DOWN); }
-        public ISprite CreateStillFBlock_StairsBottomRoom() { return new FBlock_Stairs(_blockSpritesheet, Renderer.DIRECTION.UP); }
-        public ISprite CreateStillFBlock_StairsLeftRoom() { return new FBlock_Stairs(_blockSpritesheet, Renderer.DIRECTION.LEFT); }
-        public ISprite CreateStillFBlock_StairsRightRoom() { return new FBlock_Stairs(_blockSpritesheet, Renderer.DIRECTION.RIGHT); }
+        public ISprite CreateStillBlock_Environment() { return new PBlock_Environment(_blockSpritesheet); }
 
-        public ISprite CreateStillFBlock_StatueFishTopRooom() { return new FBlock_StatueFish(_blockSpritesheet, Renderer.DIRECTION.DOWN); }
-        public ISprite CreateStillFBlock_StatueFishBottomRoom() { return new FBlock_StatueFish(_blockSpritesheet, Renderer.DIRECTION.UP); }
-        public ISprite CreateStillFBlock_StatueFishLeftRoom() { return new FBlock_StatueFish(_blockSpritesheet, Renderer.DIRECTION.LEFT); }
-        public ISprite CreateStillFBlock_StatueFishRightRoom() { return new FBlock_StatueFish(_blockSpritesheet, Renderer.DIRECTION.RIGHT); }
+        public ISprite CreateStillFBlock_Stairs_RIGHT() { return new FBlock_Stairs(_blockSpritesheet, Renderer.DIRECTION.RIGHT); }
+        public ISprite CreateStillFBlock_Stairs_LEFT() { return new FBlock_Stairs(_blockSpritesheet, Renderer.DIRECTION.LEFT); }
 
-        public ISprite CreateStillFBlock_KeyholeLockedDoorTopRoom() { return new FBlock_KeyHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.DOWN); }
-        public ISprite CreateStillFBlock_KeyholeLockedDoorBottomRoom() { return new FBlock_KeyHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.UP); }
-        public ISprite CreateStillFBlock_KeyholeLockedDoorLeftRoom() { return new FBlock_KeyHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.LEFT); }
-        public ISprite CreateStillFBlock_KeyholeLockedDoorRightRoom() { return new FBlock_KeyHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.RIGHT); }
+        public ISprite CreateStillFBlock_StatueDragon_RIGHT() { return new FBlock_StatueDragon(_blockSpritesheet, Renderer.DIRECTION.RIGHT); }
+        public ISprite CreateStillFBlock_StatueDragon_LEFT() { return new FBlock_StatueDragon(_blockSpritesheet, Renderer.DIRECTION.LEFT); }
 
-        public ISprite CreateStillFBlock_DiamondLockedDoorTopRoom() { return new FBlock_DiamondHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.DOWN); }
-        public ISprite CreateStillFBlock_DiamondLockedDoorBottomRoom() { return new FBlock_DiamondHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.UP); }
-        public ISprite CreateStillFBlock_DiamondLockedDoorLeftRoom() { return new FBlock_DiamondHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.LEFT); }
-        public ISprite CreateStillFBlock_DiamondLockedDoorRightRoom() { return new FBlock_DiamondHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.RIGHT); }
+        public ISprite CreateStillFBlock_StatueFish_RIGHT() { return new FBlock_StatueFish(_blockSpritesheet, Renderer.DIRECTION.RIGHT); }
+        public ISprite CreateStillFBlock_StatueFish_LEFT() { return new FBlock_StatueFish(_blockSpritesheet, Renderer.DIRECTION.LEFT); }
 
-        public ISprite CreateStillFBlock_StatueDragonTopRoom() { return new FBlock_StatueDragon(_blockSpritesheet, Renderer.DIRECTION.DOWN); }
-        public ISprite CreateStillFBlock_WhiteBrickTopRoom() { return new FBlock_WhiteBrick(_blockSpritesheet, Renderer.DIRECTION.DOWN); }
-        public ISprite CreateStillFBlock_WhiteTileTopRoom() { return new FBlock_WhiteTile(_blockSpritesheet, Renderer.DIRECTION.DOWN); }
+        public ISprite CreateStillFBlock_KeyholeLockedDoor_DOWN() { return new FBlock_KeyHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.DOWN); }
+        public ISprite CreateStillFBlock_KeyholeLockedDoor_UP() { return new FBlock_KeyHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.UP); }
+        public ISprite CreateStillFBlock_KeyholeLockedDoor_RIGHT() { return new FBlock_KeyHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.RIGHT); }
+        public ISprite CreateStillFBlock_KeyholeLockedDoor_LEFT() { return new FBlock_KeyHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.LEFT); }
+
+        public ISprite CreateStillFBlock_DiamondLockedDoor_DOWN() { return new FBlock_DiamondHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.DOWN); }
+        public ISprite CreateStillFBlock_DiamondLockedDoor_UP() { return new FBlock_DiamondHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.UP); }
+        public ISprite CreateStillFBlock_DiamondLockedDoor_RIGHT() { return new FBlock_DiamondHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.RIGHT); }
+        public ISprite CreateStillFBlock_DiamondLockedDoor_LEFT() { return new FBlock_DiamondHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.LEFT); }
+
+        public ISprite CreateStillFBlock_WhiteBrick_DOWN() { return new FBlock_WhiteBrick(_blockSpritesheet, Renderer.DIRECTION.DOWN); }
+        public ISprite CreateStillFBlock_WhiteBrick_UP() { return new FBlock_WhiteBrick(_blockSpritesheet, Renderer.DIRECTION.UP); }
+        public ISprite CreateStillFBlock_WhiteBrick_RIGHT() { return new FBlock_WhiteBrick(_blockSpritesheet, Renderer.DIRECTION.RIGHT); }
+        public ISprite CreateStillFBlock_WhiteBrick_LEFT() { return new FBlock_WhiteBrick(_blockSpritesheet, Renderer.DIRECTION.LEFT); }
+
+        public ISprite CreateStillFBlock_WhiteTile_DOWN() { return new FBlock_WhiteTile(_blockSpritesheet, Renderer.DIRECTION.DOWN); }
+        public ISprite CreateStillFBlock_WhiteTile_UP() { return new FBlock_WhiteTile(_blockSpritesheet, Renderer.DIRECTION.UP); }
+        public ISprite CreateStillFBlock_WhiteTile_RIGHT() { return new FBlock_WhiteTile(_blockSpritesheet, Renderer.DIRECTION.RIGHT); }
+        public ISprite CreateStillFBlock_WhiteTile_LEFT() { return new FBlock_WhiteTile(_blockSpritesheet, Renderer.DIRECTION.LEFT); }
+
 
         public ISprite CreateStillPBlock_Square() { return new PBlock_Square(_blockSpritesheet); }
         public ISprite CreateStillPBlock_Tile() { return new PBlocks_Tile(_blockSpritesheet); }

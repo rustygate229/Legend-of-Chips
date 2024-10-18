@@ -9,7 +9,7 @@ namespace _3902_Project
         // variables for constructor assignments
         private Texture2D _spriteSheet;
         private Vector2 _position;
-        private int _direction;
+        private Renderer.DIRECTION _direction;
 
         // variables to change based on where your block is and what to print out
         private Vector2 _spritePosition = new Vector2(1035, 28);
@@ -20,52 +20,59 @@ namespace _3902_Project
         private Renderer _block;
 
 
-        // constructor for block
+        /// <summary>
+        /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
+        /// </summary>
         public FBlock_Stairs(Texture2D spriteSheet, Renderer.DIRECTION facingDirection)
         {
             _spriteSheet = spriteSheet;
-            _direction = (int)facingDirection;
+            _direction = facingDirection;
             _block = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spritePosition, _spriteDimensions, _spritePrintDimensions);
         }
 
-        // general get position method from IPosition
+
+        /// <summary>
+        /// Passes to the Renderer GetPosition method
+        /// </summary>
         public Vector2 GetPosition()
         {
-            return _position;
+            return _block.GetPosition();
         }
 
-        // general set position method from IPosition
+
+        /// <summary>
+        /// Passes to the Renderer SetPosition method
+        /// </summary>
         public void SetPosition(Vector2 position)
         {
-            _position = position;
+            _block.SetPosition(position);
         }
 
-        // update the movement for block
+
+        /// <summary>
+        /// Updates the block (movement, animation, etc.)
+        /// </summary>
         public void Update()
         {
         }
 
 
-        // draw the block
+        /// <summary>
+        /// Draws the block in the given SpriteBatch
+        /// </summary>
         public void Draw(SpriteBatch spriteBatch)
         {
+            // create source rectangle
             int[] sR = _block.GetSourceRectangle();
-            float rotation = 0f;
-
-            switch(_direction)
-            {
-                case 0: rotation = 0f; break;                           // UP - Facing Down
-                case 1: rotation = MathHelper.ToRadians(180); break;    // DOWN - Facing Up
-                case 2: rotation = MathHelper.ToRadians(270); break;    // LEFT - Facing Right
-                case 3: rotation = MathHelper.ToRadians(90); break;     // RIGHT - Facing Left
-                default: break;                                         // DEFAULT
-            }
 
             Rectangle sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
             Rectangle destinationRectangle = _block.GetDestinationRectangle();
 
+            // since a stair only has two directions (right and left)
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White, rotation, _position, SpriteEffects.None, 0f);
+            if ((int)_direction == 2) // if facing Right, flip vertically
+                sourceRectangle = new Rectangle(sR[0] + sR[2], sR[1], -sR[2], sR[3]);
+            spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);
             spriteBatch.End();
         }
     }

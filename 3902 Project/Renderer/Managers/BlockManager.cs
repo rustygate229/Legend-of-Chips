@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Text;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace _3902_Project
 {
@@ -11,15 +12,17 @@ namespace _3902_Project
         // create block names for finding them
         public enum BlockNames 
         { 
-            BombedDoor_Top, BombedDoor_Bottom, BombedDoor_Left, BombedDoor_Right, DiamondHoleLockedDoor_Top, DiamondHoleLockedDoor_Bottom, 
-            DiamondHoleLockedDoor_Left, DiamondHoleLockedDoor_Right, KeyHoleLockedDoor_Top, KeyHoleLockedDoor_Bottom, KeyHoleLockedDoor_Left, 
-            KeyHoleLockedDoor_Right, OpenDoor_Top, OpenDoor_Bottom, OpenDoor_Left, OpenDoor_Right, Stairs_Top, Stairs_Bottom, Stairs_Left, 
-            Stairs_Right, StatueDragon_Top, StatueDragon_Bottom, StatueDragon_Left, StatueDragon_Right
+            BombedDoor_DOWN, BombedDoor_UP, BombedDoor_RIGHT, BombedDoor_LEFT, DiamondHoleLockedDoor_DOWN, DiamondHoleLockedDoor_UP, 
+            DiamondHoleLockedDoor_RIGHT, DiamondHoleLockedDoor_LEFT, KeyHoleLockedDoor_DOWN, KeyHoleLockedDoor_UP, KeyHoleLockedDoor_RIGHT, 
+            KeyHoleLockedDoor_LEFT, OpenDoor_DOWN, OpenDoor_UP, OpenDoor_RIGHT, OpenDoor_LEFT, Wall_DOWN, Wall_UP, Wall_RIGHT, Wall_LEFT,
+            WhiteBrick_DOWN, WhiteBrick_UP, WhiteBrick_RIGHT, WhiteBrick_LEFT, WhiteTile_DOWN, WhiteTile_UP, WhiteTile_RIGHT, WhiteTile_LEFT,
+            Stairs_RIGHT, Stairs_LEFT, StatueDragon_RIGHT, StatueDragon_LEFT, StatueFish_RIGHT, StatueFish_LEFT,
+            Environment, Dirt, Square, Tile
         }
 
         // block dictionary/inventory
         private Dictionary<BlockNames, ISprite> _blocks = new Dictionary<BlockNames, ISprite>();
-        private HashSet<ISprite> _runningBlocks = new HashSet<ISprite>();
+        private HashSet<Dictionary<ISprite, Vector2>> _runningBlocks = new HashSet<Dictionary<ISprite, Vector2>>();
 
         // create variables for passing
         private BlockSpriteFactory _factory = new BlockSpriteFactory();
@@ -42,33 +45,46 @@ namespace _3902_Project
             _factory.LoadAllTextures(_contentManager);
 
             // loading still block sprites
-            _blocks.Add(BlockNames.Stairs_Top, _factory.CreateStillFBlock_StairsTopRoom());
+            _blocks.Add(BlockNames.Environment, _factory.CreateStillBlock_Environment());
+            _blocks.Add(BlockNames.Stairs_LEFT, _factory.CreateStillFBlock_Stairs_LEFT());
+            _blocks.Add(BlockNames.Stairs_RIGHT, _factory.CreateStillFBlock_Stairs_RIGHT());
         }
 
         public void PlaceBlock(BlockNames name, Vector2 placementPosition)
         {
-            ISprite currentBlock = _blocks[name];
-            currentBlock.SetPosition(placementPosition);
-            _runningBlocks.Add(currentBlock);
+            ISprite currentSprite = _blocks[name];
+            currentSprite.SetPosition(placementPosition);
+
+            Dictionary<ISprite, Vector2> newBlock = new Dictionary<ISprite, Vector2>();
+            newBlock.Add(currentSprite, placementPosition);
+
+
+            _runningBlocks.Add(newBlock);
         }
 
-        public void UnloadAllBlocks() { _runningBlocks = new HashSet<ISprite>(); }
+        public void UnloadAllBlocks() { _runningBlocks = new HashSet<Dictionary<ISprite, Vector2>>(); }
 
         // draw block sprite based on current selected block
         public void Draw()
         {
-            foreach (var block in _runningBlocks)
+            foreach (var blocks in _runningBlocks)
             {
-                block.Draw(_spriteBatch);
+                foreach (var block in blocks)
+                {
+                    block.Key.Draw(_spriteBatch);
+                }
             }
         }
 
         // update used for each of the animated sprites
         public void Update()
         {
-            foreach (var block in _runningBlocks)
+            foreach (var blocks in _runningBlocks)
             {
-                block.Update();
+                foreach (var block in blocks)
+                {
+                    block.Key.Update();
+                }
             }
         }
     }

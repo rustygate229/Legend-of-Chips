@@ -19,34 +19,46 @@ namespace _3902_Project
         private Renderer _block;
 
 
-        // constructor for block
-        public PlainBlockTemplate(Texture2D spriteSheet, Vector2 spawnPosition)
+        /// <summary>
+        /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
+        /// </summary>
+        /// <param name="spriteSheet"></param>
+        public PlainBlockTemplate(Texture2D spriteSheet)
         {
             _spriteSheet = spriteSheet;
-            _position = spawnPosition;
             _block = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spritePosition, _spriteDimensions, _spritePrintDimensions);
         }
 
-        // general get position method from IPosition
+
+        /// <summary>
+        /// Gets current position of block
+        /// </summary>
         public Vector2 GetPosition()
         {
             return _position;
         }
 
-        // general set position method from IPosition
+
+        /// <summary>
+        /// Sets current position of block
+        /// </summary>
         public void SetPosition(Vector2 position)
         {
             _position = position;
         }
 
 
-        // update the movement for block, used later
+        /// <summary>
+        /// Updates the block (movement, animation, etc.)
+        /// </summary>
         public void Update()
         {
         }
 
 
-        // draw the block
+        /// <summary>
+        /// Draws the block in the given SpriteBatch
+        /// </summary>
         public void Draw(SpriteBatch spriteBatch)
         {
             int[] sR = _block.GetSourceRectangle();

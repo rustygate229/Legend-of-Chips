@@ -13,22 +13,22 @@ namespace _3902_Project
         private Renderer.DIRECTION _direction;
 
         // create multiple sprites
-        private Renderer _enemyTop;
-        private Renderer _enemyBottom;
-        private Renderer _enemyLeftRight;
+        private Renderer _enemyDown;
+        private Renderer _enemyUp;
+        private Renderer _enemyRightLeft;
 
         // variables to change based on where your block is and what to print out
-        private Vector2 _spriteTopPosition = new Vector2(1, 90);
-        private Vector2 _spriteTopDimensions = new Vector2(34, 16);
-        private Vector2 _spriteTopRowAndColumns = new Vector2(1, 2);
+        private Vector2 _spriteDownPosition = new Vector2(1, 90);
+        private Vector2 _spriteDownDimensions = new Vector2(34, 16);
+        private Vector2 _spriteDownRowAndColumns = new Vector2(1, 2);
 
-        private Vector2 _spriteBottomPosition = new Vector2(36, 90);
-        private Vector2 _spriteBottomDimensions = new Vector2(15, 16);
-        private Vector2 _spriteBottomRowAndColumns = new Vector2(1, 1);
+        private Vector2 _spriteUpPosition = new Vector2(36, 90);
+        private Vector2 _spriteUpDimensions = new Vector2(15, 16);
+        private Vector2 _spriteUpRowAndColumns = new Vector2(1, 1);
 
-        private Vector2 _spriteLeftRightPosition = new Vector2(52, 90);
-        private Vector2 _spriteLeftRightDimensions = new Vector2(33, 16);
-        private Vector2 _spriteLeftRightRowAndColumns = new Vector2(1, 2);
+        private Vector2 _spriteRightLeftPosition = new Vector2(52, 90);
+        private Vector2 _spriteRightLeftDimensions = new Vector2(33, 16);
+        private Vector2 _spriteRightLeftRowAndColumns = new Vector2(1, 2);
 
         private Vector2 _spritePrintDimensions = new Vector2(64, 64);
 
@@ -40,39 +40,49 @@ namespace _3902_Project
         private static Random random = new Random();
 
 
-        // constructor for enemy
+        /// <summary>
+        /// Constructs the enemy (set values, create Rendering, etc.); takes the Enemy Spritesheet
+        /// </summary>
+        /// <param name="spriteSheet"></param>
         public Darknut(Texture2D spriteSheet)
         {
             _spriteSheet = spriteSheet;
-            _enemyTop = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _position, _spriteTopPosition, _spriteTopDimensions, _spritePrintDimensions, _spriteTopRowAndColumns, 10);
-            _enemyBottom = new Renderer(Renderer.STATUS.SingleAnimated, _spriteSheet, _position, _spriteBottomPosition, _spriteBottomDimensions, _spritePrintDimensions, _spriteBottomRowAndColumns, 10);
-            _enemyLeftRight = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _position, _spriteLeftRightPosition, _spriteLeftRightDimensions, _spritePrintDimensions, _spriteLeftRightRowAndColumns, 10);
+            _enemyDown = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _position, _spriteDownPosition, _spriteDownDimensions, _spritePrintDimensions, _spriteDownRowAndColumns, 10);
+            _enemyUp = new Renderer(Renderer.STATUS.SingleAnimated, _spriteSheet, _position, _spriteUpPosition, _spriteUpDimensions, _spritePrintDimensions, _spriteUpRowAndColumns, 10);
+            _enemyRightLeft = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _position, _spriteRightLeftPosition, _spriteRightLeftDimensions, _spritePrintDimensions, _spriteRightLeftRowAndColumns, 10);
         }
 
-        // general get position method from IPosition
+
+        /// <summary>
+        /// Passes to the Renderer GetPosition method
+        /// </summary>
         public Vector2 GetPosition()
         {
             return _position;
         }
 
-        // general set position method from IPosition
+
+        /// <summary>
+        /// Passes to the Renderer SetPosition method
+        /// </summary>
         public void SetPosition(Vector2 position)
         {
-            _position = position;
-            _enemyTop.SetPosition(position);
-            _enemyBottom.SetPosition(position);
-            _enemyLeftRight.SetPosition(position);
+            _enemyDown.SetPosition(position);
+            _enemyUp.SetPosition(position);
+            _enemyRightLeft.SetPosition(position);
         }
 
 
-        // update the movement for enemy
+        /// <summary>
+        /// Updates the enemy (movement, animation, etc.)
+        /// </summary>
         public void Update()
         {
             // update position and movement counter
             _position += _updatePosition;
-            _enemyTop.SetPosition(_position);
-            _enemyBottom.SetPosition(_position);
-            _enemyLeftRight.SetPosition(_position);
+            _enemyDown.SetPosition(_position);
+            _enemyUp.SetPosition(_position);
+            _enemyRightLeft.SetPosition(_position);
             _moveCounter++;
 
             // Change direction periodically (random horizontal or vertical movement)
@@ -81,21 +91,21 @@ namespace _3902_Project
                 // Randomly choose a direction: 0 = left, 1 = right, 2 = up, 3 = down
                 switch (random.Next(4))
                 {
-                    case 0: // Move left
-                        _updatePosition = new Vector2(-(Math.Abs(_positionSpeed)), 0);
-                        _direction = Renderer.DIRECTION.LEFT;
+                    case 0: // Move DOWN
+                        _updatePosition = new Vector2(0, Math.Abs(_positionSpeed));
+                        _direction = Renderer.DIRECTION.DOWN;
                         break;
-                    case 1: // Move right
+                    case 1: // Move UP
+                        _updatePosition = new Vector2(0, -(Math.Abs(_positionSpeed)));
+                        _direction = Renderer.DIRECTION.UP;
+                        break;
+                    case 2: // Move RIGHT
                         _updatePosition = new Vector2(Math.Abs(_positionSpeed), 0);
                         _direction = Renderer.DIRECTION.RIGHT;
                         break;
-                    case 2: // Move up
-                        _updatePosition = new Vector2(0, -(Math.Abs(_positionSpeed)));
-                        _direction = Renderer.DIRECTION.DOWN;
-                        break;
-                    case 3: // Move down
-                        _updatePosition = new Vector2(0, Math.Abs(_positionSpeed));
-                        _direction = Renderer.DIRECTION.UP;
+                    case 3: // Move LEFT
+                        _updatePosition = new Vector2(-(Math.Abs(_positionSpeed)), 0);
+                        _direction = Renderer.DIRECTION.LEFT;
                         break;
                 }
                 _moveCounter = 0; // Reset the timer
@@ -103,47 +113,51 @@ namespace _3902_Project
             // needed to constantly update the frames
             switch((int)_direction)
             {
-                case 0: // Top/UP sprite drawing
-                    _enemyTop.UpdateFrames(); break;
-                case 1: // Bottom/DOWN sprite drawing
-                    _enemyBottom.UpdateFrames(); break;
-                case 2: // Left/LEFT sprite drawing
-                    _enemyLeftRight.UpdateFrames(); break;
-                case 3: // Right/RIGHT sprite drawing
-                    _enemyLeftRight.UpdateFrames(); ; break;
+                case 0: // DOWN sprite drawing
+                    _enemyDown.UpdateFrames(); break;
+                case 1: // UP sprite drawing
+                    _enemyUp.UpdateFrames(); break;
+                case 2: // RIGHT sprite drawing
+                    _enemyRightLeft.UpdateFrames(); break;
+                case 3: // LEFT sprite drawing
+                    _enemyRightLeft.UpdateFrames(); ; break;
                 default: break;
             }
         }
-    
 
 
-        // draw the enemy
+        /// <summary>
+        /// Draws the enemy in the given SpriteBatch
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            int[] sR_T = _enemyTop.GetSourceRectangle();
-            int[] sR_B = _enemyBottom.GetSourceRectangle();
-            int[] sR_LR = _enemyLeftRight.GetSourceRectangle();
+            // create source rectangles
+            int[] sR_D = _enemyDown.GetSourceRectangle();
+            int[] sR_U = _enemyUp.GetSourceRectangle();
+            int[] sR_RL = _enemyRightLeft.GetSourceRectangle();
 
-            Rectangle topSourceRectangle = new Rectangle(sR_T[0], sR_T[1], sR_T[2], sR_T[3]);
-            Rectangle bottomSourceRectangle = new Rectangle(sR_B[0], sR_B[1], sR_B[2], sR_B[3]);
-            Rectangle leftSourceRectangle = new Rectangle(sR_LR[0] + sR_LR[2], sR_LR[1], -sR_LR[2], sR_LR[3]);
-            Rectangle rightSourceRectangle = new Rectangle(sR_LR[0], sR_LR[1], sR_LR[2], sR_LR[3]);
+            Rectangle downSourceRectangle = new Rectangle(sR_D[0], sR_D[1], sR_D[2], sR_D[3]);
+            Rectangle upSourceRectangle = new Rectangle(sR_U[0], sR_U[1], sR_U[2], sR_U[3]);
+            Rectangle rightSourceRectangle = new Rectangle(sR_RL[0], sR_RL[1], sR_RL[2], sR_RL[3]);
+            // invert the rightSourceRectangle vertically
+            Rectangle leftSourceRectangle = new Rectangle(sR_RL[0] + sR_RL[2], sR_RL[1], -sR_RL[2], sR_RL[3]);
 
-            Rectangle topDestinationRectangle = _enemyTop.GetDestinationRectangle();
-            Rectangle bottomDestinationRectangle = _enemyBottom.GetDestinationRectangle();
-            Rectangle leftRightDestinationRectangle = _enemyLeftRight.GetDestinationRectangle();
+            Rectangle DownDestinationRectangle = _enemyDown.GetDestinationRectangle();
+            Rectangle UpDestinationRectangle = _enemyUp.GetDestinationRectangle();
+            Rectangle rightLeftDestinationRectangle = _enemyRightLeft.GetDestinationRectangle();
 
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             switch ((int)_direction)
             {
-                case 0: // Top/UP sprite drawing
-                    spriteBatch.Draw(_spriteSheet, topDestinationRectangle, topSourceRectangle, Color.White); break;
-                case 1: // Bottom/DOWN sprite drawing
-                    spriteBatch.Draw(_spriteSheet, bottomDestinationRectangle, bottomSourceRectangle, Color.White); break;
-                case 2: // Left/LEFT sprite drawing
-                    spriteBatch.Draw(_spriteSheet, leftRightDestinationRectangle, leftSourceRectangle, Color.White); break;
-                case 3: // Right/RIGHT sprite drawing
-                    spriteBatch.Draw(_spriteSheet, leftRightDestinationRectangle, rightSourceRectangle, Color.White); break;
+                case 0: // DOWN sprite drawing
+                    spriteBatch.Draw(_spriteSheet, DownDestinationRectangle, downSourceRectangle, Color.White); break;
+                case 1: // UP sprite drawing
+                    spriteBatch.Draw(_spriteSheet, UpDestinationRectangle, upSourceRectangle, Color.White); break;
+                case 2: // RIGHT sprite drawing
+                    spriteBatch.Draw(_spriteSheet, rightLeftDestinationRectangle, rightSourceRectangle, Color.White); break;
+                case 3: // LEFT sprite drawing
+                    spriteBatch.Draw(_spriteSheet, rightLeftDestinationRectangle, leftSourceRectangle, Color.White); break;
                 default: break;
             }
 

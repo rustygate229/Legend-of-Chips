@@ -12,7 +12,7 @@ namespace _3902_Project
 
         // enemy dictionary/inventory
         private Dictionary<EnemyNames, ISprite> _enemies = new Dictionary<EnemyNames, ISprite>();
-        private HashSet<ISprite> _runningEnemies = new HashSet<ISprite>();
+        private HashSet<Dictionary<ISprite, Vector2>> _runningEnemies = new HashSet<Dictionary<ISprite, Vector2>>();
 
         // create variables for passing
         private EnemySpriteFactory _factory = EnemySpriteFactory.Instance;
@@ -43,29 +43,36 @@ namespace _3902_Project
 
         public void PlaceEnemy(EnemyNames name, Vector2 placementPosition)
         {
-            ISprite currentEnemy = _enemies[name];
-            currentEnemy.SetPosition(placementPosition);
-            _runningEnemies.Add(currentEnemy);
+            Dictionary<ISprite, Vector2> newEnemy = new Dictionary<ISprite, Vector2>();
+            newEnemy.Add(_enemies.GetValueOrDefault(name), placementPosition);
+
+            _runningEnemies.Add(newEnemy);
         }
 
-        public void UnloadAllEnemies() { _runningEnemies = new HashSet<ISprite>(); }
+        public void UnloadAllEnemies() { _runningEnemies = new HashSet<Dictionary<ISprite, Vector2>>(); }
 
 
 
         // Draw the current enemy
         public void Draw()
         {
-            foreach (var enemy in _runningEnemies)
+            foreach (var enemies in _runningEnemies)
             {
-                enemy.Draw(_spriteBatch);
+                foreach (var enemy in enemies)
+                {
+                    enemy.Key.Draw(_spriteBatch);
+                }
             }
         }
 
         public void Update()
         {
-            foreach (var enemy in _runningEnemies)
+            foreach (var enemies in _runningEnemies)
             {
-                enemy.Update();
+                foreach (var enemy in enemies)
+                {
+                    enemy.Key.Update();
+                }
             }
         }
     }

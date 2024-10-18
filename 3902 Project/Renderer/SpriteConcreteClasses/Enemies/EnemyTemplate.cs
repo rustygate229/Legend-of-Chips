@@ -26,28 +26,38 @@ namespace _3902_Project
         private static Random random = new Random();
 
 
-        // constructor for enemy
+        /// <summary>
+        /// Constructs the enemy (set values, create Rendering, etc.); takes the Enemy Spritesheet
+        /// </summary>
+        /// <param name="spriteSheet"></param>
         public EnemyTemplate(Texture2D spriteSheet)
         {
             _spriteSheet = spriteSheet;
             _enemy = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _position, _spritePosition, _spriteDimensions, _spritePrintDimensions, _rowAndColumns, 30);
         }
 
-        // general get position method from IPosition
+
+        /// <summary>
+        /// Passes to the Renderer GetPosition method
+        /// </summary>
         public Vector2 GetPosition()
         {
-            return _position;
+            return _enemy.GetPosition();
         }
 
-        // general set position method from IPosition
+
+        /// <summary>
+        /// Passes to the Renderer SetPosition method
+        /// </summary>
         public void SetPosition(Vector2 position)
         {
-            _position = position;
             _enemy.SetPosition(position);
         }
 
 
-        // update the movement for enemy
+        /// <summary>
+        /// Updates the enemy (movement, animation, etc.)
+        /// </summary>
         public void Update()
         {
             // update animation
@@ -64,17 +74,17 @@ namespace _3902_Project
                 // Randomly choose a direction: 0 = left, 1 = right, 2 = up, 3 = down
                 switch (random.Next(4))
                 {
-                    case 0: // Move left
-                        _updatePosition = new Vector2(-(Math.Abs(_positionSpeed)), 0);
+                    case 0: // Move DOWN
+                        _updatePosition = new Vector2(0, Math.Abs(_positionSpeed));
                         break;
-                    case 1: // Move right
-                        _updatePosition = new Vector2(Math.Abs(_positionSpeed), 0);
-                        break;
-                    case 2: // Move up
+                    case 1: // Move UP
                         _updatePosition = new Vector2(0, -(Math.Abs(_positionSpeed)));
                         break;
-                    case 3: // Move down
-                        _updatePosition = new Vector2(0, Math.Abs(_positionSpeed));
+                    case 2: // Move RIGHT
+                        _updatePosition = new Vector2(Math.Abs(_positionSpeed), 0);
+                        break;
+                    case 3: // Move LEFT
+                        _updatePosition = new Vector2(-(Math.Abs(_positionSpeed)), 0);
                         break;
                 }
                 _moveCounter = 0; // Reset the timer
@@ -82,7 +92,10 @@ namespace _3902_Project
         }
 
 
-        // draw the enemy
+        /// <summary>
+        /// Draws the enemy in the given SpriteBatch
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
             int[] sR = _enemy.GetSourceRectangle();
