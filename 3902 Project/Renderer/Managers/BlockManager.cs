@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Text;
 using static System.Reflection.Metadata.BlobBuilder;
+using System.Diagnostics;
 
 namespace _3902_Project
 {
@@ -22,10 +23,10 @@ namespace _3902_Project
 
         // block dictionary/inventory
         private Dictionary<BlockNames, ISprite> _blocks = new Dictionary<BlockNames, ISprite>();
-        private HashSet<Dictionary<ISprite, Vector2>> _runningBlocks = new HashSet<Dictionary<ISprite, Vector2>>();
+        private List<ISprite> _runningBlocks = new List<ISprite>();
 
         // create variables for passing
-        private BlockSpriteFactory _factory = new BlockSpriteFactory();
+        private BlockSpriteFactory _factory = BlockSpriteFactory.Instance;
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
 
@@ -52,27 +53,20 @@ namespace _3902_Project
 
         public void PlaceBlock(BlockNames name, Vector2 placementPosition)
         {
-            ISprite currentSprite = _blocks[name];
+            ISprite currentSprite = _blocks.GetValueOrDefault(name);
             currentSprite.SetPosition(placementPosition);
-
-            Dictionary<ISprite, Vector2> newBlock = new Dictionary<ISprite, Vector2>();
-            newBlock.Add(currentSprite, placementPosition);
-
-
-            _runningBlocks.Add(newBlock);
+            _runningBlocks.Add(currentSprite);
         }
 
-        public void UnloadAllBlocks() { _runningBlocks = new HashSet<Dictionary<ISprite, Vector2>>(); }
+        public void UnloadAllBlocks() { _runningBlocks = new List<ISprite>(); }
 
         // draw block sprite based on current selected block
         public void Draw()
         {
             foreach (var blocks in _runningBlocks)
             {
-                foreach (var block in blocks)
-                {
-                    block.Key.Draw(_spriteBatch);
-                }
+                
+                blocks.Draw(_spriteBatch);
             }
         }
 
@@ -81,10 +75,7 @@ namespace _3902_Project
         {
             foreach (var blocks in _runningBlocks)
             {
-                foreach (var block in blocks)
-                {
-                    block.Key.Update();
-                }
+                blocks.Update();
             }
         }
     }

@@ -27,8 +27,8 @@ namespace _3902_Project
         {
             _spriteSheet = spriteSheet;
             _direction = facingDirection;
-        _block = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spritePosition, _spriteDimensions, _spritePrintDimensions);
-    }
+            _block = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spritePosition, _spriteDimensions, _spritePrintDimensions);
+        }
 
 
         /// <summary>

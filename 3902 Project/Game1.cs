@@ -63,8 +63,6 @@ namespace _3902_Project
             EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.Proto, new Vector2(800, 480));
             EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.Wizzrope, new Vector2(800, 480));
             EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.Darknut, new Vector2(800, 480));
-            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.Darknut, new Vector2(800, 480));
-            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.Darknut, new Vector2(800, 480));
         }
 
         protected override void Update(GameTime gameTime)
