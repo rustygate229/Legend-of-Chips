@@ -11,13 +11,15 @@ namespace _3902_Project
         // create block names for finding them
         public enum BlockNames 
         { 
-            DungeonExterior, Stairs, Tile, StatueFish, Square, StatueDragon, 
-            Dirt, WhiteBrick, WhiteTile 
+            BombedDoor_Top, BombedDoor_Bottom, BombedDoor_Left, BombedDoor_Right, DiamondHoleLockedDoor_Top, DiamondHoleLockedDoor_Bottom, 
+            DiamondHoleLockedDoor_Left, DiamondHoleLockedDoor_Right, KeyHoleLockedDoor_Top, KeyHoleLockedDoor_Bottom, KeyHoleLockedDoor_Left, 
+            KeyHoleLockedDoor_Right, OpenDoor_Top, OpenDoor_Bottom, OpenDoor_Left, OpenDoor_Right, Stairs_Top, Stairs_Bottom, Stairs_Left, 
+            Stairs_Right, StatueDragon_Top, StatueDragon_Bottom, StatueDragon_Left, StatueDragon_Right
         }
 
         // block dictionary/inventory
         private Dictionary<BlockNames, ISprite> _blocks = new Dictionary<BlockNames, ISprite>();
-        private HashSet<Dictionary<ISprite, Vector2>> _runningBlocks = new HashSet<Dictionary<ISprite, Vector2>>();
+        private HashSet<ISprite> _runningBlocks = new HashSet<ISprite>();
 
         // create variables for passing
         private BlockSpriteFactory _factory = new BlockSpriteFactory();
@@ -40,49 +42,33 @@ namespace _3902_Project
             _factory.LoadAllTextures(_contentManager);
 
             // loading still block sprites
-            _blocks.Add(BlockNames.DungeonExterior, _factory.CreateBlock_DungeonExterior());
-            _blocks.Add(BlockNames.Stairs, _factory.CreateStillBlock_Stairs());
-            _blocks.Add(BlockNames.Tile, _factory.CreateStillBlock_Tile());
-            _blocks.Add(BlockNames.StatueFish, _factory.CreateStillBlock_StatueFish());
-            _blocks.Add(BlockNames.Square, _factory.CreateStillBlock_Square());
-            _blocks.Add(BlockNames.StatueDragon, _factory.CreateStillBlock_StatueDragon());
-            _blocks.Add(BlockNames.Dirt, _factory.CreateStillBlock_Dirt());
-            _blocks.Add(BlockNames.WhiteBrick, _factory.CreateStillBlock_WhiteBrick());
-            _blocks.Add(BlockNames.WhiteTile, _factory.CreateStillBlock_WhiteTile());
+            _blocks.Add(BlockNames.Stairs_Top, _factory.CreateStillFBlock_StairsTopRoom());
         }
 
         public void PlaceBlock(BlockNames name, Vector2 placementPosition)
         {
-            Dictionary<ISprite, Vector2> newBlock = new Dictionary<ISprite, Vector2>();
-            newBlock.Add(_blocks.GetValueOrDefault(name), placementPosition);
-            _runningBlocks.Add(newBlock);
+            ISprite currentBlock = _blocks[name];
+            currentBlock.SetPosition(placementPosition);
+            _runningBlocks.Add(currentBlock);
         }
 
-        public void UnloadAllBlocks() { _runningBlocks = new HashSet<Dictionary<ISprite, Vector2>>(); }
+        public void UnloadAllBlocks() { _runningBlocks = new HashSet<ISprite>(); }
 
         // draw block sprite based on current selected block
         public void Draw()
         {
-            foreach (var blocks in _runningBlocks)
+            foreach (var block in _runningBlocks)
             {
-                // always one value
-                foreach (var block in blocks)
-                {
-                    block.Key.Draw(_spriteBatch, block.Value);
-                }
+                block.Draw(_spriteBatch);
             }
         }
 
         // update used for each of the animated sprites
         public void Update()
         {
-            foreach (var blocks in _runningBlocks)
+            foreach (var block in _runningBlocks)
             {
-                // always one value
-                foreach (var block in blocks)
-                {
-                    block.Key.Draw(_spriteBatch, block.Value);
-                }
+                block.Update();
             }
         }
     }

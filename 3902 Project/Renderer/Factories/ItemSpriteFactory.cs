@@ -9,9 +9,6 @@ namespace _3902_Project
         // item sprite sheet
         private Texture2D _itemSpritesheet;
 
-        // vector storing position that all items will be placed at in environment - can be rerouted later
-        private Vector2 _position = new Vector2(600, 100);
-
         // create a new instance of ItemSpriteFactory
         private static ItemSpriteFactory instance = new ItemSpriteFactory();
 
@@ -39,38 +36,36 @@ namespace _3902_Project
 
 
         // create still item sprites
-        public ISprite CreateStillItem_FullHeart() { return new Renderer(Renderer._status.Still, _itemSpritesheet, _position, 25, 1, 13, 13, 32, 32); }
-        public ISprite CreateStillItem_Clock() { return new Renderer(Renderer._status.Still, _itemSpritesheet, _position, 58, 0, 11, 16, 48, 48); }
-        public ISprite CreateStillItem_Meat() { return new Renderer(Renderer._status.Still, _itemSpritesheet, _position, 96, 0, 8, 16, 32, 32); }
-        public ISprite CreateStillItem_Sword() { return new Renderer(Renderer._status.Still, _itemSpritesheet, _position, 112, 0, 8, 16, 32, 32); }
-        public ISprite CreateStillItem_Shield() { return new Renderer(Renderer._status.Still, _itemSpritesheet, _position, 120, 0, 8, 16, 32, 32); }
-        public ISprite CreateStillItem_Bomb() { return new Renderer(Renderer._status.Still, _itemSpritesheet, _position, 136, 0, 8, 16, 32, 32); }
-        public ISprite CreateStillItem_Bow() { return new Renderer(Renderer._status.Still, _itemSpritesheet, _position, 144, 0, 8, 16, 32, 32); }
-        public ISprite CreateStillItem_Horn() { return new Renderer(Renderer._status.Still, _itemSpritesheet, _position, 176, 0, 8, 16, 32, 32); }
-        public ISprite CreateStillItem_Flute() { return new Renderer(Renderer._status.Still, _itemSpritesheet, _position, 184, 0, 8, 16, 32, 32); }
-        public ISprite CreateStillItem_WaterPlate() { return new Renderer(Renderer._status.Still, _itemSpritesheet, _position, 193, 0, 14, 16, 48, 48); }
-        public ISprite CreateStillItem_Ladder() { return new Renderer(Renderer._status.Still, _itemSpritesheet, _position, 208, 0, 16, 16, 48, 48); }
-        public ISprite CreateStillItem_MagicStaff() { return new Renderer(Renderer._status.Still, _itemSpritesheet, _position, 224, 0, 8, 16, 32, 32); }
-        public ISprite CreateStillItem_Game() { return new Renderer(Renderer._status.Still, _itemSpritesheet, _position, 232, 0, 8, 16, 32, 32); }
-        public ISprite CreateStillItem_NormalKey() { return new Renderer(Renderer._status.Still, _itemSpritesheet, _position, 240, 0, 8, 16, 32, 32); }
-        public ISprite CreateStillItem_BossKey() { return new Renderer(Renderer._status.Still, _itemSpritesheet, _position, 248, 0, 8, 16, 32, 32); }
-        public ISprite CreateStillItem_Compass() { return new Renderer(Renderer._status.Still, _itemSpritesheet, _position, 256, 0, 16, 16, 32, 32); }
+        public ISprite CreateStillItem_FullHeart() { return new SItem_FullHeart(_itemSpritesheet); }
+        public ISprite CreateStillItem_Clock() { return new SItem_Clock(_itemSpritesheet); }
+        public ISprite CreateStillItem_Meat() { return new SItem_Meat(_itemSpritesheet); }
+        public ISprite CreateStillItem_Sword() { return new SItem_Sword(_itemSpritesheet); }
+        public ISprite CreateStillItem_Shield() { return new SItem_Shield(_itemSpritesheet); }
+        public ISprite CreateStillItem_Bomb() { return new SItem_Bomb(_itemSpritesheet); }
+        public ISprite CreateStillItem_Bow() { return new SItem_Bow(_itemSpritesheet); }
+        public ISprite CreateStillItem_Horn() { return new SItem_Horn(_itemSpritesheet); }
+        public ISprite CreateStillItem_Flute() { return new SItem_Flute(_itemSpritesheet); }
+        public ISprite CreateStillItem_WaterPlate() { return new SItem_WaterPlate(_itemSpritesheet); }
+        public ISprite CreateStillItem_Ladder() { return new SItem_Ladder(_itemSpritesheet); }
+        public ISprite CreateStillItem_MagicStaff() { return new SItem_MagicStaff(_itemSpritesheet); }
+        public ISprite CreateStillItem_Game() { return new SItem_Game(_itemSpritesheet); }
+        public ISprite CreateStillItem_NormalKey() { return new SItem_NormalKey(_itemSpritesheet); }
+        public ISprite CreateStillItem_BossKey() { return new SItem_BossKey(_itemSpritesheet); }
+        public ISprite CreateStillItem_Compass() { return new SItem_Compass(_itemSpritesheet); }
 
 
         // create animated sprites
-        public ISprite CreateAnimatedItem_FlashingLife() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 40, 0, 16, 16, 32, 32, 1, 2, 10); }
-        // testing non-0 modulo framerate
-        public ISprite CreateAnimatedItem_DepletingHeart() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 0, 0, 24, 8, 32, 32, 1, 3, 32); }
-        public ISprite CreateAnimatedItem_FlashingEmerald() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 72, 0, 8, 32, 32, 32, 2, 1, 20); }
-        public ISprite CreateAnimatedItem_FlashingPotion() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 80, 0, 8, 32, 32, 32, 2, 1, 20); }
-        // testing non-0 modulo framerate
-        public ISprite CreateAnimatedItem_FlashingScripture() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 88, 0, 8, 32, 32, 32, 2, 1, 15); }
-        public ISprite CreateAnimatedItem_FlashingSword() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 104, 0, 8, 32, 32, 32, 2, 1, 20); }
-        public ISprite CreateAnimatedItem_FlashingBanana() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 128, 0, 8, 32, 32, 32, 2, 1, 20); }
-        public ISprite CreateAnimatedItem_FlashingArrow() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 152, 0, 8, 32, 32, 32, 2, 1, 20); }
-        public ISprite CreateAnimatedItem_FlashingCandle() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 160, 0, 8, 32, 32, 32, 2, 1, 20); }
-        public ISprite CreateAnimatedItem_FlashingRing() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 168, 0, 8, 32, 32, 32, 2, 1, 20); }
-        public ISprite CreateAnimatedItem_FlashingTriForce() { return new Renderer(Renderer._status.Animated, _itemSpritesheet, _position, 272, 0, 16, 32, 32, 32, 2, 1, 20); }
+        public ISprite CreateAnimatedItem_FlashingLife() { return new AItem_FLife(_itemSpritesheet); }
+        public ISprite CreateAnimatedItem_DepletingHeart() { return new AItem_DepletingHeart(_itemSpritesheet); }
+        public ISprite CreateAnimatedItem_FlashingEmerald() { return new AItem_FEmerald(_itemSpritesheet); }
+        public ISprite CreateAnimatedItem_FlashingPotion() { return new AItem_FPotion(_itemSpritesheet); }
+        public ISprite CreateAnimatedItem_FlashingScripture() { return new AItem_FScripture(_itemSpritesheet); }
+        public ISprite CreateAnimatedItem_FlashingSword() { return new AItem_FSword(_itemSpritesheet); }
+        public ISprite CreateAnimatedItem_FlashingBanana() { return new AItem_FBanana(_itemSpritesheet); }
+        public ISprite CreateAnimatedItem_FlashingArrow() { return new AItem_FArrow(_itemSpritesheet); }
+        public ISprite CreateAnimatedItem_FlashingCandle() { return new AItem_FCandle(_itemSpritesheet); }
+        public ISprite CreateAnimatedItem_FlashingRing() { return new AItem_FRing(_itemSpritesheet); }
+        public ISprite CreateAnimatedItem_FlashingTriForce() { return new AItem_FTriForce(_itemSpritesheet); }
 
         // More public ISprite returning methods follow
         // ...

@@ -1,14 +1,18 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using _3902_Project;
+using System;
+using System.Diagnostics;
 
 namespace _3902_Project
 {
-    public class Renderer : ISprite
+    public class Renderer
     {
         // animation status
-        public enum _status { Still, Animated, SingleAnimated };
+        public enum STATUS { Still, SingleAnimated, Animated };
         private int _statusNumber = 0;
+
+        public enum DIRECTION { UP, DOWN, LEFT, RIGHT }
 
 
         // NON-ANIMATED SPRITE
@@ -23,29 +27,25 @@ namespace _3902_Project
 
 
         // constructor linking variables
-        public Renderer(Renderer._status status, Texture2D spriteSheet, Vector2 spawnPosition, int xSpritePosition, int ySpritePosition, int xDimension, int yDimension, int xPrintDimension, int yPrintDimension)
+        public Renderer(Renderer.STATUS status, Texture2D spriteSheet, Vector2 spawnPosition, Vector2 spritePosition, Vector2 spriteDimension, Vector2 spritePrintDimension)
         {
             // set animated state and import spritesheet
             _statusNumber = (int)status;
             _spriteSheet = spriteSheet;
 
             // set all positions
-            _spritePosition.X = xSpritePosition;
-            _spritePosition.Y = ySpritePosition;
-            _spriteDimensions.X = xDimension;
-            _spriteDimensions.Y = yDimension;
-            _spritePrintDimensions.X = xPrintDimension;
-            _spritePrintDimensions.Y = yPrintDimension;
+            _spritePosition = spritePosition;
+            _spriteDimensions = spriteDimension;
+            _spritePrintDimensions = spritePrintDimension;
             _positionOnWindow = spawnPosition;
         }
 
 
-        // ANIMATOR
+        // ANIMATOR/FRAMERATE
 
 
         // item animation requirements
-        public int _rows;
-        public int _columns;
+        private Vector2 _rowsAndColumns;
         private int _currentFrame;
         private int _totalFrames;
 
@@ -57,70 +57,75 @@ namespace _3902_Project
 
 
         // constructor for animated item sprites
-        public Renderer(Renderer._status status, Texture2D spriteSheet, Vector2 windowPosition, int xPosition, int yPosition, int xDimension, int yDimension, int xPrintDimension, int yPrintDimension, int row, int column, int frameRate)
+        public Renderer(Renderer.STATUS status, Texture2D spriteSheet, Vector2 windowPosition, Vector2 spritePosition, Vector2 spriteDimension, Vector2 spritePrintDimension, Vector2 rowAndColumn, int frameRate)
         {
             // set animated state and import spritesheet
             _statusNumber = (int)status;
             _spriteSheet = spriteSheet;
 
+            // call framerate manager
+            _rowsAndColumns = rowAndColumn;
+            _frameRate = frameRate;
+            SetUpFrames();
+
+            // sprite positioning
+            _spritePosition = spritePosition;
+            _spriteDimensions = spriteDimension;
+            _spritePrintDimensions = spritePrintDimension;
+            _positionOnWindow = windowPosition;
+        }
+
+        public void SetUpFrames()
+        {
             // rows/columns stuff for sprite animation
-            _rows = row;
-            _columns = column;
             _currentFrame = 0;
-            if (_rows * _columns == 1)
+            // needed for Single Animation
+            if ((int)_rowsAndColumns.X * (int)_rowsAndColumns.Y == 1)
                 _totalFrames = 2;
             else
-                _totalFrames = _rows * _columns;
+                _totalFrames = (int)_rowsAndColumns.X * (int)_rowsAndColumns.Y;
 
             // get the total amount of sprite shifts in animation
             _frameTotalSpriteShift = 0;
-            while (_framesPerSprite < frameRate)
+            while (_framesPerSprite < _frameRate)
             {
                 _frameTotalSpriteShift++;
-                _framesPerSprite += frameRate / _totalFrames;
-                if (_framesPerSprite > frameRate)
+                _framesPerSprite += _frameRate / _totalFrames;
+                if (_framesPerSprite > _frameRate)
                     _frameTotalSpriteShift--;
             }
-            _framesPerSprite = 0;
 
             // if the framerate is not a clean division, fix it by shuffling down the value by the modulo
-            if (frameRate % _frameTotalSpriteShift != 0)
-                frameRate -= (frameRate % _frameTotalSpriteShift);
+            if (_frameRate % _frameTotalSpriteShift != 0)
+                _frameRate -= (_frameRate % _frameTotalSpriteShift);
 
-            // frame rate variables
-            _frameRate = frameRate;
+            // reset frame rate variables
             _framesCounter = 0;
             _framesPerSprite = _frameRate / _totalFrames;
-
-            // sprite positioning
-            _spritePosition.X = xPosition;
-            _spritePosition.Y = yPosition;
-            _spriteDimensions.X = xDimension;
-            _spriteDimensions.Y = yDimension;
-            _spritePrintDimensions.X = xPrintDimension;
-            _spritePrintDimensions.Y = yPrintDimension;
-            _positionOnWindow = windowPosition;
         }
 
 
         // count/reset frames and sprite levels (levels meaning at what stage of animation)
-        public void Update()
+        public void UpdateFrames()
         {
             if (_statusNumber > 0)
             {
                 // logic for creating a framerate
                 if (_framesCounter < _framesPerSprite)
                 {
+                    Debug.WriteLine("_framesCounter < _framesPerSprite");
                     _framesCounter++;
                 }
                 else if (_framesCounter == _frameRate)
                 {
+                    Debug.WriteLine("_framesCounter == _frameRate");
                     _currentFrame = 0;
                     _framesCounter = 0;
                     _framesPerSprite = _frameRate / _totalFrames;
                 }
                 else
                 {
+                    Debug.WriteLine("increment frame and _framesPerSprite");
                     _currentFrame++;
                     _framesPerSprite += _frameRate / _totalFrames;
                 }
@@ -129,46 +134,62 @@ namespace _3902_Project
 
 
         // draw the animated sprites
-        public void Draw(SpriteBatch spriteBatch, Vector2 updatedPosition)
+        public int[] GetSourceRectangle()
         {
-            // update position based on new given position
-            _positionOnWindow = updatedPosition;
+            int[] sourceRectangle = new int[4];
 
             // logic for seperating sprites into columns/rows to animate
             int width, height, row, column;
 
-            // removes anti-aliasing
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            // create source rectangle
+            sourceRectangle[0] = (int)_spritePosition.X;
+            sourceRectangle[1] = (int)_spritePosition.Y;
+            sourceRectangle[2] = (int)_spriteDimensions.X; 
+            sourceRectangle[3] = (int)_spriteDimensions.Y;
 
-            // create source and destination rectangles
-            Rectangle sourceRectangle = new Rectangle();
-            Rectangle destinationRectangle = new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y);
-
-            switch (_statusNumber)
+            // set sourceRectangle depending on animation type of sprite
+            if (_statusNumber == 1 && _currentFrame == 1) // opposite frame for Single Animated Sprite
             {
-                case 0: // Still Sprite
-                    sourceRectangle = new Rectangle((int)_spritePosition.X, (int)_spritePosition.Y, (int)_spriteDimensions.X, (int)_spriteDimensions.Y);
-                    break;
-                case 1: // Animated Sprite
-                    width = (int)_spriteDimensions.X / _columns;
-                    height = (int)_spriteDimensions.Y / _rows;
-                    row = _currentFrame / _columns;
-                    column = _currentFrame % _columns;
-
-                    // create a sourceRectangle for animated sprites
-                    sourceRectangle = new Rectangle((width * column) + (int)_spritePosition.X, (height * row) + (int)_spritePosition.Y, width, height);
-                    break;
-                case 2:
-                    if (_currentFrame == 0)
-                        sourceRectangle = new Rectangle((int)_spritePosition.X, (int)_spritePosition.Y, (int)_spriteDimensions.X, (int)_spriteDimensions.Y);
-                    else
-                        sourceRectangle = new Rectangle((int)_spritePosition.X + (int)_spriteDimensions.X, (int)_spritePosition.Y, -(int)_spriteDimensions.X, (int)_spriteDimensions.Y);
-                    break;
+                Debug.WriteLine("in Single Animated");
+                sourceRectangle[0] = (int)_spritePosition.X + (int)_spriteDimensions.X;
+                sourceRectangle[1] = (int)_spritePosition.Y;
+                sourceRectangle[2] = -(int)_spriteDimensions.X;
+                sourceRectangle[3] = (int)_spriteDimensions.Y;
             }
+            else if (_statusNumber == 2) // Animated Sprite
+            {
+                Debug.WriteLine("In Aminated");
+                width = (int)_spriteDimensions.X / (int)_rowsAndColumns.Y;
+                height = (int)_spriteDimensions.Y / (int)_rowsAndColumns.X;
+                row = _currentFrame / (int)_rowsAndColumns.Y;
+                column = _currentFrame % (int)_rowsAndColumns.Y;
 
-            // draw the area contained by the sourceRectangle to the destinationRectangle
-            spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);
-            spriteBatch.End();
+                sourceRectangle[0] = (width * column) + (int)_spritePosition.X;
+                sourceRectangle[1] = (height * row) + (int)_spritePosition.Y;
+                sourceRectangle[2] = width;
+                sourceRectangle[3] = height;
+            } 
+
+
+            // return the new rectangle
+            return sourceRectangle;
+        }
+
+        // general get position method from IPosition
+        public Vector2 GetPosition()
+        {
+            return _positionOnWindow;
+        }
+
+        // general set position method from IPosition
+        public void SetPosition(Vector2 position)
+        {
+            _positionOnWindow = position;
+        }
+
+        public Rectangle GetDestinationRectangle()
+        {
+            return new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y);
         }
     }
 }

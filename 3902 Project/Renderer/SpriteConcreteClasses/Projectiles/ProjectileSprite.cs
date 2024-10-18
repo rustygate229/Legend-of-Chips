@@ -5,7 +5,7 @@ using System;
 
 namespace _3902_Project
 {
-    public class ProjectileSprite : ISprite
+    public class ProjectileSprite : IProjectileSprite
     {
         private Texture2D spritesheet;
         private float scale;
@@ -33,7 +33,7 @@ namespace _3902_Project
         }
 
         //weirdly similar to IStateMachine call
-        public void Draw(SpriteBatch spriteBatch, IProjectile proj, int x, int y)
+        public void Draw(SpriteBatch spriteBatch, IProjectile.DIRECTION proj, int x, int y)
         {
 
 

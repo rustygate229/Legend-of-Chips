@@ -9,9 +9,6 @@ namespace _3902_Project
         // Enemy spritesheet
         private Texture2D _enemySpritesheet;
 
-        // Position that all enemies will initially be placed at 
-        private Vector2 _position = new Vector2(480, 300);
-
         // Create a singleton instance of EnemySpriteFactory
         private static EnemySpriteFactory instance = new EnemySpriteFactory();
 
@@ -48,6 +45,8 @@ namespace _3902_Project
 
         // Create an instance of Rope2 without shooting capability
         public ISprite CreateHolsteringEnemy_Proto() { return new Proto(_enemySpritesheet); }
+
+        public ISprite CreateHolsteringMovingEnemy_Darknut() { return new Darknut(_enemySpritesheet); }
 
         // Add more enemy types as necessary by specifying their source rectangles and positions
         // public ISprite OtherEnemy() { ... }

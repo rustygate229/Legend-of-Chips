@@ -18,7 +18,7 @@ namespace _3902_Project
 
         // item dictionary/inventory
         private Dictionary<ItemNames, ISprite> _items = new Dictionary<ItemNames, ISprite>();
-        private HashSet<Dictionary<ISprite, Vector2>> _runningItems = new HashSet<Dictionary<ISprite, Vector2>>();
+        private HashSet<ISprite> _runningItems = new HashSet<ISprite>();
 
         // create variables for passing
         private ItemSpriteFactory _factory = ItemSpriteFactory.Instance;
@@ -75,24 +75,20 @@ namespace _3902_Project
 
         public void PlaceItem(ItemNames name, Vector2 placementPosition)
         {
-            Dictionary<ISprite, Vector2> newItem = new Dictionary<ISprite, Vector2>();
-            newItem.Add(_items.GetValueOrDefault(name), placementPosition);
-            _runningItems.Add(newItem);
+            ISprite currentItem = _items[name];
+            currentItem.SetPosition(placementPosition);
+            _runningItems.Add(currentItem);
         }
 
-        public void UnloadAllItems() { _runningItems = new HashSet<Dictionary<ISprite, Vector2>>(); }
+        public void UnloadAllItems() { _runningItems = new HashSet<ISprite>(); }
 
 
         // draw item sprite based on current selected item
         public void Draw()
         {
-            foreach(var items in _runningItems)
+            foreach (var item in _runningItems)
             {
-                // always one value
-                foreach (var item in items)
-                {
-                    item.Key.Draw(_spriteBatch, item.Value);
-                }
+                item.Draw(_spriteBatch);
             }
         }
 
@@ -100,13 +96,9 @@ namespace _3902_Project
         // update used for each of the animated sprites
         public void Update()
         {
-            foreach (var items in _runningItems)
+            foreach (var item in _runningItems)
             {
-                // always one value
-                foreach (var item in items)
-                {
-                    item.Key.Update();
-                }
+                item.Update();
             }
         }
     }

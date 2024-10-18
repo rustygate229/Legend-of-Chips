@@ -8,11 +8,11 @@ namespace _3902_Project
     public class EnemyManager
     {
         // create enemy names for finding them
-        public enum EnemyNames { GreenSlime, BrownSlime, Wizzrope, Proto }
+        public enum EnemyNames { GreenSlime, BrownSlime, Wizzrope, Proto, Darknut }
 
         // enemy dictionary/inventory
         private Dictionary<EnemyNames, ISprite> _enemies = new Dictionary<EnemyNames, ISprite>();
-        private HashSet<Dictionary<ISprite, Vector2>> _runningEnemies = new HashSet<Dictionary<ISprite, Vector2>>();
+        private HashSet<ISprite> _runningEnemies = new HashSet<ISprite>();
 
         // create variables for passing
         private EnemySpriteFactory _factory = EnemySpriteFactory.Instance;
@@ -37,42 +37,35 @@ namespace _3902_Project
             _enemies.Add(EnemyNames.BrownSlime, _factory.CreateHolsteringEnemy_BrownSlime());
             _enemies.Add(EnemyNames.Wizzrope, _factory.CreateHolsteringEnemy_Wizzrope());
             _enemies.Add(EnemyNames.Proto, _factory.CreateHolsteringEnemy_Proto());
+            _enemies.Add(EnemyNames.Darknut, _factory.CreateHolsteringMovingEnemy_Darknut());
         }
 
 
         public void PlaceEnemy(EnemyNames name, Vector2 placementPosition)
         {
-            Dictionary<ISprite, Vector2> newItem = new Dictionary<ISprite, Vector2>();
-            newItem.Add(_enemies.GetValueOrDefault(name), placementPosition);
-            _runningEnemies.Add(newItem);
+            ISprite currentEnemy = _enemies[name];
+            currentEnemy.SetPosition(placementPosition);
+            _runningEnemies.Add(currentEnemy);
         }
 
-        public void UnloadAllEnemies() { _runningEnemies = new HashSet<Dictionary<ISprite, Vector2>>(); }
+        public void UnloadAllEnemies() { _runningEnemies = new HashSet<ISprite>(); }
 
 
 
         // Draw the current enemy
         public void Draw()
         {
-            foreach (var enemies in _runningEnemies)
+            foreach (var enemy in _runningEnemies)
             {
-                // always one value
-                foreach (var enemy in enemies)
-                {
-                    enemy.Key.Draw(_spriteBatch, enemy.Value);
-                }
+                enemy.Draw(_spriteBatch);
             }
         }
 
         public void Update()
         {
-            foreach (var enemies in _runningEnemies)
+            foreach (var enemy in _runningEnemies)
             {
-                // always one value
-                foreach (var enemy in enemies)
-                {
-                    enemy.Key.Update();
-                }
+                enemy.Update();
             }
         }
     }
