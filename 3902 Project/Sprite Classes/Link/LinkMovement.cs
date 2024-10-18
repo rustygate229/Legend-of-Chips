@@ -13,7 +13,7 @@ namespace _3902_Project
         {
             //_position = new Vector2(200, 200);
 
-            Microsoft.Xna.Framework.Rectangle bounds = new Microsoft.Xna.Framework.Rectangle(200, 200, 64, 64);
+            Rectangle bounds = new Rectangle(200, 200, 64, 64);
             _linkCollisionBox = new LinkCollisionBox(bounds, true, 100, 10);
             speed = 5f;
         }
@@ -21,7 +21,7 @@ namespace _3902_Project
         public LinkMovement(int x, int y)
         {
             //specify specific location for link to be made
-            Microsoft.Xna.Framework.Rectangle bounds = new Microsoft.Xna.Framework.Rectangle(x, y, 64, 64);
+            Rectangle bounds = new Rectangle(x, y, 64, 64);
             _linkCollisionBox = new LinkCollisionBox(bounds, true, 100, 10);
             speed = 5f;
 

@@ -1,6 +1,8 @@
 ﻿using _3902_Project.Link;
 using System.Diagnostics;
 using static _3902_Project.ICollisionHandler;
+using Microsoft.Xna.Framework;
+using System.Runtime.InteropServices;
 
 
 namespace _3902_Project
@@ -66,21 +68,35 @@ namespace _3902_Project
             else if (objectB is BlockCollisionBox)
             {
                 // Handle player collision with block
+                Rectangle bounds = objectA.Bounds;
                 switch (side)
                 {
+                    
                     case CollisionType.LEFT:
-                        _link.MoveRight();
+                        Debug.Print("left collision");
+                        int offset = objectB.Bounds.X + objectB.Bounds.Width - objectA.Bounds.X;
+                        bounds.X = bounds.X + offset;
                         break;
                     case CollisionType.RIGHT:
-                        _link.MoveLeft();
+                        Debug.Print("right collision");
+                        //_link.MoveLeft();
+                        offset = objectB.Bounds.X + objectB.Bounds.Width - objectA.Bounds.X;
+                        bounds.X = bounds.X + offset;
+
                         break;
                     case CollisionType.TOP:
-                        _link.MoveDown();
+                        Debug.Print("top collision");
+                        offset = objectB.Bounds.X + objectB.Bounds.Width - objectA.Bounds.X;
+                        bounds.X = bounds.X + offset;
+                        //_link.MoveDown();
                         break;
                     case CollisionType.BOTTOM:
+                        Debug.Print("down collision");
                         _link.MoveUp();
                         break;
                 }
+
+                objectA.Bounds = bounds;
             }
 
         }
