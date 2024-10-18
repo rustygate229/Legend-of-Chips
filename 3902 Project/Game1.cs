@@ -48,7 +48,7 @@ namespace _3902_Project
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
             Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
 
-            EnvironmentFactory = new EnvironmentFactory(BlockManager);
+            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, EnemyManager);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
