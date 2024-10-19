@@ -1,8 +1,5 @@
-﻿using _3902_Project.Link;
+﻿using Microsoft.Xna.Framework;
 using System.Diagnostics;
-using static _3902_Project.ICollisionHandler;
-using Microsoft.Xna.Framework;
-using System.Runtime.InteropServices;
 
 
 namespace _3902_Project

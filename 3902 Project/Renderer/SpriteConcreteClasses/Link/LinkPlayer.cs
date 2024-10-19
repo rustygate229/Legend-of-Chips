@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Content.Projectiles;
 using static _3902_Project.ILinkStateMachine;
-using System.Drawing;
 
 namespace _3902_Project
 {

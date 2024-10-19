@@ -1,5 +1,4 @@
 ﻿using _3902_Project;
-using _3902_Project.Link;
 
 public class ItemCollisionHandler : ICollisionHandler
 {

@@ -72,17 +72,15 @@ namespace _3902_Project
             collisionBoxes.Add(new BlockCollisionBox(new Rectangle(400, 200, 64, 64), true));
             collisionBoxes.Add(new EnemyCollisionBox(new Rectangle(300, 100, 32, 32), true, 100, 10));
 
-
-            // TODO: use this.Content to load your game content here
             // Block and Item Texture Loading
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
             EnemyManager.LoadAllTextures();
 
-
-
             whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
             whiteRectangle.SetData(new[] { Color.White });
+
+            EnvironmentFactory.loadLevel();
 
         }
 

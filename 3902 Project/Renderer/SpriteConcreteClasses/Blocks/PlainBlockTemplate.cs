@@ -45,6 +45,7 @@ namespace _3902_Project
         public void SetPosition(Vector2 position)
         {
             _position = position;
+            _block.SetPosition(position);
         }
 
 

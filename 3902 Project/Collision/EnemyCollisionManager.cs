@@ -1,9 +1,4 @@
-﻿using _3902_Project.Link;
-using System.Diagnostics;
-using static _3902_Project.ICollisionHandler;
-using Microsoft.Xna.Framework;
-using System.Runtime.InteropServices;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 
 namespace _3902_Project

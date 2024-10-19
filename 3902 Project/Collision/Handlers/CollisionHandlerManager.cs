@@ -1,9 +1,5 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using _3902_Project.Link;
-
 
 namespace _3902_Project
 {
@@ -23,8 +19,9 @@ namespace _3902_Project
                  new ItemCollisionHandler(link, itemManager) as ICollisionHandler
              };*/
 
-            LinkCollisionHandler = new LinkCollisionHandler(link, enemyManager);
             EnemyCollisionHandler = new EnemyCollisionHandler(enemyManager);
+            EnemyCollisionManager enemyCollisionManager = new EnemyCollisionManager(enemyManager);
+            LinkCollisionHandler = new LinkCollisionHandler(link, enemyCollisionManager);
             ItemCollisionHandler = new ItemCollisionHandler(link, itemManager);
         }
 
