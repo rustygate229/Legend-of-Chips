@@ -54,15 +54,6 @@ namespace _3902_Project
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
             EnemyManager.LoadAllTextures();
-
-            BlockManager.PlaceBlock(BlockManager.BlockNames.Environment, new Vector2(0, 0));
-            BlockManager.PlaceBlock(BlockManager.BlockNames.Stairs_RIGHT, new Vector2(100, 100));
-            BlockManager.PlaceBlock(BlockManager.BlockNames.Stairs_RIGHT, new Vector2(100, 200));
-            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.GreenSlime, new Vector2(800, 480));
-            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.BrownSlime, new Vector2(800, 480));
-            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.Proto, new Vector2(800, 480));
-            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.Wizzrope, new Vector2(800, 480));
-            EnemyManager.PlaceEnemy(EnemyManager.EnemyNames.Darknut, new Vector2(800, 480));
         }
 
         protected override void Update(GameTime gameTime)

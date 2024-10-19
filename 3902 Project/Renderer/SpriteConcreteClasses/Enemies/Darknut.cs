@@ -67,6 +67,7 @@ namespace _3902_Project
         /// </summary>
         public void SetPosition(Vector2 position)
         {
+            _position = position;
             _enemyDown.SetPosition(position);
             _enemyUp.SetPosition(position);
             _enemyRightLeft.SetPosition(position);

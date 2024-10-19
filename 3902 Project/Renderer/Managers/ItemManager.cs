@@ -18,7 +18,7 @@ namespace _3902_Project
 
         // item dictionary/inventory
         private Dictionary<ItemNames, ISprite> _items = new Dictionary<ItemNames, ISprite>();
-        private HashSet<Dictionary<ISprite, Vector2>> _runningItems = new HashSet<Dictionary<ISprite, Vector2>>();
+        private List<ISprite> _runningItems = new List<ISprite>();
 
         // create variables for passing
         private ItemSpriteFactory _factory = ItemSpriteFactory.Instance;
@@ -39,6 +39,8 @@ namespace _3902_Project
         {
             // loading sprite factory
             _factory.LoadAllTextures(_contentManager);
+
+            _items = new Dictionary<ItemNames, ISprite>();
 
             // loading still sprites
             _items.Add(ItemNames.FullHeart, _factory.CreateStillItem_FullHeart());
@@ -75,25 +77,21 @@ namespace _3902_Project
 
         public void PlaceItem(ItemNames name, Vector2 placementPosition)
         {
-            Dictionary<ISprite, Vector2> newItem = new Dictionary<ISprite, Vector2>();
-            newItem.Add(_items.GetValueOrDefault(name), placementPosition);
-
-            _runningItems.Add(newItem);
+            LoadAllTextures();
+            ISprite currentSprite = _items[name];
+            currentSprite.SetPosition(placementPosition);
+            _runningItems.Add(currentSprite);
         }
 
-        public void UnloadAllItems() { _runningItems = new HashSet<Dictionary<ISprite, Vector2>>(); }
+        public void UnloadAllItems() { _runningItems = new List<ISprite>(); }
 
 
         // draw item sprite based on current selected item
         public void Draw()
         {
-            foreach (var items in _runningItems)
+            foreach (var item in _runningItems)
             {
-                foreach (var item in items)
-                {
-                    item.Key.SetPosition(item.Value);
-                    item.Key.Draw(_spriteBatch);
-                }
+                item.Draw(_spriteBatch);
             }
         }
 
@@ -101,12 +99,9 @@ namespace _3902_Project
         // update used for each of the animated sprites
         public void Update()
         {
-            foreach (var items in _runningItems)
+            foreach (var item in _runningItems)
             {
-                foreach (var item in items)
-                {
-                    item.Key.Update();
-                }
+               item.Update();
             }
         }
     }

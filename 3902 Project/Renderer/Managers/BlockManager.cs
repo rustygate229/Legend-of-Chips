@@ -1,10 +1,8 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using static System.Reflection.Metadata.BlobBuilder;
-using System.Diagnostics;
 
 namespace _3902_Project
 {
@@ -30,7 +28,7 @@ namespace _3902_Project
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
 
-       
+
         // constructor
         public BlockManager(ContentManager contentManager, SpriteBatch spriteBatch)
         {
@@ -46,14 +44,23 @@ namespace _3902_Project
             _factory.LoadAllTextures(_contentManager);
 
             // loading still block sprites
+            _blocks = new Dictionary<BlockNames, ISprite>();
             _blocks.Add(BlockNames.Environment, _factory.CreateStillBlock_Environment());
             _blocks.Add(BlockNames.Stairs_LEFT, _factory.CreateStillFBlock_Stairs_LEFT());
             _blocks.Add(BlockNames.Stairs_RIGHT, _factory.CreateStillFBlock_Stairs_RIGHT());
+            _blocks.Add(BlockNames.Tile, _factory.CreateStillPBlock_Tile());
+            _blocks.Add(BlockNames.Dirt, _factory.CreateStillPBlock_Dirt());
+            _blocks.Add(BlockNames.Square, _factory.CreateStillPBlock_Square());
+            _blocks.Add(BlockNames.DiamondHoleLockedDoor_DOWN, _factory.CreateStillFBlock_DiamondLockedDoor_DOWN());
+            _blocks.Add(BlockNames.DiamondHoleLockedDoor_UP, _factory.CreateStillFBlock_DiamondLockedDoor_UP());
+            _blocks.Add(BlockNames.DiamondHoleLockedDoor_RIGHT, _factory.CreateStillFBlock_DiamondLockedDoor_RIGHT());
+            _blocks.Add(BlockNames.DiamondHoleLockedDoor_LEFT, _factory.CreateStillFBlock_DiamondLockedDoor_LEFT());
         }
 
         public void PlaceBlock(BlockNames name, Vector2 placementPosition)
         {
-            ISprite currentSprite = _blocks.GetValueOrDefault(name);
+            LoadAllTextures();
+            ISprite currentSprite = _blocks[name];
             currentSprite.SetPosition(placementPosition);
             _runningBlocks.Add(currentSprite);
         }

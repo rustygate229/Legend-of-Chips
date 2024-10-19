@@ -15,7 +15,6 @@ namespace _3902_Project
         private Vector2 _spritePosition = new Vector2(79, 28);
         private Vector2 _spriteDimensions = new Vector2(30, 16);
         private Vector2 _spriteRowAndColumns = new Vector2(1, 2);
-
         private Vector2 _spritePrintDimensions = new Vector2(64, 64);
 
 
@@ -52,6 +51,7 @@ namespace _3902_Project
         /// </summary>
         public void SetPosition(Vector2 position)
         {
+            _position = position;
             _enemy.SetPosition(position);
         }
 

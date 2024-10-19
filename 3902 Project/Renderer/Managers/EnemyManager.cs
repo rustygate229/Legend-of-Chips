@@ -33,6 +33,7 @@ namespace _3902_Project
         {
             _factory.LoadAllTextures(_contentManager);
 
+            _enemies = new Dictionary<EnemyNames, ISprite>();
             _enemies.Add(EnemyNames.GreenSlime, _factory.CreateHolsteringEnemy_GreenSlime());
             _enemies.Add(EnemyNames.BrownSlime, _factory.CreateHolsteringEnemy_BrownSlime());
             _enemies.Add(EnemyNames.Wizzrope, _factory.CreateHolsteringEnemy_Wizzrope());
@@ -43,6 +44,7 @@ namespace _3902_Project
 
         public void PlaceEnemy(EnemyNames name, Vector2 placementPosition)
         {
+            LoadAllTextures();
             ISprite currentSprite = _enemies[name];
             currentSprite.SetPosition(placementPosition);
             _runningEnemies.Add(currentSprite);
