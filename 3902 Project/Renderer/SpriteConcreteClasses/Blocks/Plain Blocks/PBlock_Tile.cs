@@ -11,7 +11,7 @@ namespace _3902_Project
         private Vector2 _position;
 
         // variables to change based on where your block is and what to print out
-        private Vector2 _spritePosition = new Vector2(256 + (4*16), 11 + (3*16));
+        private Vector2 _spritePosition = new Vector2(984, 11);
         private Vector2 _spriteDimensions = new Vector2(16, 16);
         private Vector2 _spritePrintDimensions = new Vector2(64, 64);
 

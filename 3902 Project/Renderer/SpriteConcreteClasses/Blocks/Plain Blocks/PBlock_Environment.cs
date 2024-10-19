@@ -12,7 +12,7 @@ namespace _3902_Project
         // variables to change based on where your block is and what to print out
         private Vector2 _spritePosition = new Vector2(521, 11);
         private Vector2 _spriteDimensions = new Vector2(256, 176);
-        private Vector2 _spritePrintDimensions = new Vector2(1600, 960);
+        private Vector2 _spritePrintDimensions = new Vector2(1024, 700);
 
         // create a Renderer object
         private Renderer _block;

@@ -44,6 +44,7 @@ namespace _3902_Project
             _factory.LoadAllTextures(_contentManager);
 
             // loading still block sprites
+            _blocks = new Dictionary<BlockNames, ISprite>();
             _blocks.Add(BlockNames.Environment, _factory.CreateStillBlock_Environment());
             _blocks.Add(BlockNames.Stairs_LEFT, _factory.CreateStillFBlock_Stairs_LEFT());
             _blocks.Add(BlockNames.Stairs_RIGHT, _factory.CreateStillFBlock_Stairs_RIGHT());

@@ -103,7 +103,11 @@ namespace _3902_Project
             string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Levels/Level" + _level.ToString() + ".csv";
             _environment = ReadCsvFile(filepath);
 
-            _blockManager.PlaceBlock(BlockManager.BlockNames.DungeonExterior, new Vector2(0, 0));
+            _blockManager.PlaceBlock(BlockManager.BlockNames.Environment, new Vector2(0, 0));
+            _blockManager.PlaceBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN, new Vector2(448, 0));
+            _blockManager.PlaceBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT, new Vector2(0, 414));
+            _blockManager.PlaceBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_UP, new Vector2(576, 700));
+            _blockManager.PlaceBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT, new Vector2(1024, 286));
 
             for (int i = 0; i < _environment.Count; i++)
             {
