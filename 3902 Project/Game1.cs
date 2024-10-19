@@ -1,6 +1,4 @@
-﻿using _3902_Project.Link;
-using Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -19,6 +17,7 @@ namespace _3902_Project
         internal ItemManager ItemManager { get; private set; }  // Item manager
         internal ProjectileManager ProjectileManager { get; private set; } //projectile manager FOR LINK'S PROJECTILES ONLY
         internal EnemyManager EnemyManager { get; private set; }
+        internal EnvironmentFactory EnvironmentFactory { get; private set; }
 
 
 
@@ -34,6 +33,8 @@ namespace _3902_Project
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferWidth = 1024;
+            _graphics.PreferredBackBufferHeight = 700;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -48,17 +49,16 @@ namespace _3902_Project
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
-            BulletSpriteFactory.Instance.LoadAllTextures(Content);
 
 
-            // Initialize the block and item manager
+            // initialize all managers
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
-            ProjectileManager = new ProjectileManager(Content, _spriteBatch);
-
-            // Initialize the player and character state
-            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
             EnemyManager = new EnemyManager(Content, _spriteBatch);
+            ProjectileManager = new ProjectileManager(Content, _spriteBatch);
+            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
+
+            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, EnemyManager);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
@@ -88,14 +88,10 @@ namespace _3902_Project
 
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
             Player.Update();
             ItemManager.Update();
             EnemyManager.Update();
-
-
             ProjectileManager.Update();
-
             // Update input controls
             keyboardController.Update();
 
@@ -108,13 +104,13 @@ namespace _3902_Project
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            Player.Draw();
             BlockManager.Draw();
             ItemManager.Draw();
             EnemyManager.Draw();
             ProjectileManager.Draw();
+            Player.Draw();
 
             _spriteBatch.Begin();
             _spriteBatch.Draw(whiteRectangle, collisionBoxes[1].Bounds, Color.White);

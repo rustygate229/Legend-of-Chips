@@ -16,11 +16,18 @@
     <Compile Remove="Collision\Interfaces\IGameObject.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="GamePlay\**" />
+    <Compile Remove="Old Code - Could be Useful\**" />
+    <EmbeddedResource Remove="GamePlay\**" />
+    <EmbeddedResource Remove="Old Code - Could be Useful\**" />
+    <None Remove="GamePlay\**" />
+    <None Remove="Old Code - Could be Useful\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" />
     <Compile Include="obj\Debug\net6.0\3902 Project.AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -36,9 +43,9 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GamePlay\WorldMechanics\" />
     <Folder Include="obj\Debug\net6.0\refint\" />
     <Folder Include="obj\Debug\net6.0\ref\" />
+    <Folder Include="Renderer\Spawners\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="obj\3902 Project.csproj.nuget.g.props" />
