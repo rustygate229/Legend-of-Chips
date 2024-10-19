@@ -15,6 +15,7 @@ namespace _3902_Project
         internal ItemManager ItemManager { get; private set; }  // Item manager
         internal ProjectileManager ProjectileManager { get; private set; } //projectile manager FOR LINK'S PROJECTILES ONLY
         internal EnemyManager EnemyManager { get; private set; }
+        internal EnvironmentFactory EnvironmentFactory { get; private set; }
 
         // Input controller
         private IController keyboardController;
@@ -22,8 +23,8 @@ namespace _3902_Project
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferWidth = 1600;
-            _graphics.PreferredBackBufferHeight = 960;
+            _graphics.PreferredBackBufferWidth = 1024;
+            _graphics.PreferredBackBufferHeight = 700;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -47,6 +48,8 @@ namespace _3902_Project
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
             Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
 
+            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, EnemyManager);
+
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
 
@@ -54,6 +57,9 @@ namespace _3902_Project
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
             EnemyManager.LoadAllTextures();
+
+            //Meant for Sprint3
+            EnvironmentFactory.loadLevel();
         }
 
         protected override void Update(GameTime gameTime)
@@ -62,7 +68,6 @@ namespace _3902_Project
             ItemManager.Update();
             EnemyManager.Update();
             ProjectileManager.Update();
-
             // Update input controls
             keyboardController.Update();
 
