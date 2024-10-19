@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using System;
 
 namespace _3902_Project
 {
@@ -33,22 +34,27 @@ namespace _3902_Project
             _enemySpritesheet = content.Load<Texture2D>("Dungeon_Enemies_Spritesheet_transparent");
         }
 
-        // Create an instance of Green Monster 1 with shooting capability
-        public ISprite CreateHolsteringEnemy_GreenSlime() { return new GreenSlime(_enemySpritesheet); }
+        // create every type of enemy
+        public ISprite CreateEnemy(EnemyManager.EnemyNames enemyName)
+        {
+            switch (enemyName)
+            {
+                case EnemyManager.EnemyNames.BrownSlime:
+                    return new BrownSlime(_enemySpritesheet);
+                case EnemyManager.EnemyNames.GreenSlime:
+                    return new GreenSlime(_enemySpritesheet);
+                case EnemyManager.EnemyNames.Wizzrope:
+                    return new Wizzrope(_enemySpritesheet);
+                case EnemyManager.EnemyNames.Darknut:
+                    return new Darknut(_enemySpritesheet);
+                case EnemyManager.EnemyNames.Proto:
+                    return new Proto(_enemySpritesheet);
 
+                default: throw new ArgumentException("Invalid block name");
+            }
 
-        // Create an instance of Green Monster 2 without shooting capability
-        public ISprite CreateHolsteringEnemy_BrownSlime() { return new BrownSlime(_enemySpritesheet); }
-
-        // Create an instance of Rope1 without shooting capability
-        public ISprite CreateHolsteringEnemy_Wizzrope() { return new Wizzrope(_enemySpritesheet); }
-
-        // Create an instance of Rope2 without shooting capability
-        public ISprite CreateHolsteringEnemy_Proto() { return new Proto(_enemySpritesheet); }
-
-        public ISprite CreateHolsteringMovingEnemy_Darknut() { return new Darknut(_enemySpritesheet); }
-
-        // Add more enemy types as necessary by specifying their source rectangles and positions
-        // public ISprite OtherEnemy() { ... }
+            // Add more enemy types as necessary by specifying their source rectangles and positions
+            // public ISprite OtherEnemy() { ... }
+        }
     }
 }

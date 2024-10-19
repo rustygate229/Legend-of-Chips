@@ -10,9 +10,9 @@ namespace _3902_Project
         private Vector2 _position;
 
         // variables to change based on where your item is and what to print out
-        private Vector2 _spritePosition = new Vector2(1001, 28);
-        private Vector2 _spriteDimensions = new Vector2(16, 16);
-        private Vector2 _spritePrintDimensions = new Vector2(64, 64);
+        private Vector2 _spritePosition = new Vector2(0, 0);
+        private Vector2 _spriteDimensions = new Vector2(16, 8);
+        private Vector2 _spritePrintDimensions = new Vector2(16, 16);
         private Vector2 _spriteRowAndColumn = new Vector2(2, 1);
 
         // create a Renderer object

@@ -39,46 +39,12 @@ namespace _3902_Project
         {
             // loading sprite factory
             _factory.LoadAllTextures(_contentManager);
-
-            _items = new Dictionary<ItemNames, ISprite>();
-
-            // loading still sprites
-            _items.Add(ItemNames.FullHeart, _factory.CreateStillItem_FullHeart());
-            _items.Add(ItemNames.Clock, _factory.CreateStillItem_Clock());
-            _items.Add(ItemNames.Meat, _factory.CreateStillItem_Meat());
-            _items.Add(ItemNames.Sword, _factory.CreateStillItem_Sword());
-            _items.Add(ItemNames.Shield, _factory.CreateStillItem_Shield());
-            _items.Add(ItemNames.Bomb, _factory.CreateStillItem_Bomb());
-            _items.Add(ItemNames.Bow, _factory.CreateStillItem_Bow());
-            _items.Add(ItemNames.Horn, _factory.CreateStillItem_Horn());
-            _items.Add(ItemNames.Flute, _factory.CreateStillItem_Flute());
-            _items.Add(ItemNames.WaterPlate, _factory.CreateStillItem_WaterPlate());
-            _items.Add(ItemNames.Ladder, _factory.CreateStillItem_Ladder());
-            _items.Add(ItemNames.MagicStaff, _factory.CreateStillItem_MagicStaff());
-            _items.Add(ItemNames.Game, _factory.CreateStillItem_Game());
-            _items.Add(ItemNames.NormalKey, _factory.CreateStillItem_NormalKey());
-            _items.Add(ItemNames.BossKey, _factory.CreateStillItem_BossKey());
-            _items.Add(ItemNames.Compass, _factory.CreateStillItem_Compass());
-
-            // loading animated sprites
-            _items.Add(ItemNames.FlashingLife, _factory.CreateAnimatedItem_FlashingLife());
-            _items.Add(ItemNames.DepletingHeart, _factory.CreateAnimatedItem_DepletingHeart());
-            _items.Add(ItemNames.FlashingEmerald, _factory.CreateAnimatedItem_FlashingEmerald());
-            _items.Add(ItemNames.FlashingPotion, _factory.CreateAnimatedItem_FlashingPotion());
-            _items.Add(ItemNames.FlashingScripture, _factory.CreateAnimatedItem_FlashingScripture());
-            _items.Add(ItemNames.FlashingSword, _factory.CreateAnimatedItem_FlashingSword());
-            _items.Add(ItemNames.FlashingBanana, _factory.CreateAnimatedItem_FlashingBanana());
-            _items.Add(ItemNames.FlashingArrow, _factory.CreateAnimatedItem_FlashingArrow());
-            _items.Add(ItemNames.FlashingCandle, _factory.CreateAnimatedItem_FlashingCandle());
-            _items.Add(ItemNames.FlashingRing, _factory.CreateAnimatedItem_FlashingRing());
-            _items.Add(ItemNames.FlashingTriForce, _factory.CreateAnimatedItem_FlashingTriForce());
         }
 
 
         public void PlaceItem(ItemNames name, Vector2 placementPosition)
         {
-            LoadAllTextures();
-            ISprite currentSprite = _items[name];
+            ISprite currentSprite = _factory.CreateItem(name);
             currentSprite.SetPosition(placementPosition);
             _runningItems.Add(currentSprite);
         }

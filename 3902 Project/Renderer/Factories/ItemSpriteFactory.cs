@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using System;
 
 namespace _3902_Project
 {
@@ -35,39 +36,71 @@ namespace _3902_Project
         }
 
 
-        // create still item sprites
-        public ISprite CreateStillItem_FullHeart() { return new SItem_FullHeart(_itemSpritesheet); }
-        public ISprite CreateStillItem_Clock() { return new SItem_Clock(_itemSpritesheet); }
-        public ISprite CreateStillItem_Meat() { return new SItem_Meat(_itemSpritesheet); }
-        public ISprite CreateStillItem_Sword() { return new SItem_Sword(_itemSpritesheet); }
-        public ISprite CreateStillItem_Shield() { return new SItem_Shield(_itemSpritesheet); }
-        public ISprite CreateStillItem_Bomb() { return new SItem_Bomb(_itemSpritesheet); }
-        public ISprite CreateStillItem_Bow() { return new SItem_Bow(_itemSpritesheet); }
-        public ISprite CreateStillItem_Horn() { return new SItem_Horn(_itemSpritesheet); }
-        public ISprite CreateStillItem_Flute() { return new SItem_Flute(_itemSpritesheet); }
-        public ISprite CreateStillItem_WaterPlate() { return new SItem_WaterPlate(_itemSpritesheet); }
-        public ISprite CreateStillItem_Ladder() { return new SItem_Ladder(_itemSpritesheet); }
-        public ISprite CreateStillItem_MagicStaff() { return new SItem_MagicStaff(_itemSpritesheet); }
-        public ISprite CreateStillItem_Game() { return new SItem_Game(_itemSpritesheet); }
-        public ISprite CreateStillItem_NormalKey() { return new SItem_NormalKey(_itemSpritesheet); }
-        public ISprite CreateStillItem_BossKey() { return new SItem_BossKey(_itemSpritesheet); }
-        public ISprite CreateStillItem_Compass() { return new SItem_Compass(_itemSpritesheet); }
+        // create every type of enemy
+        public ISprite CreateItem(ItemManager.ItemNames itemName)
+        {
+            switch (itemName)
+            {
+                case ItemManager.ItemNames.Bomb:
+                    return new SItem_Bomb(_itemSpritesheet);
+                case ItemManager.ItemNames.BossKey:
+                    return new SItem_BossKey(_itemSpritesheet);
+                case ItemManager.ItemNames.Bow:
+                    return new SItem_Bow(_itemSpritesheet);
+                case ItemManager.ItemNames.Clock:
+                    return new SItem_Clock(_itemSpritesheet);
+                case ItemManager.ItemNames.Compass:
+                    return new SItem_Compass(_itemSpritesheet);
+                case ItemManager.ItemNames.Flute:
+                    return new SItem_Flute(_itemSpritesheet);
+                case ItemManager.ItemNames.FullHeart:
+                    return new SItem_FullHeart(_itemSpritesheet);
+                case ItemManager.ItemNames.Game:
+                    return new SItem_Game(_itemSpritesheet);
+                case ItemManager.ItemNames.Horn:
+                    return new SItem_Horn(_itemSpritesheet);
+                case ItemManager.ItemNames.Ladder:
+                    return new SItem_Ladder(_itemSpritesheet);
+                case ItemManager.ItemNames.MagicStaff:
+                    return new SItem_MagicStaff(_itemSpritesheet);
+                case ItemManager.ItemNames.Meat:
+                    return new SItem_Meat(_itemSpritesheet);
+                case ItemManager.ItemNames.NormalKey:
+                    return new SItem_NormalKey(_itemSpritesheet);
+                case ItemManager.ItemNames.Shield:
+                    return new SItem_Shield(_itemSpritesheet);
+                case ItemManager.ItemNames.Sword:
+                    return new SItem_Sword(_itemSpritesheet);
+                case ItemManager.ItemNames.WaterPlate:
+                    return new SItem_WaterPlate(_itemSpritesheet);
 
+                case ItemManager.ItemNames.DepletingHeart:
+                    return new AItem_DepletingHeart(_itemSpritesheet);
+                case ItemManager.ItemNames.FlashingArrow:
+                    return new AItem_FArrow(_itemSpritesheet);
+                case ItemManager.ItemNames.FlashingBanana:
+                    return new AItem_FBanana(_itemSpritesheet);
+                case ItemManager.ItemNames.FlashingCandle:
+                    return new AItem_FCandle(_itemSpritesheet);
+                case ItemManager.ItemNames.FlashingEmerald:
+                    return new AItem_FEmerald(_itemSpritesheet);
+                case ItemManager.ItemNames.FlashingLife:
+                    return new AItem_FLife(_itemSpritesheet);
+                case ItemManager.ItemNames.FlashingPotion:
+                    return new AItem_FPotion(_itemSpritesheet);
+                case ItemManager.ItemNames.FlashingRing:
+                    return new AItem_FRing(_itemSpritesheet);
+                case ItemManager.ItemNames.FlashingScripture:
+                    return new AItem_FScripture(_itemSpritesheet);
+                case ItemManager.ItemNames.FlashingSword:
+                    return new AItem_FSword(_itemSpritesheet);
+                case ItemManager.ItemNames.FlashingTriForce:
+                    return new AItem_FTriForce(_itemSpritesheet);
 
-        // create animated sprites
-        public ISprite CreateAnimatedItem_FlashingLife() { return new AItem_FLife(_itemSpritesheet); }
-        public ISprite CreateAnimatedItem_DepletingHeart() { return new AItem_DepletingHeart(_itemSpritesheet); }
-        public ISprite CreateAnimatedItem_FlashingEmerald() { return new AItem_FEmerald(_itemSpritesheet); }
-        public ISprite CreateAnimatedItem_FlashingPotion() { return new AItem_FPotion(_itemSpritesheet); }
-        public ISprite CreateAnimatedItem_FlashingScripture() { return new AItem_FScripture(_itemSpritesheet); }
-        public ISprite CreateAnimatedItem_FlashingSword() { return new AItem_FSword(_itemSpritesheet); }
-        public ISprite CreateAnimatedItem_FlashingBanana() { return new AItem_FBanana(_itemSpritesheet); }
-        public ISprite CreateAnimatedItem_FlashingArrow() { return new AItem_FArrow(_itemSpritesheet); }
-        public ISprite CreateAnimatedItem_FlashingCandle() { return new AItem_FCandle(_itemSpritesheet); }
-        public ISprite CreateAnimatedItem_FlashingRing() { return new AItem_FRing(_itemSpritesheet); }
-        public ISprite CreateAnimatedItem_FlashingTriForce() { return new AItem_FTriForce(_itemSpritesheet); }
-
-        // More public ISprite returning methods follow
-        // ...
+                default: throw new ArgumentException("Invalid block name");
+            }
+            // More public ISprite returning methods follow
+            // ...
+        }
     }
 }

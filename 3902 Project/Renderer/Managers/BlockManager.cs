@@ -20,7 +20,6 @@ namespace _3902_Project
         }
 
         // block dictionary/inventory
-        private Dictionary<BlockNames, ISprite> _blocks = new Dictionary<BlockNames, ISprite>();
         private List<ISprite> _runningBlocks = new List<ISprite>();
 
         // create variables for passing
@@ -42,25 +41,11 @@ namespace _3902_Project
         {
             // loading sprite sheet
             _factory.LoadAllTextures(_contentManager);
-
-            // loading still block sprites
-            _blocks = new Dictionary<BlockNames, ISprite>();
-            _blocks.Add(BlockNames.Environment, _factory.CreateStillBlock_Environment());
-            _blocks.Add(BlockNames.Stairs_LEFT, _factory.CreateStillFBlock_Stairs_LEFT());
-            _blocks.Add(BlockNames.Stairs_RIGHT, _factory.CreateStillFBlock_Stairs_RIGHT());
-            _blocks.Add(BlockNames.Tile, _factory.CreateStillPBlock_Tile());
-            _blocks.Add(BlockNames.Dirt, _factory.CreateStillPBlock_Dirt());
-            _blocks.Add(BlockNames.Square, _factory.CreateStillPBlock_Square());
-            _blocks.Add(BlockNames.DiamondHoleLockedDoor_DOWN, _factory.CreateStillFBlock_DiamondLockedDoor_DOWN());
-            _blocks.Add(BlockNames.DiamondHoleLockedDoor_UP, _factory.CreateStillFBlock_DiamondLockedDoor_UP());
-            _blocks.Add(BlockNames.DiamondHoleLockedDoor_RIGHT, _factory.CreateStillFBlock_DiamondLockedDoor_RIGHT());
-            _blocks.Add(BlockNames.DiamondHoleLockedDoor_LEFT, _factory.CreateStillFBlock_DiamondLockedDoor_LEFT());
         }
 
         public void PlaceBlock(BlockNames name, Vector2 placementPosition)
         {
-            LoadAllTextures();
-            ISprite currentSprite = _blocks[name];
+            ISprite currentSprite = _factory.CreateBlock(name);
             currentSprite.SetPosition(placementPosition);
             _runningBlocks.Add(currentSprite);
         }
@@ -70,19 +55,18 @@ namespace _3902_Project
         // draw block sprite based on current selected block
         public void Draw()
         {
-            foreach (var blocks in _runningBlocks)
+            foreach (var block in _runningBlocks)
             {
-                
-                blocks.Draw(_spriteBatch);
+                block.Draw(_spriteBatch);
             }
         }
 
         // update used for each of the animated sprites
         public void Update()
         {
-            foreach (var blocks in _runningBlocks)
+            foreach (var block in _runningBlocks)
             {
-                blocks.Update();
+                block.Update();
             }
         }
     }
