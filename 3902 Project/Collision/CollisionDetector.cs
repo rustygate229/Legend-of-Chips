@@ -39,7 +39,7 @@ namespace _3902_Project
             return collisions;
         }
 
-        private CollisionType DetermineCollisionSide(ICollisionBox objectA, ICollisionBox objectB)
+        internal static CollisionType DetermineCollisionSide(ICollisionBox objectA, ICollisionBox objectB)
         {
             // Determine collision side based on positions and overlap areas
             Rectangle intersection = Rectangle.Intersect(objectA.Bounds, objectB.Bounds);

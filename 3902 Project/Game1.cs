@@ -10,7 +10,6 @@ namespace _3902_Project
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-
         // Game objects and managers
         internal LinkPlayer Player { get; private set; }  // Player object
         internal BlockManager BlockManager { get; private set; }  // Block manager
@@ -19,13 +18,12 @@ namespace _3902_Project
         internal EnemyManager EnemyManager { get; private set; }
         internal EnvironmentFactory EnvironmentFactory { get; private set; }
 
-
-
+        // Collision Logic
         internal CollisionHandlerManager CollisionHandlerManager;
         internal CollisionDetector CollisionDetector;
         internal List<ICollisionBox> collisionBoxes;
         Texture2D whiteRectangle;
-
+        private List<BlockCollisionBox> _blockCollisionBoxes;
 
         // Input controller
         private IController keyboardController;
@@ -50,8 +48,7 @@ namespace _3902_Project
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
-
-            // initialize all managers
+            // Initialize all managers
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
             EnemyManager = new EnemyManager(Content, _spriteBatch);
@@ -63,14 +60,16 @@ namespace _3902_Project
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
 
-            EnemyCollisionManager enemyCollision = new EnemyCollisionManager(EnemyManager);
-            CollisionHandlerManager = new CollisionHandlerManager(Player, EnemyManager, ItemManager);
+            // Initialize collision logic
             CollisionDetector = new CollisionDetector();
+            _blockCollisionBoxes = BlockCollisionBox.GetDefaultBlocks(); // Load default block collision boxes
+            CollisionHandlerManager = new CollisionHandlerManager(Player, EnemyManager, ItemManager);
 
+            // Add collision objects to the collisionBoxes list
             collisionBoxes = new List<ICollisionBox>();
             collisionBoxes.Add(Player.getCollisionBox());
-            collisionBoxes.Add(new BlockCollisionBox(new Rectangle(400, 200, 64, 64), true));
-            collisionBoxes.Add(new EnemyCollisionBox(new Rectangle(300, 100, 32, 32), true, 100, 10));
+            collisionBoxes.AddRange(_blockCollisionBoxes); // Add all block collision boxes
+            
 
             // Block and Item Texture Loading
             BlockManager.LoadAllTextures();
@@ -81,7 +80,6 @@ namespace _3902_Project
             whiteRectangle.SetData(new[] { Color.White });
 
             EnvironmentFactory.loadLevel();
-
         }
 
         protected override void Update(GameTime gameTime)
@@ -93,10 +91,10 @@ namespace _3902_Project
             // Update input controls
             keyboardController.Update();
 
+            // Detect and handle collisions
             List<CollisionData> collisions = CollisionDetector.DetectCollisions(collisionBoxes);
             CollisionHandlerManager.HandleCollisions(collisions);
 
-            // TODO: Add your update logic here (e.g., update player, blocks, etc.)
             base.Update(gameTime);
         }
 
@@ -111,7 +109,11 @@ namespace _3902_Project
             Player.Draw();
 
             _spriteBatch.Begin();
-            _spriteBatch.Draw(whiteRectangle, collisionBoxes[1].Bounds, Color.White);
+            // Draw block collision boxes for testing purposes
+            foreach (var block in _blockCollisionBoxes)
+            {
+                _spriteBatch.Draw(whiteRectangle, block.Bounds, Color.White);
+            }
             _spriteBatch.Draw(whiteRectangle, collisionBoxes[2].Bounds, Color.White);
             _spriteBatch.End();
 

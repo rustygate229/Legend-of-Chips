@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace _3902_Project;
 
@@ -47,6 +48,18 @@ public class BlockCollisionBox : ICollisionBox
 
     }
 
+    public static List<BlockCollisionBox> GetDefaultBlocks()
+    {
+        return new List<BlockCollisionBox>
+        {
+            new BlockCollisionBox(new Rectangle(400, 400, 50, 50), true), // TestBlock 1
+            new BlockCollisionBox(new Rectangle(200, 150, 50, 50), true), // TestBlock 2
+            new BlockCollisionBox(new Rectangle(400, 200, 100, 50), true),  // TestBlock 3
+
+            new BlockCollisionBox(new Rectangle(400, 300, 60, 60), false) //block can be pass through
+
+        };
+    }
 
     public Rectangle Bounds
     {
