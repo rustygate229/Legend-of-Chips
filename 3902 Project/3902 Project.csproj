@@ -40,7 +40,6 @@
   <ItemGroup>
     <Folder Include="obj\Debug\net6.0\refint\" />
     <Folder Include="obj\Debug\net6.0\ref\" />
-    <Folder Include="Renderer\Spawners\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="obj\3902 Project.csproj.nuget.g.props" />
