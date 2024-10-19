@@ -1,23 +1,34 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 namespace _3902_Project
 {
     public class BlockManager
     {
-        // current selected block
-        private int _currentBlockIndex = 0;
+        // create block names for finding them
+        public enum BlockNames 
+        { 
+            BombedDoor_DOWN, BombedDoor_UP, BombedDoor_RIGHT, BombedDoor_LEFT, DiamondHoleLockedDoor_DOWN, DiamondHoleLockedDoor_UP, 
+            DiamondHoleLockedDoor_RIGHT, DiamondHoleLockedDoor_LEFT, KeyHoleLockedDoor_DOWN, KeyHoleLockedDoor_UP, KeyHoleLockedDoor_RIGHT, 
+            KeyHoleLockedDoor_LEFT, OpenDoor_DOWN, OpenDoor_UP, OpenDoor_RIGHT, OpenDoor_LEFT, Wall_DOWN, Wall_UP, Wall_RIGHT, Wall_LEFT,
+            WhiteBrick_DOWN, WhiteBrick_UP, WhiteBrick_RIGHT, WhiteBrick_LEFT, WhiteTile_DOWN, WhiteTile_UP, WhiteTile_RIGHT, WhiteTile_LEFT,
+            Stairs_RIGHT, Stairs_LEFT, StatueDragon_RIGHT, StatueDragon_LEFT, StatueFish_RIGHT, StatueFish_LEFT,
+            Environment, Dirt, Square, Tile
+        }
 
         // block dictionary/inventory
-        private Dictionary<int, ISprite> _blocks = new Dictionary<int, ISprite>();
+        private Dictionary<BlockNames, ISprite> _blocks = new Dictionary<BlockNames, ISprite>();
+        private List<ISprite> _runningBlocks = new List<ISprite>();
 
         // create variables for passing
-        private BlockSpriteFactory _factory = new BlockSpriteFactory();
+        private BlockSpriteFactory _factory = BlockSpriteFactory.Instance;
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
 
-       
+
         // constructor
         public BlockManager(ContentManager contentManager, SpriteBatch spriteBatch)
         {
@@ -33,50 +44,46 @@ namespace _3902_Project
             _factory.LoadAllTextures(_contentManager);
 
             // loading still block sprites
-            _blocks.Add(0, _factory.CreateStillBlock_Stairs());
-            _blocks.Add(1, _factory.CreateStillBlock_Tile());
-            _blocks.Add(2, _factory.CreateStillBlock_StatueFish());
-            _blocks.Add(3, _factory.CreateStillBlock_KeyholeLockedDoorTopRoom());
-            _blocks.Add(4, _factory.CreateStillBlock_KeyholeLockedDoorBottomRoom() );
-            _blocks.Add(5, _factory.CreateStillBlock_KeyholeLockedDoorLeftRoom());
-            _blocks.Add(6, _factory.CreateStillBlock_KeyholeLockedDoorRightRoom());
-            _blocks.Add(7, _factory.CreateStillBlock_DiamondLockedDoorLeftRightRoom());
-            _blocks.Add(8, _factory.CreateStillBlock_DiamondLockedDoorTopBottomRoom());
-            _blocks.Add(9, _factory.CreateStillBlock_Square());
-            _blocks.Add(10, _factory.CreateStillBlock_StatueDragon());
-            _blocks.Add(11, _factory.CreateStillBlock_Dirt());
-            _blocks.Add(12, _factory.CreateStillBlock_WhiteBrick());
-            _blocks.Add(13, _factory.CreateStillBlock_WhiteTile());
+            _blocks = new Dictionary<BlockNames, ISprite>();
+            _blocks.Add(BlockNames.Environment, _factory.CreateStillBlock_Environment());
+            _blocks.Add(BlockNames.Stairs_LEFT, _factory.CreateStillFBlock_Stairs_LEFT());
+            _blocks.Add(BlockNames.Stairs_RIGHT, _factory.CreateStillFBlock_Stairs_RIGHT());
+            _blocks.Add(BlockNames.Tile, _factory.CreateStillPBlock_Tile());
+            _blocks.Add(BlockNames.Dirt, _factory.CreateStillPBlock_Dirt());
+            _blocks.Add(BlockNames.Square, _factory.CreateStillPBlock_Square());
+            _blocks.Add(BlockNames.DiamondHoleLockedDoor_DOWN, _factory.CreateStillFBlock_DiamondLockedDoor_DOWN());
+            _blocks.Add(BlockNames.DiamondHoleLockedDoor_UP, _factory.CreateStillFBlock_DiamondLockedDoor_UP());
+            _blocks.Add(BlockNames.DiamondHoleLockedDoor_RIGHT, _factory.CreateStillFBlock_DiamondLockedDoor_RIGHT());
+            _blocks.Add(BlockNames.DiamondHoleLockedDoor_LEFT, _factory.CreateStillFBlock_DiamondLockedDoor_LEFT());
         }
 
-
-        // draw the block ABOVE the current selected block
-        public void CycleNextBlock()
+        public void PlaceBlock(BlockNames name, Vector2 placementPosition)
         {
-            _currentBlockIndex = (_currentBlockIndex + 1) % _blocks.Count;
-            Draw();
+            LoadAllTextures();
+            ISprite currentSprite = _blocks[name];
+            currentSprite.SetPosition(placementPosition);
+            _runningBlocks.Add(currentSprite);
         }
 
-
-        // draw the block BELOW the current selected block
-        public void CyclePreviousBlock()
-        {
-            _currentBlockIndex = (_currentBlockIndex - 1 + _blocks.Count) % _blocks.Count;
-            Draw();
-        }
-
-      
-        // get current block sprite
-        public ISprite GetCurrentBlock()
-        {
-            return _blocks.GetValueOrDefault(_currentBlockIndex);
-        }
-
+        public void UnloadAllBlocks() { _runningBlocks = new List<ISprite>(); }
 
         // draw block sprite based on current selected block
         public void Draw()
         {
-            GetCurrentBlock().Draw(_spriteBatch);
+            foreach (var blocks in _runningBlocks)
+            {
+                
+                blocks.Draw(_spriteBatch);
+            }
+        }
+
+        // update used for each of the animated sprites
+        public void Update()
+        {
+            foreach (var blocks in _runningBlocks)
+            {
+                blocks.Update();
+            }
         }
     }
 }

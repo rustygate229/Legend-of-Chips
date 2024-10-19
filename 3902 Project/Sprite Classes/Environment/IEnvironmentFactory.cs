@@ -14,8 +14,7 @@ namespace _3902_Project
         void setLevel(int level);
         int getLevel();
         void loadLevel();
-        List<Rectangle> getCollidables();
-        void Draw();
-        Rectangle getDimensions();
+        Dictionary<BlockManager.BlockNames, List<Rectangle>> getCollidables();
+        Rectangle getRoomDimensions();
     }
 }

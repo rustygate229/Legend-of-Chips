@@ -11,16 +11,23 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Collision\CollisionHandlerManager.cs" />
+    <Compile Remove="Collision\Handlers\PlayerCollisionHandler.cs" />
+    <Compile Remove="Collision\Interfaces\IGameObject.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Remove="GamePlay\**" />
+    <Compile Remove="Old Code - Could be Useful\**" />
     <EmbeddedResource Remove="GamePlay\**" />
+    <EmbeddedResource Remove="Old Code - Could be Useful\**" />
     <None Remove="GamePlay\**" />
+    <None Remove="Old Code - Could be Useful\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" />
     <Compile Include="obj\Debug\net6.0\3902 Project.AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +45,7 @@
   <ItemGroup>
     <Folder Include="obj\Debug\net6.0\refint\" />
     <Folder Include="obj\Debug\net6.0\ref\" />
+    <Folder Include="Renderer\Spawners\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="obj\3902 Project.csproj.nuget.g.props" />
