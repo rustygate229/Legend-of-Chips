@@ -10,15 +10,6 @@
   - 1,2, 3: Selects Blue Arrow, Blue Boomerang, and Bomb 
   - N: Uses selected item
   - E: Link takes damage
-* Block/Obstacle Controls
-  - T: Cycles Previous Block in List
-  - Y: Cycles Next Block in List
-* Item Controls
-  - U: Cycles Previous Item in List
-  - I: Cycles Next Item in List
-* Enemy/NPC Controls
-  - O: Cycles Previous Enemy in List
-  - P: Cycles Next Enemy in List
 * Other
   - Q: Quit/Close Program
   - R: Resets Program
@@ -26,17 +17,19 @@
 # Known Bugs
 * Link moves faster moving diagonally than moving horizontally or vertically
 * Link cannot attack more than once while holding down a movement key
-* Holding U and Y at the same time cycles through both blocks and items very quickly
+* Environment Loading things NOT in order
 * Link's attack animation is cut off prematurely when C is released
 * Cannot cycle items or blocks when Link is moving
+* More will come with implementing the collision, we're sure
 
 # Some Tasks before Sprint 3
 * Implement:
-  - Add more blocks/items and enemies
+  - Add/implement more blocks/items and enemies
   - Create a boss enemy
   - Mainstream projectile classes
-  - Refactor and add comments and documentation
-  - Create renderer class for animations
+  - LOTS OF REFACTORING (getting correct sprite locations, commenting and much more)
+  - Mainstream environment loading
+  - Fix small errors as they come with these implemtations
 
 # Credits
 * Sprites
@@ -47,16 +40,18 @@
 * Link/Player Movement and Sprite Animations
   - Mayank Karnati
   - Rolina Qu
-* Block Classes
+* Renderer Stuff
   - Evan Csuhran
-  - Gary Zhu
-* Item Classes
-  - Evan Csuhran
-  - Gary Zhu
-* Enemy Classes
   - Jiaqing Guan
   - Gary Zhu
 * Projectile Classes
   - Rolina Qu
   - Mayank Karnati
+* Collision
+  - Rolina Qu
+  - Hongxiang Wang
+* Environment Loading
+  - Mayank Karnati
+  - Evan Csuhran
 * Code Reviews/Sprint Reflections are in the Sprint2 folder in the Code Reflections and Reviews folder
+
