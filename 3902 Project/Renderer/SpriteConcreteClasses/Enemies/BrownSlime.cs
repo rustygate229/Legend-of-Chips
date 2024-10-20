@@ -66,49 +66,63 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            // update animation
+            // Update animation
             _enemy.UpdateFrames();
 
-            // update position and movement counter
+            // Update position and check for boundary collision
             _position += _updatePosition;
+
+            if (_position.X < 0 || _position.X + _spritePrintDimensions.X > 800)
+            {
+                _updatePosition.X = -_updatePosition.X; // Reverse horizontal direction
+            }
+            if (_position.Y < 0 || _position.Y + _spritePrintDimensions.Y > 600)
+            {
+                _updatePosition.Y = -_updatePosition.Y; // Reverse vertical direction
+            }
+
             _enemy.SetPosition(_position);
 
             _moveCounter++;
             _fireCounter++;
 
-            // add bullet
+            // Add bullet logic
             if (_fireCounter >= _moveTotal * 5)
             {
                 _fireCounter = 0;
                 Vector2 position = new Vector2(_enemy.GetDestinationRectangle().X, _enemy.GetDestinationRectangle().Y);
                 if (Game1.bulletManager._bulletsTextures.Count > 0 && _updatePosition != Vector2.Zero)
                 {
-
                     BulletSpriteFactory bullet = new BulletSpriteFactory(Game1.bulletManager._bulletsTextures, position, _updatePosition * 2);
                     Game1.bulletManager.bullets.Add(bullet);
                 }
             }
 
-            // Change direction periodically (random horizontal or vertical movement)
+            // Change direction periodically
             if (_moveCounter >= _moveTotal * 3)
             {
-                // Randomly choose a direction: 0 = left, 1 = right, 2 = up, 3 = down
+                Vector2 newDirection = Vector2.Zero;
                 switch (random.Next(4))
                 {
                     case 0: // Move DOWN
-                        _updatePosition = new Vector2(0, Math.Abs(_positionSpeed));
+                        newDirection = new Vector2(0, Math.Abs(_positionSpeed));
                         break;
                     case 1: // Move UP
-                        _updatePosition = new Vector2(0, -(Math.Abs(_positionSpeed)));
+                        newDirection = new Vector2(0, -(Math.Abs(_positionSpeed)));
                         break;
                     case 2: // Move RIGHT
-                        _updatePosition = new Vector2(Math.Abs(_positionSpeed), 0);
+                        newDirection = new Vector2(Math.Abs(_positionSpeed), 0);
                         break;
                     case 3: // Move LEFT
-                        _updatePosition = new Vector2(-(Math.Abs(_positionSpeed)), 0);
+                        newDirection = new Vector2(-(Math.Abs(_positionSpeed)), 0);
                         break;
                 }
-                _moveCounter = 0; // Reset the timer
+
+                if (newDirection != Vector2.Zero)
+                {
+                    _updatePosition = newDirection;
+                    _moveCounter = 0; // Reset the timer
+                }
             }
         }
 

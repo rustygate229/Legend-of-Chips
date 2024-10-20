@@ -18,13 +18,15 @@ namespace _3902_Project
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
 
+        private int _currentEnemyIndex = 0;
+
 
         // constructor
         public EnemyManager(ContentManager contentManager, SpriteBatch spriteBatch)
         {
             _contentManager = contentManager;
             _spriteBatch = spriteBatch;
-            PlaceEnemy(EnemyNames.BrownSlime, new Vector2(500, 500));
+            PlaceEnemy(EnemyNames.BrownSlime, new Vector2(300, 200));
         }
 
 
@@ -42,8 +44,22 @@ namespace _3902_Project
             _runningEnemies.Add(currentSprite);
         }
 
+
         public void UnloadAllEnemies() { _runningEnemies = new List<ISprite>(); }
 
+        // Cycle to the next enemy
+        public void CycleNextEnemy()
+        {
+            _currentEnemyIndex = (_currentEnemyIndex + 1) % _runningEnemies.Count;
+            Draw();
+        }
+
+        // Cycle to the previous enemy
+        public void CyclePreviousEnemy()
+        {
+            _currentEnemyIndex = (_currentEnemyIndex - 1 + _runningEnemies.Count) % _runningEnemies.Count;
+            Draw();
+        }
 
 
         // Draw the current enemy
