@@ -138,24 +138,24 @@ namespace _3902_Project
             Rectangle sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
             Rectangle destinationRectangle = _enemy.GetDestinationRectangle();
 
-            if(destinationRectangle.X < 0)
+            if(destinationRectangle.X < 100)
             {
-                destinationRectangle.X = 0;
+                destinationRectangle.X = 100;
             }
 
-            if (destinationRectangle.Y < 0)
+            if (destinationRectangle.Y < 100)
             {
-                destinationRectangle.Y = 0;
+                destinationRectangle.Y = 100;
             }
 
-            if (destinationRectangle.X + destinationRectangle.Width > 800)
+            if (destinationRectangle.X + destinationRectangle.Width > 600)
             {
-                destinationRectangle.X = 800 - destinationRectangle.Width;
+                destinationRectangle.X = 600 - destinationRectangle.Width;
             }
 
-            if (destinationRectangle.Y + destinationRectangle.Height > 600)
+            if (destinationRectangle.Y + destinationRectangle.Height > 400)
             {
-                destinationRectangle.Y = 600 - destinationRectangle.Height;
+                destinationRectangle.Y = 400 - destinationRectangle.Height;
             }
 
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
