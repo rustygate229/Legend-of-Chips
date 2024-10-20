@@ -20,6 +20,17 @@ namespace _3902_Project
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
         public List<Texture2D> _bulletsTextures = new List<Texture2D>();
+        private Rectangle whiteRectangleBounds;
+
+
+        // Initialize with whiteRectangle bounds
+        public void init(ContentManager contentManager, SpriteBatch spriteBatch, Rectangle whiteRectangleBounds)
+        {
+            _contentManager = contentManager;
+            _spriteBatch = spriteBatch;
+            this.whiteRectangleBounds = whiteRectangleBounds;
+            LoadBulletTextures("Bullets");
+        }
 
         private void LoadBulletTextures(string folderName)
         {
@@ -38,6 +49,11 @@ namespace _3902_Project
                bullet._position.Y > 500;
         }
 
+        private bool isCollidingWithWhiteRectangle(BulletSpriteFactory bullet)
+        {
+            Rectangle bulletRect = new Rectangle((int)bullet._position.X, (int)bullet._position.Y, bullet.width, bullet.height);
+            return bulletRect.Intersects(whiteRectangleBounds);
+        }
 
 
         public void init(ContentManager contentManager, SpriteBatch spriteBatch)
@@ -50,7 +66,7 @@ namespace _3902_Project
 
         public void Update()
         {
-            bullets.RemoveAll(bullet => isOutOfWindow(bullet));
+            bullets.RemoveAll(bullet => isOutOfWindow(bullet) || isCollidingWithWhiteRectangle(bullet));
             for (int i = 0; i < bullets.Count; i++)
             {
                 bullets[i].Update();

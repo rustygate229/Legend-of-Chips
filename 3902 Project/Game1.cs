@@ -63,6 +63,10 @@ namespace _3902_Project
 
             EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, EnemyManager);
 
+            // Pass the bounds of whiteRectangle to the bulletManager
+            bulletManager.init(Content, _spriteBatch, new Rectangle(400, 200, 64, 64)); // Example dimensions
+
+
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
 
