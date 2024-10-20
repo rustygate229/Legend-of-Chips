@@ -33,9 +33,9 @@ namespace _3902_Project
         private bool isOutOfWindow(BulletSpriteFactory bullet)
         {
             return bullet._position.X + bullet.width < 0 ||
-               bullet._position.X > 800 ||
+               bullet._position.X > 750 ||
                bullet._position.Y + bullet.height < 0 ||
-               bullet._position.Y > 600;
+               bullet._position.Y > 500;
         }
 
 
