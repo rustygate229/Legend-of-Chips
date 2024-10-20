@@ -24,6 +24,7 @@ namespace _3902_Project
         {
             _contentManager = contentManager;
             _spriteBatch = spriteBatch;
+            PlaceEnemy(EnemyNames.BrownSlime, new Vector2(500, 500));
         }
 
 
