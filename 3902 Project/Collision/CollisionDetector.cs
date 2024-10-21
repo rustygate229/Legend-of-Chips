@@ -25,7 +25,7 @@ namespace _3902_Project
                             //Link, <Other> collision
                             collisions.Add(new CollisionData(objectB, objectA, side));
                         }
-                        else if (objectB.GetType() == typeof(LinkCollisionBox))
+                        else if (objectB.GetType() == typeof(EnemyCollisionBox))
                         {
                             //Enemy, <Other> collision (NOT link.) 
                             collisions.Add(new CollisionData(objectB, objectA, side));

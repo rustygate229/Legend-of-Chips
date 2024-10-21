@@ -19,6 +19,8 @@ namespace _3902_Project
 
         public static BulletManager bulletManager = new BulletManager();
 
+        private List<ICollisionBox> _EnemyCollisionBoxes;
+
 
 
         internal CollisionHandlerManager CollisionHandlerManager;
@@ -100,9 +102,11 @@ namespace _3902_Project
             {
                 Player.getCollisionBox()
             };
+            _EnemyCollisionBoxes = EnemyManager.collisionBoxes;
 
             collisionBoxes.AddRange(_blockCollisionBoxes); // Add all block collision boxes
             collisionBoxes.AddRange(_itemCollisionBoxes); // Add all item collision boxes
+            collisionBoxes.AddRange(_EnemyCollisionBoxes);
         }
 
         protected override void Update(GameTime gameTime)
@@ -139,6 +143,10 @@ namespace _3902_Project
             foreach (var item in _itemCollisionBoxes)
             {
                 _spriteBatch.Draw(whiteRectangle, item.Bounds, Color.Yellow);
+            }
+            foreach (var enemy in _EnemyCollisionBoxes)
+            {
+                _spriteBatch.Draw(whiteRectangle, enemy.Bounds, Color.White);
             }
             _spriteBatch.End();
 

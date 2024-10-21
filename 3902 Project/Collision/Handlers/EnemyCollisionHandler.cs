@@ -29,6 +29,7 @@ public class EnemyCollisionHandler : ICollisionHandler
             case CollisionType.LEFT:
                 // Handle enemy collision from the left side
                 enemy.Bounds = new Rectangle(block.Bounds.Left - enemy.Bounds.Width, enemy.Bounds.Y, enemy.Bounds.Width, enemy.Bounds.Height);
+                
                 break;
             case CollisionType.RIGHT:
                 // Handle enemy collision from the right side
@@ -45,5 +46,7 @@ public class EnemyCollisionHandler : ICollisionHandler
             default:
                 break;
         }
+
+        _enemyManager.UpdateBounds(enemy, enemy.Bounds);
     }
 }
