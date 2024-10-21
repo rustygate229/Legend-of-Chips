@@ -23,7 +23,7 @@ namespace _3902_Project
         public AItem_FLife(Texture2D spriteSheet)
         {
             _spriteSheet = spriteSheet;
-            _item = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spritePosition, _spriteDimensions, _spritePrintDimensions);
+            _item = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _position, _spritePosition, _spriteDimensions, _spritePrintDimensions, _spriteRowAndColumn, 30);
         }
 
         /// Get position from sprites renderer position
