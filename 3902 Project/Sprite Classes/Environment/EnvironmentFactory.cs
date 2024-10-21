@@ -60,9 +60,9 @@ namespace _3902_Project
             _csvTranslations.Add("d", BlockManager.BlockNames.Dirt);
         }
 
-        public Dictionary<BlockManager.BlockNames, List<Rectangle>> getCollidables()
+        public Dictionary<BlockManager.BlockNames, List<ICollisionBox>> getCollidables()
         {
-            Dictionary<BlockManager.BlockNames, List<Rectangle>> result = new Dictionary<BlockManager.BlockNames, List<Rectangle>>();
+            Dictionary<BlockManager.BlockNames, List<ICollisionBox>> result = new Dictionary<BlockManager.BlockNames, List<ICollisionBox>>();
 
             // List the collidables
             HashSet<BlockManager.BlockNames> collidables = new HashSet<BlockManager.BlockNames>();
@@ -78,9 +78,11 @@ namespace _3902_Project
                         //Add collidable to dictionary
                         if (!result.ContainsKey(_csvTranslations[blockToCheck]))
                         {
-                            result[_csvTranslations[blockToCheck]] = new List<Rectangle>();
+                            //if result does NOT contain key
+                            result[_csvTranslations[blockToCheck]] = new List<ICollisionBox>();
                         }
-                        result[_csvTranslations[blockToCheck]].Add(new Rectangle(128 + (j * 64), 128 + (i * 64), 64, 64));
+                        Rectangle bounds = new Rectangle(128 + (j * 64), 128 + (i * 64), 64, 64);
+                        result[_csvTranslations[blockToCheck]].Add(new BlockCollisionBox(bounds, true));
                     }
                 }
             }

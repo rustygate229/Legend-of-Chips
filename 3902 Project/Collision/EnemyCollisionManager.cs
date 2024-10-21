@@ -32,7 +32,7 @@ namespace _3902_Project
             {
                 if (_collisionBoxes.Contains(collision.ObjectA) || _collisionBoxes.Contains(collision.ObjectB))
                 {
-                    _collisionHandler.HandleCollision(collision.ObjectA, collision.ObjectB, collision.CollisionSide);
+                    _collisionHandler.HandleCollision(collision.ObjectA, collision.ObjectB, collision.CollisionSide, true);
                 }
             }
         }

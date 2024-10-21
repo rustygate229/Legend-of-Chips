@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
 namespace _3902_Project
@@ -26,7 +25,7 @@ namespace _3902_Project
         internal CollisionDetector CollisionDetector;
         internal List<ICollisionBox> collisionBoxes;
         Texture2D whiteRectangle;
-        private List<BlockCollisionBox> _blockCollisionBoxes;
+        private List<ICollisionBox> _blockCollisionBoxes;
         private List<ItemCollisionBox> _itemCollisionBoxes;
 
         // Input controller
@@ -62,6 +61,8 @@ namespace _3902_Project
 
             EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, EnemyManager);
 
+
+
             // Pass the bounds of whiteRectangle to the bulletManager
             bulletManager.init(Content, _spriteBatch, new Rectangle(400, 200, 64, 64)); // Example dimensions
 
@@ -71,15 +72,7 @@ namespace _3902_Project
 
             // Initialize collision logic
             CollisionDetector = new CollisionDetector();
-            _blockCollisionBoxes = BlockCollisionBox.GetDefaultBlocks(); // Load default block collision boxes
-            _itemCollisionBoxes = ItemCollisionBox.GetDefaultItems(); // Load default item collision boxes for testing
-            CollisionHandlerManager = new CollisionHandlerManager(Player, EnemyManager, ItemManager, _blockCollisionBoxes);
-
-            // Add collision objects to the collisionBoxes list
-            collisionBoxes = new List<ICollisionBox>();
-            collisionBoxes.Add(Player.getCollisionBox());
-            collisionBoxes.AddRange(_blockCollisionBoxes); // Add all block collision boxes
-            collisionBoxes.AddRange(_itemCollisionBoxes); // Add all item collision boxes
+            _blockCollisionBoxes = new List<ICollisionBox>();
 
             // Block and Item Texture Loading
             BlockManager.LoadAllTextures();
@@ -90,6 +83,26 @@ namespace _3902_Project
             whiteRectangle.SetData(new[] { Color.White });
 
             EnvironmentFactory.loadLevel();
+
+
+            Dictionary<BlockManager.BlockNames, List<ICollisionBox>> BlockCollisionDict = EnvironmentFactory.getCollidables(); // Load collision boxes from ENVIRONMENT
+            List<ICollisionBox> CollisionList = new List<ICollisionBox>();
+            if (BlockCollisionDict.TryGetValue(BlockManager.BlockNames.Square, out CollisionList))
+            {
+                _blockCollisionBoxes.AddRange(CollisionList);
+            }
+
+            _itemCollisionBoxes = ItemCollisionBox.GetDefaultItems(); // Load default item collision boxes for testing
+            CollisionHandlerManager = new CollisionHandlerManager(Player, EnemyManager, ItemManager, _blockCollisionBoxes);
+
+            // Add collision objects to the collisionBoxes list
+            collisionBoxes = new List<ICollisionBox>
+            {
+                Player.getCollisionBox()
+            };
+
+            collisionBoxes.AddRange(_blockCollisionBoxes); // Add all block collision boxes
+            collisionBoxes.AddRange(_itemCollisionBoxes); // Add all item collision boxes
         }
 
         protected override void Update(GameTime gameTime)
@@ -122,11 +135,6 @@ namespace _3902_Project
             Player.Draw();
 
             _spriteBatch.Begin();
-            // Draw block collision boxes for testing purposes
-            foreach (var block in _blockCollisionBoxes)
-            {
-                _spriteBatch.Draw(whiteRectangle, block.Bounds, Color.White);
-            }
             // Draw item collision boxes for testing purposes
             foreach (var item in _itemCollisionBoxes)
             {
@@ -137,7 +145,7 @@ namespace _3902_Project
             base.Draw(gameTime);
         }
 
-   
+
 
         public void ResetGame()
         {

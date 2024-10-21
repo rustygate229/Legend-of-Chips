@@ -7,9 +7,9 @@ namespace _3902_Project
 {
     public class BlockCollisionHandler : ICollisionHandler
     {
-        private List<BlockCollisionBox> _blocks;
+        private List<ICollisionBox> _blocks;
 
-        public BlockCollisionHandler(List<BlockCollisionBox> blocks)
+        public BlockCollisionHandler(List<ICollisionBox> blocks)
         {
             _blocks = blocks;
         }
