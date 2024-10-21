@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using static _3902_Project.EnemyManager;
 
 namespace _3902_Project
 {
@@ -43,16 +44,38 @@ namespace _3902_Project
             _factory.LoadAllTextures(_contentManager);
         }
 
-        public void PlaceBlock(BlockNames name, Vector2 placementPosition)
+        /// <summary>
+        /// Add an block to the running block list
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="placementPosition"></param>
+        public void AddEnemy(EnemyNames name, Vector2 placementPosition)
         {
-            ISprite currentSprite = _factory.CreateBlock(name);
+            ISprite currentSprite = _factory.CreateEnemy(name);
             currentSprite.SetPosition(placementPosition);
             _runningBlocks.Add(currentSprite);
         }
 
-        public void UnloadAllBlocks() { _runningBlocks = new List<ISprite>(); }
 
-        // draw block sprite based on current selected block
+        /// <summary>
+        /// Remove/Unload an block from the block list based on it's ISprite
+        /// </summary>
+        /// <param name="name"></param>
+        public void UnloadEnemy()
+        {
+            _runningBlocks.Remove((ISprite)this);
+        }
+
+
+        /// <summary>
+        /// Remove/Unload all Enemy Sprites
+        /// </summary>
+        public void UnloadAllEnemies() { _runningBlocks = new List<ISprite>(); }
+
+
+        /// <summary>
+        /// Draw all blocks in the List
+        /// </summary>
         public void Draw()
         {
             foreach (var block in _runningBlocks)
@@ -61,7 +84,10 @@ namespace _3902_Project
             }
         }
 
-        // update used for each of the animated sprites
+
+        /// <summary>
+        /// Update all blocks in the List
+        /// </summary>
         public void Update()
         {
             foreach (var block in _runningBlocks)

@@ -26,7 +26,6 @@ namespace _3902_Project
         {
             _contentManager = contentManager;
             _spriteBatch = spriteBatch;
-            PlaceEnemy(EnemyNames.BrownSlime, new Vector2(300, 200));
         }
 
 
@@ -36,8 +35,12 @@ namespace _3902_Project
             _factory.LoadAllTextures(_contentManager);
         }
 
-
-        public void PlaceEnemy(EnemyNames name, Vector2 placementPosition)
+        /// <summary>
+        /// Add an enemy to the running enemy list
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="placementPosition"></param>
+        public void AddEnemy(EnemyNames name, Vector2 placementPosition)
         {
             ISprite currentSprite = _factory.CreateEnemy(name);
             currentSprite.SetPosition(placementPosition);
@@ -45,24 +48,25 @@ namespace _3902_Project
         }
 
 
+        /// <summary>
+        /// Remove/Unload an enemy from the enemy list based on it's ISprite
+        /// </summary>
+        /// <param name="name"></param>
+        public void UnloadEnemy()
+        {
+            _runningEnemies.Remove((ISprite)this);
+        }
+
+
+        /// <summary>
+        /// Remove/Unload all Enemy Sprites
+        /// </summary>
         public void UnloadAllEnemies() { _runningEnemies = new List<ISprite>(); }
 
-        // Cycle to the next enemy
-        public void CycleNextEnemy()
-        {
-            _currentEnemyIndex = (_currentEnemyIndex + 1) % _runningEnemies.Count;
-            Draw();
-        }
 
-        // Cycle to the previous enemy
-        public void CyclePreviousEnemy()
-        {
-            _currentEnemyIndex = (_currentEnemyIndex - 1 + _runningEnemies.Count) % _runningEnemies.Count;
-            Draw();
-        }
-
-
-        // Draw the current enemy
+        /// <summary>
+        /// Draw all enemies in the List
+        /// </summary>
         public void Draw()
         {
             foreach (var enemy in _runningEnemies)
@@ -71,6 +75,10 @@ namespace _3902_Project
             }
         }
 
+
+        /// <summary>
+        /// Update all enemies in the List
+        /// </summary>
         public void Update()
         {
             foreach (var enemy in _runningEnemies)

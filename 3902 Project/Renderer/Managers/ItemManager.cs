@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using static _3902_Project.EnemyManager;
 
 namespace _3902_Project
 {
@@ -17,7 +18,6 @@ namespace _3902_Project
         }
 
         // item dictionary/inventory
-        private Dictionary<ItemNames, ISprite> _items = new Dictionary<ItemNames, ISprite>();
         private List<ISprite> _runningItems = new List<ISprite>();
 
         // create variables for passing
@@ -42,17 +42,38 @@ namespace _3902_Project
         }
 
 
-        public void PlaceItem(ItemNames name, Vector2 placementPosition)
+        /// <summary>
+        /// Add an item to the running item list
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="placementPosition"></param>
+        public void AddItem(ItemNames name, Vector2 placementPosition)
         {
             ISprite currentSprite = _factory.CreateItem(name);
             currentSprite.SetPosition(placementPosition);
             _runningItems.Add(currentSprite);
         }
 
-        public void UnloadAllItems() { _runningItems = new List<ISprite>(); }
+
+        /// <summary>
+        /// Remove/Unload an item from the item list based on it's ISprite
+        /// </summary>
+        /// <param name="name"></param>
+        public void UnloadEnemy()
+        {
+            _runningItems.Remove((ISprite)this);
+        }
 
 
-        // draw item sprite based on current selected item
+        /// <summary>
+        /// Remove/Unload all Enemy Sprites
+        /// </summary>
+        public void UnloadAllEnemies() { _runningItems = new List<ISprite>(); }
+
+
+        /// <summary>
+        /// Draw all items in the List
+        /// </summary>
         public void Draw()
         {
             foreach (var item in _runningItems)
@@ -62,12 +83,14 @@ namespace _3902_Project
         }
 
 
-        // update used for each of the animated sprites
+        /// <summary>
+        /// Update all items in the List
+        /// </summary>
         public void Update()
         {
             foreach (var item in _runningItems)
             {
-               item.Update();
+                item.Update();
             }
         }
     }
