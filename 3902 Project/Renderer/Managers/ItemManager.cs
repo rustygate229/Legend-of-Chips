@@ -37,7 +37,7 @@ namespace _3902_Project
         // load all textures relating to blocks
         public void LoadAllTextures()
         {
-            // loading sprite factory
+            // loading sprite factoryyi
             _factory.LoadAllTextures(_contentManager);
 
             _items = new Dictionary<ItemNames, ISprite>();
@@ -75,28 +75,25 @@ namespace _3902_Project
         }
 
 
-        // Method to add default items for testing purposes
-        public void AddDefaultItems()
+        // Method to place an item at a specific position when an enemy is defeated
+        public void PlaceItem(ItemNames name, Vector2 placementPosition)
         {
-            var defaultItems = ItemCollisionBox.GetDefaultItems();
-            foreach (var itemBox in defaultItems)
-            {
-                _itemCollisionDictionary[itemBox] = null; // No sprite needed for testing collision
-                Console.WriteLine("Adding Default Item to Dictionary: " + itemBox.GetHashCode());
-            }
+            var currentSprite = _items[name];
+            currentSprite.SetPosition(placementPosition);
+            _runningItems.Add(currentSprite);
+
+            // Add item collision box for collision detection
+            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20));
+            _itemCollisionDictionary[collisionBox] = currentSprite;
         }
 
         // remove item after being collected
         public void RemoveItem(ItemCollisionBox item)
         {
-            if (_itemCollisionDictionary.ContainsKey(item))
+            if (_itemCollisionDictionary.TryGetValue(item, out ISprite spriteToRemove))
             {
-                Console.WriteLine("Removing Item: " + item.GetHashCode()); // Debugging information
+                _runningItems.Remove(spriteToRemove);
                 _itemCollisionDictionary.Remove(item);
-            }
-            else
-            {
-                Console.WriteLine("Item not found in dictionary: " + item.Bounds); // Debugging information
             }
         }
 
