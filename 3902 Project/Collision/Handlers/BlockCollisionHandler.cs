@@ -14,15 +14,15 @@ namespace _3902_Project
             _blocks = blocks;
         }
 
-        public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
+        public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable)
         {
             BlockCollisionBox block = objectA as BlockCollisionBox ?? objectB as BlockCollisionBox;
             LinkCollisionBox player = objectA as LinkCollisionBox ?? objectB as LinkCollisionBox;
 
-            if (block != null && player != null && block.IsCollidable)
+            if (block != null && player != null && isCollidable)
             {
                 // Prevent player from moving through block
-                PreventPlayerMovement(player, block,side);
+                PreventPlayerMovement(player, block, side);
             }
         }
 

@@ -24,6 +24,7 @@ namespace _3902_Project
         internal List<ICollisionBox> collisionBoxes;
         Texture2D whiteRectangle;
         private List<BlockCollisionBox> _blockCollisionBoxes;
+        private List<ItemCollisionBox> _itemCollisionBoxes;
 
         // Input controller
         private IController keyboardController;
@@ -63,13 +64,14 @@ namespace _3902_Project
             // Initialize collision logic
             CollisionDetector = new CollisionDetector();
             _blockCollisionBoxes = BlockCollisionBox.GetDefaultBlocks(); // Load default block collision boxes
-            CollisionHandlerManager = new CollisionHandlerManager(Player, EnemyManager, ItemManager);
+            _itemCollisionBoxes = ItemCollisionBox.GetDefaultItems(); // Load default item collision boxes for testing
+            CollisionHandlerManager = new CollisionHandlerManager(Player, EnemyManager, ItemManager, _blockCollisionBoxes);
 
             // Add collision objects to the collisionBoxes list
             collisionBoxes = new List<ICollisionBox>();
             collisionBoxes.Add(Player.getCollisionBox());
             collisionBoxes.AddRange(_blockCollisionBoxes); // Add all block collision boxes
-            
+            collisionBoxes.AddRange(_itemCollisionBoxes); // Add all item collision boxes
 
             // Block and Item Texture Loading
             BlockManager.LoadAllTextures();
@@ -95,6 +97,7 @@ namespace _3902_Project
             List<CollisionData> collisions = CollisionDetector.DetectCollisions(collisionBoxes);
             CollisionHandlerManager.HandleCollisions(collisions);
 
+
             base.Update(gameTime);
         }
 
@@ -114,11 +117,17 @@ namespace _3902_Project
             {
                 _spriteBatch.Draw(whiteRectangle, block.Bounds, Color.White);
             }
-            _spriteBatch.Draw(whiteRectangle, collisionBoxes[2].Bounds, Color.White);
+            // Draw item collision boxes for testing purposes
+            foreach (var item in _itemCollisionBoxes)
+            {
+                _spriteBatch.Draw(whiteRectangle, item.Bounds, Color.Yellow);
+            }
             _spriteBatch.End();
 
             base.Draw(gameTime);
         }
+
+   
 
         public void ResetGame()
         {

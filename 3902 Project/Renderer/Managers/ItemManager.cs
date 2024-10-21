@@ -2,29 +2,30 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System;
 
 namespace _3902_Project
 {
     public class ItemManager
     {
         // create item names for finding them
-        public enum ItemNames 
-        { 
-            FullHeart, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Ladder, 
-            MagicStaff, Game, NormalKey, BossKey, Compass, FlashingLife, DepletingHeart, FlashingEmerald, 
-            FlashingPotion, FlashingScripture, FlashingSword, FlashingBanana, FlashingArrow, 
+        public enum ItemNames
+        {
+            FullHeart, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Ladder,
+            MagicStaff, Game, NormalKey, BossKey, Compass, FlashingLife, DepletingHeart, FlashingEmerald,
+            FlashingPotion, FlashingScripture, FlashingSword, FlashingBanana, FlashingArrow,
             FlashingCandle, FlashingRing, FlashingTriForce
         }
 
         // item dictionary/inventory
         private Dictionary<ItemNames, ISprite> _items = new Dictionary<ItemNames, ISprite>();
         private List<ISprite> _runningItems = new List<ISprite>();
+        private Dictionary<ItemCollisionBox, ISprite> _itemCollisionDictionary = new Dictionary<ItemCollisionBox, ISprite>();
 
         // create variables for passing
         private ItemSpriteFactory _factory = ItemSpriteFactory.Instance;
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
-
 
         // constructor
         public ItemManager(ContentManager contentManager, SpriteBatch spriteBatch)
@@ -32,7 +33,6 @@ namespace _3902_Project
             _contentManager = contentManager;
             _spriteBatch = spriteBatch;
         }
-
 
         // load all textures relating to blocks
         public void LoadAllTextures()
@@ -75,16 +75,32 @@ namespace _3902_Project
         }
 
 
-        public void PlaceItem(ItemNames name, Vector2 placementPosition)
+        // Method to add default items for testing purposes
+        public void AddDefaultItems()
         {
-            LoadAllTextures();
-            ISprite currentSprite = _items[name];
-            currentSprite.SetPosition(placementPosition);
-            _runningItems.Add(currentSprite);
+            var defaultItems = ItemCollisionBox.GetDefaultItems();
+            foreach (var itemBox in defaultItems)
+            {
+                _itemCollisionDictionary[itemBox] = null; // No sprite needed for testing collision
+                Console.WriteLine("Adding Default Item to Dictionary: " + itemBox.GetHashCode());
+            }
+        }
+
+        // remove item after being collected
+        public void RemoveItem(ItemCollisionBox item)
+        {
+            if (_itemCollisionDictionary.ContainsKey(item))
+            {
+                Console.WriteLine("Removing Item: " + item.GetHashCode()); // Debugging information
+                _itemCollisionDictionary.Remove(item);
+            }
+            else
+            {
+                Console.WriteLine("Item not found in dictionary: " + item.Bounds); // Debugging information
+            }
         }
 
         public void UnloadAllItems() { _runningItems = new List<ISprite>(); }
-
 
         // draw item sprite based on current selected item
         public void Draw()
@@ -95,14 +111,19 @@ namespace _3902_Project
             }
         }
 
-
         // update used for each of the animated sprites
         public void Update()
         {
             foreach (var item in _runningItems)
             {
-               item.Update();
+                item.Update();
             }
+        }
+
+        // Method to get collision boxes for all items
+        public List<ItemCollisionBox> GetCollisionBoxes()
+        {
+            return new List<ItemCollisionBox>(_itemCollisionDictionary.Keys);
         }
     }
 }

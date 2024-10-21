@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using _3902_Project;
+﻿using _3902_Project;
 using Microsoft.Xna.Framework;
 
 public class EnemyCollisionHandler : ICollisionHandler
@@ -9,22 +8,39 @@ public class EnemyCollisionHandler : ICollisionHandler
     {
         _enemyManager = enemyManager;
     }
-    public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
+    public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable)
     {
-        //most likely enemy and block, link takes priority and link-related collisions are in LinkCollisionHandler
+        if (objectA is EnemyCollisionBox && objectB is BlockCollisionBox)
+        {
+            HandleEnemyBlockCollision((EnemyCollisionBox)objectA, (BlockCollisionBox)objectB, side);
+        }
+        else if (objectB is EnemyCollisionBox && objectA is BlockCollisionBox)
+        {
+            HandleEnemyBlockCollision((EnemyCollisionBox)objectB, (BlockCollisionBox)objectA, side);
+        }
+    }
+
+    private void HandleEnemyBlockCollision(EnemyCollisionBox enemy, BlockCollisionBox block, CollisionType side)
+    {
+        if (!block.IsCollidable) return;
+
         switch (side)
         {
             case CollisionType.LEFT:
-                //moves enemy to the left
+                // Handle enemy collision from the left side
+                enemy.Bounds = new Rectangle(block.Bounds.Left - enemy.Bounds.Width, enemy.Bounds.Y, enemy.Bounds.Width, enemy.Bounds.Height);
                 break;
             case CollisionType.RIGHT:
-                //moves enemy to the right
+                // Handle enemy collision from the right side
+                enemy.Bounds = new Rectangle(block.Bounds.Right, enemy.Bounds.Y, enemy.Bounds.Width, enemy.Bounds.Height);
                 break;
             case CollisionType.TOP:
-                //moves enemy to the top
+                // Handle enemy collision from the top side
+                enemy.Bounds = new Rectangle(enemy.Bounds.X, block.Bounds.Top - enemy.Bounds.Height, enemy.Bounds.Width, enemy.Bounds.Height);
                 break;
             case CollisionType.BOTTOM:
-                //moves enemy down
+                // Handle enemy collision from the bottom side
+                enemy.Bounds = new Rectangle(enemy.Bounds.X, block.Bounds.Bottom, enemy.Bounds.Width, enemy.Bounds.Height);
                 break;
             default:
                 break;

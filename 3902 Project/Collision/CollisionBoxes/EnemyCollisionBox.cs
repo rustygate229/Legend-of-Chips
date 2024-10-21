@@ -52,4 +52,3 @@ public class EnemyCollisionBox : ICollisionBox
     }
 
 }
-
