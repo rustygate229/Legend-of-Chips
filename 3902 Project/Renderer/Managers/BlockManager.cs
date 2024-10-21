@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using static _3902_Project.EnemyManager;
+using static _3902_Project.BlockManager;
 
 namespace _3902_Project
 {
@@ -49,9 +49,9 @@ namespace _3902_Project
         /// </summary>
         /// <param name="name"></param>
         /// <param name="placementPosition"></param>
-        public void AddEnemy(EnemyNames name, Vector2 placementPosition)
+        public void AddBlock(BlockNames name, Vector2 placementPosition)
         {
-            ISprite currentSprite = _factory.CreateEnemy(name);
+            ISprite currentSprite = _factory.CreateBlock(name);
             currentSprite.SetPosition(placementPosition);
             _runningBlocks.Add(currentSprite);
         }
@@ -61,16 +61,16 @@ namespace _3902_Project
         /// Remove/Unload an block from the block list based on it's ISprite
         /// </summary>
         /// <param name="name"></param>
-        public void UnloadEnemy()
+        public void UnloadBlock()
         {
             _runningBlocks.Remove((ISprite)this);
         }
 
 
         /// <summary>
-        /// Remove/Unload all Enemy Sprites
+        /// Remove/Unload all Block Sprites
         /// </summary>
-        public void UnloadAllEnemies() { _runningBlocks = new List<ISprite>(); }
+        public void UnloadAllBlocks() { _runningBlocks = new List<ISprite>(); }
 
 
         /// <summary>

@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using static _3902_Project.EnemyManager;
+using static _3902_Project.ItemManager;
 
 namespace _3902_Project
 {
@@ -59,16 +59,16 @@ namespace _3902_Project
         /// Remove/Unload an item from the item list based on it's ISprite
         /// </summary>
         /// <param name="name"></param>
-        public void UnloadEnemy()
+        public void UnloadItem()
         {
             _runningItems.Remove((ISprite)this);
         }
 
 
         /// <summary>
-        /// Remove/Unload all Enemy Sprites
+        /// Remove/Unload all Item Sprites
         /// </summary>
-        public void UnloadAllEnemies() { _runningItems = new List<ISprite>(); }
+        public void UnloadAllItems() { _runningItems = new List<ISprite>(); }
 
 
         /// <summary>
