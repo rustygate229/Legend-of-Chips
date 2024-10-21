@@ -72,7 +72,7 @@ namespace _3902_Project
             }
             else if (objectB is BlockCollisionBox block)
             {
-                // 只有在方块是可碰撞时，才阻挡玩家
+
                 if (block.IsCollidable)
                 {
                     // Handle player collision with block
