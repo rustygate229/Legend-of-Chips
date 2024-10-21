@@ -11,10 +11,12 @@ namespace _3902_Project
     public interface IEnvironmentFactory
     {
 
-        void setLevel(int level);
+        void incrementLevel();
+        void decrementLevel();
         int getLevel();
         void loadLevel();
         Dictionary<BlockManager.BlockNames, List<Rectangle>> getCollidables();
         Rectangle getRoomDimensions();
+        void Update();
     }
 }

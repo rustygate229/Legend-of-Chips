@@ -68,6 +68,7 @@ namespace _3902_Project
             ItemManager.Update();
             EnemyManager.Update();
             ProjectileManager.Update();
+            EnvironmentFactory.Update();
             // Update input controls
             keyboardController.Update();
 

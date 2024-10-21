@@ -17,6 +17,7 @@ namespace _3902_Project
         private EnemyManager _enemyManager;
 
         private int _level;
+        private int _prevLevel = -1; // -1 is a stand in for a null value
 
         private Dictionary<string, BlockManager.BlockNames> _csvTranslationsBlock;
         private Dictionary<string, EnemyManager.EnemyNames> _csvTranslationsEnemy;
@@ -70,7 +71,8 @@ namespace _3902_Project
             _csvTranslationsEnemy.Add("g", EnemyManager.EnemyNames.GreenSlime);
             _csvTranslationsEnemy.Add("w", EnemyManager.EnemyNames.Wizzrope);
             _csvTranslationsEnemy.Add("b", EnemyManager.EnemyNames.BrownSlime);
-
+            _csvTranslationsEnemy.Add("d", EnemyManager.EnemyNames.Darknut);
+            
             _csvTranslationsItem.Add("fs", ItemManager.ItemNames.FlashingScripture);
             _csvTranslationsItem.Add("fp", ItemManager.ItemNames.FlashingPotion);
             _csvTranslationsItem.Add("bk", ItemManager.ItemNames.BossKey);
@@ -78,6 +80,7 @@ namespace _3902_Project
 
         }
 
+        // This method must be refactored
         public Dictionary<BlockManager.BlockNames, List<Rectangle>> getCollidables()
         {
             Dictionary<BlockManager.BlockNames, List<Rectangle>> result = new Dictionary<BlockManager.BlockNames, List<Rectangle>>();
@@ -182,9 +185,28 @@ namespace _3902_Project
             loadItems();
         }
 
-        public void setLevel(int level)
+        public void incrementLevel()
         {
-            _level = level;
+            if (_level < 2) { _level++; }
+        }
+
+        public void decrementLevel()
+        {
+            if (_level > 0) { _level--; }
+        }
+
+        public void Update()
+        {
+            if ( _prevLevel != -1 && _prevLevel != _level)
+            {
+                _enemyManager.UnloadAllEnemies();
+                _itemManager.UnloadAllItems();
+                _blockManager.UnloadAllBlocks();
+
+                loadLevel();
+            }
+            
+            _prevLevel = _level;
         }
     }
 }
