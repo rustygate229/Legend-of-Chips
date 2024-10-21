@@ -49,6 +49,7 @@ namespace _3902_Project
                     return new PBlocks_Tile(_blockSpritesheet);
                 case BlockManager.BlockNames.Square:
                     return new PBlock_Square(_blockSpritesheet);
+
                 case BlockManager.BlockNames.StatueFish_RIGHT:
                     return new FBlock_StatueFish(_blockSpritesheet, Renderer.DIRECTION.RIGHT);
                 case BlockManager.BlockNames.StatueFish_LEFT:

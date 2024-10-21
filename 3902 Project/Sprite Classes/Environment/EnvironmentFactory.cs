@@ -124,18 +124,19 @@ namespace _3902_Project
             string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Levels/Level" + _level.ToString() + ".csv";
             _environment = ReadCsvFile(filepath);
 
-            _blockManager.PlaceBlock(BlockManager.BlockNames.Environment, new Vector2(0, 0));
-            _blockManager.PlaceBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN, new Vector2(448, 0));
-            _blockManager.PlaceBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT, new Vector2(0, 414));
-            _blockManager.PlaceBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_UP, new Vector2(576, 700));
-            _blockManager.PlaceBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT, new Vector2(1024, 286));
+            _blockManager.AddBlock(BlockManager.BlockNames.Environment, new Vector2(0, 0));
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN, new Vector2(448, 0));
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_UP, new Vector2(448, 572));
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT, new Vector2(0, 286));
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT, new Vector2(1024 - 128, 286));
+
 
             for (int i = 0; i < _environment.Count; i++)
             {
                 for (int j = 0; j < _environment[i].Count; j++)
                 {
                     string blockToPlace = _environment[i][j];
-                    _blockManager.PlaceBlock(_csvTranslationsBlock[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
+                    _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
                 }
             }
         }
@@ -153,7 +154,7 @@ namespace _3902_Project
 
                     if (enemyToPlace != "-")
                     {
-                        _enemyManager.PlaceEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
+                        _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
                     }
                 }
             }
@@ -172,7 +173,7 @@ namespace _3902_Project
 
                     if (itemToPlace != "-")
                     {
-                        _itemManager.PlaceItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
+                        _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
                     }
                 }
             }
