@@ -12,12 +12,17 @@ namespace _3902_Project
         private Renderer.DIRECTION _direction;
 
         // variables to change based on where your block is and what to print out
-        private Vector2 _spritePosition = new Vector2(848, 11);
-        private Vector2 _spriteDimensions = new Vector2(32, 32);
+        private Vector2 _spriteDownUpPosition = new Vector2(848, 11);
+        private Vector2 _spriteDownUpDimensions = new Vector2(32, 32);
+
+        private Vector2 _spriteRightLeftPosition = new Vector2(848, 44);
+        private Vector2 _spriteRightLeftDimensions = new Vector2(32, 32);
+
         private Vector2 _spritePrintDimensions = new Vector2(256, 256);
 
         // create a Renderer object
-        private Renderer _block;
+        private Renderer _blockDownUp;
+        private Renderer _blockRightLeft;
 
 
         /// <summary>
@@ -27,7 +32,8 @@ namespace _3902_Project
         {
             _spriteSheet = spriteSheet;
             _direction = facingDirection;
-            _block = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spritePosition, _spriteDimensions, _spritePrintDimensions);
+            _blockDownUp = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spriteDownUpPosition, _spriteDownUpDimensions, _spritePrintDimensions);
+            _blockRightLeft = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spriteRightLeftPosition, _spriteRightLeftDimensions, _spritePrintDimensions);
         }
 
 
@@ -36,7 +42,9 @@ namespace _3902_Project
         /// </summary>
         public Vector2 GetPosition()
         {
-            return _block.GetPosition();
+            if (_direction == Renderer.DIRECTION.DOWN || _direction == Renderer.DIRECTION.UP)
+                return _blockDownUp.GetPosition();
+            else return _blockRightLeft.GetPosition();
         }
 
 
@@ -46,7 +54,9 @@ namespace _3902_Project
         public void SetPosition(Vector2 position)
         {
             _position = position;
-            _block.SetPosition(position);
+            if (_direction == Renderer.DIRECTION.DOWN || _direction == Renderer.DIRECTION.UP)
+                _blockDownUp.SetPosition(position);
+            else _blockRightLeft.SetPosition(position);
         }
 
 
@@ -63,14 +73,33 @@ namespace _3902_Project
         /// </summary>
         public void Draw(SpriteBatch spriteBatch)
         {
-            int[] sR = _block.GetSourceRectangle();
-            float rotation = _block.GetRotation(_direction);
+            int[] sR;
+            Rectangle destinationRectangle;
+            Rectangle sourceRectangle;
 
-            Rectangle sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
-            Rectangle destinationRectangle = _block.GetDestinationRectangle();
+            if (_direction == Renderer.DIRECTION.DOWN)
+            {
+                sR = _blockDownUp.GetSourceRectangle();
+                sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
+
+                if (_direction == Renderer.DIRECTION.UP)
+                    sourceRectangle = new Rectangle(sR[0], sR[1] + sR[3], sR[2], -sR[3]);
+
+                destinationRectangle = _blockDownUp.GetDestinationRectangle();
+            }
+            else
+            {
+                sR = _blockRightLeft.GetSourceRectangle();
+                sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
+
+                if (_direction == Renderer.DIRECTION.LEFT)
+                    sourceRectangle = new Rectangle(sR[0] + sR[2], sR[1], -sR[2], sR[3]);
+
+                destinationRectangle = _blockRightLeft.GetDestinationRectangle();
+            }
 
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White, rotation, _position, SpriteEffects.None, 0f);
+            spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);
             spriteBatch.End();
         }
     }

@@ -70,9 +70,10 @@ namespace _3902_Project
             Rectangle destinationRectangle = _block.GetDestinationRectangle();
 
             // since a stair only has two directions (right and left)
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             if ((int)_direction == 2) // if facing Right, flip vertically
                 sourceRectangle = new Rectangle(sR[0] + sR[2], sR[1], -sR[2], sR[3]);
+            
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);
             spriteBatch.End();
         }
