@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace _3902_Project
@@ -18,7 +19,7 @@ namespace _3902_Project
                     if (objectA.Bounds.Intersects(objectB.Bounds))
                     {
                         CollisionType side = DetermineCollisionSide(objectA, objectB);
-
+                        
                         if (objectB.GetType() == typeof(LinkCollisionBox))
                         {
                             //Link, <Other> collision
@@ -39,7 +40,7 @@ namespace _3902_Project
             return collisions;
         }
 
-        private CollisionType DetermineCollisionSide(ICollisionBox objectA, ICollisionBox objectB)
+        internal static CollisionType DetermineCollisionSide(ICollisionBox objectA, ICollisionBox objectB)
         {
             // Determine collision side based on positions and overlap areas
             Rectangle intersection = Rectangle.Intersect(objectA.Bounds, objectB.Bounds);

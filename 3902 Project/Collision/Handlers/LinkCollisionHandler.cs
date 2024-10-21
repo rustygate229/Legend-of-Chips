@@ -1,27 +1,35 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Diagnostics;
 
 
 namespace _3902_Project
+
 {
     public class LinkCollisionHandler : ICollisionHandler
+
     {
         //maintains reference to link class 
         LinkPlayer _link;
 
         //reference to enemy manager as well? 
         EnemyCollisionManager _enemyManager;
+
         //no need for block manager
 
+        //reference to item
+        ItemManager _itemManager;
 
-        public LinkCollisionHandler(LinkPlayer link, EnemyCollisionManager enemyManager)
+
+        public LinkCollisionHandler(LinkPlayer link, EnemyCollisionManager enemyManager, ItemManager itemManager)
         {
             _link = link;
             _enemyManager = enemyManager;
+            _itemManager = itemManager;
         }
 
 
-        public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
+        public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool Is)
         {
             //assumes that if it's getting called, objectA is link bounding box and objectB is something else
 
@@ -62,41 +70,42 @@ namespace _3902_Project
                 }
 
             }
-            else if (objectB is BlockCollisionBox)
+            else if (objectB is BlockCollisionBox block)
             {
-                // Handle player collision with block
-                Rectangle ABounds = objectA.Bounds;
-                Rectangle BBounds = objectB.Bounds;
-                switch (side)
+                // 只有在方块是可碰撞时，才阻挡玩家
+                if (block.IsCollidable)
                 {
-                    
-                    case CollisionType.LEFT:
-                        Debug.Print("left collision");
+                    // Handle player collision with block
+                    Rectangle ABounds = objectA.Bounds;
+                    Rectangle BBounds = objectB.Bounds;
 
-                        int offset = BBounds.X + BBounds.Width - ABounds.X;
-                        ABounds.X = ABounds.X + offset;
-                        break;
-                    case CollisionType.RIGHT:
-                        //_link.MoveLeft();
-                        //Debug.Print("right collision");
-                        offset = ABounds.X + ABounds.Width - BBounds.X;
-                        ABounds.X = ABounds.X - offset;
+                    switch (side)
+                    {
+                        case CollisionType.LEFT:
+                            ABounds.X = BBounds.Right; // Move player to the right of the block
+                            break;
+                        case CollisionType.RIGHT:
+                            ABounds.X = BBounds.Left - ABounds.Width; // Move player to the left of the block
+                            break;
+                        case CollisionType.TOP:
+                            ABounds.Y = BBounds.Bottom; // Move player below the block
+                            break;
+                        case CollisionType.BOTTOM:
+                            ABounds.Y = BBounds.Top - ABounds.Height; // Move player above the block
+                            break;
+                        default:
+                            break;
+                    }
 
-                        break;
-                    case CollisionType.TOP:
-                        //Debug.Print("top collision");
-                        offset = BBounds.Height + BBounds.Y - ABounds.Y;
-                        ABounds.Y = ABounds.Y + offset;
-                        //_link.MoveDown();
-                        break;
-                    case CollisionType.BOTTOM:
-                        //Debug.Print("down collision");
-                        offset = ABounds.Y - objectB.Bounds.Y + BBounds.Height;
-                        ABounds.Y = ABounds.Y - offset;
-                        break;
+                    objectA.Bounds = ABounds;
                 }
 
-                objectA.Bounds = ABounds;
+                
+            }
+            else if (objectB is ItemCollisionBox item && objectA is LinkCollisionBox)
+            {
+             
+                _itemManager.RemoveItem(item);
             }
 
         }

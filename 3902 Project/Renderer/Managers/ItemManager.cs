@@ -2,29 +2,30 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System;
 
 namespace _3902_Project
 {
     public class ItemManager
     {
         // create item names for finding them
-        public enum ItemNames 
-        { 
-            FullHeart, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Ladder, 
-            MagicStaff, Game, NormalKey, BossKey, Compass, FlashingLife, DepletingHeart, FlashingEmerald, 
-            FlashingPotion, FlashingScripture, FlashingSword, FlashingBanana, FlashingArrow, 
+        public enum ItemNames
+        {
+            FullHeart, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Ladder,
+            MagicStaff, Game, NormalKey, BossKey, Compass, FlashingLife, DepletingHeart, FlashingEmerald,
+            FlashingPotion, FlashingScripture, FlashingSword, FlashingBanana, FlashingArrow,
             FlashingCandle, FlashingRing, FlashingTriForce
         }
 
         // item dictionary/inventory
         private Dictionary<ItemNames, ISprite> _items = new Dictionary<ItemNames, ISprite>();
         private List<ISprite> _runningItems = new List<ISprite>();
+        private Dictionary<ItemCollisionBox, ISprite> _itemCollisionDictionary = new Dictionary<ItemCollisionBox, ISprite>();
 
         // create variables for passing
         private ItemSpriteFactory _factory = ItemSpriteFactory.Instance;
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
-
 
         // constructor
         public ItemManager(ContentManager contentManager, SpriteBatch spriteBatch)
@@ -33,24 +34,37 @@ namespace _3902_Project
             _spriteBatch = spriteBatch;
         }
 
-
         // load all textures relating to blocks
         public void LoadAllTextures()
         {
-            // loading sprite factory
+            // loading sprite factoryyi
             _factory.LoadAllTextures(_contentManager);
         }
 
 
+        // Method to place an item at a specific position when an enemy is defeated
         public void PlaceItem(ItemNames name, Vector2 placementPosition)
         {
             ISprite currentSprite = _factory.CreateItem(name);
             currentSprite.SetPosition(placementPosition);
             _runningItems.Add(currentSprite);
+
+            // Add item collision box for collision detection
+            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20));
+            _itemCollisionDictionary[collisionBox] = currentSprite;
+        }
+
+        // remove item after being collected
+        public void RemoveItem(ItemCollisionBox item)
+        {
+            if (_itemCollisionDictionary.TryGetValue(item, out ISprite spriteToRemove))
+            {
+                _runningItems.Remove(spriteToRemove);
+                _itemCollisionDictionary.Remove(item);
+            }
         }
 
         public void UnloadAllItems() { _runningItems = new List<ISprite>(); }
-
 
         // draw item sprite based on current selected item
         public void Draw()
@@ -61,14 +75,19 @@ namespace _3902_Project
             }
         }
 
-
         // update used for each of the animated sprites
         public void Update()
         {
             foreach (var item in _runningItems)
             {
-               item.Update();
+                item.Update();
             }
+        }
+
+        // Method to get collision boxes for all items
+        public List<ItemCollisionBox> GetCollisionBoxes()
+        {
+            return new List<ItemCollisionBox>(_itemCollisionDictionary.Keys);
         }
     }
 }

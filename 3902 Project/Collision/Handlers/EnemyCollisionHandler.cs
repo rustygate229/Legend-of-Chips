@@ -8,7 +8,7 @@ public class EnemyCollisionHandler : ICollisionHandler
     {
         _enemyManager = enemyManager;
     }
-    public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
+    public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable)
     {
         if (objectA is EnemyCollisionBox && objectB is BlockCollisionBox)
         {

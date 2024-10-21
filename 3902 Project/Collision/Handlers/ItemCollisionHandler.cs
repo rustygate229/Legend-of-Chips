@@ -2,25 +2,27 @@
 
 public class ItemCollisionHandler : ICollisionHandler
 {
-    //maintains reference to link class 
-    LinkPlayer _link;
+    private LinkPlayer _player;
+    private ItemManager _itemManager;
 
-    //reference to enemy manager as well? 
-    ItemManager _itemManager;
-    //no need for block manager
-
-
-    public ItemCollisionHandler(LinkPlayer link, ItemManager itemManager)
+    public ItemCollisionHandler(LinkPlayer player, ItemManager itemManager)
     {
-        _link = link;
+        _player = player;
         _itemManager = itemManager;
     }
 
-
-    public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
+    public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool Is)
     {
-        //assumes that if it's getting called, objectA is link bounding box and objectB is something else
+        ItemCollisionBox item = objectA as ItemCollisionBox ?? objectB as ItemCollisionBox;
+        LinkCollisionBox player = objectA as LinkCollisionBox ?? objectB as LinkCollisionBox;
 
-
+        if (item != null && player != null)
+        {
+            // When player collected the item, despawn the item
+           
+            _itemManager.RemoveItem(item);
+            
+            //player state could be change in futher there
+        }
     }
 }

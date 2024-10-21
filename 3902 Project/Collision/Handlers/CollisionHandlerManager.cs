@@ -9,20 +9,15 @@ namespace _3902_Project
         private LinkCollisionHandler LinkCollisionHandler;
         private EnemyCollisionHandler EnemyCollisionHandler;
         private ItemCollisionHandler ItemCollisionHandler;
+        private BlockCollisionHandler BlockCollisionHandler;
 
-        public CollisionHandlerManager(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager)
+        public CollisionHandlerManager(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager, List<BlockCollisionBox> blockCollisionBoxes)
         {
-            /* _collisionHandlers = new List<ICollisionHandler>
-             {
-                 new EnemyCollisionHandler(enemyManager) as ICollisionHandler,
-                 new LinkCollisionHandler(link, enemyManager) as ICollisionHandler,
-                 new ItemCollisionHandler(link, itemManager) as ICollisionHandler
-             };*/
-
             EnemyCollisionHandler = new EnemyCollisionHandler(enemyManager);
             EnemyCollisionManager enemyCollisionManager = new EnemyCollisionManager(enemyManager);
-            LinkCollisionHandler = new LinkCollisionHandler(link, enemyCollisionManager);
+            LinkCollisionHandler = new LinkCollisionHandler(link, enemyCollisionManager, itemManager);
             ItemCollisionHandler = new ItemCollisionHandler(link, itemManager);
+            BlockCollisionHandler = new BlockCollisionHandler(blockCollisionBoxes);
         }
 
         public void HandleCollisions(List<CollisionData> collisions)
@@ -31,29 +26,43 @@ namespace _3902_Project
             {
                 HandleCollision(collisionData.ObjectA, collisionData.ObjectB, collisionData.CollisionSide);
             }
-
         }
 
-        // Method to handle collision using specific handlers.
+        // Unified method to handle collision using specific handlers.
         private void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
         {
-            if (objectA.GetType() == typeof(LinkCollisionBox))
+
+            bool isCollidable = (objectA is BlockCollisionBox blockA && blockA.IsCollidable) || (objectB is BlockCollisionBox blockB && blockB.IsCollidable);
+
+            //case if object is player character
+            if (objectA is LinkCollisionBox || objectB is LinkCollisionBox)
             {
-                LinkCollisionHandler.HandleCollision(objectA, objectB, side);
-                //Debug.WriteLine("LinkCollisionHandler");
-            }
-            else if (objectA.GetType() == typeof(EnemyCollisionBox))
-            {
-                EnemyCollisionHandler.HandleCollision(objectA, objectB, side);
-                //Debug.WriteLine("EnemyCollisionHandler");
-            }
-            else
-            {
-                ItemCollisionHandler.HandleCollision(objectA, objectB, side);
-                //Debug.WriteLine("ItemCollisionHandler");
+                LinkCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
             }
 
+            //case if object is enemy 
+            else if (objectA is EnemyCollisionBox || objectB is EnemyCollisionBox)
+            {
+
+                EnemyCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
+            }
+
+            //case if object is block
+            else if (objectA is BlockCollisionBox || objectB is BlockCollisionBox)
+            {
+
+                BlockCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
+            }
+
+            //case if object is item
+            else if (objectA is ItemCollisionBox || objectB is ItemCollisionBox)
+            {
+
+                ItemCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
+
+            }
 
         }
     }
 }
+
