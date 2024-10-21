@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.AccessControl;
 
 namespace _3902_Project
 {
@@ -16,9 +17,15 @@ namespace _3902_Project
         private EnemyManager _enemyManager;
 
         private int _level;
-        private Dictionary<string, BlockManager.BlockNames> _csvTranslations;
-        
-        public List<List<string>> _environment;
+        private int _prevLevel = -1; // -1 is a stand in for a null value
+
+        private Dictionary<string, BlockManager.BlockNames> _csvTranslationsBlock;
+        private Dictionary<string, EnemyManager.EnemyNames> _csvTranslationsEnemy;
+        private Dictionary<string, ItemManager.ItemNames> _csvTranslationsItem;
+
+        private List<List<string>> _environment;
+        private List<List<string>> _enemies;
+        private List<List<string>> _items;
 
         public EnvironmentFactory(BlockManager block, ItemManager item, EnemyManager enemy) 
         {
@@ -28,7 +35,9 @@ namespace _3902_Project
 
             _level = 0;
 
-            _csvTranslations = new Dictionary<string, BlockManager.BlockNames>();
+            _csvTranslationsBlock = new Dictionary<string, BlockManager.BlockNames>();
+            _csvTranslationsEnemy = new Dictionary<string, EnemyManager.EnemyNames>();
+            _csvTranslationsItem = new Dictionary<string, ItemManager.ItemNames>();
             generateTranslations();
         }
 
@@ -55,11 +64,23 @@ namespace _3902_Project
 
         private void generateTranslations()
         {
-            _csvTranslations.Add("-", BlockManager.BlockNames.Tile);
-            _csvTranslations.Add("s", BlockManager.BlockNames.Square);
-            _csvTranslations.Add("d", BlockManager.BlockNames.Dirt);
+            _csvTranslationsBlock.Add("-", BlockManager.BlockNames.Tile);
+            _csvTranslationsBlock.Add("s", BlockManager.BlockNames.Square);
+            _csvTranslationsBlock.Add("d", BlockManager.BlockNames.Dirt);
+
+            _csvTranslationsEnemy.Add("g", EnemyManager.EnemyNames.GreenSlime);
+            _csvTranslationsEnemy.Add("w", EnemyManager.EnemyNames.Wizzrope);
+            _csvTranslationsEnemy.Add("b", EnemyManager.EnemyNames.BrownSlime);
+            _csvTranslationsEnemy.Add("d", EnemyManager.EnemyNames.Darknut);
+            
+            _csvTranslationsItem.Add("fs", ItemManager.ItemNames.FlashingScripture);
+            _csvTranslationsItem.Add("fp", ItemManager.ItemNames.FlashingPotion);
+            _csvTranslationsItem.Add("bk", ItemManager.ItemNames.BossKey);
+            _csvTranslationsItem.Add("c", ItemManager.ItemNames.Compass);
+
         }
 
+        // This method must be refactored
         public Dictionary<BlockManager.BlockNames, List<Rectangle>> getCollidables()
         {
             Dictionary<BlockManager.BlockNames, List<Rectangle>> result = new Dictionary<BlockManager.BlockNames, List<Rectangle>>();
@@ -73,14 +94,14 @@ namespace _3902_Project
                 for (int j = 0; j < _environment[i].Count; j++)
                 {
                     string blockToCheck = _environment[i][j];
-                    if (collidables.Contains(_csvTranslations[blockToCheck]))
+                    if (collidables.Contains(_csvTranslationsBlock[blockToCheck]))
                     {
                         //Add collidable to dictionary
-                        if (!result.ContainsKey(_csvTranslations[blockToCheck]))
+                        if (!result.ContainsKey(_csvTranslationsBlock[blockToCheck]))
                         {
-                            result[_csvTranslations[blockToCheck]] = new List<Rectangle>();
+                            result[_csvTranslationsBlock[blockToCheck]] = new List<Rectangle>();
                         }
-                        result[_csvTranslations[blockToCheck]].Add(new Rectangle(128 + (j * 64), 128 + (i * 64), 64, 64));
+                        result[_csvTranslationsBlock[blockToCheck]].Add(new Rectangle(128 + (j * 64), 128 + (i * 64), 64, 64));
                     }
                 }
             }
@@ -114,7 +135,45 @@ namespace _3902_Project
                 for (int j = 0; j < _environment[i].Count; j++)
                 {
                     string blockToPlace = _environment[i][j];
-                    _blockManager.PlaceBlock(_csvTranslations[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
+                    _blockManager.PlaceBlock(_csvTranslationsBlock[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
+                }
+            }
+        }
+
+        private void loadEnemies()
+        {
+            string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Enemies/Enemy" + _level.ToString() + ".csv";
+            _enemies = ReadCsvFile(filepath);
+
+            for (int i = 0; i < _enemies.Count; i++)
+            {
+                for (int j = 0; j < _enemies[i].Count; j++)
+                {
+                    string enemyToPlace = _enemies[i][j];
+
+                    if (enemyToPlace != "-")
+                    {
+                        _enemyManager.PlaceEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
+                    }
+                }
+            }
+        }
+
+        private void loadItems()
+        {
+            string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Items/Item" + _level.ToString() + ".csv";
+            _items = ReadCsvFile(filepath);
+
+            for (int i = 0; i < _items.Count; i++)
+            {
+                for (int j = 0; j < _items[i].Count; j++)
+                {
+                    string itemToPlace = _items[i][j];
+
+                    if (itemToPlace != "-")
+                    {
+                        _itemManager.PlaceItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
+                    }
                 }
             }
         }
@@ -122,11 +181,32 @@ namespace _3902_Project
         public void loadLevel()
         {
             loadBlocks();
+            loadEnemies();
+            loadItems();
         }
 
-        public void setLevel(int level)
+        public void incrementLevel()
         {
-            _level = level;
+            if (_level < 2) { _level++; }
+        }
+
+        public void decrementLevel()
+        {
+            if (_level > 0) { _level--; }
+        }
+
+        public void Update()
+        {
+            if ( _prevLevel != -1 && _prevLevel != _level)
+            {
+                _enemyManager.UnloadAllEnemies();
+                _itemManager.UnloadAllItems();
+                _blockManager.UnloadAllBlocks();
+
+                loadLevel();
+            }
+            
+            _prevLevel = _level;
         }
     }
 }
