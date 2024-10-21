@@ -25,16 +25,22 @@ namespace _3902_Project
             _item = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spritePosition, _spriteDimensions, _spritePrintDimensions);
         }
 
-        // general get position method from IPosition
+        /// Get position from sprites renderer position
+        /// </summary>
+        /// <returns></returns>
         public Vector2 GetPosition()
         {
-            return _position;
+            return _item.GetPosition();
         }
 
-        // general set position method from IPosition
+        /// <summary>
+        /// Set position in the sprites renderer
+        /// </summary>
+        /// <param name="position"></param>
         public void SetPosition(Vector2 position)
         {
             _position = position;
+            _item.SetPosition(position);
         }
 
         // update the movement for item
