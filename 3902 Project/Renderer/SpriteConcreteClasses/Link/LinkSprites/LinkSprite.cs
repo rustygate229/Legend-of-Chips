@@ -37,8 +37,19 @@ namespace _3902_Project
 
         }
 
+        public static bool IsOverlapping(Rectangle rect1, Rectangle rect2)
+        {
+            // Checking for rectangular overlap
+            return !(rect1.X > rect2.X + rect2.Width ||
+                     rect1.X + rect1.Width < rect2.X ||
+                     rect1.Y > rect2.Y + rect2.Height ||
+                     rect1.Y + rect1.Height < rect2.Y);
+        }
+
         public void Update()
 		{
+            Game1.bulletManager.bullets.RemoveAll(bullet => IsOverlapping(new Rectangle((int)bullet._position.X, (int)bullet._position.Y, bullet.width, bullet.height),
+               new Rectangle((int)x, (int)y, width, height)));
             //updates x and y position from LinkMovement.cs
             frame++;
             if (frame >= totalFrames)

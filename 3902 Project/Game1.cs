@@ -19,6 +19,8 @@ namespace _3902_Project
         internal EnemyManager EnemyManager { get; private set; }
         internal EnvironmentFactory EnvironmentFactory { get; private set; }
 
+        public static BulletManager bulletManager = new BulletManager();
+
 
 
         internal CollisionHandlerManager CollisionHandlerManager;
@@ -56,9 +58,14 @@ namespace _3902_Project
             ItemManager = new ItemManager(Content, _spriteBatch);
             EnemyManager = new EnemyManager(Content, _spriteBatch);
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
+            bulletManager.init(Content, _spriteBatch);
             Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
 
             EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, EnemyManager);
+
+            // Pass the bounds of whiteRectangle to the bulletManager
+            bulletManager.init(Content, _spriteBatch, new Rectangle(400, 200, 64, 64)); // Example dimensions
+
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
@@ -90,6 +97,7 @@ namespace _3902_Project
             ItemManager.Update();
             EnemyManager.Update();
             ProjectileManager.Update();
+            bulletManager.Update();
             // Update input controls
             keyboardController.Update();
 
@@ -107,6 +115,7 @@ namespace _3902_Project
             BlockManager.Draw();
             ItemManager.Draw();
             EnemyManager.Draw();
+            bulletManager.Draw();
             ProjectileManager.Draw();
             Player.Draw();
 

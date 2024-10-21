@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection.Metadata;
 
 namespace _3902_Project
 {
@@ -20,6 +23,7 @@ namespace _3902_Project
 
         // variables for moving the enemy
         private int _moveCounter = 0;
+        private int _fireCounter = 4;
         private int _moveTotal = 10;
         private int _positionSpeed = 2;
         private Vector2 _updatePosition;
@@ -46,6 +50,7 @@ namespace _3902_Project
         }
 
 
+
         /// <summary>
         /// Passes to the Renderer SetPosition method
         /// </summary>
@@ -61,35 +66,63 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            // update animation
+            // Update animation
             _enemy.UpdateFrames();
 
-            // update position and movement counter
+            // Update position and check for boundary collision
             _position += _updatePosition;
-            _enemy.SetPosition(_position);
-            
-            _moveCounter++;
 
-            // Change direction periodically (random horizontal or vertical movement)
-            if (_moveCounter >= _moveTotal)
+            if (_position.X < 0 || _position.X + _spritePrintDimensions.X > 800)
             {
-                // Randomly choose a direction: 0 = left, 1 = right, 2 = up, 3 = down
+                _updatePosition.X = -_updatePosition.X; // Reverse horizontal direction
+            }
+            if (_position.Y < 0 || _position.Y + _spritePrintDimensions.Y > 600)
+            {
+                _updatePosition.Y = -_updatePosition.Y; // Reverse vertical direction
+            }
+
+            _enemy.SetPosition(_position);
+
+            _moveCounter++;
+            _fireCounter++;
+
+            // Add bullet logic
+            if (_fireCounter >= _moveTotal * 5)
+            {
+                _fireCounter = 0;
+                Vector2 position = new Vector2(_enemy.GetDestinationRectangle().X, _enemy.GetDestinationRectangle().Y);
+                if (Game1.bulletManager._bulletsTextures.Count > 0 && _updatePosition != Vector2.Zero)
+                {
+                    BulletSpriteFactory bullet = new BulletSpriteFactory(Game1.bulletManager._bulletsTextures, position, _updatePosition * 2);
+                    Game1.bulletManager.bullets.Add(bullet);
+                }
+            }
+
+            // Change direction periodically
+            if (_moveCounter >= _moveTotal * 3)
+            {
+                Vector2 newDirection = Vector2.Zero;
                 switch (random.Next(4))
                 {
                     case 0: // Move DOWN
-                        _updatePosition = new Vector2(0, Math.Abs(_positionSpeed));
+                        newDirection = new Vector2(0, Math.Abs(_positionSpeed));
                         break;
                     case 1: // Move UP
-                        _updatePosition = new Vector2(0, -(Math.Abs(_positionSpeed)));
+                        newDirection = new Vector2(0, -(Math.Abs(_positionSpeed)));
                         break;
                     case 2: // Move RIGHT
-                        _updatePosition = new Vector2(Math.Abs(_positionSpeed), 0);
+                        newDirection = new Vector2(Math.Abs(_positionSpeed), 0);
                         break;
                     case 3: // Move LEFT
-                        _updatePosition = new Vector2(-(Math.Abs(_positionSpeed)), 0);
+                        newDirection = new Vector2(-(Math.Abs(_positionSpeed)), 0);
                         break;
                 }
-                _moveCounter = 0; // Reset the timer
+
+                if (newDirection != Vector2.Zero)
+                {
+                    _updatePosition = newDirection;
+                    _moveCounter = 0; // Reset the timer
+                }
             }
         }
 
@@ -104,6 +137,26 @@ namespace _3902_Project
             int[] sR = _enemy.GetSourceRectangle();
             Rectangle sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
             Rectangle destinationRectangle = _enemy.GetDestinationRectangle();
+
+            if(destinationRectangle.X < 100)
+            {
+                destinationRectangle.X = 100;
+            }
+
+            if (destinationRectangle.Y < 100)
+            {
+                destinationRectangle.Y = 100;
+            }
+
+            if (destinationRectangle.X + destinationRectangle.Width > 600)
+            {
+                destinationRectangle.X = 600 - destinationRectangle.Width;
+            }
+
+            if (destinationRectangle.Y + destinationRectangle.Height > 400)
+            {
+                destinationRectangle.Y = 400 - destinationRectangle.Height;
+            }
 
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);
