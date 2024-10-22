@@ -1,0 +1,16 @@
+READABILITY & CODE REVIEW 
+AUTHOR: Jiaqing Guan
+DATE: 10/21/24
+SPRINT NUMBER: 3
+.cs FILE NAME: BrownSlime.cs
+CODE AUTHOR: Haibo Zhu
+TIME TAKEN: 30 minutes
+
+Readability:  This part of code has high readability. The variables are named descriptively, 
+and the logic easy to understand. But there are some small issues, the variable names like _fireCounter and _moveCounter could be changed to more descriptive names 
+like timeSinceLastFire and timeSinceLastMove, which would help to quickly understand what they do. 
+Besides, the magic numbers of the screen size or movement speed should be replaced with named constants to make the code easier to understand and maintain.
+
+Code Quality: This part of code shows good practices of modularity and reusability. The responsibility for BrownSlime creation is clearly separated from the rest of the logic. 
+BrownSlime.cs is only responsible for updating, and drawing and , while the factory is responsible for creating different types of items, 
+which is a good design choice,  and allows the system to expand easily as game become complex.
