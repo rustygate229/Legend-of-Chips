@@ -13,23 +13,20 @@
 * Other
   - Q: Quit/Close Program
   - R: Resets Program
+  - Mouse Right Click: Move to next level
+  - Mouse Left Click: Move to previous level
 
 # Known Bugs
 * Link moves faster moving diagonally than moving horizontally or vertically
 * Link cannot attack more than once while holding down a movement key
-* Environment Loading things NOT in order
 * Link's attack animation is cut off prematurely when C is released
-* Cannot cycle items or blocks when Link is moving
-* More will come with implementing the collision, we're sure
 
-# Some Tasks before Sprint 3
+# Some Tasks before Sprint 4
 * Implement:
   - Add/implement more blocks/items and enemies
   - Create a boss enemy
-  - Mainstream projectile classes
+  - Complete collision interactions (items, damage, etc.)
   - LOTS OF REFACTORING (getting correct sprite locations, commenting and much more)
-  - Mainstream environment loading
-  - Fix small errors as they come with these implemtations
 
 # Credits
 * Sprites
