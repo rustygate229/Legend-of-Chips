@@ -20,9 +20,9 @@ public class EnemyCollisionHandler : ICollisionHandler
         {
             HandleEnemyBlockCollision((EnemyCollisionBox)objectB, (BlockCollisionBox)objectA, side);
         }
-        else if (objectA is BulletCollisionBox && objectB is BlockCollisionBox)
+        else if ((objectA is BulletCollisionBox && objectB is BlockCollisionBox) || (objectA is LinkCollisionBox && objectB is BulletCollisionBox))
         {
-            Debug.Print("bullet handler used");
+            //Debug.Print("bullet handler used");
             HandleBulletCollision((BulletCollisionBox) objectA, objectB, side);
         }
     }
