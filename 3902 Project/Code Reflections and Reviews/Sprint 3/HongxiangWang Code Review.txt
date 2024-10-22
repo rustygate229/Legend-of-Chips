@@ -3,7 +3,7 @@ AUTHOR: HongxiangWang
 DATE: 10/21/24
 SPRINT NUMBER: 3
 .cs FILE NAME: CollisionHandlerManager.cs
-CODE AUTHOR:Rolina
+CODE AUTHOR: Rolina
 TIME TAKEN: 20 minutes
 
 READABILITY:

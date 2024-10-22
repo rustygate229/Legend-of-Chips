@@ -2,8 +2,9 @@
 * AUTHOR: EVAN CSUHRAN
 * DATE: 10/21/24
 * SPRINT #3
-* FILE NAME: Environment Loading
+* FILE NAME: EnvironmentFactory.cs
 * FILE AUTHOR: MAYANK KARNATI
+* TIME TAKEN: ~ 10 minutes
 
 # READABILITY:
 * Decent readability since most of the code is seperated into methods that have clear purposes. Could have some more comments, but it's 
