@@ -25,6 +25,8 @@ namespace _3902_Project
         Texture2D whiteRectangle;
         private List<BlockCollisionBox> _blockCollisionBoxes;
         private List<ItemCollisionBox> _itemCollisionBoxes;
+        private ItemManager _itemManager;
+
 
         // Input controller
         private IController keyboardController;
@@ -42,6 +44,7 @@ namespace _3902_Project
         {
             // Initialize the game objects and input system
             base.Initialize();
+            
         }
 
         protected override void LoadContent()
@@ -82,6 +85,7 @@ namespace _3902_Project
             whiteRectangle.SetData(new[] { Color.White });
 
             EnvironmentFactory.loadLevel();
+            ItemManager.AddItem(ItemManager.ItemNames.FullHeart, new Vector2(300, 300));
         }
 
         protected override void Update(GameTime gameTime)

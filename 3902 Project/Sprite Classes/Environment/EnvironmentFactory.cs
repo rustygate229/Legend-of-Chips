@@ -17,10 +17,10 @@ namespace _3902_Project
 
         private int _level;
         private Dictionary<string, BlockManager.BlockNames> _csvTranslations;
-        
+
         public List<List<string>> _environment;
 
-        public EnvironmentFactory(BlockManager block, ItemManager item, EnemyManager enemy) 
+        public EnvironmentFactory(BlockManager block, ItemManager item, EnemyManager enemy)
         {
             _blockManager = block;
             _itemManager = item;
@@ -117,6 +117,8 @@ namespace _3902_Project
                     _blockManager.PlaceBlock(_csvTranslations[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
                 }
             }
+
+            
         }
 
         public void loadLevel()
