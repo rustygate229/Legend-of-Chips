@@ -6,18 +6,17 @@
 * FILE AUTHOR: MAYANK KARNATI
 
 # READABILITY:
-* All code is well-laid out in the ICommand inherited methods and serves a distinct purpose to be used in later sprints.
-* As for KeyboardController.cs, it is well laid out/commented on.
+* Decent readability since most of the code is seperated into methods that have clear purposes. Could have some more comments, but it's 
+pretty understandable (at least in the thought of how it functions).
+* It may be too long with 200 lines of code and could outsource some of the more general methods. IEnvironmentFactory is also quite big
 
 # CODE QUALITY:
-* Great technique when implementing the ICommand design, with it being in content, under a commands folder, and generally clear comments on
-all of the command's purpose(s).
-* As for KeyboardController.cs, it uses all the commands well (also that all commands link and work 
-properly to certain classes - NOT all classes, however, mainly Link() stuff).
-* There are some bugs with how our Queue is currently set up, but they seem small (hopefully).
+* Great technique with reading and listing the created sprites in the .csv files.
+* Works well for switching between, meaning it is fast and responsive.
+* It does need to be more implemented with Collision, but we ran out of time so it's fine for now. Should be easy to fix this week.
 
 # FEELINGS ABOUT SPRINT:
-* Feeling pretty good about our code so far, it can be better. Enemy classes are definitely our weak point, but
-we also need to work on refactoring/moving code to more accesible classes (for example, we could have one global animation 
-class, since itemAnimatedSprite can be used on almost any sprite, I think).
-* We will also have to have a "World.cs", where we link all functionalities together, to help unify the code.
+* Feeling quite overwhelmed since we all have drastic differences in our approaches. Since, most of the time, the time spent on the sprint
+is comprised of us explaining/showing our process for it. We spent at least 20 hours over the past week just deciding on different routes.
+* Overall, I am concerned by the work load and expectations. However, I believe we can still catch up and, somewhat, easily refactor our
+current state of code.
