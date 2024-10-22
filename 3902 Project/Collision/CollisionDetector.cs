@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace _3902_Project
 {
@@ -9,6 +10,7 @@ namespace _3902_Project
     {
         public List<CollisionData> DetectCollisions(List<ICollisionBox> gameObjects)
         {
+            //List<ICollisionBox> gameObjects = gameCollisions.SelectMany
             var collisions = new List<CollisionData>();
             for (int i = 0; i < gameObjects.Count; i++)
             {
@@ -28,6 +30,11 @@ namespace _3902_Project
                         else if (objectB.GetType() == typeof(EnemyCollisionBox))
                         {
                             //Enemy, <Other> collision (NOT link.) 
+                            collisions.Add(new CollisionData(objectB, objectA, side));
+                        }
+                        else if(objectB is BulletCollisionBox)
+                        {
+
                             collisions.Add(new CollisionData(objectB, objectA, side));
                         }
                         else

@@ -41,21 +41,21 @@ namespace _3902_Project
             }
 
             //case if object is enemy 
-            else if (objectA is EnemyCollisionBox || objectB is EnemyCollisionBox)
+            else if (objectA is EnemyCollisionBox || objectB is EnemyCollisionBox || objectA is BulletCollisionBox || objectB is BulletCollisionBox)
             {
 
                 EnemyCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
             }
 
             //case if object is block
-            else if (objectA is BlockCollisionBox || objectB is BlockCollisionBox)
+            else if (objectA is BlockCollisionBox)
             {
 
                 BlockCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
             }
 
             //case if object is item
-            else if (objectA is ItemCollisionBox || objectB is ItemCollisionBox)
+            else if (objectA is ItemCollisionBox)
             {
 
                 ItemCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);

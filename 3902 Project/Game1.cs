@@ -17,7 +17,7 @@ namespace _3902_Project
         internal EnemyManager EnemyManager { get; private set; }
         internal EnvironmentFactory EnvironmentFactory { get; private set; }
 
-        public static BulletManager bulletManager = new BulletManager();
+        public BulletManager bulletManager;
 
         private List<ICollisionBox> _EnemyCollisionBoxes;
 
@@ -25,10 +25,10 @@ namespace _3902_Project
 
         internal CollisionHandlerManager CollisionHandlerManager;
         internal CollisionDetector CollisionDetector;
-        internal List<ICollisionBox> collisionBoxes;
+        public List<ICollisionBox> collisionBoxes;
         Texture2D whiteRectangle;
         private List<ICollisionBox> _blockCollisionBoxes;
-        private List<ItemCollisionBox> _itemCollisionBoxes;
+        private List<ICollisionBox> _itemCollisionBoxes;
 
         // Input controller
         private IController keyboardController;
@@ -51,6 +51,8 @@ namespace _3902_Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            collisionBoxes = new List<ICollisionBox>();
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
             // Initialize all managers
@@ -58,21 +60,18 @@ namespace _3902_Project
             ItemManager = new ItemManager(Content, _spriteBatch);
             EnemyManager = new EnemyManager(Content, _spriteBatch);
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
-            bulletManager.init(Content, _spriteBatch);
+            bulletManager = BulletManager.Instance;
+            bulletManager.LoadBulletTextures("Bullets", Content, _spriteBatch, collisionBoxes);
             Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
 
             EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, EnemyManager);
-
-
-
-            // Pass the bounds of whiteRectangle to the bulletManager
-            bulletManager.init(Content, _spriteBatch, new Rectangle(400, 200, 64, 64)); // Example dimensions
 
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
 
             // Initialize collision logic
+            collisionBoxes.Add(Player.getCollisionBox());
             CollisionDetector = new CollisionDetector();
             _blockCollisionBoxes = new List<ICollisionBox>();
 
@@ -98,12 +97,9 @@ namespace _3902_Project
             CollisionHandlerManager = new CollisionHandlerManager(Player, EnemyManager, ItemManager, _blockCollisionBoxes);
 
             // Add collision objects to the collisionBoxes list
-            collisionBoxes = new List<ICollisionBox>
-            {
-                Player.getCollisionBox()
-            };
             _EnemyCollisionBoxes = EnemyManager.collisionBoxes;
 
+            collisionBoxes.AddRange(bulletManager.collisionBoxes);
             collisionBoxes.AddRange(_blockCollisionBoxes); // Add all block collision boxes
             collisionBoxes.AddRange(_itemCollisionBoxes); // Add all item collision boxes
             collisionBoxes.AddRange(_EnemyCollisionBoxes);
@@ -116,6 +112,9 @@ namespace _3902_Project
             EnemyManager.Update();
             ProjectileManager.Update();
             bulletManager.Update();
+
+
+
             // Update input controls
             keyboardController.Update();
 
@@ -144,10 +143,11 @@ namespace _3902_Project
             {
                 _spriteBatch.Draw(whiteRectangle, item.Bounds, Color.Yellow);
             }
-            foreach (var enemy in _EnemyCollisionBoxes)
+            foreach (var bullet in BulletManager.Instance.collisionBoxes)
             {
-                _spriteBatch.Draw(whiteRectangle, enemy.Bounds, Color.White);
+                //_spriteBatch.Draw(whiteRectangle, bullet.Bounds, Color.White);
             }
+
             _spriteBatch.End();
 
             base.Draw(gameTime);

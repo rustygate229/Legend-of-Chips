@@ -10,6 +10,7 @@ namespace _3902_Project
         private Texture2D _spriteSheet;
         private Vector2 _position;
         private Renderer _enemy;
+        private BulletManager _bulletManager;
 
         // variables to change based on where your block is and what to print out
         private Vector2 _spritePosition = new Vector2(79, 28);
@@ -36,6 +37,7 @@ namespace _3902_Project
         {
             _spriteSheet = spriteSheet;
             _enemy = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _position, _spritePosition, _spriteDimensions, _spritePrintDimensions, _spriteRowAndColumns, 30);
+            _bulletManager = BulletManager.Instance;
         }
 
 
@@ -89,10 +91,9 @@ namespace _3902_Project
             {
                 _fireCounter = 0;
                 Vector2 position = new Vector2(_enemy.GetDestinationRectangle().X, _enemy.GetDestinationRectangle().Y);
-                if (Game1.bulletManager._bulletsTextures.Count > 0 && _updatePosition != Vector2.Zero)
+                if (_bulletManager._bulletsTextures.Count > 0 && _updatePosition != Vector2.Zero)
                 {
-                    BulletSpriteFactory bullet = new BulletSpriteFactory(Game1.bulletManager._bulletsTextures, position, _updatePosition * 2);
-                    Game1.bulletManager.bullets.Add(bullet);
+                    _bulletManager.addBullet(position, _updatePosition);
                 }
             }
 
@@ -137,7 +138,6 @@ namespace _3902_Project
             int[] sR = _enemy.GetSourceRectangle();
             Rectangle sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
             Rectangle destinationRectangle = _enemy.GetDestinationRectangle();
-
 
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);

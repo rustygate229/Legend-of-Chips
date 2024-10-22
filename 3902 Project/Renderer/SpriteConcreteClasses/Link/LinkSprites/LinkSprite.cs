@@ -48,8 +48,9 @@ namespace _3902_Project
 
         public void Update()
 		{
-            Game1.bulletManager.bullets.RemoveAll(bullet => IsOverlapping(new Rectangle((int)bullet._position.X, (int)bullet._position.Y, bullet.width, bullet.height),
-               new Rectangle((int)x, (int)y, width, height)));
+            //Game1.bulletManager.bullets.RemoveAll(bullet => IsOverlapping(new Rectangle((int)bullet._position.X, (int)bullet._position.Y, bullet.width, bullet.height),
+               
+            //new Rectangle((int)x, (int)y, width, height)));
             //updates x and y position from LinkMovement.cs
             frame++;
             if (frame >= totalFrames)

@@ -44,9 +44,9 @@ namespace _3902_Project
         }
 
         // Method to get default items for testing purposes
-        public static List<ItemCollisionBox> GetDefaultItems()
+        public static List<ICollisionBox> GetDefaultItems()
         {
-            return new List<ItemCollisionBox>
+            return new List<ICollisionBox>
             {
                 new ItemCollisionBox(new Rectangle(400, 150, 20, 20)), // Test Item 1
                 new ItemCollisionBox(new Rectangle(800, 300, 20, 20)), // Test Item 2

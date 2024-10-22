@@ -19,7 +19,7 @@ namespace _3902_Project
         private SpriteBatch _spriteBatch;
 
 
-        public List<ICollisionBox> collisionBoxes { get; private set; }
+        public List <ICollisionBox> collisionBoxes { get; private set; }
         private int _currentEnemyIndex = 0;
 
 
@@ -30,7 +30,6 @@ namespace _3902_Project
             _spriteBatch = spriteBatch;
 
             collisionBoxes = new List<ICollisionBox>();
-
             PlaceEnemy(EnemyNames.BrownSlime, new Vector2(300, 200));
         }
 
@@ -56,7 +55,7 @@ namespace _3902_Project
         }
 
 
-        public void UnloadAllEnemies() { _runningEnemies = new List<ISprite>(); }
+        public void UnloadAllEnemies() { _runningEnemies.Clear(); collisionBoxes.Clear(); }
 
         // Draw the current enemy
         public void Draw()
@@ -79,10 +78,9 @@ namespace _3902_Project
             int i = 0;
             foreach (ISprite enemy in _runningEnemies)
             {
-                //known that only one enemy in list can explicitly cast
                 enemy.Update();
 
-                Vector2 xy = ((BrownSlime)enemy).GetPosition();
+                Vector2 xy = enemy.GetPosition();
                 collisionBoxes[i].Bounds = new Rectangle((int)xy.X, (int)xy.Y, 64, 64);
                 i++;
 

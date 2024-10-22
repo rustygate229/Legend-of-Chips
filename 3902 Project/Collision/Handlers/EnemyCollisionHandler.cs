@@ -1,5 +1,7 @@
 ﻿using _3902_Project;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 public class EnemyCollisionHandler : ICollisionHandler
 {
@@ -18,6 +20,17 @@ public class EnemyCollisionHandler : ICollisionHandler
         {
             HandleEnemyBlockCollision((EnemyCollisionBox)objectB, (BlockCollisionBox)objectA, side);
         }
+        else if (objectA is BulletCollisionBox && objectB is BlockCollisionBox)
+        {
+            Debug.Print("bullet handler used");
+            HandleBulletCollision((BulletCollisionBox) objectA, objectB, side);
+        }
+    }
+
+    private void HandleBulletCollision(BulletCollisionBox bullet, ICollisionBox objectB, CollisionType side)
+    {
+        BulletManager manager = BulletManager.Instance;
+        manager.removeBullet(bullet);
     }
 
     private void HandleEnemyBlockCollision(EnemyCollisionBox enemy, BlockCollisionBox block, CollisionType side)
