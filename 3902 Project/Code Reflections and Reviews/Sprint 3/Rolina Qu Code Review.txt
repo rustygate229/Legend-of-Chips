@@ -1,0 +1,11 @@
+READABILITY & CODE REVIEW 
+AUTHOR: Rolina Qu
+DATE: 10/21/24
+SPRINT NUMBER: 3
+.cs FILE NAME: ItemManager.cs
+.cs FILE AUTHOR: Hongxiang Wang
+TIME TAKEN: 20 minutes
+
+Readability: The code is very readable, with descriptive variable names and method names. There are also descriptive comments attached to many of the methods to clearly indicate what is going on.
+
+Code Quality: The code is generally fairly modular and understandable. I feel like there are some more global variables than absolutely necessary, and the precise workings of the dictionary might need some review, but overall it is fairly good code.

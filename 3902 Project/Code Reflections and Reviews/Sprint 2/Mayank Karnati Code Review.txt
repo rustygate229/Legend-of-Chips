@@ -1,7 +1,7 @@
 READABILITY & CODE REVIEW 
 AUTHOR: Mayank Karnati
 DATE: 9/30/24
-SPRINT NUMBER: 2
+SPRINT NUMBER: 3
 .cs FILE NAME: EnemySpriteFactory.cs
 CODE AUTHOR: Gary Zhu
 TIME TAKEN: 20 minutes
