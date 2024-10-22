@@ -30,7 +30,7 @@ namespace _3902_Project
             _spriteBatch = spriteBatch;
 
             collisionBoxes = new List<ICollisionBox>();
-            PlaceEnemy(EnemyNames.BrownSlime, new Vector2(300, 200));
+            AddEnemy(EnemyNames.BrownSlime, new Vector2(300, 200));
         }
 
 
@@ -50,7 +50,7 @@ namespace _3902_Project
             ISprite currentSprite = _factory.CreateEnemy(name);
 
             //hardcoded for now for demo purposes - assumes it is a brown slime CHANGE LATER PLEASE
-            Vector2 xy = ((BrownSlime)currentSprite).GetPosition();
+            Vector2 xy = (currentSprite).GetPosition();
             ICollisionBox collision = new EnemyCollisionBox(new Rectangle((int)xy.X, (int)xy.Y, 64, 64), true, 100, 10);
             collisionBoxes.Add(collision);
 

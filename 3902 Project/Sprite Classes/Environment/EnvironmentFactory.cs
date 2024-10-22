@@ -9,7 +9,7 @@ using System.Security.AccessControl;
 
 namespace _3902_Project
 {
-    class EnvironmentFactory : IEnvironmentFactory
+    class EnvironmentFactory
     {
 
         private BlockManager _blockManager;
@@ -81,7 +81,7 @@ namespace _3902_Project
         }
 
         // This method must be refactored
-        public Dictionary<BlockManager.BlockNames, List<Rectangle>> getCollidables()
+        public Dictionary<BlockManager.BlockNames, List<ICollisionBox>> getCollidables()
         {
             Dictionary<BlockManager.BlockNames, List<ICollisionBox>> result = new Dictionary<BlockManager.BlockNames, List<ICollisionBox>>();
 
@@ -100,10 +100,10 @@ namespace _3902_Project
                         if (!result.ContainsKey(_csvTranslationsBlock[blockToCheck]))
                         {
                             //if result does NOT contain key
-                            result[_csvTranslations[blockToCheck]] = new List<ICollisionBox>();
+                            result[_csvTranslationsBlock[blockToCheck]] = new List<ICollisionBox>();
                         }
                         Rectangle bounds = new Rectangle(128 + (j * 64), 128 + (i * 64), 64, 64);
-                        result[_csvTranslations[blockToCheck]].Add(new BlockCollisionBox(bounds, true));
+                        result[_csvTranslationsBlock[blockToCheck]].Add(new BlockCollisionBox(bounds, true));
                     }
                 }
             }
