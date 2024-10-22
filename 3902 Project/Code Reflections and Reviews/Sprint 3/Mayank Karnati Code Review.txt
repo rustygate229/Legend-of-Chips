@@ -1,0 +1,17 @@
+READABILITY & CODE REVIEW 
+AUTHOR: Mayank Karnati
+DATE: 10/21/24
+SPRINT NUMBER: 3
+.cs FILE NAME: Renderer.cs
+CODE AUTHOR: Evan Csuhran
+TIME TAKEN: 20 minutes
+
+Readability: The code is generally clear, with well-structured variables and a logical flow. The naming conventions for the variables are 
+descriptive, which makes the code easier to follow. The use of camel case and detailed comments, especially in the constructors and methods, helps
+clarify the purpose of each part. However, one potential improvement could be to break down some of the larger methods into smaller, more
+focused ones. This would make the code even easier to navigate and maintain.
+
+Code Quality: The modular design of the code stands out, particularly in the way the sprite rendering is handled. The separation of
+animated and non-animated sprites and the reuse of logic between them contribute to a scalable structure. Nevertheless, there are a few areas
+where the code could be optimized. For instance, the framerate logic is somewhat convoluted and could be simplified to make future 
+modifications easier. Additionally, encapsulating common logic across sprites and animations (e.g., frame management) could help reduce redundancy.

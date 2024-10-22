@@ -1,0 +1,21 @@
+Legend of Chip Sprint 3 Reflection
+
+What we accomplished: 
+
+	In the sprint 3 assignment, every group of members contributed to the assignment. We subsuccessfully achieved the required functionality. Link could make 
+	the collision with bullets and blocks. Bullets will disappear when it hits the link player, and the block will stop the 
+	movement of the link player. Also, the block could defend the bullets as well.We uploaded three different maps. Then, we could use 
+	keyboards and mouse controllers to switch between the rooms. 
+           	
+	Before the project, we assigned different features to different members. Rolina and HongXiang focused on the collision interface
+	design and link player collision. Gary and Jiaqing focused on the collision of the enemy and the bullet. Mayank and Evan focused on the 
+	map and uploaded the sprites to the environment. Then, each sub-group tested the code functionality by themselves and used pull requests to 
+	merge each feature onto the master branch.  Finally, we merged everything together into the final version of our project. 
+
+What we need to improve: 
+
+	Compared with the last sprint assignment, we faced the problem of every component being strongly correlated. This caused 
+	some issues, such as group members needing to wait for other people to finish their part. So it affects our group's working 
+	efficiency. Next time, we must figure out how everyone can start working simultaneously. Since this assignment meets up without 
+	break time, we could have done better on time management. It caused every group member to rush to work on the last day. So, we need 
+	to make a specific schedule about what to get down on a particular day. 
