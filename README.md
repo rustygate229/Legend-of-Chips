@@ -7,7 +7,7 @@
   - A/LEFT ARROW: Link Moves Left
   - D/RIGHT ARROW: Link Moves Right
   - Z: Link Melee/Sword Attack
-  - 1,2, 3: Selects Blue Arrow, Blue Boomerang, and Bomb 
+  - 1, 2, 3: Selects Blue Arrow, Blue Boomerang, and Bomb 
   - N: Uses selected item
   - E: Link takes damage
 * Other
@@ -15,18 +15,27 @@
   - R: Resets Program
   - Mouse Right Click: Move to next level
   - Mouse Left Click: Move to previous level
+      * Cannot cylce since it would be confusing for if levels are new are not
 
-# Known Bugs
-* Link moves faster moving diagonally than moving horizontally or vertically
-* Link cannot attack more than once while holding down a movement key
-* Link's attack animation is cut off prematurely when C is released
+# Known Bugs (in levels of necessity)
+1) Opens a CMD window when launching the game for some reason
+2) Link Stuff (gotta refactor Link)
+  * Link moves faster moving diagonally than moving horizontally or vertically
+  * Link can attack by spamming (apart of refactoring Link)
+  * Link's attack animation is cut off prematurely when C is released (kind of in general)
+  * Link forms a double when attacking and pressing 'e' (damaged state) at the same time
 
-# Some Tasks before Sprint 4
+# Some Tasks before Sprint 4 Work
 * Implement:
-  - Add/implement more blocks/items and enemies
-  - Create a boss enemy
+  - Add/implement more blocks/items/enemies and some levels
+      * create a boss enemy
+      * add more projectiles for enemy
+      * need to refactor enemy/link/projectile heavily
   - Complete collision interactions (items, damage, etc.)
-  - LOTS OF REFACTORING (getting correct sprite locations, commenting and much more)
+      * loading levels needs a unload for collisions and a reload (refactor again)
+      * also need to work on having different collision reactions
+* LOTS OF REFACTORING (getting correct sprite locations, commenting and much more)
+* In general, have a better form of seperating work and communication
 
 # Credits
 * Sprites
@@ -39,8 +48,10 @@
   - Rolina Qu
 * Renderer Stuff
   - Evan Csuhran
-  - Jiaqing Guan
-  - Gary Zhu
+  - Specifically Concrete Classes using Renderer
+      * Evan Csuhran
+      * Jiaqing Guan
+      * Gary Zhu
 * Projectile Classes
   - Rolina Qu
   - Mayank Karnati
