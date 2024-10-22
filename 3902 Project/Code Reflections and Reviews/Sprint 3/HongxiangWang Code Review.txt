@@ -1,0 +1,24 @@
+READABILITY & CODE REVIEW 
+AUTHOR: HongxiangWang
+DATE: 10/21/24
+SPRINT NUMBER: 3
+.cs FILE NAME: CollisionHandlerManager.cs
+CODE AUTHOR:Rolina
+TIME TAKEN: 20 minutes
+
+READABILITY:
+
+The code is structured in a straightforward manner with distinct collision handlers for different object types, which makes it easy to understand and follow.
+The method names and class variables are well-named and descriptive, enhancing overall readability and making it easier to grasp their purpose. The use of separate collision handlers for different types of objects is an excellent approach, contributing to clear separation of concerns.
+
+CODE QUALITY:
+
+The HandleCollision method contains repetitive conditional logic, which could be refactored to avoid redundancy. Implementing early returns and helper functions could enhance the clarity and reduce code complexity.
+Using a dictionary to map collision types to handlers could make the solution more scalable and reduce the need for multiple else if statements. The isCollidable logic can be further simplified by extracting it to a helper function for better code reuse and clarity.
+There are unnecessary checks for BulletCollisionBox, which makes the code less maintainable. Consolidating them into a single check can improve maintainability.
+
+FEELINGS ABOUT SPRINT:
+
+Feeling optimistic about the direction of the code. The class serves its purpose, but further refactoring is needed to make it more maintainable, especially as additional types of collisions are introduced.
+The current implementation of collision handling works, but scalability is a concern if more collision types need to be added in the future. Refactoring to make the system more modular, such as introducing a World.cs class or using design patterns like the Command or Strategy pattern, could help unify the code and make it easier to expand.
+The handling of enemy collisions feels a bit weak in terms of cohesion and could benefit from better abstraction or consolidation into a central enemy manager that deals with all types of interactions involving enemies.
