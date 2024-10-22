@@ -19,6 +19,7 @@ namespace _3902_Project
             _damage = 0; 
         }
 
+
         public Rectangle Bounds
         {
             get { return _bounds; }

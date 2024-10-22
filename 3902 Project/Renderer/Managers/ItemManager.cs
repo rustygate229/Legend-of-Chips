@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using static _3902_Project.EnemyManager;
+using System.Linq;
 
 namespace _3902_Project
 {
@@ -32,6 +33,10 @@ namespace _3902_Project
         {
             _contentManager = contentManager;
             _spriteBatch = spriteBatch;
+        }
+        public List<ICollisionBox> getCollidables()
+        {
+            return _collisionDictionary.Keys.ToList<ICollisionBox>();
         }
 
         // load all textures relating to blocks

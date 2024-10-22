@@ -24,7 +24,7 @@ namespace _3902_Project
         internal List<ICollisionBox> collisionBoxes;
         Texture2D whiteRectangle;
         private List<BlockCollisionBox> _blockCollisionBoxes;
-        private List<ItemCollisionBox> _itemCollisionBoxes;
+        private List<ICollisionBox> _itemCollisionBoxes;
         private ItemManager _itemManager;
 
 
@@ -67,7 +67,7 @@ namespace _3902_Project
             // Initialize collision logic
             CollisionDetector = new CollisionDetector();
             _blockCollisionBoxes = BlockCollisionBox.GetDefaultBlocks(); // Load default block collision boxes
-            _itemCollisionBoxes = ItemCollisionBox.GetDefaultItems(); // Load default item collision boxes for testing
+            //_itemCollisionBoxes = ItemCollisionBox.GetDefaultItems(); // Load default item collision boxes for testing
             CollisionHandlerManager = new CollisionHandlerManager(Player, EnemyManager, ItemManager, _blockCollisionBoxes);
 
             // Add collision objects to the collisionBoxes list
@@ -81,11 +81,16 @@ namespace _3902_Project
             ItemManager.LoadAllTextures();
             EnemyManager.LoadAllTextures();
 
+
+            //testing
             whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
             whiteRectangle.SetData(new[] { Color.White });
 
             EnvironmentFactory.loadLevel();
-            ItemManager.AddItem(ItemManager.ItemNames.FullHeart, new Vector2(300, 300));
+            ItemManager.AddItem(ItemManager.ItemNames.FullHeart, new Vector2(500, 300));
+
+            _itemCollisionBoxes = ItemManager.getCollidables();
+            collisionBoxes.AddRange(_itemCollisionBoxes);
         }
 
         protected override void Update(GameTime gameTime)
