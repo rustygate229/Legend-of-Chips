@@ -1,0 +1,29 @@
+Readbility
+
+Author of the code review: Gary Zhu
+
+Date of the code review: 10/21/2024
+
+Sprint number: Sprint 3
+
+Name of the .cs file being reviewed: BulletSpriteFactory.cs
+
+Author of the .cs file being reviewed: Jiaqing Guan
+
+Number of minutes taken to complete the review: 20 minutes
+
+Specific comments on what is readable and what is not: 
+
+Since I take review of this code, 
+I felt this code have a really good strucuture and clear variable name. 
+I can clearly understand the functionallity of different constructors and classes. 
+One thing need to get improved might be the put the update method in other file since the purpose of bullet sprite factory is to create bullet sprite.
+
+Quality
+
+Specific comments on code quality
+A hypothetical change to make to the game related to file being reviewed and how the current implementation could or could not easily support that change:
+
+In my view, I think this code have a really good quality and include all of functionnalities that bullet needed.
+Then, I felt like the update and draw method should not be appeard in this file and it should be plance in somewhere else.
+I felt like it will be better to create another method to handle the update and draw method in other file.
