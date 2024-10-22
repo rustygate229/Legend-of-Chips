@@ -19,7 +19,9 @@
 
 # Known Bugs (in levels of necessity)
 1) Opens a CMD window when launching the game for some reason
-2) Link Stuff (gotta refactor Link)
+2) Collision
+  * Link can get stuck in collision blocks, can't move up or down when on a collision when being pressed against it (corner cases)
+3) Link Stuff (gotta refactor Link)
   * Link moves faster moving diagonally than moving horizontally or vertically
   * Link can attack by spamming (apart of refactoring Link)
   * Link's attack animation is cut off prematurely when C is released (kind of in general)
@@ -34,6 +36,7 @@
   - Complete collision interactions (items, damage, etc.)
       * loading levels needs a unload for collisions and a reload (refactor again)
       * also need to work on having different collision reactions
+      * link sword seperate collision
 * LOTS OF REFACTORING (getting correct sprite locations, commenting and much more)
 * In general, have a better form of seperating work and communication
 
