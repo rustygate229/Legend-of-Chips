@@ -47,9 +47,6 @@ namespace _3902_Project
             keysToCommands.Add(Keys.D2, new CommandLinkSetInventory2(game));
             keysToCommands.Add(Keys.D3, new CommandLinkSetInventory3(game));
 
-            keysToCommands.Add(Keys.P, new CommandNextLevel(game));
-            keysToCommands.Add(Keys.O, new CommandPrevLevel(game));
-
         }
 
 

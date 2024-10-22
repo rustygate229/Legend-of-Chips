@@ -31,6 +31,7 @@ namespace _3902_Project
 
         // Input controller
         private IController keyboardController;
+        private IController mouseController;
 
         public Game1()
         {
@@ -69,6 +70,7 @@ namespace _3902_Project
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
+            mouseController = new MouseInput(this);
 
             EnemyCollisionManager enemyCollision = new EnemyCollisionManager(EnemyManager);
             CollisionHandlerManager = new CollisionHandlerManager(Player, EnemyManager, ItemManager);
@@ -101,6 +103,7 @@ namespace _3902_Project
             EnvironmentFactory.Update();
             // Update input controls
             keyboardController.Update();
+            mouseController.Update();
 
             List<CollisionData> collisions = CollisionDetector.DetectCollisions(collisionBoxes);
             CollisionHandlerManager.HandleCollisions(collisions);
