@@ -64,5 +64,5 @@
 * Environment Loading
   - Mayank Karnati
   - Evan Csuhran
-* Code Reviews/Sprint Reflections are in the Sprint2 folder in the Code Reflections and Reviews folder
+* NOTE: Code Reviews/Sprint Reflections are in the Sprint 3 folder in the Code Reflections and Reviews folder
 
