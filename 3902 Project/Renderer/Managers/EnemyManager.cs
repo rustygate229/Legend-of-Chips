@@ -18,6 +18,8 @@ namespace _3902_Project
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
 
+
+        public List <ICollisionBox> collisionBoxes { get; private set; }
         private int _currentEnemyIndex = 0;
 
 
@@ -26,6 +28,9 @@ namespace _3902_Project
         {
             _contentManager = contentManager;
             _spriteBatch = spriteBatch;
+
+            collisionBoxes = new List<ICollisionBox>();
+            PlaceEnemy(EnemyNames.BrownSlime, new Vector2(300, 200));
         }
 
 
@@ -43,6 +48,12 @@ namespace _3902_Project
         public void AddEnemy(EnemyNames name, Vector2 placementPosition)
         {
             ISprite currentSprite = _factory.CreateEnemy(name);
+
+            //hardcoded for now for demo purposes - assumes it is a brown slime CHANGE LATER PLEASE
+            Vector2 xy = ((BrownSlime)currentSprite).GetPosition();
+            ICollisionBox collision = new EnemyCollisionBox(new Rectangle((int)xy.X, (int)xy.Y, 64, 64), true, 100, 10);
+            collisionBoxes.Add(collision);
+
             currentSprite.SetPosition(placementPosition);
             _runningEnemies.Add(currentSprite);
         }
@@ -74,16 +85,25 @@ namespace _3902_Project
                 enemy.Draw(_spriteBatch);
             }
         }
+        public void UpdateBounds(EnemyCollisionBox collisionBox, Rectangle newBounds)
+        {
+            int i = collisionBoxes.IndexOf(collisionBox);
+            collisionBoxes[i].Bounds = newBounds;
+            _runningEnemies[i].SetPosition(new Vector2(newBounds.X, newBounds.Y));
 
+        }
 
-        /// <summary>
-        /// Update all enemies in the List
-        /// </summary>
         public void Update()
         {
-            foreach (var enemy in _runningEnemies)
+            int i = 0;
+            foreach (ISprite enemy in _runningEnemies)
             {
                 enemy.Update();
+
+                Vector2 xy = enemy.GetPosition();
+                collisionBoxes[i].Bounds = new Rectangle((int)xy.X, (int)xy.Y, 64, 64);
+                i++;
+
             }
         }
     }

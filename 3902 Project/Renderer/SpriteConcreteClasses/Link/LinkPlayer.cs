@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using static _3902_Project.ILinkStateMachine;
@@ -94,6 +95,7 @@ namespace _3902_Project
             int x = (int)_linkMovement.getXPosition();
             int y = (int)_linkMovement.getYPosition();
             //updates linkMovement according to any collisions
+            ((LinkMovement)_linkMovement).getCollisionBox().Bounds = new Rectangle(x, y, ((LinkMovement)_linkMovement).getCollisionBox().Bounds.Width, ((LinkMovement)_linkMovement).getCollisionBox().Bounds.Height);
 
             if (!IsDamagedKeysPressed()) { StopDamage(); }
             if (!IsMovementKeysPressed()) { StayStill(); }

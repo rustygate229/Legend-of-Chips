@@ -4,7 +4,7 @@
     public interface ICollisionHandler
 {
         //PlayerCollisionHandler, EnemyCollisionHandler, BlockCollisionHandler, ItemCollisionHandler
-        void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side);
+        void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable);
     }
 }
 

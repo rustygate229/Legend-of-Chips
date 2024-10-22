@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace _3902_Project
 {
@@ -8,6 +10,7 @@ namespace _3902_Project
     {
         public List<CollisionData> DetectCollisions(List<ICollisionBox> gameObjects)
         {
+            //List<ICollisionBox> gameObjects = gameCollisions.SelectMany
             var collisions = new List<CollisionData>();
             for (int i = 0; i < gameObjects.Count; i++)
             {
@@ -18,15 +21,20 @@ namespace _3902_Project
                     if (objectA.Bounds.Intersects(objectB.Bounds))
                     {
                         CollisionType side = DetermineCollisionSide(objectA, objectB);
-
+                        
                         if (objectB.GetType() == typeof(LinkCollisionBox))
                         {
                             //Link, <Other> collision
                             collisions.Add(new CollisionData(objectB, objectA, side));
                         }
-                        else if (objectB.GetType() == typeof(LinkCollisionBox))
+                        else if (objectB.GetType() == typeof(EnemyCollisionBox))
                         {
                             //Enemy, <Other> collision (NOT link.) 
+                            collisions.Add(new CollisionData(objectB, objectA, side));
+                        }
+                        else if(objectB is BulletCollisionBox)
+                        {
+
                             collisions.Add(new CollisionData(objectB, objectA, side));
                         }
                         else
@@ -39,7 +47,7 @@ namespace _3902_Project
             return collisions;
         }
 
-        private CollisionType DetermineCollisionSide(ICollisionBox objectA, ICollisionBox objectB)
+        internal static CollisionType DetermineCollisionSide(ICollisionBox objectA, ICollisionBox objectB)
         {
             // Determine collision side based on positions and overlap areas
             Rectangle intersection = Rectangle.Intersect(objectA.Bounds, objectB.Bounds);

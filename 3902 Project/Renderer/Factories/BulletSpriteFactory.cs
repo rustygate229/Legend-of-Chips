@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace _3902_Project
 {
-    public class BulletSpriteFactory
+    public class Bullet
     {
         public Vector2 _position;
         private List<Texture2D> _textures;
@@ -19,7 +19,7 @@ namespace _3902_Project
         private int Animation_Total = 15;
         private int Current_Frame = 0;
 
-        public BulletSpriteFactory(List<Texture2D> textures, Vector2 position, Vector2 updatePosition)
+        public Bullet(List<Texture2D> textures, Vector2 position, Vector2 updatePosition)
         {
             _time = 0;
             _position = position;

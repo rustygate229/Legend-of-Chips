@@ -15,7 +15,7 @@ namespace _3902_Project
         void decrementLevel();
         int getLevel();
         void loadLevel();
-        Dictionary<BlockManager.BlockNames, List<Rectangle>> getCollidables();
+        Dictionary<BlockManager.BlockNames, List<ICollisionBox>> getCollidables();
         Rectangle getRoomDimensions();
         void Update();
     }

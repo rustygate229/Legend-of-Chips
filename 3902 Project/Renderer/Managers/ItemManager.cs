@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using static _3902_Project.ItemManager;
 
 namespace _3902_Project
 {
@@ -19,12 +18,12 @@ namespace _3902_Project
 
         // item dictionary/inventory
         private List<ISprite> _runningItems = new List<ISprite>();
+        private Dictionary<ItemCollisionBox, ISprite> _itemCollisionDictionary = new Dictionary<ItemCollisionBox, ISprite>();
 
         // create variables for passing
         private ItemSpriteFactory _factory = ItemSpriteFactory.Instance;
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
-
 
         // constructor
         public ItemManager(ContentManager contentManager, SpriteBatch spriteBatch)
@@ -32,7 +31,6 @@ namespace _3902_Project
             _contentManager = contentManager;
             _spriteBatch = spriteBatch;
         }
-
 
         // load all textures relating to blocks
         public void LoadAllTextures()
@@ -52,22 +50,22 @@ namespace _3902_Project
             ISprite currentSprite = _factory.CreateItem(name);
             currentSprite.SetPosition(placementPosition);
             _runningItems.Add(currentSprite);
+
+            // Add item collision box for collision detection
+            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20));
+            _itemCollisionDictionary[collisionBox] = currentSprite;
         }
 
-
-        /// <summary>
-        /// Remove/Unload an item from the item list based on it's ISprite
-        /// </summary>
-        /// <param name="name"></param>
-        public void UnloadItem()
+        // remove item after being collected
+        public void RemoveItem(ItemCollisionBox item)
         {
-            _runningItems.Remove((ISprite)this);
+            if (_itemCollisionDictionary.TryGetValue(item, out ISprite spriteToRemove))
+            {
+                _runningItems.Remove(spriteToRemove);
+                _itemCollisionDictionary.Remove(item);
+            }
         }
 
-
-        /// <summary>
-        /// Remove/Unload all Item Sprites
-        /// </summary>
         public void UnloadAllItems() { _runningItems = new List<ISprite>(); }
 
 
@@ -92,6 +90,12 @@ namespace _3902_Project
             {
                 item.Update();
             }
+        }
+
+        // Method to get collision boxes for all items
+        public List<ItemCollisionBox> GetCollisionBoxes()
+        {
+            return new List<ItemCollisionBox>(_itemCollisionDictionary.Keys);
         }
     }
 }

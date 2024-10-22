@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace _3902_Project;
 
-public class BlockCollisionBox : ICollisionBox
+public class BulletCollisionBox : ICollisionBox
 {
     private Rectangle _bounds;
     private bool _collidable;
     private int _health;
     public int _damage;
 
-    public BlockCollisionBox()
+    public BulletCollisionBox()
     {
         //default constructor creates a new rectangle at 0,0, with no concept of health and damage
         //and cannot be collided with
@@ -21,7 +21,7 @@ public class BlockCollisionBox : ICollisionBox
 
     }
 
-    public BlockCollisionBox(Rectangle bounds, bool isCollidable)
+    public BulletCollisionBox(Rectangle bounds, bool isCollidable)
     {
         _bounds = bounds;
         _collidable = isCollidable;
@@ -30,7 +30,7 @@ public class BlockCollisionBox : ICollisionBox
 
     }
 
-    public BlockCollisionBox(Rectangle bounds, bool isCollidable, int health, int damage)
+    public BulletCollisionBox(Rectangle bounds, bool isCollidable, int health, int damage)
     {
         _bounds = bounds;
         _collidable = isCollidable;
@@ -39,7 +39,7 @@ public class BlockCollisionBox : ICollisionBox
 
     }
 
-    public BlockCollisionBox(Rectangle bounds, bool isCollidable, int health)
+    public BulletCollisionBox(Rectangle bounds, bool isCollidable, int health)
     {
         _bounds = bounds;
         _collidable = isCollidable;
@@ -48,16 +48,11 @@ public class BlockCollisionBox : ICollisionBox
 
     }
 
-    public static List<BlockCollisionBox> GetDefaultBlocks()
+    public static List<BulletCollisionBox> GetDefaultBlocks()
     {
-        return new List<BlockCollisionBox>
+        return new List<BulletCollisionBox>
         {
-            new BlockCollisionBox(new Rectangle(400, 400, 50, 50), true), // TestBlock 1
-            new BlockCollisionBox(new Rectangle(200, 150, 50, 50), true), // TestBlock 2
-            new BlockCollisionBox(new Rectangle(400, 200, 100, 50), true),  // TestBlock 3
-
-            new BlockCollisionBox(new Rectangle(400, 300, 60, 60), false) //block can be pass through
-
+            new BulletCollisionBox(new Rectangle(20, 20, 10, 10), true), // TestBlock 1
         };
     }
 

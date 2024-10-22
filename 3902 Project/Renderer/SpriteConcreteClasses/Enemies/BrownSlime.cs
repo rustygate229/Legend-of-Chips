@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection.Metadata;
 
 namespace _3902_Project
 {
@@ -13,12 +10,14 @@ namespace _3902_Project
         private Texture2D _spriteSheet;
         private Vector2 _position;
         private Renderer _enemy;
+        private BulletManager _bulletManager;
 
         // variables to change based on where your block is and what to print out
         private Vector2 _spritePosition = new Vector2(79, 28);
         private Vector2 _spriteDimensions = new Vector2(30, 16);
         private Vector2 _spriteRowAndColumns = new Vector2(1, 2);
         private Vector2 _spritePrintDimensions = new Vector2(64, 64);
+
 
 
         // variables for moving the enemy
@@ -38,6 +37,7 @@ namespace _3902_Project
         {
             _spriteSheet = spriteSheet;
             _enemy = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _position, _spritePosition, _spriteDimensions, _spritePrintDimensions, _spriteRowAndColumns, 30);
+            _bulletManager = BulletManager.Instance;
         }
 
 
@@ -91,10 +91,9 @@ namespace _3902_Project
             {
                 _fireCounter = 0;
                 Vector2 position = new Vector2(_enemy.GetDestinationRectangle().X, _enemy.GetDestinationRectangle().Y);
-                if (Game1.bulletManager._bulletsTextures.Count > 0 && _updatePosition != Vector2.Zero)
+                if (_bulletManager._bulletsTextures.Count > 0 && _updatePosition != Vector2.Zero)
                 {
-                    BulletSpriteFactory bullet = new BulletSpriteFactory(Game1.bulletManager._bulletsTextures, position, _updatePosition * 2);
-                    Game1.bulletManager.bullets.Add(bullet);
+                    _bulletManager.addBullet(position, _updatePosition);
                 }
             }
 
@@ -123,6 +122,8 @@ namespace _3902_Project
                     _updatePosition = newDirection;
                     _moveCounter = 0; // Reset the timer
                 }
+
+                checkBounds(new Rectangle(128, 128, 768, 448), 64, 64);
             }
         }
 
@@ -138,29 +139,24 @@ namespace _3902_Project
             Rectangle sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
             Rectangle destinationRectangle = _enemy.GetDestinationRectangle();
 
-            if(destinationRectangle.X < 100)
-            {
-                destinationRectangle.X = 100;
-            }
-
-            if (destinationRectangle.Y < 100)
-            {
-                destinationRectangle.Y = 100;
-            }
-
-            if (destinationRectangle.X + destinationRectangle.Width > 600)
-            {
-                destinationRectangle.X = 600 - destinationRectangle.Width;
-            }
-
-            if (destinationRectangle.Y + destinationRectangle.Height > 400)
-            {
-                destinationRectangle.Y = 400 - destinationRectangle.Height;
-            }
-
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);
             spriteBatch.End();
         }
+
+        private void checkBounds(Rectangle playableArea, int width, int height)
+        {
+            //checks bounds and updates bounds as necessary
+            Rectangle bounds = new Rectangle((int)_position.X, (int)_position.Y, width, height);
+
+            if(!playableArea.Intersects(bounds))
+            {
+                //bounds is OUTSIDE playable area
+                
+            
+            }
+
+        }
+
     }
 }

@@ -1,5 +1,7 @@
 ﻿using _3902_Project;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 public class EnemyCollisionHandler : ICollisionHandler
 {
@@ -8,7 +10,7 @@ public class EnemyCollisionHandler : ICollisionHandler
     {
         _enemyManager = enemyManager;
     }
-    public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
+    public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable)
     {
         if (objectA is EnemyCollisionBox && objectB is BlockCollisionBox)
         {
@@ -18,6 +20,17 @@ public class EnemyCollisionHandler : ICollisionHandler
         {
             HandleEnemyBlockCollision((EnemyCollisionBox)objectB, (BlockCollisionBox)objectA, side);
         }
+        else if ((objectA is BulletCollisionBox && objectB is BlockCollisionBox) || (objectA is LinkCollisionBox && objectB is BulletCollisionBox))
+        {
+            //Debug.Print("bullet handler used");
+            HandleBulletCollision((BulletCollisionBox) objectA, objectB, side);
+        }
+    }
+
+    private void HandleBulletCollision(BulletCollisionBox bullet, ICollisionBox objectB, CollisionType side)
+    {
+        BulletManager manager = BulletManager.Instance;
+        manager.removeBullet(bullet);
     }
 
     private void HandleEnemyBlockCollision(EnemyCollisionBox enemy, BlockCollisionBox block, CollisionType side)
@@ -29,6 +42,7 @@ public class EnemyCollisionHandler : ICollisionHandler
             case CollisionType.LEFT:
                 // Handle enemy collision from the left side
                 enemy.Bounds = new Rectangle(block.Bounds.Left - enemy.Bounds.Width, enemy.Bounds.Y, enemy.Bounds.Width, enemy.Bounds.Height);
+                
                 break;
             case CollisionType.RIGHT:
                 // Handle enemy collision from the right side
@@ -45,5 +59,7 @@ public class EnemyCollisionHandler : ICollisionHandler
             default:
                 break;
         }
+
+        _enemyManager.UpdateBounds(enemy, enemy.Bounds);
     }
 }

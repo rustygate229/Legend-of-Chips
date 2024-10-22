@@ -16,32 +16,45 @@ namespace _3902_Project
 {
     public class BulletManager
     {
-        public List<BulletSpriteFactory> bullets = new List<BulletSpriteFactory>();
+        public List<Bullet> bullets = new List<Bullet>();
+
+        public List<ICollisionBox> collisionBoxes { get; private set; }
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
         public List<Texture2D> _bulletsTextures = new List<Texture2D>();
-        private Rectangle whiteRectangleBounds;
+        private List<ICollisionBox> gameCollisionBoxes;
 
 
+        private static BulletManager instance = new BulletManager();
         // Initialize with whiteRectangle bounds
-        public void init(ContentManager contentManager, SpriteBatch spriteBatch, Rectangle whiteRectangleBounds)
+        private BulletManager()
+        {
+            collisionBoxes = new List<ICollisionBox>();
+        }
+
+        public static BulletManager Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
+        public void LoadBulletTextures(string folderName, ContentManager contentManager, SpriteBatch spriteBatch, List<ICollisionBox> boxes)
         {
             _contentManager = contentManager;
             _spriteBatch = spriteBatch;
-            this.whiteRectangleBounds = whiteRectangleBounds;
-            LoadBulletTextures("Bullets");
-        }
 
-        private void LoadBulletTextures(string folderName)
-        {
-            Texture2D texture = _contentManager.Load<Texture2D>("Bullets/Bullet1");
+            Texture2D texture = contentManager.Load<Texture2D>("Bullets/Bullet1");
             _bulletsTextures.Add(texture);
             texture = _contentManager.Load<Texture2D>("Bullets/Bullet2");
             _bulletsTextures.Add(texture);
+
+            gameCollisionBoxes = boxes;
         }
 
 
-        private bool isOutOfWindow(BulletSpriteFactory bullet)
+        private bool isOutOfWindow(Bullet bullet)
         {
             return bullet._position.X + bullet.width < 0 ||
                bullet._position.X > 800||
@@ -49,27 +62,46 @@ namespace _3902_Project
                bullet._position.Y > 600;
         }
 
-        private bool isCollidingWithWhiteRectangle(BulletSpriteFactory bullet)
+        public void addBullet(Vector2 position, Vector2 _updatePosition)
         {
-            Rectangle bulletRect = new Rectangle((int)bullet._position.X, (int)bullet._position.Y, bullet.width, bullet.height);
-            return bulletRect.Intersects(whiteRectangleBounds);
+            Debug.Print("bullet added");
+
+            Bullet bullet = new Bullet(_bulletsTextures, position, _updatePosition * 2);
+            bullets.Add(bullet);
+            ICollisionBox box = new BulletCollisionBox(new Rectangle((int)position.X, (int)position.Y, 23, 29), true);
+            collisionBoxes.Add(box);
+            gameCollisionBoxes.Add(box);
         }
-
-
-        public void init(ContentManager contentManager, SpriteBatch spriteBatch)
-        {
-            _contentManager = contentManager;
-            _spriteBatch = spriteBatch;
-            LoadBulletTextures("Bullets");
-        }
-
 
         public void Update()
         {
-            bullets.RemoveAll(bullet => isOutOfWindow(bullet) || isCollidingWithWhiteRectangle(bullet));
+            for(int x = bullets.Count-1; x >= 0; x--)
+            {
+                if (isOutOfWindow(bullets[x]))
+                {
+                    removeBullet((BulletCollisionBox)collisionBoxes[x]);
+                
+                }
+
+            }
+            //bullets.RemoveAll(bullet => isOutOfWindow(bullet));
             for (int i = 0; i < bullets.Count; i++)
             {
                 bullets[i].Update();
+                Vector2 pos = bullets[i]._position;
+                collisionBoxes[i].Bounds = new Rectangle((int)pos.X, (int)pos.Y, 23, 29);
+            }
+        }
+
+        public void removeBullet(BulletCollisionBox bullet)
+        {
+            Debug.Print("bullet removed");
+            int i = collisionBoxes.IndexOf((ICollisionBox)bullet);
+            if (i >= 0)
+            {
+                collisionBoxes.RemoveAt(i);
+                bullets.RemoveAt(i);
+                gameCollisionBoxes.Remove((ICollisionBox)bullet);
             }
         }
 
