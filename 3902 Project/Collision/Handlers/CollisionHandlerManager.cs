@@ -29,7 +29,7 @@ namespace _3902_Project
         }
 
         // Unified method to handle collision using specific handlers.
-        private void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
+        public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
         {
 
             bool isCollidable = (objectA is BlockCollisionBox blockA && blockA.IsCollidable) || (objectB is BlockCollisionBox blockB && blockB.IsCollidable);

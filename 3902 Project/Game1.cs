@@ -65,7 +65,7 @@ namespace _3902_Project
             bulletManager.LoadBulletTextures("Bullets", Content, _spriteBatch, collisionBoxes);
             Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
 
-            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, EnemyManager);
+            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, _blockCollisionBoxes);
 
 
             // Initialize keyboard input controller
@@ -95,7 +95,7 @@ namespace _3902_Project
                 _blockCollisionBoxes.AddRange(CollisionList);
             }
 
-            _itemCollisionBoxes = ItemCollisionBox.GetDefaultItems(); // Load default item collision boxes for testing
+       
             CollisionHandlerManager = new CollisionHandlerManager(Player, EnemyManager, ItemManager, _blockCollisionBoxes);
 
             // Add collision objects to the collisionBoxes list
@@ -103,7 +103,7 @@ namespace _3902_Project
 
             collisionBoxes.AddRange(bulletManager.collisionBoxes);
             collisionBoxes.AddRange(_blockCollisionBoxes); // Add all block collision boxes
-            collisionBoxes.AddRange(_itemCollisionBoxes); // Add all item collision boxes
+            //collisionBoxes.AddRange(_itemCollisionBoxes); // Add all item collision boxes
             collisionBoxes.AddRange(_EnemyCollisionBoxes);
         }
 
@@ -114,7 +114,7 @@ namespace _3902_Project
             EnemyManager.Update();
             ProjectileManager.Update();
             bulletManager.Update();
-            EnvironmentFactory.Update();
+            EnvironmentFactory.Update(Player);
             // Update input controls
             keyboardController.Update();
             mouseController.Update();
@@ -139,15 +139,8 @@ namespace _3902_Project
             Player.Draw();
 
             _spriteBatch.Begin();
-            // Draw item collision boxes for testing purposes
-            foreach (var item in _itemCollisionBoxes)
-            {
-                _spriteBatch.Draw(whiteRectangle, item.Bounds, Color.Yellow);
-            }
-            foreach (var bullet in BulletManager.Instance.collisionBoxes)
-            {
-                //_spriteBatch.Draw(whiteRectangle, bullet.Bounds, Color.White);
-            }
+
+           
 
             _spriteBatch.End();
 

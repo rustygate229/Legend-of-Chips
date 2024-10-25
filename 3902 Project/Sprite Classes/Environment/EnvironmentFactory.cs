@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.Xna.Framework;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.AccessControl;
+using System.Numerics;
+using NumericsVector2 = System.Numerics.Vector2;
 
 namespace _3902_Project
 {
@@ -15,6 +12,9 @@ namespace _3902_Project
         private BlockManager _blockManager;
         private ItemManager _itemManager;
         private EnemyManager _enemyManager;
+        private CollisionDetector _collisionDetector;
+        private CollisionHandlerManager _collisionHandlerManager;
+
 
         private int _level;
         private int _prevLevel = -1; // -1 is a stand in for a null value
@@ -27,11 +27,15 @@ namespace _3902_Project
         private List<List<string>> _enemies;
         private List<List<string>> _items;
 
-        public EnvironmentFactory(BlockManager block, ItemManager item, EnemyManager enemy) 
+        public EnvironmentFactory(BlockManager block, ItemManager item, LinkPlayer link, EnemyManager enemy, List<ICollisionBox> blockCollisionBoxes) 
         {
             _blockManager = block;
             _itemManager = item;
             _enemyManager = enemy;
+
+            //Inilitiaze Collision
+            _collisionDetector = new CollisionDetector();
+            _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item, blockCollisionBoxes);
 
             _level = 0;
 
@@ -41,6 +45,7 @@ namespace _3902_Project
             generateTranslations();
         }
 
+        //Read SP
         private List<List<string>> ReadCsvFile(string filePath)
         {
             var matrix = new List<List<string>>();
@@ -126,11 +131,12 @@ namespace _3902_Project
             string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Levels/Level" + _level.ToString() + ".csv";
             _environment = ReadCsvFile(filepath);
 
-            _blockManager.AddBlock(BlockManager.BlockNames.Environment, new Vector2(0, 0));
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN, new Vector2(448, 0));
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_UP, new Vector2(448, 572));
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT, new Vector2(0, 286));
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT, new Vector2(1024 - 128, 286));
+            //test
+            _blockManager.AddBlock(BlockManager.BlockNames.Environment, new Microsoft.Xna.Framework.Vector2(0, 0));
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN, new Microsoft.Xna.Framework.Vector2(448, 0));
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_UP, new Microsoft.Xna.Framework.Vector2(448, 572));
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT, new Microsoft.Xna.Framework.Vector2(0, 286));
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT, new Microsoft.Xna.Framework.Vector2(1024 - 128, 286));
 
 
             for (int i = 0; i < _environment.Count; i++)
@@ -138,7 +144,7 @@ namespace _3902_Project
                 for (int j = 0; j < _environment[i].Count; j++)
                 {
                     string blockToPlace = _environment[i][j];
-                    _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
+                    _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Microsoft.Xna.Framework.Vector2(128 + (j * 64), 128 + (i * 64)));
                 }
             }
         }
@@ -156,7 +162,7 @@ namespace _3902_Project
 
                     if (enemyToPlace != "-")
                     {
-                        _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
+                        _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Microsoft.Xna.Framework.Vector2(128 + (j * 64), 128 + (i * 64)));
                     }
                 }
             }
@@ -175,7 +181,7 @@ namespace _3902_Project
 
                     if (itemToPlace != "-")
                     {
-                        _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
+                        _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Microsoft.Xna.Framework.Vector2(128 + (j * 64), 128 + (i * 64)));
                     }
                 }
             }
@@ -198,9 +204,9 @@ namespace _3902_Project
             if (_level > 0) { _level--; }
         }
 
-        public void Update()
+        public void Update(LinkPlayer player)
         {
-            if ( _prevLevel != -1 && _prevLevel != _level)
+            if (_prevLevel != -1 && _prevLevel != _level)
             {
                 _enemyManager.UnloadAllEnemies();
                 _itemManager.UnloadAllItems();
@@ -208,8 +214,21 @@ namespace _3902_Project
 
                 loadLevel();
             }
-            
+
             _prevLevel = _level;
+
+            // 获取玩家和道具的碰撞盒
+            List<ICollisionBox> gameObjects = new List<ICollisionBox>
+    {
+        player.getCollisionBox()
+    };
+            gameObjects.AddRange(_itemManager.GetCollisionBoxes());
+
+            // 使用 CollisionDetector 检测碰撞
+            List<CollisionData> collisions = _collisionDetector.DetectCollisions(gameObjects);
+
+            // 通过 CollisionHandlerManager 处理碰撞
+            _collisionHandlerManager.HandleCollisions(collisions);
         }
     }
 }

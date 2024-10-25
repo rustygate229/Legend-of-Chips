@@ -43,15 +43,5 @@ namespace _3902_Project
             set { _damage = value; }
         }
 
-        // Method to get default items for testing purposes
-        public static List<ICollisionBox> GetDefaultItems()
-        {
-            return new List<ICollisionBox>
-            {
-                new ItemCollisionBox(new Rectangle(400, 150, 20, 20)), // Test Item 1
-                new ItemCollisionBox(new Rectangle(800, 300, 20, 20)), // Test Item 2
-                new ItemCollisionBox(new Rectangle(350, 250, 20, 20))  // Test Item 3
-            };
-        }
     }
 }
