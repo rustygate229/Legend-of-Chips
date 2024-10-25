@@ -32,8 +32,8 @@ namespace _3902_Project
             _blockManager = block;
             _itemManager = item;
             _enemyManager = enemy;
-
-            //Inilitiaze Collision
+            
+            //Initialize Collision
             _collisionDetector = new CollisionDetector();
             _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item, blockCollisionBoxes);
 
@@ -217,17 +217,17 @@ namespace _3902_Project
 
             _prevLevel = _level;
 
-            // 获取玩家和道具的碰撞盒
+            // get player and item CollisionBox
             List<ICollisionBox> gameObjects = new List<ICollisionBox>
     {
         player.getCollisionBox()
     };
             gameObjects.AddRange(_itemManager.GetCollisionBoxes());
 
-            // 使用 CollisionDetector 检测碰撞
+            // Detect Collision
             List<CollisionData> collisions = _collisionDetector.DetectCollisions(gameObjects);
 
-            // 通过 CollisionHandlerManager 处理碰撞
+            // Handle Collision
             _collisionHandlerManager.HandleCollisions(collisions);
         }
     }
