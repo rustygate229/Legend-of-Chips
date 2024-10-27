@@ -6,9 +6,6 @@ namespace _3902_Project
 {
     public partial class Renderer
     {
-        public void SetDirection(Renderer.DIRECTION direction) { this._directionNumber = (int)direction; }
-
-
         /// <summary>
         /// draws a sourceRectangle in an int array based on what status of animation was selected
         /// </summary>
@@ -118,38 +115,7 @@ namespace _3902_Project
         public Rectangle GetDestinationRectangle() { return new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y); }
 
 
-        public Vector2 PositionAhead(Rectangle destinationRectangle)
-        {
-            switch ((int)_directionNumber)
-            {
-                case 0: // DOWN
-                    return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y + (int)destinationRectangle.Height);
-                case 1: // UP
-                    return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y - (int)destinationRectangle.Height);
-                case 2: // RIGHT
-                    return new Vector2((int)destinationRectangle.X + (int)destinationRectangle.Width, (int)destinationRectangle.Y);
-                case 3: // LEFT
-                    return new Vector2((int)destinationRectangle.X - (int)destinationRectangle.Width, (int)destinationRectangle.Y);
-                default: throw new ArgumentException("Invalid direction type in PositionAhead");
-            }
-        }
-
-
-        public Vector2 GetUpdatePosition(int positionSpeed)
-        {
-            switch ((int)_directionNumber)
-            {
-                case 0: // DOWN
-                    return new Vector2(0, Math.Abs(positionSpeed));
-                case 1: // UP
-                    return new Vector2(0, -(Math.Abs(positionSpeed)));
-                case 2: // RIGHT
-                    return new Vector2(Math.Abs(positionSpeed), 0);
-                case 3: // LEFT
-                    return new Vector2(-(Math.Abs(positionSpeed)), 0);
-                default: throw new ArgumentException("Invalid direction type for updatePosition");
-            }
-        }
+        public void SetDirection(Renderer.DIRECTION direction) { this._directionNumber = (int)direction; }
 
 
         public void Draw(SpriteBatch spriteBatch, Rectangle sourceRectangle, Rectangle destinationRectangle)
@@ -174,48 +140,6 @@ namespace _3902_Project
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);
             spriteBatch.End();
-        }
-
-
-        public void DrawVerticallyFlipped(SpriteBatch spriteBatch, bool isCentered)
-        {
-            Rectangle destinationRectangle = this.GetDestinationRectangle();
-            int[] sR = this.GetSourceRectangleArray();
-            Rectangle sourceRectangle = new Rectangle(sR[0], sR[1] + sR[3], sR[2], -sR[3]);
-
-            // draw the current sprite
-            if (isCentered)
-                this.DrawCentered(spriteBatch, sourceRectangle);
-            else
-                this.Draw(spriteBatch, sourceRectangle, destinationRectangle);
-        }
-
-
-        public void DrawHorizontallyFlipped(SpriteBatch spriteBatch, bool isCentered)
-        {
-            Rectangle destinationRectangle = this.GetDestinationRectangle();
-            int[] sR = this.GetSourceRectangleArray();
-            Rectangle sourceRectangle = new Rectangle(sR[0] + sR[2], sR[1], -sR[2], sR[3]);
-
-            // draw the current sprite
-            if (isCentered)
-                this.DrawCentered(spriteBatch, sourceRectangle);
-            else
-                this.Draw(spriteBatch, sourceRectangle, destinationRectangle);
-        }
-
-
-        public void DrawCompletelyFlipped(SpriteBatch spriteBatch, bool isCentered)
-        {
-            Rectangle destinationRectangle = this.GetDestinationRectangle();
-            int[] sR = this.GetSourceRectangleArray();
-            Rectangle sourceRectangle = new Rectangle(sR[0] + sR[2], sR[1] + sR[3], -sR[2], -sR[3]);
-
-            // draw the current sprite
-            if (isCentered)
-                this.DrawCentered(spriteBatch, sourceRectangle);
-            else
-                this.Draw(spriteBatch, sourceRectangle, destinationRectangle);
         }
     }
 }

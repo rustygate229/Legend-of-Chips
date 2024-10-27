@@ -9,7 +9,6 @@ namespace _3902_Project
     {
         // Enemy spritesheet
         private Texture2D _enemySpritesheet;
-        private Texture2D[] _textures;
 
         // Create a singleton instance of EnemySpriteFactory
         private static EnemySpriteFactory instance = new EnemySpriteFactory();

@@ -36,9 +36,9 @@ namespace _3902_Project
         /// </summary>
         /// <param name="name"></param>
         /// <param name="placementPosition"></param>
-        public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, Renderer.DIRECTION direction, int timer, float scale)
+        public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, Renderer.DIRECTION direction, int timer, float speed, float printScale, float[] frameRanges)
         {
-            ISprite currentSprite = _factory.CreateProjectile(name, direction, timer, scale);
+            ISprite currentSprite = _factory.CreateProjectile(name, direction, timer, speed, printScale, frameRanges);
             currentSprite.SetPosition(placementPosition);
             _runningProjectiles.Add(currentSprite);
             return currentSprite;

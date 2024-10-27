@@ -23,6 +23,7 @@ namespace _3902_Project
         private Vector2 _spriteDimensions_BombCloud = new Vector2(48, 16);
         private Vector2 _spriteRowAndColumn_BombCloud = new Vector2(1, 3);
 
+        private float[] _frameRanges;
         private int _bombFire_Frames;
         private int _bombCloud_Frames;
 
@@ -37,19 +38,32 @@ namespace _3902_Project
 
 
         /// <summary>
-        /// Constructs the projectile (set values, create Rendering, etc.); takes the Projectile Spritesheet
+        /// constructor for the projectile sprite: <c>Bomb</c>
         /// </summary>
-        public Projectile_Bomb(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, int timer, float scale)
+        /// <param name="spriteSheet">texture sheet where sprites are formed from</param>
+        /// <param name="facingDirection">
+        /// direction the sprite spawn in. EXAMPLE: if facingDirection = DOWN, then the sprite will spawned in facing and moving downwards.
+        /// </param>
+        /// <param name="timer">the total time until the sprite is deloaded</param>
+        /// <param name="printScale">the print scale of the projectile: printScale * spriteDimensions</param>
+        /// <param name="frameRanges">
+        /// range: [0 -> 1], amountOfInputs = amountOfSprites - 1 AND MUST BE IN ORDER - values inputed are multiplied by timer to produce the
+        /// framerates for the sprites being called.
+        /// <example>EXAMPLE: if entered [0.5, 0.7] for a 3 sprite projectile: from 0 -> 0.5 (first sprite) to 0.5 -> 0.7 (second sprite) 
+        /// to 0.7 -> 1 (third sprite). </example>
+        /// </param>
+        public Projectile_Bomb(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, int timer, float printScale, float[] frameRanges)
         {
             _spriteSheet = spriteSheet;
             _direction = facingDirection;
             _timerTotal = timer;
-            _bombFire_Frames = (int)((_timerTotal * 0.20) / 2);
-            _bombCloud_Frames = (int)((_timerTotal * 0.30) / 2);
+            _frameRanges = frameRanges;
+            _bombFire_Frames = (int)((_timerTotal * (1 - frameRanges[0])) / 2);
+            _bombCloud_Frames = (int)((_timerTotal * (1 - frameRanges[1])) / 2);
             // create renders of the bomb projectile
-            _bomb = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition_Bomb, _spriteDimensions_Bomb, _spriteDimensions_Bomb * scale);
-            _bombFire = new Renderer(Renderer.STATUS.SingleAnimated, _spriteSheet, _spritePosition_BombFire, _spriteDimensions_BombFire, _spriteDimensions_BombFire * scale, _spriteRowAndColumn_BombFire, _bombFire_Frames);
-            _bombCloud = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _spritePosition_BombCloud, _spriteDimensions_BombCloud, _spriteDimensions_BombFire * scale, _spriteRowAndColumn_BombCloud, _bombCloud_Frames);
+            _bomb = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition_Bomb, _spriteDimensions_Bomb, _spriteDimensions_Bomb * printScale);
+            _bombFire = new Renderer(Renderer.STATUS.SingleAnimated, _spriteSheet, _spritePosition_BombFire, _spriteDimensions_BombFire, _spriteDimensions_BombFire * printScale, _spriteRowAndColumn_BombFire, _bombFire_Frames);
+            _bombCloud = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _spritePosition_BombCloud, _spriteDimensions_BombCloud, _spriteDimensions_BombFire * printScale, _spriteRowAndColumn_BombCloud, _bombCloud_Frames);
         }
 
 
@@ -58,8 +72,8 @@ namespace _3902_Project
         /// </summary>
         public Vector2 GetPosition()
         {
-            if (_timerCounter < _timerCounter * 0.5) { return _bomb.GetPosition(); }
-            else if (_timerCounter < _timerCounter * 0.7) { return _bombFire.GetPosition(); }
+            if (_timerCounter < _timerCounter * _frameRanges[0]) { return _bomb.GetPosition(); }
+            else if (_timerCounter < _timerCounter * _frameRanges[1]) { return _bombFire.GetPosition(); }
             else { return _bombCloud.GetPosition(); }
         }
 

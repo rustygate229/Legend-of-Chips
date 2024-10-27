@@ -20,13 +20,14 @@ namespace _3902_Project
         private Vector2 _spritePosition_ExplodeArrow = new (53, 189);
         private Vector2 _spriteDimensions_ExplodeArrow = new (8, 8);
 
+        private float[] _frameRanges;
 
         // create timers, movement and speed variables
         private int _timerCounter;
         private int _timerTotal;
         private Vector2 _position;
         private Vector2 _updatePosition;
-        private int _positionSpeed = 2;
+        private float _positionSpeed;
 
         // create Renderer objects
         private Renderer _upDownArrow;
@@ -35,15 +36,28 @@ namespace _3902_Project
 
 
         /// <summary>
-        /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
+        /// constructor for the projectile sprite: <c>Bomb</c>
         /// </summary>
-        /// <param name="facingDirection"></param>
-        /// <param name="spriteSheet"></param>
-        public Projectile_BlueArrow(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, int timer, float printScale)
+        /// <param name="spriteSheet">texture sheet where sprites are formed from</param>
+        /// <param name="facingDirection">
+        /// direction the sprite spawn in. EXAMPLE: if facingDirection = DOWN, then the sprite will spawned in facing and moving downwards.
+        /// </param>
+        /// <param name="timer">the total time until the sprite is deloaded</param>
+        /// <param name="speed">the speed of the projectiles movement on screen</param>
+        /// <param name="printScale">the print scale of the projectile: printScale * spriteDimensions</param>
+        /// <param name="frameRanges">
+        /// range: [0 -> 1], amountOfInputs = amountOfSprites - 1 AND MUST BE IN ORDER - values inputed are multiplied by timer to produce the
+        /// framerates for the sprites being called.
+        /// <example>EXAMPLE: if entered [0.5, 0.7] for a 3 sprite projectile: from 0 -> 0.5 (first sprite) to 0.5 -> 0.7 (second sprite) 
+        /// to 0.7 -> 1 (third sprite). </example>
+        /// </param>
+        public Projectile_BlueArrow(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, int timer, float speed, float printScale, float[] frameRanges)
         {
             _spriteSheet = spriteSheet;
             _direction = facingDirection;
+            _positionSpeed = speed;
             _timerTotal = timer;
+            _frameRanges = frameRanges;
             // create renders of the bomb projectile
             _upDownArrow = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition_UpDownArrow, _spriteDimensions_UpDownArrow, _spriteDimensions_UpDownArrow * printScale);
             _rightLeftArrow = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition_RightLeftArrow, _spriteDimensions_RightLeftArrow, _spriteDimensions_RightLeftArrow * printScale);
@@ -88,7 +102,7 @@ namespace _3902_Project
             _explodeArrow.SetPosition(_position);
 
             // get updated position
-            if (_timerCounter >= _timerTotal - (_timerCounter * (0.15)))
+            if (_timerCounter >= (_timerTotal * _frameRanges[0]))
                 _updatePosition = new Vector2(0, 0);
             else if (_direction == Renderer.DIRECTION.DOWN || _direction == Renderer.DIRECTION.UP)
             {
@@ -114,7 +128,7 @@ namespace _3902_Project
         public void Draw(SpriteBatch spriteBatch)
         {
             // if in explosion frame
-            if (_timerCounter >= _timerTotal - (_timerCounter * (0.15)))
+            if (_timerCounter >= (_timerTotal * _frameRanges[0]))
                 _explodeArrow.DrawCentered(spriteBatch, _explodeArrow.GetSourceRectangle());
             // else in normal frame
             else
