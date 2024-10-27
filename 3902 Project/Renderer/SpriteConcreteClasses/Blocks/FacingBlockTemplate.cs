@@ -29,7 +29,7 @@ namespace _3902_Project
         {
             _spriteSheet = spriteSheet;
             _direction = facingDirection;
-            _block = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spritePosition, _spriteDimensions, _spritePrintDimensions);
+            _block = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions);
         }
 
 
@@ -66,15 +66,7 @@ namespace _3902_Project
         /// </summary>
         public void Draw(SpriteBatch spriteBatch)
         {
-            int[] sR = _block.GetSourceRectangle();
-            float rotation = _block.GetRotation(_direction);
-
-            Rectangle sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
-            Rectangle destinationRectangle = _block.GetDestinationRectangle();
-
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White, rotation, _position, SpriteEffects.None, 0f);
-            spriteBatch.End();
+            _block.DrawCentered(spriteBatch, _block.GetSourceRectangle());
         }
     }
 }

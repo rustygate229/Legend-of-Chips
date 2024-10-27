@@ -69,7 +69,6 @@ namespace _3902_Project
             _csvTranslationsBlock.Add("d", BlockManager.BlockNames.Dirt);
 
             _csvTranslationsEnemy.Add("g", EnemyManager.EnemyNames.GreenSlime);
-            _csvTranslationsEnemy.Add("w", EnemyManager.EnemyNames.Wizzrope);
             _csvTranslationsEnemy.Add("b", EnemyManager.EnemyNames.BrownSlime);
             _csvTranslationsEnemy.Add("d", EnemyManager.EnemyNames.Darknut);
             

@@ -10,7 +10,7 @@ namespace _3902_Project
             MOVEMENT dir = _linkStateMachine.getMovementState();
             int x = (int)_linkMovement.getXPosition();
             int y = (int)_linkMovement.getYPosition();
-
+            /*
             switch (_linkStateMachine.getInventory())
             {
                 case 1:
@@ -22,6 +22,7 @@ namespace _3902_Project
 
                 default:break;
             }
+            */
         }
 
         public void MoveUp()

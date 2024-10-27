@@ -40,10 +40,10 @@ namespace _3902_Project
         {
             _spriteSheet = spriteSheet;
             _direction = facingDirection;
-            _blockDown = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spriteDownPosition, _spriteDownDimensions, _spritePrintDimensions);
-            _blockUp = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spriteUpPosition, _spriteUpDimensions, _spritePrintDimensions);
-            _blockRight = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spriteRightPosition, _spriteRightDimensions, _spritePrintDimensions);
-            _blockLeft = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spriteLeftPosition, _spriteLeftDimensions, _spritePrintDimensions);
+            _blockDown = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteDownPosition, _spriteDownDimensions, _spritePrintDimensions);
+            _blockUp = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteUpPosition, _spriteUpDimensions, _spritePrintDimensions);
+            _blockRight = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteRightPosition, _spriteRightDimensions, _spritePrintDimensions);
+            _blockLeft = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteLeftPosition, _spriteLeftDimensions, _spritePrintDimensions);
         }
 
 
@@ -54,15 +54,11 @@ namespace _3902_Project
         {
             switch((int)_direction)
             {
-                case 0:
-                    return _blockDown.GetPosition();
-                case 1:
-                    return _blockUp.GetPosition();
-                case 2:
-                    return _blockRight.GetPosition();
-                case 3:
-                    return _blockLeft.GetPosition();
-                default: return _blockDown.GetPosition();
+                case 0: return _blockDown.GetPosition();
+                case 1: return _blockUp.GetPosition();
+                case 2: return _blockRight.GetPosition();
+                case 3: return _blockLeft.GetPosition();
+                default: throw new ArgumentException("Invalid block GetPosition");
             }
         }
 
@@ -74,15 +70,11 @@ namespace _3902_Project
         {
             switch ((int)_direction)
             {
-                case 0:
-                    _blockDown.SetPosition(position); _position = position; break;
-                case 1:
-                    _blockUp.SetPosition(position); _position = position; break;
-                case 2:
-                    _blockRight.SetPosition(position); _position = position; break;
-                case 3:
-                    _blockLeft.SetPosition(position); _position = position; break; 
-                default: break;
+                case 0: _blockDown.SetPosition(position); _position = position; break;
+                case 1: _blockUp.SetPosition(position); _position = position; break;
+                case 2: _blockRight.SetPosition(position); _position = position; break;
+                case 3: _blockLeft.SetPosition(position); _position = position; break;
+                default: throw new ArgumentException("Invalid block SetPosition");
             }
         }
 
@@ -100,36 +92,28 @@ namespace _3902_Project
         /// </summary>
         public void Draw(SpriteBatch spriteBatch)
         {
-            int[] sR;
             Rectangle destinationRectangle;
             Rectangle sourceRectangle;
 
             switch((int)_direction)
             {
-                case 0:
-                    sR = _blockDown.GetSourceRectangle();
+                case 0: // DOWN
+                    sourceRectangle = _blockDown.GetSourceRectangle();
                     destinationRectangle = _blockDown.GetDestinationRectangle();
-                    sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
                     break;
-                case 1:
-                    sR = _blockUp.GetSourceRectangle();
+                case 1: // UP
+                    sourceRectangle = _blockUp.GetSourceRectangle();
                     destinationRectangle = _blockUp.GetDestinationRectangle();
-                    sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
                     break;
-                case 2:
-                    sR = _blockRight.GetSourceRectangle();
+                case 2: // RIGHT
+                    sourceRectangle = _blockRight.GetSourceRectangle();
                     destinationRectangle = _blockRight.GetDestinationRectangle();
-                    sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
                     break;
-                case 3:
-                    sR = _blockLeft.GetSourceRectangle();
+                case 3: // LEFT
+                    sourceRectangle = _blockLeft.GetSourceRectangle();
                     destinationRectangle = _blockLeft.GetDestinationRectangle();
-                    sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
                     break;
-                default: 
-                    destinationRectangle = _blockDown.GetDestinationRectangle();
-                    sourceRectangle = new Rectangle(0, 0, 0, 0);
-                    break;
+                default: throw new ArgumentException("Invalid block drawing direction");
             }
 
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);

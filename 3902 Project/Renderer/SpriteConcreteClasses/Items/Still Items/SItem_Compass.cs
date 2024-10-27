@@ -22,7 +22,7 @@ namespace _3902_Project
         public SItem_Compass(Texture2D spriteSheet)
         {
             _spriteSheet = spriteSheet;
-            _item = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spritePosition, _spriteDimensions, _spritePrintDimensions);
+            _item = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions);
         }
 
         /// <summary>
@@ -54,13 +54,7 @@ namespace _3902_Project
         // draw the item
         public void Draw(SpriteBatch spriteBatch)
         {
-            int[] sR = _item.GetSourceRectangle();
-            Rectangle sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
-            Rectangle destinationRectangle = _item.GetDestinationRectangle();
-
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);
-            spriteBatch.End();
+            _item.DrawCentered(spriteBatch, _item.GetSourceRectangle());
         }
     }
 }

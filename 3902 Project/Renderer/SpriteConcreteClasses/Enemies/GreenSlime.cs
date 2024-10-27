@@ -9,6 +9,7 @@ namespace _3902_Project
         // variables for constructor assignments
         private Texture2D _spriteSheet;
         private Vector2 _position;
+        private Renderer.DIRECTION _direction;
         private Renderer _enemy;
 
         // variables to change based on where your block is and what to print out
@@ -32,27 +33,20 @@ namespace _3902_Project
         public GreenSlime(Texture2D spriteSheet)
         {
             _spriteSheet = spriteSheet;
-            _enemy = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _position, _spritePosition, _spriteDimensions, _spritePrintDimensions, _rowAndColumns, 30);
+            _enemy = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions, _rowAndColumns, 30);
         }
 
 
         /// <summary>
         /// Passes to the Renderer GetPosition method
         /// </summary>
-        public Vector2 GetPosition()
-        {
-            return _enemy.GetPosition();
-        }
+        public Vector2 GetPosition() { return _enemy.GetPosition(); }
 
 
         /// <summary>
         /// Passes to the Renderer SetPosition method
         /// </summary>
-        public void SetPosition(Vector2 position)
-        {
-            _position = position;
-            _enemy.SetPosition(position);
-        }
+        public void SetPosition(Vector2 position) { _position = position; _enemy.SetPosition(position); }
 
 
         /// <summary>
@@ -62,33 +56,33 @@ namespace _3902_Project
         {
             // update animation
             _enemy.UpdateFrames();
-
-            // update position and movement counter
-            _position += _updatePosition;
             _enemy.SetPosition(_position);
-            _moveCounter++;
 
             // Change direction periodically (random horizontal or vertical movement)
             if (_moveCounter >= _moveTotal)
             {
-                // Randomly choose a direction: 0 = left, 1 = right, 2 = up, 3 = down
+                // Randomly choose a direction:
                 switch (random.Next(4))
                 {
                     case 0: // Move DOWN
-                        _updatePosition = new Vector2(0, Math.Abs(_positionSpeed));
-                        break;
+                        _direction = Renderer.DIRECTION.DOWN; break;
                     case 1: // Move UP
-                        _updatePosition = new Vector2(0, -(Math.Abs(_positionSpeed)));
-                        break;
+                        _direction = Renderer.DIRECTION.UP; break;
                     case 2: // Move RIGHT
-                        _updatePosition = new Vector2(Math.Abs(_positionSpeed), 0);
-                        break;
+                        _direction = Renderer.DIRECTION.RIGHT; break;
                     case 3: // Move LEFT
-                        _updatePosition = new Vector2(-(Math.Abs(_positionSpeed)), 0);
-                        break;
+                        _direction = Renderer.DIRECTION.LEFT; break;
+                    default: break;
                 }
+                _enemy.SetDirection(_direction);
+                _updatePosition = _enemy.GetUpdatePosition(_positionSpeed);
+
                 _moveCounter = 0; // Reset the timer
             }
+
+            // update position and movement counter
+            _position += _updatePosition;
+            _moveCounter++;
         }
 
 
@@ -99,13 +93,7 @@ namespace _3902_Project
         public void Draw(SpriteBatch spriteBatch)
         {
             // create and draw sprites
-            int[] sR = _enemy.GetSourceRectangle();
-            Rectangle sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
-            Rectangle destinationRectangle = _enemy.GetDestinationRectangle();
-
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);
-            spriteBatch.End();
+            _enemy.DrawCentered(spriteBatch, _enemy.GetSourceRectangle());
         }
     }
 }

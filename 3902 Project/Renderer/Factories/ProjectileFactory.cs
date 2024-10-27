@@ -2,17 +2,17 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
+using System;
 
 namespace _3902_Project
 {
     public class ProjectileFactory
     {
-        private Texture2D linkSpriteSheet;
+        private Texture2D _enemySpriteSheet;
+        private Texture2D _linkSpriteSheet;
 
         private static ProjectileFactory instance = new ProjectileFactory();
 
-        //CAN BE TUNED INSIDE EACH SPRITEFACTORY
-        private int spriteSize = 64;
         public static ProjectileFactory Instance
         {
             get
@@ -22,75 +22,36 @@ namespace _3902_Project
         }
         private ProjectileFactory()
         {
+            instance = this;
         }
 
         public void LoadAllTextures(ContentManager content)
         {
-            linkSpriteSheet = content.Load<Texture2D>("Link Spritesheet transparent");
+            _enemySpriteSheet = content.Load<Texture2D>("Dungeon_Enemies_Spritesheet_transparent");
+            _linkSpriteSheet = content.Load<Texture2D>("Link Spritesheet transparent");
         }
 
-
-        public IProjectile CreateArrowProjectile(int x, int y, IProjectile.DIRECTION dir)
+        public void UnloadAllTextures(ContentManager content)
         {
-            List<Rectangle> source = new List<Rectangle>();
-            source.Add(new Rectangle(1, 185, 8, 16));
-            source.Add(new Rectangle(10, 185, 16, 16));
-            source.Add(new Rectangle(53, 185, 8, 16));
-
-            IProjectileSprite s = new ProjectileArrowSprite(linkSpriteSheet, source, spriteSize / 16.0f);
-            return new ForwardProjectile(x, y, s, dir, 6, 35);
-
+            _enemySpriteSheet.Dispose();
+            _linkSpriteSheet.Dispose();
         }
 
-        public IProjectile CreateBlueArrowProjectile(int x, int y, IProjectile.DIRECTION dir)
+
+        // create every type of projectile
+        public ISprite CreateProjectile(ProjectileManager.ProjectileNames projectileName, Renderer.DIRECTION direction, int timer, float scale)
         {
-            List<Rectangle> source = new List<Rectangle>();
-            source.Add(new Rectangle(27, 185, 8, 16));
-            source.Add(new Rectangle(36, 185, 16, 16));
-            source.Add(new Rectangle(53, 185, 8, 16));
+            switch (projectileName)
+            {
+                case ProjectileManager.ProjectileNames.Bomb:
+                    return new Projectile_Bomb(_linkSpriteSheet, direction, timer, scale);
+                case ProjectileManager.ProjectileNames.BlueArrow:
+                    return new Projectile_BlueArrow(_linkSpriteSheet, direction, timer, scale);
+                default: throw new ArgumentException("Invalid projectile name");
+            }
 
-
-            IProjectileSprite s = new ProjectileArrowSprite(linkSpriteSheet, source, spriteSize / 16.0f);
-            return new ForwardProjectile(x, y, s, dir, 12, 25);
-
+            // Add more enemy types as necessary by specifying their source rectangles and positions
+            // public ISprite OtherProjectile() { ... }
         }
-
-        public IProjectile CreateWoodBoomerangProjectile(int x, int y, IProjectile.DIRECTION dir)
-        {
-            //TODO: FINISH BOOMERANG AND BOMB PROJECTILES
-            List<Rectangle> source = new List<Rectangle>();
-            source.Add(new Rectangle(64, 185, 8, 16));
-            source.Add(new Rectangle(73, 185, 8, 16));
-            source.Add(new Rectangle(82, 185, 8, 16));
-            source.Add(new Rectangle(118, 185, 8, 16));
-
-            IProjectileSprite s = new ProjectileBoomerangSprite(linkSpriteSheet, source, spriteSize / 16.0f);
-            return new BoomerangProjectile(x, y, s, dir, 12, 40);
-        }
-
-        public IProjectile CreateBlueBoomerangProjectile(int x, int y, IProjectile.DIRECTION dir)
-        {
-            List<Rectangle> source = new List<Rectangle>();
-            source.Add(new Rectangle(91, 185, 8, 16));
-            source.Add(new Rectangle(100, 185, 8, 16));
-            source.Add(new Rectangle(109, 185, 8, 16));
-            source.Add(new Rectangle(118, 185, 8, 16));
-
-            IProjectileSprite s = new ProjectileBoomerangSprite(linkSpriteSheet, source, spriteSize / 16.0f);
-            return new BoomerangProjectile(x, y, s, dir, 18, 35);
-        }
-
-        public IProjectile CreateBombProjectile(int x, int y)
-        {
-            List<Rectangle> source = new List<Rectangle>();
-            source.Add(new Rectangle(129, 185, 8, 16));
-            source.Add(new Rectangle(138, 185, 16, 16));
-            source.Add(new Rectangle(155, 185, 16, 16));
-            source.Add(new Rectangle(172, 185, 16, 16));
-
-            IProjectileSprite s = new ProjectileBombSprite(linkSpriteSheet, source, spriteSize / 16.0f);
-            return new BombProjectile(x, y, s, IProjectile.DIRECTION.RIGHT, 18, 35);
-        }
-
     }
 }

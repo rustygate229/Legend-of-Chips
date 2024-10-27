@@ -9,9 +9,11 @@ namespace _3902_Project
     {
         // Enemy spritesheet
         private Texture2D _enemySpritesheet;
+        private Texture2D[] _textures;
 
         // Create a singleton instance of EnemySpriteFactory
         private static EnemySpriteFactory instance = new EnemySpriteFactory();
+        private static ProjectileManager _projectileManager;
 
         public static EnemySpriteFactory Instance
         {
@@ -27,12 +29,18 @@ namespace _3902_Project
             EnemySpriteFactory.instance = this;
         }
 
-        // Load all necessary textures (both enemy sprites and bullet textures for shooters)
         public void LoadAllTextures(ContentManager content)
         {
-            // Load the enemy spritesheet
             _enemySpritesheet = content.Load<Texture2D>("Dungeon_Enemies_Spritesheet_transparent");
         }
+
+        public void UnloadAllTextures(ContentManager content)
+        {
+            _enemySpritesheet.Dispose();
+        }
+
+        public void SetManager(ProjectileManager manager) { _projectileManager = manager; }
+
 
         // create every type of enemy
         public ISprite CreateEnemy(EnemyManager.EnemyNames enemyName)
@@ -43,12 +51,8 @@ namespace _3902_Project
                     return new BrownSlime(_enemySpritesheet);
                 case EnemyManager.EnemyNames.GreenSlime:
                     return new GreenSlime(_enemySpritesheet);
-                case EnemyManager.EnemyNames.Wizzrope:
-                    return new Wizzrope(_enemySpritesheet);
                 case EnemyManager.EnemyNames.Darknut:
-                    return new Darknut(_enemySpritesheet);
-                case EnemyManager.EnemyNames.Proto:
-                    return new Proto(_enemySpritesheet);
+                    return new Darknut(_enemySpritesheet, _projectileManager);
 
                 default: throw new ArgumentException("Invalid block name");
             }

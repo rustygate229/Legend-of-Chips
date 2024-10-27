@@ -10,7 +10,7 @@ namespace _3902_Project
         private Texture2D _spriteSheet;
         private Vector2 _position;
         private Renderer _enemy;
-        private BulletManager _bulletManager;
+        private Renderer.DIRECTION _direction;
 
         // variables to change based on where your block is and what to print out
         private Vector2 _spritePosition = new Vector2(79, 28);
@@ -22,7 +22,6 @@ namespace _3902_Project
 
         // variables for moving the enemy
         private int _moveCounter = 0;
-        private int _fireCounter = 4;
         private int _moveTotal = 10;
         private int _positionSpeed = 2;
         private Vector2 _updatePosition;
@@ -36,29 +35,20 @@ namespace _3902_Project
         public BrownSlime(Texture2D spriteSheet)
         {
             _spriteSheet = spriteSheet;
-            _enemy = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _position, _spritePosition, _spriteDimensions, _spritePrintDimensions, _spriteRowAndColumns, 30);
-            _bulletManager = BulletManager.Instance;
+            _enemy = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions, _spriteRowAndColumns, 30);
         }
 
 
         /// <summary>
         /// Passes to the Renderer GetPosition method
         /// </summary>
-        public Vector2 GetPosition()
-        {
-            return _enemy.GetPosition();
-        }
-
+        public Vector2 GetPosition() { return _enemy.GetPosition(); }
 
 
         /// <summary>
         /// Passes to the Renderer SetPosition method
         /// </summary>
-        public void SetPosition(Vector2 position)
-        {
-            _position = position;
-            _enemy.SetPosition(position);
-        }
+        public void SetPosition(Vector2 position) { _position = position; _enemy.SetPosition(position); }
 
 
         /// <summary>
@@ -66,65 +56,35 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            // Update animation
+            // update animation
             _enemy.UpdateFrames();
-
-            // Update position and check for boundary collision
-            _position += _updatePosition;
-
-            if (_position.X < 0 || _position.X + _spritePrintDimensions.X > 800)
-            {
-                _updatePosition.X = -_updatePosition.X; // Reverse horizontal direction
-            }
-            if (_position.Y < 0 || _position.Y + _spritePrintDimensions.Y > 600)
-            {
-                _updatePosition.Y = -_updatePosition.Y; // Reverse vertical direction
-            }
-
             _enemy.SetPosition(_position);
 
-            _moveCounter++;
-            _fireCounter++;
-
-            // Add bullet logic
-            if (_fireCounter >= _moveTotal * 5)
+            // Change direction periodically (random horizontal or vertical movement)
+            if (_moveCounter >= _moveTotal)
             {
-                _fireCounter = 0;
-                Vector2 position = new Vector2(_enemy.GetDestinationRectangle().X, _enemy.GetDestinationRectangle().Y);
-                if (_bulletManager._bulletsTextures.Count > 0 && _updatePosition != Vector2.Zero)
-                {
-                    _bulletManager.addBullet(position, _updatePosition);
-                }
-            }
-
-            // Change direction periodically
-            if (_moveCounter >= _moveTotal * 3)
-            {
-                Vector2 newDirection = Vector2.Zero;
+                // Randomly choose a direction:
                 switch (random.Next(4))
                 {
                     case 0: // Move DOWN
-                        newDirection = new Vector2(0, Math.Abs(_positionSpeed));
-                        break;
+                        _direction = Renderer.DIRECTION.DOWN; break;
                     case 1: // Move UP
-                        newDirection = new Vector2(0, -(Math.Abs(_positionSpeed)));
-                        break;
+                        _direction = Renderer.DIRECTION.UP; break;
                     case 2: // Move RIGHT
-                        newDirection = new Vector2(Math.Abs(_positionSpeed), 0);
-                        break;
+                        _direction = Renderer.DIRECTION.RIGHT; break;
                     case 3: // Move LEFT
-                        newDirection = new Vector2(-(Math.Abs(_positionSpeed)), 0);
-                        break;
+                        _direction = Renderer.DIRECTION.LEFT; break;
+                    default: break;
                 }
+                _enemy.SetDirection(_direction);
+                _updatePosition = _enemy.GetUpdatePosition(_positionSpeed);
 
-                if (newDirection != Vector2.Zero)
-                {
-                    _updatePosition = newDirection;
-                    _moveCounter = 0; // Reset the timer
-                }
-
-                checkBounds(new Rectangle(128, 128, 768, 448), 64, 64);
+                _moveCounter = 0; // Reset the timer
             }
+
+            // update position and movement counter
+            _position += _updatePosition;
+            _moveCounter++;
         }
 
 
@@ -135,28 +95,8 @@ namespace _3902_Project
         public void Draw(SpriteBatch spriteBatch)
         {
             // create and draw sprites
-            int[] sR = _enemy.GetSourceRectangle();
-            Rectangle sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
-            Rectangle destinationRectangle = _enemy.GetDestinationRectangle();
-
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);
-            spriteBatch.End();
+            _enemy.DrawCentered(spriteBatch, _enemy.GetSourceRectangle());
         }
-
-        private void checkBounds(Rectangle playableArea, int width, int height)
-        {
-            //checks bounds and updates bounds as necessary
-            Rectangle bounds = new Rectangle((int)_position.X, (int)_position.Y, width, height);
-
-            if(!playableArea.Intersects(bounds))
-            {
-                //bounds is OUTSIDE playable area
-                
-            
-            }
-
-        }
-
     }
 }
+

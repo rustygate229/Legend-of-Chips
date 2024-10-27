@@ -1,140 +1,94 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using static _3902_Project.ILinkStateMachine;
-
+using static _3902_Project.BlockManager;
 
 namespace _3902_Project
 {
     public class ProjectileManager
     {
-        List<IProjectile> projectiles;
-        ContentManager content;
-        SpriteBatch spriteBatch;
-        ProjectileFactory factory;
-        private int currentFrame = 0;
-        private int totalFrames = 3;
-
-
-        public ProjectileManager(ContentManager c, SpriteBatch _spritebatch)
+        // create block names for finding them
+        public enum ProjectileNames
         {
-            projectiles = new List<IProjectile>();
-            content = c;
-            spriteBatch = _spritebatch;
-
-            ProjectileFactory.Instance.LoadAllTextures(c);
-            factory = ProjectileFactory.Instance;
+            Bomb, BlueArrow
         }
 
-        private static IProjectile.DIRECTION getDirection(MOVEMENT movement)
+        // block dictionary/inventory
+        private List<ISprite> _runningProjectiles = new List<ISprite>();
+
+        // create variables for passing
+        private ProjectileFactory _factory = ProjectileFactory.Instance;
+        private ContentManager _contentManager;
+        private SpriteBatch _spriteBatch;
+
+        // constructor
+        public ProjectileManager(ContentManager contentManager, SpriteBatch spriteBatch)
         {
-            IProjectile.DIRECTION direction;
-            if (movement == MOVEMENT.SUP || movement == MOVEMENT.MUP)
-            {
-                direction = IProjectile.DIRECTION.UP;
-            }
-            else if (movement == MOVEMENT.SDOWN || movement == MOVEMENT.MDOWN)
-            {
-                direction = IProjectile.DIRECTION.DOWN;
-            }
-            else if (movement == MOVEMENT.MLEFT || movement == MOVEMENT.SLEFT)
-            {
-                direction = IProjectile.DIRECTION.LEFT;
-            }
-            else if (movement == MOVEMENT.MRIGHT || movement == MOVEMENT.SRIGHT)
-            {
-                direction = IProjectile.DIRECTION.RIGHT;
-            }
-            else
-            {
-                //defaults to right
-                direction = IProjectile.DIRECTION.RIGHT;
-            }
-
-            return direction;
+            _contentManager = contentManager;
+            _spriteBatch = spriteBatch;
         }
 
-		public void launchArrow(int x, int y, MOVEMENT movement)
-		{
-			IProjectile arrow;
 
-            IProjectile.DIRECTION arrowDirection = getDirection(movement);
-
-            arrow = factory.CreateArrowProjectile(x, y, arrowDirection);
-
-            projectiles.Add(arrow);
-
-        }
-
-        public void launchBlueArrow(int x, int y, MOVEMENT movement)
+        /// <summary>
+        /// Add an block to the running block list
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="placementPosition"></param>
+        public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, Renderer.DIRECTION direction, int timer, float scale)
         {
-            IProjectile arrow;
-
-            IProjectile.DIRECTION arrowDirection = getDirection(movement);
-
-            arrow = factory.CreateBlueArrowProjectile(x, y, arrowDirection);
-
-            projectiles.Add(arrow);
-
+            ISprite currentSprite = _factory.CreateProjectile(name, direction, timer, scale);
+            currentSprite.SetPosition(placementPosition);
+            _runningProjectiles.Add(currentSprite);
+            return currentSprite;
         }
-        public void launchWoodBoomerang(int x, int y, MOVEMENT movement)
+
+        public void LoadAllTextures(ContentManager content)
         {
-            IProjectile boomerang;
-
-            IProjectile.DIRECTION direction = getDirection(movement);
-
-            boomerang = factory.CreateWoodBoomerangProjectile(x, y, direction);
-
-            projectiles.Add(boomerang);
+            _factory.LoadAllTextures(content);
         }
 
-        public void launchBlueBoomerang(int x, int y, MOVEMENT movement)
+        public void UnloadAllTextures(ContentManager content)
         {
-            IProjectile boomerang;
-
-            IProjectile.DIRECTION direction = getDirection(movement);
-
-            boomerang = factory.CreateBlueBoomerangProjectile(x, y, direction);
-
-            projectiles.Add(boomerang);
+            _factory.UnloadAllTextures(content);
         }
 
 
-        public void launchBomb(int x, int y)
-        {
-            IProjectile bomb;
-
-            bomb = factory.CreateBombProjectile(x, y);
-
-            projectiles.Add(bomb);
-        }
+        /// <summary>
+        /// Remove/Unload an projectile from the block list based on it's ISprite
+        /// </summary>
+        /// <param name="name"></param>
+        public void UnloadProjectile(ISprite sprite) { _runningProjectiles.Remove(sprite); }
 
 
-        public void Update()
-        {
-            currentFrame++;
-            if (currentFrame >= totalFrames)
-            {
-                currentFrame = 0;
-                //updates each projectile in list
-                foreach (IProjectile proj in projectiles.ToList())
-                {
-                    if (proj.getDirection() == (int)IProjectile.DIRECTION.DESTROYED)
-                    {
-                        projectiles.Remove(proj);
-                    }
-                    proj.Update();
-                }
-
-            }
-        }
+        /// <summary>
+        /// Remove/Unload all Projectile Sprites
+        /// </summary>
+        public void UnloadAllBlocks() { _runningProjectiles = new List<ISprite>(); }
 
 
+        /// <summary>
+        /// Draw all blocks in the List
+        /// </summary>
         public void Draw()
         {
-            //draws each projectile in list
-            foreach (IProjectile projectile in projectiles) { projectile.Draw(spriteBatch); }
+            foreach (var projectile in _runningProjectiles)
+            {
+                projectile.Draw(_spriteBatch);
+            }
+        }
+
+
+        /// <summary>
+        /// Update all blocks in the List
+        /// </summary>
+        public void Update()
+        {
+            foreach (var projectile in _runningProjectiles)
+            {
+                projectile.Update();
+            }
         }
     }
 }

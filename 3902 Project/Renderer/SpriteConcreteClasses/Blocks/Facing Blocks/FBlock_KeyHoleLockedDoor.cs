@@ -32,8 +32,8 @@ namespace _3902_Project
         {
             _spriteSheet = spriteSheet;
             _direction = facingDirection;
-            _blockDownUp = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spriteDownUpPosition, _spriteDownUpDimensions, _spritePrintDimensions);
-            _blockRightLeft = new Renderer(Renderer.STATUS.Still, _spriteSheet, _position, _spriteRightLeftPosition, _spriteRightLeftDimensions, _spritePrintDimensions);
+            _blockDownUp = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteDownUpPosition, _spriteDownUpDimensions, _spritePrintDimensions);
+            _blockRightLeft = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteRightLeftPosition, _spriteRightLeftDimensions, _spritePrintDimensions);
         }
 
 
@@ -79,7 +79,7 @@ namespace _3902_Project
 
             if (_direction == Renderer.DIRECTION.DOWN)
             {
-                sR = _blockDownUp.GetSourceRectangle();
+                sR = _blockDownUp.GetSourceRectangleArray();
                 sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
 
                 if (_direction == Renderer.DIRECTION.UP)
@@ -89,7 +89,7 @@ namespace _3902_Project
             }
             else
             {
-                sR = _blockRightLeft.GetSourceRectangle();
+                sR = _blockRightLeft.GetSourceRectangleArray();
                 sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
 
                 if (_direction == Renderer.DIRECTION.LEFT)

@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
@@ -13,11 +14,9 @@ namespace _3902_Project
         internal LinkPlayer Player { get; private set; }  // Player object
         internal BlockManager BlockManager { get; private set; }  // Block manager
         internal ItemManager ItemManager { get; private set; }  // Item manager
-        internal ProjectileManager ProjectileManager { get; private set; } //projectile manager FOR LINK'S PROJECTILES ONLY
         internal EnemyManager EnemyManager { get; private set; }
+        public ProjectileManager ProjectileManager { get;  set; }
         internal EnvironmentFactory EnvironmentFactory { get; private set; }
-
-        public BulletManager bulletManager;
 
         private List<ICollisionBox> _EnemyCollisionBoxes;
 
@@ -59,12 +58,8 @@ namespace _3902_Project
             // Initialize all managers
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
-            EnemyManager = new EnemyManager(Content, _spriteBatch);
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
-            bulletManager = BulletManager.Instance;
-            bulletManager.LoadBulletTextures("Bullets", Content, _spriteBatch, collisionBoxes);
-            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
-
+            EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
             EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, EnemyManager);
 
 
@@ -73,7 +68,6 @@ namespace _3902_Project
             mouseController = new MouseInput(this);
 
             // Initialize collision logic
-            collisionBoxes.Add(Player.getCollisionBox());
             CollisionDetector = new CollisionDetector();
             _blockCollisionBoxes = new List<ICollisionBox>();
 
@@ -81,6 +75,7 @@ namespace _3902_Project
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
             EnemyManager.LoadAllTextures();
+            ProjectileManager.LoadAllTextures(Content);
 
             whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
             whiteRectangle.SetData(new[] { Color.White });
@@ -101,7 +96,6 @@ namespace _3902_Project
             // Add collision objects to the collisionBoxes list
             _EnemyCollisionBoxes = EnemyManager.collisionBoxes;
 
-            collisionBoxes.AddRange(bulletManager.collisionBoxes);
             collisionBoxes.AddRange(_blockCollisionBoxes); // Add all block collision boxes
             collisionBoxes.AddRange(_itemCollisionBoxes); // Add all item collision boxes
             collisionBoxes.AddRange(_EnemyCollisionBoxes);
@@ -109,11 +103,9 @@ namespace _3902_Project
 
         protected override void Update(GameTime gameTime)
         {
-            Player.Update();
             ItemManager.Update();
-            EnemyManager.Update();
             ProjectileManager.Update();
-            bulletManager.Update();
+            EnemyManager.Update();
             EnvironmentFactory.Update();
             // Update input controls
             keyboardController.Update();
@@ -133,32 +125,22 @@ namespace _3902_Project
 
             BlockManager.Draw();
             ItemManager.Draw();
-            EnemyManager.Draw();
-            bulletManager.Draw();
             ProjectileManager.Draw();
-            Player.Draw();
-
-            _spriteBatch.Begin();
-            // Draw item collision boxes for testing purposes
-            foreach (var item in _itemCollisionBoxes)
-            {
-                _spriteBatch.Draw(whiteRectangle, item.Bounds, Color.Yellow);
-            }
-            foreach (var bullet in BulletManager.Instance.collisionBoxes)
-            {
-                //_spriteBatch.Draw(whiteRectangle, bullet.Bounds, Color.White);
-            }
-
-            _spriteBatch.End();
+            EnemyManager.Draw();
 
             base.Draw(gameTime);
         }
 
 
-
-        public void ResetGame()
+        public ContentManager GetContentManager()
         {
-            Initialize();
+            return Content;
         }
+
+
+        public void ResetGame() { Initialize(); }
+
+
+        public ProjectileManager GetProjectileManager() { return ProjectileManager; }
     }
 }

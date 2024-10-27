@@ -8,15 +8,18 @@ namespace _3902_Project
     public class EnemyManager
     {
         // create enemy names for finding them
-        public enum EnemyNames { GreenSlime, BrownSlime, Wizzrope, Proto, Darknut }
+        public enum EnemyNames { GreenSlime, BrownSlime, Darknut }
 
         // enemy dictionary/inventory
         private List<ISprite> _runningEnemies = new List<ISprite>();
 
         // create variables for passing
         private EnemySpriteFactory _factory = EnemySpriteFactory.Instance;
+        private ProjectileManager _manager;
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
+        private Game1 _game;
+        
 
 
         public List <ICollisionBox> collisionBoxes { get; private set; }
@@ -24,10 +27,13 @@ namespace _3902_Project
 
 
         // constructor
-        public EnemyManager(ContentManager contentManager, SpriteBatch spriteBatch)
+        public EnemyManager(Game1 game, SpriteBatch spriteBatch, ProjectileManager manager)
         {
-            _contentManager = contentManager;
+            _manager = manager;
             _spriteBatch = spriteBatch;
+            _game = game;
+            _contentManager = _game.Content;
+            _factory.SetManager(_manager);
 
             collisionBoxes = new List<ICollisionBox>();
             AddEnemy(EnemyNames.BrownSlime, new Vector2(300, 200));
@@ -63,16 +69,16 @@ namespace _3902_Project
         /// Remove/Unload an enemy from the enemy list based on it's ISprite
         /// </summary>
         /// <param name="name"></param>
-        public void UnloadEnemy()
+        public void UnloadEnemy(ISprite sprite, Vector2 position)
         {
-            _runningEnemies.Remove((ISprite)this);
+            
         }
 
 
         /// <summary>
         /// Remove/Unload all Enemy Sprites
         /// </summary>
-        public void UnloadAllEnemies() { _runningEnemies = new List<ISprite>(); }
+        public void UnloadAllEnemies() { _runningEnemies = new List<ISprite>();  }
 
 
         /// <summary>

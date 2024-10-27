@@ -49,6 +49,10 @@ namespace _3902_Project
                     return new PBlocks_Tile(_blockSpritesheet);
                 case BlockManager.BlockNames.Square:
                     return new PBlock_Square(_blockSpritesheet);
+                case BlockManager.BlockNames.WhiteBrick:
+                    return new PBlock_WhiteBrick(_blockSpritesheet);
+                case BlockManager.BlockNames.WhiteTile:
+                    return new PBlock_WhiteTile(_blockSpritesheet);
 
                 case BlockManager.BlockNames.StatueFish_RIGHT:
                     return new FBlock_StatueFish(_blockSpritesheet, Renderer.DIRECTION.RIGHT);
@@ -99,24 +103,6 @@ namespace _3902_Project
                     return new FBlock_Wall(_blockSpritesheet, Renderer.DIRECTION.RIGHT);
                 case BlockManager.BlockNames.Wall_LEFT:
                     return new FBlock_Wall(_blockSpritesheet, Renderer.DIRECTION.LEFT);
-
-                case BlockManager.BlockNames.WhiteBrick_DOWN:
-                    return new FBlock_WhiteBrick(_blockSpritesheet, Renderer.DIRECTION.DOWN);
-                case BlockManager.BlockNames.WhiteBrick_UP:
-                    return new FBlock_WhiteBrick(_blockSpritesheet, Renderer.DIRECTION.UP);
-                case BlockManager.BlockNames.WhiteBrick_RIGHT:
-                    return new FBlock_WhiteBrick(_blockSpritesheet, Renderer.DIRECTION.RIGHT);
-                case BlockManager.BlockNames.WhiteBrick_LEFT:
-                    return new FBlock_WhiteBrick(_blockSpritesheet, Renderer.DIRECTION.LEFT);
-
-                case BlockManager.BlockNames.WhiteTile_DOWN:
-                    return new FBlock_WhiteTile(_blockSpritesheet, Renderer.DIRECTION.DOWN);
-                case BlockManager.BlockNames.WhiteTile_UP:
-                    return new FBlock_WhiteTile(_blockSpritesheet, Renderer.DIRECTION.UP);
-                case BlockManager.BlockNames.WhiteTile_RIGHT:
-                    return new FBlock_WhiteTile(_blockSpritesheet, Renderer.DIRECTION.RIGHT);
-                case BlockManager.BlockNames.WhiteTile_LEFT:
-                    return new FBlock_WhiteTile(_blockSpritesheet, Renderer.DIRECTION.LEFT);
 
                 default: throw new ArgumentException("Invalid block name");
             }
