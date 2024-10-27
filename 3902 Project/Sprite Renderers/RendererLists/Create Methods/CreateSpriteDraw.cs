@@ -11,13 +11,13 @@ namespace _3902_Project
         {
             switch(_rendListType)
             {
-                case _rendOrder.Size2:
+                case RendOrder.Size2:
                     CreateSpriteDrawSize2(spriteBatch, isCentered); break;
-                case _rendOrder.Size3DownUp:
+                case RendOrder.Size3DownUp:
                     CreateSpriteDrawSize3DownUp(spriteBatch, isCentered); break;
-                case _rendOrder.Size3RightLeft:
+                case RendOrder.Size3RightLeft:
                     CreateSpriteDrawSize3RightLeft(spriteBatch, isCentered); break;
-                case _rendOrder.Size4:
+                case RendOrder.Size4:
                     CreateSpriteDrawSize4(spriteBatch, isCentered); break;
                 default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
             }

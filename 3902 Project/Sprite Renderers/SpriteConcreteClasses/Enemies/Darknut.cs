@@ -46,7 +46,7 @@ namespace _3902_Project
         private ProjectileManager.ProjectileNames _blueArrow = ProjectileManager.ProjectileNames.BlueArrow;
         private ISprite _projectileBlueArrow;
         // variables specific to Darknuts implementation of the projectile sprite
-        private float _blueArrowPrintScale = 3.5F;
+        private float _blueArrowPrintScale = 4F;
         private float _blueArrowSpeed = 3F;
         private float[] _blueArrowFrameRange = { 0.85F }; // read summary in respective Projectile Concrete Classes for explanation
         private int _blueArrowCounter = 0;
@@ -69,7 +69,7 @@ namespace _3902_Project
                 new Renderer(Renderer.STATUS.Animated, _enemySpritesheet, _spriteRightLeftPosition, _spriteRightLeftDimensions, _spritePrintDimensions * _printScale, _spriteRightLeftRowAndColumns, _frameRate)
             };
             // create and assign what type of renderer list it is, and if it is centered
-            _rendererList = new RendererLists(_rendererListArray, RendererLists._rendOrder.Size3RightLeft, true);
+            _rendererList = new RendererLists(_rendererListArray, RendererLists.RendOrder.Size3RightLeft);
         }
 
 
@@ -94,7 +94,7 @@ namespace _3902_Project
             _rendererList.SetPositions(_position);
 
             // set direction periodically
-            if (_moveCounter == 0) { _updatePosition = _rendererList.CreateRandomMovement(_positionSpeed, _updatePosition); }
+            if (_moveCounter == 0) { _updatePosition = _rendererList.CreateRandomMovement(_positionSpeed); }
 
             // increase before assignment so that it runs again
             _moveCounter++;
@@ -103,7 +103,11 @@ namespace _3902_Project
             if (_moveCounter == _moveTotal) { _moveCounter = 0; }
 
             // set a new projectile
-            if (_blueArrowCounter == 0) { _projectileBlueArrow = _rendererList.CreateProjectile(_projectileManager, _blueArrow, _blueArrowTotal, _blueArrowSpeed, _blueArrowPrintScale, _blueArrowFrameRange); }
+            if (_blueArrowCounter == 10) 
+            {
+                _updatePosition = new(0, 0);
+                _projectileBlueArrow = _rendererList.CreateProjectile(_projectileManager, _blueArrow, _blueArrowTotal, _blueArrowSpeed, _blueArrowPrintScale, _blueArrowFrameRange); 
+            }
 
             // increase before assignment so that it runs again
             _blueArrowCounter++;
@@ -116,8 +120,6 @@ namespace _3902_Project
 
             // needed to constantly update the frames
             _rendererList.CreateUpdateFrames();
-
-
         }
 
         /// <summary>

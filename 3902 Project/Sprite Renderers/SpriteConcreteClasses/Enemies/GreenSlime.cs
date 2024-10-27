@@ -75,7 +75,7 @@ namespace _3902_Project
                     default: break;
                 }
                 _enemy.SetDirection(_direction);
-                _updatePosition = _enemy.GetUpdatePosition(_positionSpeed);
+                _updatePosition = _enemy.GetUpdatePosition((int)_direction, _positionSpeed);
 
                 _moveCounter = 0; // Reset the timer
             }

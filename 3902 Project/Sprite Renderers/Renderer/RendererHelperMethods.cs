@@ -8,25 +8,30 @@ namespace _3902_Project
     {
         public Vector2 PositionAhead(Rectangle destinationRectangle)
         {
+            // commented out old place in front code since it may affect how collision is running
             switch ((int)_directionNumber)
             {
                 case 0: // DOWN
-                    return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y + (int)destinationRectangle.Height);
+                    // return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y + (int)destinationRectangle.Height);
+                    return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y);
                 case 1: // UP
-                    return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y - (int)destinationRectangle.Height);
+                    // return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y - (int)destinationRectangle.Height);
+                    return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y);
                 case 2: // RIGHT
-                    return new Vector2((int)destinationRectangle.X + (int)destinationRectangle.Width, (int)destinationRectangle.Y);
+                    // return new Vector2((int)destinationRectangle.X + (int)destinationRectangle.Width, (int)destinationRectangle.Y);
+                    return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y);
                 case 3: // LEFT
-                    return new Vector2((int)destinationRectangle.X - (int)destinationRectangle.Width, (int)destinationRectangle.Y);
+                    // return new Vector2((int)destinationRectangle.X - (int)destinationRectangle.Width, (int)destinationRectangle.Y);
+                    return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y);
                 default: throw new ArgumentException("Invalid direction type in PositionAhead");
             }
         }
 
 
-        public Vector2 GetUpdatePosition(float positionSpeed)
+        public Vector2 GetUpdatePosition(int direction, float positionSpeed)
         {
             // movement variables
-            switch ((int)_directionNumber)
+            switch (direction)
             {
                 case 0: // DOWN
                     return new Vector2(0, Math.Abs(positionSpeed));

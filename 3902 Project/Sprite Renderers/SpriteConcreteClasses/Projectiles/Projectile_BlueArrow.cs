@@ -21,6 +21,8 @@ namespace _3902_Project
         private Vector2 _spriteDimensions_ExplodeArrow = new (8, 8);
 
         private float[] _frameRanges;
+        private RendererLists _rendererList;
+        private int[] _directionArray = { 1, 0, 2, 3 };
 
         // create timers, movement and speed variables
         private int _timerCounter;
@@ -58,10 +60,12 @@ namespace _3902_Project
             _positionSpeed = speed;
             _timerTotal = timer;
             _frameRanges = frameRanges;
-            // create renders of the bomb projectile
+            // create renders of the blue arrow projectile
             _upDownArrow = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition_UpDownArrow, _spriteDimensions_UpDownArrow, _spriteDimensions_UpDownArrow * printScale);
             _rightLeftArrow = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition_RightLeftArrow, _spriteDimensions_RightLeftArrow, _spriteDimensions_RightLeftArrow * printScale);
-            _explodeArrow = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition_ExplodeArrow, _spriteDimensions_ExplodeArrow, _spriteDimensions_ExplodeArrow * printScale / 2);
+            Renderer[] _rendererListArray = { _upDownArrow, _rightLeftArrow };
+            _rendererList = new RendererLists(_rendererListArray, RendererLists.RendOrder.Size2, _directionArray);
+            _explodeArrow = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition_ExplodeArrow, _spriteDimensions_ExplodeArrow, _spriteDimensions_ExplodeArrow * (printScale * 0.75F));
         }
 
 
@@ -70,12 +74,9 @@ namespace _3902_Project
         /// </summary>
         public Vector2 GetPosition()
         {
-            if (_direction == Renderer.DIRECTION.DOWN || _direction == Renderer.DIRECTION.UP)
-                return _upDownArrow.GetPosition();
-            else if (_direction == Renderer.DIRECTION.RIGHT || _direction == Renderer.DIRECTION.LEFT)
-                return _rightLeftArrow.GetPosition();
-            else
+            if (_timerCounter >= (_timerTotal * _frameRanges[0]))
                 return _explodeArrow.GetPosition();
+            else return _rendererList.GetOnePosition();
         }
 
 
@@ -85,8 +86,7 @@ namespace _3902_Project
         public void SetPosition(Vector2 position)
         {
             _position = position;
-            _upDownArrow.SetPosition(position);
-            _rightLeftArrow.SetPosition(position);
+            _rendererList.SetPositions(position);
             _explodeArrow.SetPosition(position);
         }
 
@@ -97,23 +97,15 @@ namespace _3902_Project
         public void Update()
         {
             // set positions at every update
-            _upDownArrow.SetPosition(_position);
-            _rightLeftArrow.SetPosition(_position);
+            _rendererList.SetPositions(_position);
             _explodeArrow.SetPosition(_position);
 
-            // get updated position
+            // if in exploding arrow frame, pause the movement for explosion sprite
             if (_timerCounter >= (_timerTotal * _frameRanges[0]))
                 _updatePosition = new Vector2(0, 0);
-            else if (_direction == Renderer.DIRECTION.DOWN || _direction == Renderer.DIRECTION.UP)
-            {
-                _upDownArrow.SetDirection(_direction);
-                _updatePosition = _upDownArrow.GetUpdatePosition(_positionSpeed);
-            }
-            else if (_direction == Renderer.DIRECTION.RIGHT || _direction == Renderer.DIRECTION.LEFT)
-            {
-                _rightLeftArrow.SetDirection(_direction);
-                _updatePosition = _rightLeftArrow.GetUpdatePosition(_positionSpeed);
-            }
+            else
+                // else update the arrow movement
+                _updatePosition = _rendererList.CreateMovement((int)_direction, _positionSpeed);
 
             // update position and movement counter
             _position += _updatePosition;
@@ -132,25 +124,7 @@ namespace _3902_Project
                 _explodeArrow.DrawCentered(spriteBatch, _explodeArrow.GetSourceRectangle());
             // else in normal frame
             else
-            {
-                // create sourceRectangle of arrow based on direction
-                switch ((int)_direction)
-                {
-                    case 0: // DOWN
-                        _upDownArrow.DrawVerticallyFlipped(spriteBatch, true);
-                        break;
-                    case 1: // UP
-                        _upDownArrow.DrawCentered(spriteBatch, _upDownArrow.GetSourceRectangle());
-                        break;
-                    case 2: // RIGHT
-                        _rightLeftArrow.DrawCentered(spriteBatch, _rightLeftArrow.GetSourceRectangle());
-                        break;
-                    case 3: // LEFT
-                        _rightLeftArrow.DrawHorizontallyFlipped(spriteBatch, true);
-                        break;
-                    default: throw new ArgumentException("Invalid projectile direction");
-                }
-            }
+                _rendererList.CreateSpriteDraw(spriteBatch, true);
         }
     }
 }

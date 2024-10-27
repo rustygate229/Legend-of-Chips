@@ -11,13 +11,13 @@ namespace _3902_Project
         {
             switch(_rendListType)
             {
-                case _rendOrder.Size2:
+                case RendOrder.Size2:
                     CreateUpdateFramesSize2(); break;
-                case _rendOrder.Size3DownUp:
+                case RendOrder.Size3DownUp:
                     CreateUpdateFramesSize3DownUp(); break;
-                case _rendOrder.Size3RightLeft:
+                case RendOrder.Size3RightLeft:
                     CreateUpdateFramesSize3RightLeft(); break;
-                case _rendOrder.Size4:
+                case RendOrder.Size4:
                     CreateUpdateFramesSize4(); break;
                 default: throw new ArgumentException("Invalid direction for CreateProjectile");
             }

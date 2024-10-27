@@ -1,56 +1,28 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 
 namespace _3902_Project
 {
     public partial class RendererLists
     {
-        private Renderer[] _rendererList;
-        public enum _rendOrder { Size2, Size3DownUp, Size3RightLeft, Size4 }
-        private _rendOrder _rendListType;
-        private Renderer.DIRECTION _direction;
-        private bool _centered;
-
-        // case 1: Size2
-        private Renderer _rendDownUp;
-        private Renderer _rendRightLeft;
-        // case 2 - 4: Size3DownUp, Size3RightLeft, Size4
-        private Renderer _rendDown;
-        private Renderer _rendUp;
-        private Renderer _rendRight;
-        private Renderer _rendLeft;
-
-        private Random _random = new Random();
-
-        public RendererLists(Renderer[] rendererList, _rendOrder order, bool isCentered)
-        {
-            _rendererList = rendererList;
-            _rendListType = order;
-            _centered = isCentered;
-            SetRenderers();
-        }
-
         public void SetRenderers()
         {
             switch (_rendListType)
             {
-                case _rendOrder.Size2:
+                case RendOrder.Size2:
                     _rendDownUp = _rendererList[0];
                     _rendRightLeft = _rendererList[1];
                     break;
-                case _rendOrder.Size3DownUp:
+                case RendOrder.Size3DownUp:
                     _rendDownUp = _rendererList[0];
                     _rendRight = _rendererList[1];
                     _rendLeft = _rendererList[2];
                     break;
-                case _rendOrder.Size3RightLeft:
+                case RendOrder.Size3RightLeft:
                     _rendDown = _rendererList[0];
                     _rendUp = _rendererList[1];
                     _rendRightLeft = _rendererList[2];
                     break;
-                case _rendOrder.Size4:
+                case RendOrder.Size4:
                     _rendDown = _rendererList[0];
                     _rendUp = _rendererList[1];
                     _rendRight = _rendererList[2];
@@ -59,32 +31,43 @@ namespace _3902_Project
             }
         }
 
-        public void SetDirection(Renderer.DIRECTION direction) { _direction = direction; }
-
         public Renderer[] GetList() { return _rendererList; }
+
+        public void SetDirection(int directionValue) 
+        {
+            if (directionValue == _directionArray[0])
+                _direction = Renderer.DIRECTION.DOWN;
+            else if (directionValue ==  _directionArray[1])
+                _direction = Renderer.DIRECTION.UP;
+            else if (directionValue == _directionArray[2])
+                _direction = Renderer.DIRECTION.RIGHT;
+            else if (directionValue == _directionArray[3])
+                _direction = Renderer.DIRECTION.LEFT;
+
+        }
 
         public Vector2 GetOnePosition()
         {
             Vector2 gettingPosition = new(0, 0);
             switch (_rendListType)
             {
-                case _rendOrder.Size2:
+                case RendOrder.Size2:
                     if (_direction == Renderer.DIRECTION.DOWN || _direction == Renderer.DIRECTION.UP)
                         gettingPosition = _rendDownUp.GetPosition();
                     else if (_direction == Renderer.DIRECTION.RIGHT || _direction == Renderer.DIRECTION.LEFT)
                         gettingPosition = _rendRightLeft.GetPosition();
                     break;
-                case _rendOrder.Size3DownUp:
+                case RendOrder.Size3DownUp:
                     if (_direction == Renderer.DIRECTION.RIGHT) { gettingPosition = _rendRight.GetPosition(); }
                     else if (_direction == Renderer.DIRECTION.LEFT) { gettingPosition = _rendLeft.GetPosition(); }
                     else { gettingPosition = _rendDownUp.GetPosition(); }
                     break;
-                case _rendOrder.Size3RightLeft:
+                case RendOrder.Size3RightLeft:
                     if (_direction == Renderer.DIRECTION.DOWN) { gettingPosition = _rendDown.GetPosition(); }
                     else if (_direction == Renderer.DIRECTION.UP) { gettingPosition = _rendUp.GetPosition(); }
                     else { gettingPosition = _rendRightLeft.GetPosition(); }
                     break;
-                case _rendOrder.Size4:
+                case RendOrder.Size4:
                     switch (_direction)
                     {
                         case Renderer.DIRECTION.DOWN:
@@ -107,21 +90,21 @@ namespace _3902_Project
         {
             switch (_rendListType)
             {
-                case _rendOrder.Size2:
+                case RendOrder.Size2:
                     _rendDownUp.SetPosition(position);
                     _rendRightLeft.SetPosition(position);
                     break;
-                case _rendOrder.Size3DownUp:
+                case RendOrder.Size3DownUp:
                     _rendDownUp.SetPosition(position);
                     _rendRight.SetPosition(position);
                     _rendLeft.SetPosition(position);
                     break;
-                case _rendOrder.Size3RightLeft:
+                case RendOrder.Size3RightLeft:
                     _rendDown.SetPosition(position);
                     _rendUp.SetPosition(position);
                     _rendRightLeft.SetPosition(position);
                     break;
-                case _rendOrder.Size4:
+                case RendOrder.Size4:
                     _rendDown.SetPosition(position);
                     _rendUp.SetPosition(position);
                     _rendRight.SetPosition(position);

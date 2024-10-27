@@ -11,13 +11,13 @@ namespace _3902_Project
         {
             switch(_rendListType)
             {
-                case _rendOrder.Size2:
+                case RendOrder.Size2:
                     return CreateProjectileSize2(manager, projectileName, timer, speed, printScale, frameRanges);
-                case _rendOrder.Size3DownUp:
+                case RendOrder.Size3DownUp:
                     return CreateProjectileSize3DownUp(manager, projectileName, timer, speed, printScale, frameRanges);
-                case _rendOrder.Size3RightLeft:
+                case RendOrder.Size3RightLeft:
                     return CreateProjectileSize3RightLeft(manager, projectileName, timer, speed, printScale, frameRanges);
-                case _rendOrder.Size4:
+                case RendOrder.Size4:
                     return CreateProjectileSize4(manager, projectileName, timer, speed, printScale, frameRanges);
                 default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
             }
