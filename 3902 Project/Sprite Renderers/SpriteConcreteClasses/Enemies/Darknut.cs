@@ -39,9 +39,9 @@ namespace _3902_Project
         private float _positionSpeed;
         private static Random _random = new Random();
 
-        // variables for shooting projectile
-        private ISprite _projectileBlueArrow;
+        // variables for shooting arrow projectile
         private ProjectileManager _projectileManager;
+        private ISprite _projectileBlueArrow;
         private ProjectileManager.ProjectileNames _blueArrow = ProjectileManager.ProjectileNames.BlueArrow;
         private float _blueArrowPrintScale = 3.5F;
         // variables specific to Darknuts implementation of the blue arrow sprite
@@ -49,6 +49,16 @@ namespace _3902_Project
         private int _blueArrowTotal = 200; // cool down value for firing projectiles
         private float _blueArrowSpeed = 3F;
         private float[] _blueArrowFrameRange = { 0.85F }; // read summary in respective Projectile Concrete Classes for explanation
+
+        // variables for shooting arrow projectile
+        private ISprite _projectileBomb;
+        private ProjectileManager.ProjectileNames _bomb = ProjectileManager.ProjectileNames.Bomb;
+        private float _bombPrintScale = 3.5F;
+        // variables specific to Darknuts implementation of the blue arrow sprite
+        private int _bombCounter;
+        private int _bombTotal = 150; // cool down value for firing projectiles
+        private float _bombSpeed = 3F;
+        private float[] _bombFrameRange = { 0.50F, 0.70F }; // read summary in respective Projectile Concrete Classes for explanation
 
 
         /// <summary>
@@ -105,7 +115,7 @@ namespace _3902_Project
             _rendererList.CreateUpdateFrames();
 
             // set a new projectile
-            if (_blueArrowCounter == 10) 
+            if (_blueArrowCounter == 0) 
             {
                 _updatePosition = new(0, 0);
                 _projectileBlueArrow = _rendererList.CreateProjectile(_projectileManager, _blueArrow, _blueArrowTotal, _blueArrowSpeed, _blueArrowPrintScale, _blueArrowFrameRange); 
@@ -114,6 +124,17 @@ namespace _3902_Project
             _blueArrowCounter++;
             // reset projectile clock
             if (_blueArrowCounter == _blueArrowTotal) { _blueArrowCounter = 0; _projectileManager.UnloadProjectile(_projectileBlueArrow); }
+
+            // set a new projectile
+            if (_bombCounter == 20)
+            {
+                _updatePosition = new(0, 0);
+                _projectileBlueArrow = _rendererList.CreateProjectile(_projectileManager, _bomb, _bombTotal, _bombSpeed, _bombPrintScale, _bombFrameRange);
+            }
+            // increase before assignment so that it runs again
+            _bombCounter++;
+            // reset projectile clock
+            if (_bombCounter == _bombTotal) { _bombCounter = 0; _projectileManager.UnloadProjectile(_projectileBlueArrow); }
 
             // update position
             _position += _updatePosition;

@@ -58,8 +58,8 @@ namespace _3902_Project
             _direction = facingDirection;
             _timerTotal = timer;
             _frameRanges = frameRanges;
-            _bombFire_Frames = (int)((_timerTotal * (1 - frameRanges[0])) / 2);
-            _bombCloud_Frames = (int)((_timerTotal * (1 - frameRanges[1])) / 2);
+            _bombFire_Frames = (int)((_timerTotal * (1 - frameRanges[0])) / 4);
+            _bombCloud_Frames = (int)(_timerTotal * (1 - frameRanges[1]));
             // create renders of the bomb projectile
             _bomb = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition_Bomb, _spriteDimensions_Bomb, _spriteDimensions_Bomb * printScale);
             _bombFire = new Renderer(Renderer.STATUS.SingleAnimated, _spriteSheet, _spritePosition_BombFire, _spriteDimensions_BombFire, _spriteDimensions_BombFire * printScale, _spriteRowAndColumn_BombFire, _bombFire_Frames);
@@ -96,6 +96,8 @@ namespace _3902_Project
         public void Update()
         {
             _timerCounter++;
+            _bombFire.UpdateFrames();
+            _bombCloud.UpdateFrames();
         }
 
 
@@ -105,9 +107,9 @@ namespace _3902_Project
         /// <param name="spriteBatch"
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (_timerCounter < _timerTotal * 0.5)
+            if (_timerCounter < _timerTotal * _frameRanges[0])
                 _bomb.DrawCentered(spriteBatch, _bomb.GetSourceRectangle());
-            else if (_timerCounter < _timerTotal * 0.7)
+            else if (_timerCounter < _timerTotal * _frameRanges[1])
                 _bombFire.DrawCentered(spriteBatch, _bombFire.GetSourceRectangle());
             else
                 _bombCloud.DrawCentered(spriteBatch, _bombCloud.GetSourceRectangle());
