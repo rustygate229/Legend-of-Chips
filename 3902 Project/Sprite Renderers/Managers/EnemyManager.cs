@@ -36,7 +36,6 @@ namespace _3902_Project
             _factory.SetManager(_manager);
 
             collisionBoxes = new List<ICollisionBox>();
-            AddEnemy(EnemyNames.BrownSlime, new Vector2(300, 200));
         }
 
 
@@ -51,9 +50,9 @@ namespace _3902_Project
         /// </summary>
         /// <param name="name"></param>
         /// <param name="placementPosition"></param>
-        public void AddEnemy(EnemyNames name, Vector2 placementPosition)
+        public ISprite AddEnemy(EnemyNames name, Vector2 placementPosition, float printScale, float spriteSpeed, int moveTotalTimerTotal, int frames)
         {
-            ISprite currentSprite = _factory.CreateEnemy(name);
+            ISprite currentSprite = _factory.CreateEnemy(name, printScale, spriteSpeed, moveTotalTimerTotal, frames);
 
             //hardcoded for now for demo purposes - assumes it is a brown slime CHANGE LATER PLEASE
             Vector2 xy = (currentSprite).GetPosition();
@@ -62,6 +61,8 @@ namespace _3902_Project
 
             currentSprite.SetPosition(placementPosition);
             _runningEnemies.Add(currentSprite);
+
+            return currentSprite;
         }
 
 
@@ -69,10 +70,7 @@ namespace _3902_Project
         /// Remove/Unload an enemy from the enemy list based on it's ISprite
         /// </summary>
         /// <param name="name"></param>
-        public void UnloadEnemy(ISprite sprite, Vector2 position)
-        {
-            
-        }
+        public void UnloadEnemy(ISprite sprite) { _runningEnemies.Remove(sprite); }
 
 
         /// <summary>

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 using System;
+using static _3902_Project.Renderer;
 
 namespace _3902_Project
 {
@@ -52,6 +53,16 @@ namespace _3902_Project
 
             // Add more enemy types as necessary by specifying their source rectangles and positions
             // public ISprite OtherProjectile() { ... }
+        }
+
+        public ISprite CreateProjectile(ProjectileManager.ProjectileNames projectileName, Renderer.DIRECTION direction, int timer, float speed, float printScale, int frames)
+        {
+            switch(projectileName)
+            {
+                case ProjectileManager.ProjectileNames.FireBall:
+                    return new Projectile_FireBall(_enemySpriteSheet, direction, timer, speed, printScale, frames);
+                default: throw new ArgumentException("Invalid projectile name");
+            }
         }
     }
 }

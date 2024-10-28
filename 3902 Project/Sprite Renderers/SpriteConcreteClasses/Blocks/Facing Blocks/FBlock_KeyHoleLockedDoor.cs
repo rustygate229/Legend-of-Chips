@@ -12,95 +12,63 @@ namespace _3902_Project
         private Renderer.DIRECTION _direction;
 
         // variables to change based on where your block is and what to print out
-        private Vector2 _spriteDownUpPosition = new Vector2(815, 11);
-        private Vector2 _spriteDownUpDimensions = new Vector2(32, 32);
+        private Vector2 _spriteDownPosition = new Vector2(881, 11);
+        private Vector2 _spriteDownDimensions = new Vector2(32, 32);
 
-        private Vector2 _spriteRightLeftPosition = new Vector2(815, 44);
-        private Vector2 _spriteRightLeftDimensions = new Vector2(32, 32);
+        private Vector2 _spriteUpPosition = new Vector2(881, 110);
+        private Vector2 _spriteUpDimensions = new Vector2(32, 32);
 
-        private Vector2 _spritePrintDimensions = new Vector2(256, 256);
+        private Vector2 _spriteRightPosition = new Vector2(881, 44);
+        private Vector2 _spriteRightDimensions = new Vector2(32, 32);
+
+        private Vector2 _spriteLeftPosition = new Vector2(881, 77);
+        private Vector2 _spriteLeftDimensions = new Vector2(32, 32);
 
         // create a Renderer object
-        private Renderer _blockDownUp;
-        private Renderer _blockRightLeft;
+        private Renderer _blockDown;
+        private Renderer _blockUp;
+        private Renderer _blockRight;
+        private Renderer _blockLeft;
+        private RendererLists _rendererList;
 
 
         /// <summary>
         /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
         /// </summary>
-        public FBlock_KeyHoleLockedDoor(Texture2D spriteSheet, Renderer.DIRECTION facingDirection)
+        public FBlock_KeyHoleLockedDoor(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale)
         {
             _spriteSheet = spriteSheet;
             _direction = facingDirection;
-            _blockDownUp = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteDownUpPosition, _spriteDownUpDimensions, _spritePrintDimensions);
-            _blockRightLeft = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteRightLeftPosition, _spriteRightLeftDimensions, _spritePrintDimensions);
+            _blockDown = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteDownPosition, _spriteDownDimensions, _spriteDownDimensions * printScale);
+            _blockUp = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteUpPosition, _spriteUpDimensions, _spriteUpDimensions * printScale);
+            _blockRight = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteRightPosition, _spriteRightDimensions, _spriteRightDimensions * printScale);
+            _blockLeft = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteLeftPosition, _spriteLeftDimensions, _spriteLeftDimensions * printScale);
+            Renderer[] rendererList = { _blockDown, _blockUp, _blockRight, _blockLeft };
+            _rendererList = new RendererLists(rendererList, RendererLists.RendOrder.Size4);
         }
 
 
         /// <summary>
         /// Passes to the Renderer GetPosition method
         /// </summary>
-        public Vector2 GetPosition()
-        {
-            if (_direction == Renderer.DIRECTION.DOWN || _direction == Renderer.DIRECTION.UP)
-                return _blockDownUp.GetPosition();
-            else return _blockRightLeft.GetPosition();
-        }
+        public Vector2 GetPosition() { return _rendererList.GetOnePosition(); }
 
 
         /// <summary>
         /// Passes to the Renderer SetPosition method
         /// </summary>
-        public void SetPosition(Vector2 position)
-        {
-            _position = position;
-            if (_direction == Renderer.DIRECTION.DOWN || _direction == Renderer.DIRECTION.UP)
-                _blockDownUp.SetPosition(position);
-            else _blockRightLeft.SetPosition(position);
-        }
+        public void SetPosition(Vector2 position) { _rendererList.SetPositions(position); }
 
 
         /// <summary>
         /// Updates the block (movement, animation, etc.)
         /// </summary>
-        public void Update()
-        {
-        }
+        public void Update() { }
 
 
         /// <summary>
         /// Draws the block in the given SpriteBatch
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            int[] sR;
-            Rectangle destinationRectangle;
-            Rectangle sourceRectangle;
-
-            if (_direction == Renderer.DIRECTION.DOWN)
-            {
-                sR = _blockDownUp.GetSourceRectangleArray();
-                sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
-
-                if (_direction == Renderer.DIRECTION.UP)
-                    sourceRectangle = new Rectangle(sR[0], sR[1] + sR[3], sR[2], -sR[3]);
-
-                destinationRectangle = _blockDownUp.GetDestinationRectangle();
-            }
-            else
-            {
-                sR = _blockRightLeft.GetSourceRectangleArray();
-                sourceRectangle = new Rectangle(sR[0], sR[1], sR[2], sR[3]);
-
-                if (_direction == Renderer.DIRECTION.LEFT)
-                    sourceRectangle = new Rectangle(sR[0] + sR[2], sR[1], -sR[2], sR[3]);
-
-                destinationRectangle = _blockRightLeft.GetDestinationRectangle();
-            }
-
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);
-            spriteBatch.End();
-        }
+        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch, false); }
     }
 }

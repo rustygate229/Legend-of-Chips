@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using static _3902_Project.BlockManager;
 
 namespace _3902_Project
 {
@@ -11,12 +9,9 @@ namespace _3902_Project
     {
         // create block names for finding them
         public enum BlockNames 
-        { 
-            BombedDoor_DOWN, BombedDoor_UP, BombedDoor_RIGHT, BombedDoor_LEFT, DiamondHoleLockedDoor_DOWN, DiamondHoleLockedDoor_UP, 
-            DiamondHoleLockedDoor_RIGHT, DiamondHoleLockedDoor_LEFT, KeyHoleLockedDoor_DOWN, KeyHoleLockedDoor_UP, KeyHoleLockedDoor_RIGHT, 
-            KeyHoleLockedDoor_LEFT, OpenDoor_DOWN, OpenDoor_UP, OpenDoor_RIGHT, OpenDoor_LEFT, Wall_DOWN, Wall_UP, Wall_RIGHT, Wall_LEFT,
-            Stairs_RIGHT, Stairs_LEFT, StatueDragon_RIGHT, StatueDragon_LEFT, StatueFish_RIGHT, StatueFish_LEFT,
-            Environment, Dirt, Square, Tile, WhiteBrick, WhiteTile
+        {
+            Environment, Dirt, Square, Tile, WhiteBrick, WhiteTile,
+            BombedDoor, DiamondHoleLockedDoor, KeyHoleLockedDoor, OpenDoor, Wall, Stairs, StatueDragon, StatueFish
         }
 
         // block dictionary/inventory
@@ -48,22 +43,52 @@ namespace _3902_Project
         /// </summary>
         /// <param name="name"></param>
         /// <param name="placementPosition"></param>
-        public void AddBlock(BlockNames name, Vector2 placementPosition)
+        /// <param name="printScale"></param>
+        public ISprite AddBlock(BlockNames name, Vector2 placementPosition, float printScale)
         {
-            ISprite currentSprite = _factory.CreateBlock(name);
+            ISprite currentSprite = _factory.CreateBlock(name, printScale);
             currentSprite.SetPosition(placementPosition);
             _runningBlocks.Add(currentSprite);
+            return currentSprite;
+        }
+
+        /// <summary>
+        /// Add an block to the running block list
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="placementPosition"></param>
+        /// <param name="printScale"></param>
+        /// <param name="direction"></param>
+        public ISprite AddBlock(BlockNames name, Vector2 placementPosition, Renderer.DIRECTION direction, float printScale)
+        {
+            ISprite currentSprite = _factory.CreateBlock(name, direction, printScale);
+            currentSprite.SetPosition(placementPosition);
+            _runningBlocks.Add(currentSprite);
+            return currentSprite;
+        }
+
+        /// <summary>
+        /// Add an block to the running block list
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="placementPosition"></param>
+        /// <param name="printScale"></param>
+        /// <param name="direction"></param>
+        /// <param name="speed"></param>
+        public ISprite AddBlock(BlockNames name, Vector2 placementPosition, Renderer.DIRECTION direction, float speed, float printScale)
+        {
+            ISprite currentSprite = _factory.CreateBlock(name, direction, speed, printScale);
+            currentSprite.SetPosition(placementPosition);
+            _runningBlocks.Add(currentSprite);
+            return currentSprite;
         }
 
 
         /// <summary>
         /// Remove/Unload an block from the block list based on it's ISprite
         /// </summary>
-        /// <param name="name"></param>
-        public void UnloadBlock()
-        {
-            _runningBlocks.Remove((ISprite)this);
-        }
+        /// <param name="sprite"></param>
+        public void UnloadBlock(ISprite sprite) { _runningBlocks.Remove(sprite); }
 
 
         /// <summary>

@@ -11,7 +11,7 @@ namespace _3902_Project
         private int _statusNumber = 0;
 
         public enum DIRECTION { DOWN, UP, RIGHT, LEFT }
-        private int _directionNumber = 0;
+        private DIRECTION _direction;
 
 
         // NON-ANIMATED SPRITE

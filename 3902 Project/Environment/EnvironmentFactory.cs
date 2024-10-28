@@ -72,10 +72,11 @@ namespace _3902_Project
             _csvTranslationsEnemy.Add("b", EnemyManager.EnemyNames.BrownSlime);
             _csvTranslationsEnemy.Add("d", EnemyManager.EnemyNames.Darknut);
             
+            /*
             _csvTranslationsItem.Add("fs", ItemManager.ItemNames.FlashingScripture);
             _csvTranslationsItem.Add("fp", ItemManager.ItemNames.FlashingPotion);
             _csvTranslationsItem.Add("bk", ItemManager.ItemNames.BossKey);
-            _csvTranslationsItem.Add("c", ItemManager.ItemNames.Compass);
+            */
 
         }
 
@@ -125,11 +126,11 @@ namespace _3902_Project
             string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Levels/Level" + _level.ToString() + ".csv";
             _environment = ReadCsvFile(filepath);
 
-            _blockManager.AddBlock(BlockManager.BlockNames.Environment, new Vector2(0, 0));
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN, new Vector2(448, 0));
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_UP, new Vector2(448, 572));
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT, new Vector2(0, 286));
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT, new Vector2(1024 - 128, 286));
+            _blockManager.AddBlock(BlockManager.BlockNames.Environment, new Vector2(0, 0), 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor, new Vector2(448, 0), Renderer.DIRECTION.DOWN, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor, new Vector2(448, 576), Renderer.DIRECTION.UP, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor, new Vector2(0, 288), Renderer.DIRECTION.RIGHT, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor, new Vector2(1024 - 128, 288), Renderer.DIRECTION.LEFT, 4F);
 
 
             for (int i = 0; i < _environment.Count; i++)
@@ -137,7 +138,14 @@ namespace _3902_Project
                 for (int j = 0; j < _environment[i].Count; j++)
                 {
                     string blockToPlace = _environment[i][j];
-                    _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
+                    ISprite currentBlock;
+
+                    if (blockToPlace == "-")
+                        currentBlock = _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 4F);
+                    else if (blockToPlace == "s")
+                        currentBlock = _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 4F);
+                    else if (blockToPlace == "d")
+                        currentBlock = _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 4F);
                 }
             }
         }
@@ -152,15 +160,22 @@ namespace _3902_Project
                 for (int j = 0; j < _enemies[i].Count; j++)
                 {
                     string enemyToPlace = _enemies[i][j];
+                    ISprite currentEnemy;
 
                     if (enemyToPlace != "-")
                     {
-                        _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
+                        if (enemyToPlace == "g")
+                            currentEnemy = _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 3F, 3F, 50, 30);
+                        else if (enemyToPlace == "b")
+                            currentEnemy = _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 3F, 3F, 50, 30);
+                        else if (enemyToPlace == "d")
+                            currentEnemy = _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 4F, 2F, 50, 30);
                     }
                 }
             }
         }
 
+        /*
         private void loadItems()
         {
             string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Items/Item" + _level.ToString() + ".csv";
@@ -171,20 +186,26 @@ namespace _3902_Project
                 for (int j = 0; j < _items[i].Count; j++)
                 {
                     string itemToPlace = _items[i][j];
+                    ISprite currentItem;
 
                     if (itemToPlace != "-")
                     {
-                        _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)));
+                        if (itemToPlace == "fs" || itemToPlace == "fp")
+                            currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 2F, 12);
+                        else if (itemToPlace == "bk")
+                            currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 2F);
+
                     }
                 }
             }
         }
+        */
 
         public void loadLevel()
         {
             loadBlocks();
             loadEnemies();
-            loadItems();
+            // loadItems();
         }
 
         public void incrementLevel()

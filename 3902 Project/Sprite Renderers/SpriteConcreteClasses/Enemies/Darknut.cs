@@ -32,41 +32,42 @@ namespace _3902_Project
 
         private RendererLists _rendererList;
 
-        private float _printScale = 4F;
-        private int _frameRate = 20;
-
         // variables for moving the enemy
-        private int _moveCounter = 0;
-        private int _moveTotal = 40;
-        private int _positionSpeed = 2;
+        private int _moveCounter;
+        private int _moveTotal;
+        private int _frameRate;
+        private float _positionSpeed;
         private static Random _random = new Random();
 
         // variables for shooting projectile
+        private ISprite _projectileBlueArrow;
         private ProjectileManager _projectileManager;
         private ProjectileManager.ProjectileNames _blueArrow = ProjectileManager.ProjectileNames.BlueArrow;
-        private ISprite _projectileBlueArrow;
-        // variables specific to Darknuts implementation of the projectile sprite
-        private float _blueArrowPrintScale = 4F;
+        private float _blueArrowPrintScale = 3.5F;
+        // variables specific to Darknuts implementation of the blue arrow sprite
+        private int _blueArrowCounter;
+        private int _blueArrowTotal = 200; // cool down value for firing projectiles
         private float _blueArrowSpeed = 3F;
         private float[] _blueArrowFrameRange = { 0.85F }; // read summary in respective Projectile Concrete Classes for explanation
-        private int _blueArrowCounter = 0;
-        private int _blueArrowTotal = 200; // cool down value for firing projectiles
 
 
         /// <summary>
         /// Constructs the enemy (set values, create Rendering, etc.); takes the Enemy Spritesheet
         /// </summary>
         /// <param name="spriteSheet"></param>
-        public Darknut(Texture2D spriteSheet, ProjectileManager manager)
+        public Darknut(Texture2D spriteSheet, ProjectileManager manager, float printScale, float spriteSpeed, int moveTotalTimer, int frames)
         {
             _enemySpritesheet = spriteSheet;
             _projectileManager = manager;
+            _positionSpeed = spriteSpeed;
+            _moveTotal = moveTotalTimer;
+            _frameRate = frames;
             // create our renderer list
             Renderer[] _rendererListArray = // positions in array correlate to above positions, usually: DOWN, UP, RIGHT, LEFT
             {
-                new Renderer(Renderer.STATUS.Animated, _enemySpritesheet, _spriteDownPosition, _spriteDownDimensions, _spritePrintDimensions * _printScale, _spriteDownRowAndColumns, _frameRate),
-                new Renderer(Renderer.STATUS.SingleAnimated, _enemySpritesheet, _spriteUpPosition, _spriteUpDimensions, _spritePrintDimensions * _printScale, _spriteUpRowAndColumns, _frameRate),
-                new Renderer(Renderer.STATUS.Animated, _enemySpritesheet, _spriteRightLeftPosition, _spriteRightLeftDimensions, _spritePrintDimensions * _printScale, _spriteRightLeftRowAndColumns, _frameRate)
+                new Renderer(Renderer.STATUS.Animated, _enemySpritesheet, _spriteDownPosition, _spriteDownDimensions, _spritePrintDimensions * printScale, _spriteDownRowAndColumns, _frameRate),
+                new Renderer(Renderer.STATUS.SingleAnimated, _enemySpritesheet, _spriteUpPosition, _spriteUpDimensions, _spritePrintDimensions * printScale, _spriteUpRowAndColumns, _frameRate),
+                new Renderer(Renderer.STATUS.Animated, _enemySpritesheet, _spriteRightLeftPosition, _spriteRightLeftDimensions, _spritePrintDimensions * printScale, _spriteRightLeftRowAndColumns, _frameRate)
             };
             // create and assign what type of renderer list it is, and if it is centered
             _rendererList = new RendererLists(_rendererListArray, RendererLists.RendOrder.Size3RightLeft);
@@ -95,12 +96,13 @@ namespace _3902_Project
 
             // set direction periodically
             if (_moveCounter == 0) { _updatePosition = _rendererList.CreateRandomMovement(_positionSpeed); }
-
             // increase before assignment so that it runs again
             _moveCounter++;
-
             // reset movement clock
             if (_moveCounter == _moveTotal) { _moveCounter = 0; }
+
+            // needed to constantly update the frames
+            _rendererList.CreateUpdateFrames();
 
             // set a new projectile
             if (_blueArrowCounter == 10) 
@@ -108,27 +110,19 @@ namespace _3902_Project
                 _updatePosition = new(0, 0);
                 _projectileBlueArrow = _rendererList.CreateProjectile(_projectileManager, _blueArrow, _blueArrowTotal, _blueArrowSpeed, _blueArrowPrintScale, _blueArrowFrameRange); 
             }
-
             // increase before assignment so that it runs again
             _blueArrowCounter++;
-
             // reset projectile clock
             if (_blueArrowCounter == _blueArrowTotal) { _blueArrowCounter = 0; _projectileManager.UnloadProjectile(_projectileBlueArrow); }
 
             // update position
             _position += _updatePosition;
-
-            // needed to constantly update the frames
-            _rendererList.CreateUpdateFrames();
         }
 
         /// <summary>
         /// Draws the enemy in the given SpriteBatch
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            _rendererList.CreateSpriteDraw(spriteBatch, true);
-        }
+        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch, true); }
     }
 }

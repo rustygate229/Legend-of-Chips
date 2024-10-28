@@ -9,33 +9,47 @@ namespace _3902_Project
         // variables for constructor assignments
         private Texture2D _spriteSheet;
         private Vector2 _position;
-        private Renderer _enemy;
+        private Vector2 _updatePosition;
         private Renderer.DIRECTION _direction;
 
         // variables to change based on where your block is and what to print out
         private Vector2 _spritePosition = new Vector2(79, 28);
         private Vector2 _spriteDimensions = new Vector2(30, 16);
-        private Vector2 _spriteRowAndColumns = new Vector2(1, 2);
         private Vector2 _spritePrintDimensions = new Vector2(64, 64);
-
-
+        private Vector2 _rowAndColumns = new Vector2(1, 2);
 
         // variables for moving the enemy
         private int _moveCounter = 0;
         private int _moveTotal = 10;
-        private int _positionSpeed = 2;
-        private Vector2 _updatePosition;
+        private float _positionSpeed = 2;
         private static Random random = new Random();
+
+        // variables for shooting projectile
+        private ISprite _projectileFireBall;
+        private ProjectileManager _projectileManager;
+        private ProjectileManager.ProjectileNames _fireBall = ProjectileManager.ProjectileNames.FireBall;
+        private float _fireBallPrintScale = 3F;
+        // variables specific to Darknuts implementation of the blue arrow sprite
+        private int _fireBallCounter;
+        private int _fireBallTotal = 100; // cool down value for firing projectiles
+        private float _fireBallSpeed = 5F;
+        private int _fireBallFrames = 12; // read summary in respective Projectile Concrete Classes for explanation
+
+        // create enemy renderer
+        private Renderer _enemy;
 
 
         /// <summary>
-        /// Constructs the enemy (set values, create Rendering, etc.); takes the Enemy Spritesheet
+        /// Constructs the enemy (set values, create Rendering, etc.)
         /// </summary>
         /// <param name="spriteSheet"></param>
-        public BrownSlime(Texture2D spriteSheet)
+        public BrownSlime(Texture2D spriteSheet, ProjectileManager projectileManager, float printScale, float speed, int moveTimerTotal, int frames)
         {
             _spriteSheet = spriteSheet;
-            _enemy = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions, _spriteRowAndColumns, 30);
+            _projectileManager = projectileManager;
+            _positionSpeed = speed;
+            _moveTotal = moveTimerTotal;
+            _enemy = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions, _rowAndColumns, frames);
         }
 
 
@@ -61,30 +75,25 @@ namespace _3902_Project
             _enemy.SetPosition(_position);
 
             // Change direction periodically (random horizontal or vertical movement)
-            if (_moveCounter >= _moveTotal)
-            {
-                // Randomly choose a direction:
-                switch (random.Next(4))
-                {
-                    case 0: // Move DOWN
-                        _direction = Renderer.DIRECTION.DOWN; break;
-                    case 1: // Move UP
-                        _direction = Renderer.DIRECTION.UP; break;
-                    case 2: // Move RIGHT
-                        _direction = Renderer.DIRECTION.RIGHT; break;
-                    case 3: // Move LEFT
-                        _direction = Renderer.DIRECTION.LEFT; break;
-                    default: break;
-                }
-                _enemy.SetDirection(_direction);
-                _updatePosition = _enemy.GetUpdatePosition((int)_direction, _positionSpeed);
-
-                _moveCounter = 0; // Reset the timer
-            }
-
-            // update position and movement counter
-            _position += _updatePosition;
+            if (_moveCounter == 0) { _updatePosition = _enemy.GetRandomMovement(_positionSpeed); _direction = _enemy.GetDirection(); }
+            // increase movement counter
             _moveCounter++;
+            // Reset the timer
+            if (_moveCounter > _moveTotal) { _moveCounter = 0; }
+
+            // update position
+            _position += _updatePosition;
+
+            // set a new projectile
+            if (_fireBallCounter == 10)
+            {
+                _updatePosition = new(0, 0);
+                _projectileFireBall = _projectileManager.CallProjectile(_fireBall, _position, _direction, _fireBallTotal, _fireBallSpeed, _fireBallPrintScale, _fireBallFrames);
+            }
+            // increase before assignment so that it runs again
+            _fireBallCounter++;
+            // reset projectile clock
+            if (_fireBallCounter == _fireBallTotal) { _fireBallCounter = 0; _projectileManager.UnloadProjectile(_projectileFireBall); }
         }
 
 
@@ -99,4 +108,3 @@ namespace _3902_Project
         }
     }
 }
-

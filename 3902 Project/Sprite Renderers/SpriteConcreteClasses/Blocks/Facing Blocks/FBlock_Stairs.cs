@@ -14,7 +14,6 @@ namespace _3902_Project
         // variables to change based on where your block is and what to print out
         private Vector2 _spritePosition = new Vector2(1035, 28);
         private Vector2 _spriteDimensions = new Vector2(16, 16);
-        private Vector2 _spritePrintDimensions = new Vector2(64, 64);
 
         // create a Renderer object
         private Renderer _block;
@@ -23,39 +22,30 @@ namespace _3902_Project
         /// <summary>
         /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
         /// </summary>
-        public FBlock_Stairs(Texture2D spriteSheet, Renderer.DIRECTION facingDirection)
+        public FBlock_Stairs(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale)
         {
             _spriteSheet = spriteSheet;
             _direction = facingDirection;
-            _block = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions);
+            _block = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition, _spriteDimensions, _spriteDimensions * printScale);
         }
 
 
         /// <summary>
         /// Passes to the Renderer GetPosition method
         /// </summary>
-        public Vector2 GetPosition()
-        {
-            return _block.GetPosition();
-        }
+        public Vector2 GetPosition() { return _block.GetPosition(); }
 
 
         /// <summary>
         /// Passes to the Renderer SetPosition method
         /// </summary>
-        public void SetPosition(Vector2 position)
-        {
-            _position = position;
-            _block.SetPosition(position);
-        }
+        public void SetPosition(Vector2 position) { _position = position; _block.SetPosition(position); }
 
 
         /// <summary>
         /// Updates the block (movement, animation, etc.)
         /// </summary>
-        public void Update()
-        {
-        }
+        public void Update() { }
 
 
         /// <summary>

@@ -6,24 +6,33 @@ namespace _3902_Project
 {
     public partial class Renderer
     {
-        public Vector2 PositionAhead(Rectangle destinationRectangle)
+        public DIRECTION GetDirection() { return _direction; }
+
+        private Random _random = new Random();
+
+        public Vector2 GetRandomMovement(float positionSpeed)
         {
-            // commented out old place in front code since it may affect how collision is running
-            switch ((int)_directionNumber)
+            int randomValue = _random.Next(4);
+            // Randomly choose a direction:
+            switch (randomValue)
             {
-                case 0: // DOWN
-                    // return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y + (int)destinationRectangle.Height);
-                    return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y);
-                case 1: // UP
-                    // return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y - (int)destinationRectangle.Height);
-                    return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y);
-                case 2: // RIGHT
-                    // return new Vector2((int)destinationRectangle.X + (int)destinationRectangle.Width, (int)destinationRectangle.Y);
-                    return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y);
-                case 3: // LEFT
-                    // return new Vector2((int)destinationRectangle.X - (int)destinationRectangle.Width, (int)destinationRectangle.Y);
-                    return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y);
-                default: throw new ArgumentException("Invalid direction type in PositionAhead");
+                case 0: // Move DOWN
+                    SetDirection(DIRECTION.DOWN);
+                    this.SetDirection(_direction);
+                    return this.GetUpdatePosition(randomValue, positionSpeed);
+                case 1: // Move UP
+                    SetDirection(DIRECTION.UP);
+                    this.SetDirection(_direction);
+                    return this.GetUpdatePosition(randomValue, positionSpeed);
+                case 2: // Move RIGHT
+                    SetDirection(DIRECTION.RIGHT);
+                    this.SetDirection(_direction);
+                    return this.GetUpdatePosition(randomValue, positionSpeed);
+                case 3: // Move LEFT
+                    SetDirection(DIRECTION.LEFT);
+                    this.SetDirection(_direction);
+                    return this.GetUpdatePosition(randomValue, positionSpeed);
+                default: throw new ArgumentException("Invalid direction type for updatePosition");
             }
         }
 
@@ -86,5 +95,29 @@ namespace _3902_Project
             else
                 this.Draw(spriteBatch, sourceRectangle, destinationRectangle);
         }
+
+        /*
+         * old method that proved to be kind of useless, but could return
+        public Vector2 PositionAhead(Rectangle destinationRectangle)
+        {
+            // commented out old place in front code since it may affect how collision is running
+            switch ((int)_directionNumber)
+            {
+                case 0: // DOWN
+                    // return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y + (int)destinationRectangle.Height);
+                    return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y);
+                case 1: // UP
+                    // return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y - (int)destinationRectangle.Height);
+                    return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y);
+                case 2: // RIGHT
+                    // return new Vector2((int)destinationRectangle.X + (int)destinationRectangle.Width, (int)destinationRectangle.Y);
+                    return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y);
+                case 3: // LEFT
+                    // return new Vector2((int)destinationRectangle.X - (int)destinationRectangle.Width, (int)destinationRectangle.Y);
+                    return new Vector2((int)destinationRectangle.X, (int)destinationRectangle.Y);
+                default: throw new ArgumentException("Invalid direction type in PositionAhead");
+            }
+        }
+        */
     }
 }

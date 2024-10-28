@@ -24,101 +24,52 @@ namespace _3902_Project
         private Vector2 _spriteLeftPosition = new Vector2(914, 77);
         private Vector2 _spriteLeftDimensions = new Vector2(32, 32);
 
-        private Vector2 _spritePrintDimensions = new Vector2(128, 128);
-
         // create a Renderer object
         private Renderer _blockDown;
         private Renderer _blockUp;
         private Renderer _blockRight;
         private Renderer _blockLeft;
+        private RendererLists _rendererList;
 
 
         /// <summary>
         /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
         /// </summary>
-        public FBlock_DiamondHoleLockedDoor(Texture2D spriteSheet, Renderer.DIRECTION facingDirection)
+        public FBlock_DiamondHoleLockedDoor(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale)
         {
             _spriteSheet = spriteSheet;
             _direction = facingDirection;
-            _blockDown = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteDownPosition, _spriteDownDimensions, _spritePrintDimensions);
-            _blockUp = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteUpPosition, _spriteUpDimensions, _spritePrintDimensions);
-            _blockRight = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteRightPosition, _spriteRightDimensions, _spritePrintDimensions);
-            _blockLeft = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteLeftPosition, _spriteLeftDimensions, _spritePrintDimensions);
+            _blockDown = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteDownPosition, _spriteDownDimensions, _spriteDownDimensions * printScale);
+            _blockUp = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteUpPosition, _spriteUpDimensions, _spriteUpDimensions * printScale);
+            _blockRight = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteRightPosition, _spriteRightDimensions, _spriteRightDimensions * printScale);
+            _blockLeft = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spriteLeftPosition, _spriteLeftDimensions, _spriteLeftDimensions * printScale);
+            Renderer[] rendererList = { _blockDown, _blockUp, _blockRight, _blockLeft };
+            _rendererList = new RendererLists(rendererList, RendererLists.RendOrder.Size4);
+            _rendererList.SetDirection((int)facingDirection);
         }
 
 
         /// <summary>
         /// Passes to the Renderer GetPosition method
         /// </summary>
-        public Vector2 GetPosition()
-        {
-            switch((int)_direction)
-            {
-                case 0: return _blockDown.GetPosition();
-                case 1: return _blockUp.GetPosition();
-                case 2: return _blockRight.GetPosition();
-                case 3: return _blockLeft.GetPosition();
-                default: throw new ArgumentException("Invalid block GetPosition");
-            }
-        }
+        public Vector2 GetPosition() { return _rendererList.GetOnePosition(); }
 
 
         /// <summary>
         /// Passes to the Renderer SetPosition method
         /// </summary>
-        public void SetPosition(Vector2 position)
-        {
-            switch ((int)_direction)
-            {
-                case 0: _blockDown.SetPosition(position); _position = position; break;
-                case 1: _blockUp.SetPosition(position); _position = position; break;
-                case 2: _blockRight.SetPosition(position); _position = position; break;
-                case 3: _blockLeft.SetPosition(position); _position = position; break;
-                default: throw new ArgumentException("Invalid block SetPosition");
-            }
-        }
+        public void SetPosition(Vector2 position) { _rendererList.SetPositions(position); }
 
 
         /// <summary>
         /// Updates the block (movement, animation, etc.)
         /// </summary>
-        public void Update()
-        {
-        }
+        public void Update() { }
 
 
         /// <summary>
         /// Draws the block in the given SpriteBatch
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            Rectangle destinationRectangle;
-            Rectangle sourceRectangle;
-
-            switch((int)_direction)
-            {
-                case 0: // DOWN
-                    sourceRectangle = _blockDown.GetSourceRectangle();
-                    destinationRectangle = _blockDown.GetDestinationRectangle();
-                    break;
-                case 1: // UP
-                    sourceRectangle = _blockUp.GetSourceRectangle();
-                    destinationRectangle = _blockUp.GetDestinationRectangle();
-                    break;
-                case 2: // RIGHT
-                    sourceRectangle = _blockRight.GetSourceRectangle();
-                    destinationRectangle = _blockRight.GetDestinationRectangle();
-                    break;
-                case 3: // LEFT
-                    sourceRectangle = _blockLeft.GetSourceRectangle();
-                    destinationRectangle = _blockLeft.GetDestinationRectangle();
-                    break;
-                default: throw new ArgumentException("Invalid block drawing direction");
-            }
-
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);
-            spriteBatch.End();
-        }
+        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch, false); }
     }
 }

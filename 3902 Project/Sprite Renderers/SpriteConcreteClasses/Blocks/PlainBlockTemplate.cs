@@ -12,8 +12,7 @@ namespace _3902_Project
 
         // variables to change based on where your block is and what to print out
         private Vector2 _spritePosition = new Vector2(0, 0);
-        private Vector2 _spriteDimensions = new Vector2(32, 32);
-        private Vector2 _spritePrintDimensions = new Vector2(128, 128);
+        private Vector2 _spriteDimensions = new Vector2(0, 0);
 
         // create a Renderer object
         private Renderer _block;
@@ -23,46 +22,34 @@ namespace _3902_Project
         /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
         /// </summary>
         /// <param name="spriteSheet"></param>
-        public PlainBlockTemplate(Texture2D spriteSheet)
+        public PlainBlockTemplate(Texture2D spriteSheet, float printScale)
         {
             _spriteSheet = spriteSheet;
-            _block = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions);
+            _block = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition, _spriteDimensions, _spriteDimensions * printScale);
         }
 
 
         /// <summary>
-        /// Gets current position of block
+        /// Passes to the Renderer GetPosition method
         /// </summary>
-        public Vector2 GetPosition()
-        {
-            return _position;
-        }
+        public Vector2 GetPosition() { return _block.GetPosition(); }
 
 
         /// <summary>
-        /// Sets current position of block
+        /// Passes to the Renderer SetPosition method
         /// </summary>
-        public void SetPosition(Vector2 position)
-        {
-            _position = position;
-            _block.SetPosition(position);
-        }
+        public void SetPosition(Vector2 position) { _position = position; _block.SetPosition(position); }
 
 
         /// <summary>
         /// Updates the block (movement, animation, etc.)
         /// </summary>
-        public void Update()
-        {
-        }
+        public void Update() { }
 
 
         /// <summary>
         /// Draws the block in the given SpriteBatch
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            _block.DrawCentered(spriteBatch, _block.GetSourceRectangle());
-        }
+        public void Draw(SpriteBatch spriteBatch) { _block.Draw(spriteBatch, _block.GetSourceRectangle(), _block.GetDestinationRectangle()); }
     }
 }

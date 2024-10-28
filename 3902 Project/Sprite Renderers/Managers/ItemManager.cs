@@ -45,15 +45,38 @@ namespace _3902_Project
         /// </summary>
         /// <param name="name"></param>
         /// <param name="placementPosition"></param>
-        public void AddItem(ItemNames name, Vector2 placementPosition)
+        /// <param name="printScale"></param>
+        public ISprite AddItem(ItemNames name, Vector2 placementPosition, float printScale)
         {
-            ISprite currentSprite = _factory.CreateItem(name);
+            ISprite currentSprite = _factory.CreateItem(name, printScale);
             currentSprite.SetPosition(placementPosition);
             _runningItems.Add(currentSprite);
 
             // Add item collision box for collision detection
             var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20));
             _itemCollisionDictionary[collisionBox] = currentSprite;
+
+            return currentSprite;
+        }
+
+        /// <summary>
+        /// Add an item to the running item list
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="placementPosition"></param>
+        /// <param name="printScale"></param>
+        /// <param name="frames"></param>
+        public ISprite AddItem(ItemNames name, Vector2 placementPosition, float printScale, int frames)
+        {
+            ISprite currentSprite = _factory.CreateItem(name, printScale, frames);
+            currentSprite.SetPosition(placementPosition);
+            _runningItems.Add(currentSprite);
+
+            // Add item collision box for collision detection
+            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20));
+            _itemCollisionDictionary[collisionBox] = currentSprite;
+
+            return currentSprite;
         }
 
         // remove item after being collected

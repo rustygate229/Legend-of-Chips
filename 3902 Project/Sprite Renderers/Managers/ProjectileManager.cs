@@ -12,7 +12,7 @@ namespace _3902_Project
         // create block names for finding them
         public enum ProjectileNames
         {
-            Bomb, BlueArrow
+            Bomb, BlueArrow, FireBall
         }
 
         // block dictionary/inventory
@@ -30,15 +30,38 @@ namespace _3902_Project
             _spriteBatch = spriteBatch;
         }
 
-
         /// <summary>
-        /// Add an block to the running block list
+        /// call the projectile for sprites with only frames, meaning that it is a projectile that is only one animation, and NO direction or NO frame/renderer switching
         /// </summary>
         /// <param name="name"></param>
         /// <param name="placementPosition"></param>
+        /// <param name="direction"></param>
+        /// <param name="timer"></param>
+        /// <param name="speed"></param>
+        /// <param name="printScale"></param>
+        /// <param name="frameRanges"></param>
+        /// <returns>the sprite added to the list</returns>
         public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, Renderer.DIRECTION direction, int timer, float speed, float printScale, float[] frameRanges)
         {
             ISprite currentSprite = _factory.CreateProjectile(name, direction, timer, speed, printScale, frameRanges);
+            currentSprite.SetPosition(placementPosition);
+            _runningProjectiles.Add(currentSprite);
+            return currentSprite;
+        }
+        /// <summary>
+        /// call the projectile for sprites with only frames, meaning that it is a projectile that is only one animation, and NO direction or NO frame/renderer switching
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="placementPosition"></param>
+        /// <param name="direction"></param>
+        /// <param name="timer"></param>
+        /// <param name="speed"></param>
+        /// <param name="printScale"></param>
+        /// <param name="frames"></param>
+        /// <returns>the sprite added to the list</returns>
+        public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, Renderer.DIRECTION direction, int timer, float speed, float printScale, int frames)
+        {
+            ISprite currentSprite = _factory.CreateProjectile(name, direction, timer, speed, printScale, frames);
             currentSprite.SetPosition(placementPosition);
             _runningProjectiles.Add(currentSprite);
             return currentSprite;

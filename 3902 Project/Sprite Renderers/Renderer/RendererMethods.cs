@@ -115,7 +115,7 @@ namespace _3902_Project
         public Rectangle GetDestinationRectangle() { return new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y); }
 
 
-        public void SetDirection(Renderer.DIRECTION direction) { this._directionNumber = (int)direction; }
+        public void SetDirection(Renderer.DIRECTION direction) { this._direction = direction; }
 
 
         public void Draw(SpriteBatch spriteBatch, Rectangle sourceRectangle, Rectangle destinationRectangle)

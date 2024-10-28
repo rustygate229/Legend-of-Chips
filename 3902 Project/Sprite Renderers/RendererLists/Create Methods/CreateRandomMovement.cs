@@ -7,7 +7,7 @@ namespace _3902_Project
 {
     public partial class RendererLists
     {
-        public Vector2 CreateRandomMovement(int positionSpeed)
+        public Vector2 CreateRandomMovement(float positionSpeed)
         {
             switch(_rendListType)
             {
@@ -23,7 +23,7 @@ namespace _3902_Project
             }
         }
 
-        private Vector2 CreateRandomMovementSize2(int positionSpeed)
+        private Vector2 CreateRandomMovementSize2(float positionSpeed)
         {
             int randomValue = _random.Next(4);
             // Randomly choose a direction:
@@ -49,7 +49,7 @@ namespace _3902_Project
             }
         }
 
-        private Vector2 CreateRandomMovementSize3DownUp(int positionSpeed)
+        private Vector2 CreateRandomMovementSize3DownUp(float positionSpeed)
         {
             int randomValue = _random.Next(4);
             // Randomly choose a direction:
@@ -75,7 +75,7 @@ namespace _3902_Project
             }
         }
 
-        private Vector2 CreateRandomMovementSize3RightLeft(int positionSpeed)
+        private Vector2 CreateRandomMovementSize3RightLeft(float positionSpeed)
         {
             int randomValue = _random.Next(4);
             // Randomly choose a direction:
@@ -101,7 +101,7 @@ namespace _3902_Project
             }
         }
 
-        private Vector2 CreateRandomMovementSize4(int positionSpeed)
+        private Vector2 CreateRandomMovementSize4(float positionSpeed)
         {
             int randomValue = _random.Next(4);
             // Randomly choose a direction:
