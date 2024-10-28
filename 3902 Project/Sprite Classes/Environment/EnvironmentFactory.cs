@@ -15,11 +15,12 @@ namespace _3902_Project
         private CollisionDetector _collisionDetector;
         private CollisionHandlerManager _collisionHandlerManager;
 
+         
+
 
         private int _level;
         private int _prevLevel = -1; // -1 is a stand in for a null value
-
-        private Dictionary<string, BlockManager.BlockNames> _csvTranslationsBlock;
+                private Dictionary<string, BlockManager.BlockNames> _csvTranslationsBlock;
         private Dictionary<string, EnemyManager.EnemyNames> _csvTranslationsEnemy;
         private Dictionary<string, ItemManager.ItemNames> _csvTranslationsItem;
 
