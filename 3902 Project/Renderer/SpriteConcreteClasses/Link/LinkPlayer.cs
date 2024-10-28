@@ -12,6 +12,8 @@ namespace _3902_Project
         ILinkMovement _linkMovement;
         ILinkStateMachine _linkStateMachine;
         ProjectileManager _projectileManager;
+        LinkInventory _linkInventory;
+
 
         //double x, y;
         public LinkPlayer(SpriteBatch sb, ContentManager content, ProjectileManager projectileManager)
@@ -19,6 +21,7 @@ namespace _3902_Project
             _linkMovement = new LinkMovement();
             _linkStateMachine = new LinkStateMachine();
             _animation = new LinkAnimation(sb, content, _linkStateMachine);
+            _linkInventory = new LinkInventory();
 
             _projectileManager = projectileManager;
 
@@ -84,9 +87,12 @@ namespace _3902_Project
         public void StopDamage() { _linkStateMachine.stopDamage(); }
         public void flipDamaged() { _linkStateMachine.setDamage(); }
 
-        public void changeToItem1() { _linkStateMachine.setInventory1(); }
-        public void changeToItem2() { _linkStateMachine.setInventory2(); }
-        public void changeToItem3() { _linkStateMachine.setInventory3(); }
+        public void changeToItem1() { _linkStateMachine.setInventory(1); }
+        public void changeToItem2() { _linkStateMachine.setInventory(2); }
+        public void changeToItem3() { _linkStateMachine.setInventory(3); }
+        public void changeToItem4() { _linkStateMachine.setInventory(4); }
+
+        public void changeToItem5() { _linkStateMachine.setInventory(5); }
 
         public void Update()
         {

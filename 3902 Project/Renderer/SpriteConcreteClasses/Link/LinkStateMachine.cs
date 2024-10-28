@@ -51,9 +51,7 @@ namespace _3902_Project
 
         public void setDamage() { Damage = true; }
         public void stopDamage() { Damage = false; }
-        public void setInventory1() { Inventory = 1; }
-        public void setInventory2() { Inventory = 2; }
-        public void setInventory3() { Inventory = 3; }
+        public void setInventory(int num) { Inventory = num; }
         public int getInventory() { return Inventory;}
     }
 }
