@@ -7,20 +7,26 @@ namespace _3902_Project
 
         public void FireProjectile()
         {
-            MOVEMENT dir = _linkStateMachine.getMovementState();
-            int x = (int)_linkMovement.getXPosition();
-            int y = (int)_linkMovement.getYPosition();
+            int inventory = _linkStateMachine.getInventory();
+            bool canFire = _linkInventory.canFireProjectiles(inventory);
 
-            switch (_linkStateMachine.getInventory())
+            if (canFire)
             {
-                case 1:
-                    _projectileManager.launchBlueArrow(x, y, dir); break;
-                case 2:
-                    _projectileManager.launchBomb(x, y); break;
-                case 3:
-                    _projectileManager.launchBlueBoomerang(x, y, dir); break;
+                MOVEMENT dir = _linkStateMachine.getMovementState();
+                int x = (int)_linkMovement.getXPosition();
+                int y = (int)_linkMovement.getYPosition();
 
-                default:break;
+                switch (_linkStateMachine.getInventory())
+                {
+                    case 1:
+                        _projectileManager.launchBlueArrow(x, y, dir); break;
+                    case 2:
+                        _projectileManager.launchBomb(x, y); break;
+                    case 3:
+                        _projectileManager.launchBlueBoomerang(x, y, dir); break;
+
+                    default: break;
+                }
             }
         }
 
