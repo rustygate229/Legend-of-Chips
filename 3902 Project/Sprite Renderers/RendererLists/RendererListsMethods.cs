@@ -4,6 +4,9 @@ namespace _3902_Project
 {
     public partial class RendererLists
     {
+        /// <summary>
+        /// sets the renderers, so they can be used in the METHODS
+        /// </summary>
         public void SetRenderers()
         {
             switch (_rendListType)
@@ -31,8 +34,13 @@ namespace _3902_Project
             }
         }
 
+        /// <returns>the list of renderers</returns>
         public Renderer[] GetList() { return _rendererList; }
 
+        /// <summary>
+        /// used in int[] directionArray formula, and also in other areas to set the direction
+        /// </summary>
+        /// <param name="directionValue">the value, in int, that represents the correct DIRECTION enum: 0: DOWN, 1: UP, 2: RIGHT, 3: LEFT</param>
         public void SetDirection(int directionValue) 
         {
             if (directionValue == _directionArray[0])
@@ -46,6 +54,7 @@ namespace _3902_Project
 
         }
 
+        /// <returns>the rectangle position of the current sprite needed</returns>
         public Rectangle GetOneRectanglePosition()
         {
             Rectangle gettingPosition = new(0, 0, 0, 0);
@@ -86,6 +95,10 @@ namespace _3902_Project
             return gettingPosition;
         }
 
+        /// <summary>
+        /// sets the positions of all the renderers in the list
+        /// </summary>
+        /// <param name="position">the position on screen</param>
         public void SetPositions(Vector2 position)
         {
             switch (_rendListType)

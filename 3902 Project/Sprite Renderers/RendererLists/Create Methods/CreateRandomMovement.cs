@@ -7,6 +7,8 @@ namespace _3902_Project
 {
     public partial class RendererLists
     {
+        /// <param name="positionSpeed">the speed at which the update moves</param>
+        /// <returns>returns the updated position at some randomly generated movement</returns>
         public Vector2 CreateRandomMovement(float positionSpeed)
         {
             switch(_rendListType)

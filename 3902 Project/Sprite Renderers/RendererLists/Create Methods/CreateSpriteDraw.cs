@@ -7,6 +7,11 @@ namespace _3902_Project
 {
     public partial class RendererLists
     {
+        /// <summary>
+        /// Draws the specific current sprite based on other methods
+        /// </summary>
+        /// <param name="spriteBatch">the spritebatch where we draw all sprites</param>
+        /// <param name="isCentered">true: centered, false: top left start</param>
         public void CreateSpriteDraw(SpriteBatch spriteBatch, bool isCentered)
         {
             switch(_rendListType)

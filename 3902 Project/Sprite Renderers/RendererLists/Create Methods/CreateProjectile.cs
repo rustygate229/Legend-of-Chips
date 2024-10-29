@@ -5,8 +5,20 @@ using System.Collections.Generic;
 
 namespace _3902_Project
 {
-    public partial class RendererLists
+    public partial class RendererLists 
     {
+        /// <param name="manager">the projectile manager that stores all current running projectiles</param>
+        /// <param name="projectileName">the name associated with the projectile, so it can run in the manager</param>
+        /// <param name="timer">the amount of time the projectile will be active on screen</param>
+        /// <param name="speed">the speed of the projectile as it moves on screen</param>
+        /// <param name="printScale">sprite dimensions * printScale: the scale at which you increase/decrease the print dimensions of the sprite</param>
+        /// <param name="frameRanges">
+        /// range: [0 -> 1], amountOfInputs = amountOfSprites - 1 AND MUST BE IN ORDER - values inputed are multiplied by timer to produce the
+        /// framerates for the sprites being called.
+        /// <example>EXAMPLE: if entered [0.5, 0.7] for a 3 sprite projectile: from 0 -> 0.5 (first sprite) to 0.5 -> 0.7 (second sprite) 
+        /// to 0.7 -> 1 (third sprite). </example>
+        /// </param>
+        /// <returns>the projectie that is specifically called in the renderer list</returns>
         public ISprite CreateProjectile(ProjectileManager manager, ProjectileManager.ProjectileNames projectileName, int timer, float speed, float printScale, float[] frameRanges)
         {
             switch(_rendListType)

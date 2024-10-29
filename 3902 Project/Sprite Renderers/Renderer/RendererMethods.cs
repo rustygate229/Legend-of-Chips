@@ -9,7 +9,7 @@ namespace _3902_Project
         /// <summary>
         /// draws a sourceRectangle in an int array based on what status of animation was selected
         /// </summary>
-        /// <returns></returns>
+        /// <returns>the sourceRectangle in an int[] array</returns>
         public int[] GetSourceRectangleArray()
         {
             int[] sourceRectangle = new int[4];
@@ -66,7 +66,7 @@ namespace _3902_Project
         /// <summary>
         /// draws a sourceRectangle in a Rectangle() based on what status of animation was selected
         /// </summary>
-        /// <returns></returns>
+        /// <returns>return the sourceRectangle in a rectangle</returns>
         public Rectangle GetSourceRectangle()
         {
             // logic for seperating sprites into columns/rows to animate
@@ -114,10 +114,18 @@ namespace _3902_Project
         /// </summary>
         public Rectangle GetDestinationRectangle() { return new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y); }
 
-
+        /// <summary>
+        /// set the direction of the current "this" sprite
+        /// </summary>
+        /// <param name="direction">the direction in which you want to move</param>
         public void SetDirection(Renderer.DIRECTION direction) { this._direction = direction; }
 
-
+        /// <summary>
+        /// draw the sprite at the top left of the set position
+        /// </summary>
+        /// <param name="spriteBatch">the spritebatch where everything is drawn in</param>
+        /// <param name="sourceRectangle">the sourceRectangle of the sprite</param>
+        /// <param name="destinationRectangle">the destinationRectangle of the sprite</param>
         public void Draw(SpriteBatch spriteBatch, Rectangle sourceRectangle, Rectangle destinationRectangle)
         {
             // draw the current sprite
@@ -126,7 +134,11 @@ namespace _3902_Project
             spriteBatch.End();
         }
 
-
+        /// <summary>
+        /// draw the sprite at the center of the set position centered around the tile size (in this case, all blocks/tiles are formed in 64x64)
+        /// </summary>
+        /// <param name="spriteBatch">the spritebatch where everything is drawn in</param>
+        /// <param name="sourceRectangle">the sourceRectangle of the sprite</param>
         public void DrawCentered(SpriteBatch spriteBatch, Rectangle sourceRectangle)
         {
             int tileSize = 64;

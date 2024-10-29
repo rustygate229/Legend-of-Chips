@@ -10,6 +10,11 @@ namespace _3902_Project
 
         private Random _random = new Random();
 
+        /// <summary>
+        /// the updated position increasing in a RANDOM direction by given positionSpeed
+        /// </summary>
+        /// <param name="positionSpeed">the rate at which the position updates</param>
+        /// <returns>returns updated position that was randomly chosen</returns>
         public Vector2 GetRandomMovement(float positionSpeed)
         {
             int randomValue = _random.Next(4);
@@ -36,7 +41,12 @@ namespace _3902_Project
             }
         }
 
-
+        /// <summary>
+        /// the updated position increasing in direction by positionSpeed
+        /// </summary>
+        /// <param name="direction">the direction this is facing</param>
+        /// <param name="positionSpeed">the rate at which the position updates</param>
+        /// <returns>the updated position to be added to position</returns>
         public Vector2 GetUpdatePosition(int direction, float positionSpeed)
         {
             // movement variables
@@ -54,7 +64,11 @@ namespace _3902_Project
             }
         }
 
-
+        /// <summary>
+        /// draws the sprite flipped vertically from it's normal settings (the sprites opposite along the vertical plane)
+        /// </summary>
+        /// <param name="spriteBatch">the spriteBatch where this is drawn in</param>
+        /// <param name="isCentered">is the sprite going to be drawn centererd or not</param>
         public void DrawVerticallyFlipped(SpriteBatch spriteBatch, bool isCentered)
         {
             Rectangle destinationRectangle = this.GetDestinationRectangle();
@@ -68,7 +82,11 @@ namespace _3902_Project
                 this.Draw(spriteBatch, sourceRectangle, destinationRectangle);
         }
 
-
+        /// <summary>
+        /// draws the sprite flipped horizontally from it's normal settings (the sprites opposite along the horiztonal plane)
+        /// </summary>
+        /// <param name="spriteBatch">the spriteBatch where this is drawn in</param>
+        /// <param name="isCentered">is the sprite going to be drawn centererd or not</param>
         public void DrawHorizontallyFlipped(SpriteBatch spriteBatch, bool isCentered)
         {
             Rectangle destinationRectangle = this.GetDestinationRectangle();
@@ -82,7 +100,11 @@ namespace _3902_Project
                 this.Draw(spriteBatch, sourceRectangle, destinationRectangle);
         }
 
-
+        /// <summary>
+        /// draws the sprite flipped both horizontally and vertically from it's normal settings (the sprites opposite along both planes)
+        /// </summary>
+        /// <param name="spriteBatch">the spriteBatch where this is drawn in</param>
+        /// <param name="isCentered">is the sprite going to be drawn centererd or not</param>
         public void DrawCompletelyFlipped(SpriteBatch spriteBatch, bool isCentered)
         {
             Rectangle destinationRectangle = this.GetDestinationRectangle();

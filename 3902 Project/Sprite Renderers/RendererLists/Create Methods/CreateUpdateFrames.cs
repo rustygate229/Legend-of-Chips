@@ -7,6 +7,9 @@ namespace _3902_Project
 {
     public partial class RendererLists
     {
+        /// <summary>
+        /// calls the specific type of rendereList and then updates its sprites/renderers
+        /// </summary>
         public void CreateUpdateFrames()
         {
             switch(_rendListType)

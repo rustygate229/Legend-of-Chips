@@ -7,6 +7,9 @@ namespace _3902_Project
 {
     public partial class RendererLists
     {
+        /// <param name="selectedDirection">the direction that it is currently in</param>
+        /// <param name="positionSpeed">the speed at which the update position is set to</param>
+        /// <returns>returns the updated position direction of the current renderer in the list</returns>
         public Vector2 CreateMovement(int selectedDirection, float positionSpeed)
         {
             switch(_rendListType)
@@ -23,6 +26,9 @@ namespace _3902_Project
             }
         }
 
+        /// <param name="selectedDirection">the direction that it is currently in</param>
+        /// <param name="positionSpeed">the speed at which the update position is set to</param>
+        /// <returns>returns the updated position direction of the current renderer in the list at type Size2</returns>
         private Vector2 CreateMovementSize2(int selectedDirection, float positionSpeed)
         {
             SetDirection(selectedDirection);
@@ -45,6 +51,9 @@ namespace _3902_Project
             }
         }
 
+        /// <param name="selectedDirection">the direction that it is currently in</param>
+        /// <param name="positionSpeed">the speed at which the update position is set to</param>
+        /// <returns>returns the updated position direction of the current renderer in the list at type Size3DownUp</returns>
         private Vector2 CreateMovementSize3DownUp(int selectedDirection, float positionSpeed)
         {
             SetDirection(selectedDirection);
@@ -67,6 +76,9 @@ namespace _3902_Project
             }
         }
 
+        /// <param name="selectedDirection">the direction that it is currently in</param>
+        /// <param name="positionSpeed">the speed at which the update position is set to</param>
+        /// <returns>returns the updated position direction of the current renderer in the list at type Size3RightLeft</returns>
         private Vector2 CreateMovementSize3RightLeft(int selectedDirection, float positionSpeed)
         {
             SetDirection(selectedDirection);
@@ -89,6 +101,9 @@ namespace _3902_Project
             }
         }
 
+        /// <param name="selectedDirection">the direction that it is currently in</param>
+        /// <param name="positionSpeed">the speed at which the update position is set to</param>
+        /// <returns>returns the updated position direction of the current renderer in the list at type Size4</returns>
         private Vector2 CreateMovementSize4(int selectedDirection, float positionSpeed)
         {
             SetDirection(selectedDirection);

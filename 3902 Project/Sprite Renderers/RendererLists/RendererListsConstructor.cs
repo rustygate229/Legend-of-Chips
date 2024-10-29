@@ -21,6 +21,11 @@ namespace _3902_Project
 
         private Random _random = new Random();
 
+        /// <summary>
+        /// constructor for creating a plain RendererList
+        /// </summary>
+        /// <param name="rendererList">the list of renderers to be inputed</param>
+        /// <param name="order">the type of RendererList you want based on given "rendererList"</param>
         public RendererLists(Renderer[] rendererList, RendOrder order)
         {
             _rendererList = rendererList;
@@ -28,6 +33,14 @@ namespace _3902_Project
             SetRenderers();
         }
 
+        /// <summary>
+        /// constructor for creating a RendererList with a specific rework of Renderer.DIRECTION
+        /// </summary>
+        /// <param name="rendererList">the list of renderers to be inputed</param>
+        /// <param name="order">the type of RendererList you want based on given "rendererList"</param>
+        /// <param name="directionArray">the int[] array that allows for changing sprites direction enum: 
+        /// if a sprite in the texture spritesheet is not in conventinal method (either DOWN or RIGHT). This allows 
+        /// for swap the DOWN with the UP and VISE-VERSA, and the same for RIGHT and LEFT</param>
         public RendererLists(Renderer[] rendererList, RendOrder order, int[] directionArray)
         {
             _rendererList = rendererList;
