@@ -72,12 +72,9 @@ namespace _3902_Project
             _csvTranslationsEnemy.Add("b", EnemyManager.EnemyNames.BrownSlime);
             _csvTranslationsEnemy.Add("d", EnemyManager.EnemyNames.Darknut);
             
-            /*
             _csvTranslationsItem.Add("fs", ItemManager.ItemNames.FlashingScripture);
             _csvTranslationsItem.Add("fp", ItemManager.ItemNames.FlashingPotion);
             _csvTranslationsItem.Add("bk", ItemManager.ItemNames.BossKey);
-            */
-
         }
 
         // This method must be refactored
@@ -175,7 +172,7 @@ namespace _3902_Project
             }
         }
 
-        /*
+     
         private void loadItems()
         {
             string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Items/Item" + _level.ToString() + ".csv";
@@ -191,21 +188,21 @@ namespace _3902_Project
                     if (itemToPlace != "-")
                     {
                         if (itemToPlace == "fs" || itemToPlace == "fp")
-                            currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 2F, 12);
+                            currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 2F, 9);
                         else if (itemToPlace == "bk")
-                            currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 2F);
+                            currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 3F);
 
                     }
                 }
             }
         }
-        */
+        
 
         public void loadLevel()
         {
             loadBlocks();
             loadEnemies();
-            // loadItems();
+            loadItems();
         }
 
         public void incrementLevel()

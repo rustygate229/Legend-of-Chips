@@ -12,6 +12,7 @@ namespace _3902_Project
         private Vector2 _spritePosition = new Vector2(0, 0);
         private Vector2 _spriteDimensions = new Vector2(24, 8);
         private Vector2 _spriteRowAndColumn = new Vector2(1, 3);
+        private Vector2 _spritePrintDimensions = new(8, 8);
 
         // create a Renderer object
         private Renderer _item;
@@ -24,7 +25,7 @@ namespace _3902_Project
         /// <param name="frames"></param>
         public AItem_DepletingHeart(Texture2D spriteSheet, float printScale, int frames)
         {
-            _item = new (Renderer.STATUS.Animated, spriteSheet, _spritePosition, _spriteDimensions, _spriteDimensions * printScale, _spriteRowAndColumn, frames);
+            _item = new (Renderer.STATUS.Animated, spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions * printScale, _spriteRowAndColumn, frames);
         }
 
         /// <summary>

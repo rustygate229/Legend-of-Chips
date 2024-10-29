@@ -12,6 +12,7 @@ namespace _3902_Project
         private Vector2 _spritePosition = new Vector2(160, 0);
         private Vector2 _spriteDimensions = new Vector2(8, 32);
         private Vector2 _spriteRowAndColumn = new Vector2(2, 1);
+        private Vector2 _spritePrintDimensions = new(8, 16);
 
         // create a Renderer object
         private Renderer _item;
@@ -25,7 +26,7 @@ namespace _3902_Project
         /// <param name="frames"></param>
         public AItem_FCandle(Texture2D spriteSheet, float printScale, int frames)
         {
-            _item = new (Renderer.STATUS.Animated, spriteSheet, _spritePosition, _spriteDimensions, _spriteDimensions * printScale, _spriteRowAndColumn, frames);
+            _item = new (Renderer.STATUS.Animated, spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions * printScale, _spriteRowAndColumn, frames);
         }
 
         /// <summary>

@@ -10,8 +10,9 @@ namespace _3902_Project
 
         // variables to change based on where your item is and what to print out
         private Vector2 _spritePosition = new Vector2(0, 0);
-        private Vector2 _spriteDimensions = new Vector2(16, 8);
+        private Vector2 _spriteDimensions = new Vector2(8, 16);
         private Vector2 _spriteRowAndColumn = new Vector2(2, 1);
+        private Vector2 _spritePrintDimensions = new(8, 8);
 
         // create a Renderer object
         private Renderer _item;
@@ -25,7 +26,7 @@ namespace _3902_Project
         /// <param name="frames"></param>
         public AItem_FLife(Texture2D spriteSheet, float printScale, int frames)
         {
-            _item = new Renderer(Renderer.STATUS.Animated, spriteSheet, _spritePosition, _spriteDimensions, _spriteDimensions * printScale, _spriteRowAndColumn, frames);
+            _item = new Renderer(Renderer.STATUS.Animated, spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions * printScale, _spriteRowAndColumn, frames);
         }
 
         /// <summary>
