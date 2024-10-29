@@ -41,7 +41,7 @@ namespace _3902_Project
         /// <param name="printScale"></param>
         /// <param name="frameRanges"></param>
         /// <returns>the sprite added to the list</returns>
-        public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, Renderer.DIRECTION direction, int timer, float speed, float printScale, float[] frameRanges)
+        public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, int direction, int timer, float speed, float printScale, float[] frameRanges)
         {
             ISprite currentSprite = _factory.CreateProjectile(name, direction, timer, speed, printScale, frameRanges);
             currentSprite.SetPosition(placementPosition);
@@ -59,7 +59,7 @@ namespace _3902_Project
         /// <param name="printScale"></param>
         /// <param name="frames"></param>
         /// <returns>the sprite added to the list</returns>
-        public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, Renderer.DIRECTION direction, int timer, float speed, float printScale, int frames)
+        public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, int direction, int timer, float speed, float printScale, int frames)
         {
             ISprite currentSprite = _factory.CreateProjectile(name, direction, timer, speed, printScale, frames);
             currentSprite.SetPosition(placementPosition);

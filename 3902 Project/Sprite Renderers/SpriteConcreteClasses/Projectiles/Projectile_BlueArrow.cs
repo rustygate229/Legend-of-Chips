@@ -6,10 +6,6 @@ namespace _3902_Project
 {
     public class Projectile_BlueArrow : ISprite
     {
-        // variables for constructor assignments
-        private Texture2D _spriteSheet;
-        private Renderer.DIRECTION _direction;
-
         // variables to change based on where your sprite is and what to print out
         private Vector2 _spritePosition_UpDownArrow = new (29, 185);
         private Vector2 _spriteDimensions_UpDownArrow = new (5, 16);
@@ -30,6 +26,7 @@ namespace _3902_Project
         private Vector2 _position;
         private Vector2 _updatePosition;
         private float _positionSpeed;
+        private int _direction;
 
         // create Renderer objects
         private Renderer _upDownArrow;
@@ -53,19 +50,18 @@ namespace _3902_Project
         /// <example>EXAMPLE: if entered [0.5, 0.7] for a 3 sprite projectile: from 0 -> 0.5 (first sprite) to 0.5 -> 0.7 (second sprite) 
         /// to 0.7 -> 1 (third sprite). </example>
         /// </param>
-        public Projectile_BlueArrow(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, int timer, float speed, float printScale, float[] frameRanges)
+        public Projectile_BlueArrow(Texture2D spriteSheet, int facingDirection, int timer, float speed, float printScale, float[] frameRanges)
         {
-            _spriteSheet = spriteSheet;
             _direction = facingDirection;
             _positionSpeed = speed;
             _timerTotal = timer;
             _frameRanges = frameRanges;
             // create renders of the blue arrow projectile
-            _upDownArrow = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition_UpDownArrow, _spriteDimensions_UpDownArrow, _spriteDimensions_UpDownArrow * printScale);
-            _rightLeftArrow = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition_RightLeftArrow, _spriteDimensions_RightLeftArrow, _spriteDimensions_RightLeftArrow * printScale);
+            _upDownArrow = new Renderer(Renderer.STATUS.Still, spriteSheet, _spritePosition_UpDownArrow, _spriteDimensions_UpDownArrow, _spriteDimensions_UpDownArrow * printScale);
+            _rightLeftArrow = new Renderer(Renderer.STATUS.Still, spriteSheet, _spritePosition_RightLeftArrow, _spriteDimensions_RightLeftArrow, _spriteDimensions_RightLeftArrow * printScale);
             Renderer[] _rendererListArray = { _upDownArrow, _rightLeftArrow };
             _rendererList = new RendererLists(_rendererListArray, RendererLists.RendOrder.Size2, _directionArray);
-            _explodeArrow = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition_ExplodeArrow, _spriteDimensions_ExplodeArrow, _spriteDimensions_ExplodeArrow * (printScale * 0.75F));
+            _explodeArrow = new Renderer(Renderer.STATUS.Still, spriteSheet, _spritePosition_ExplodeArrow, _spriteDimensions_ExplodeArrow, _spriteDimensions_ExplodeArrow * (printScale * 0.75F));
         }
 
 
@@ -105,7 +101,7 @@ namespace _3902_Project
                 _updatePosition = new Vector2(0, 0);
             else
                 // else update the arrow movement
-                _updatePosition = _rendererList.CreateMovement((int)_direction, _positionSpeed);
+                _updatePosition = _rendererList.CreateMovement(_direction, _positionSpeed);
 
             // update position and movement counter
             _position += _updatePosition;

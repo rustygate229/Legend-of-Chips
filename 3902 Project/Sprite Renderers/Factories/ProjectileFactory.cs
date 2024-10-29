@@ -40,7 +40,7 @@ namespace _3902_Project
 
 
         // create every type of projectile
-        public ISprite CreateProjectile(ProjectileManager.ProjectileNames projectileName, Renderer.DIRECTION direction, int timer, float speed, float printScale, float[] frameRanges)
+        public ISprite CreateProjectile(ProjectileManager.ProjectileNames projectileName, int direction, int timer, float speed, float printScale, float[] frameRanges)
         {
             switch (projectileName)
             {
@@ -55,7 +55,7 @@ namespace _3902_Project
             // public ISprite OtherProjectile() { ... }
         }
 
-        public ISprite CreateProjectile(ProjectileManager.ProjectileNames projectileName, Renderer.DIRECTION direction, int timer, float speed, float printScale, int frames)
+        public ISprite CreateProjectile(ProjectileManager.ProjectileNames projectileName, int direction, int timer, float speed, float printScale, int frames)
         {
             switch(projectileName)
             {

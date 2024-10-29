@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.IO;
-using System.Numerics;
-using NumericsVector2 = System.Numerics.Vector2;
 
 namespace _3902_Project
 {

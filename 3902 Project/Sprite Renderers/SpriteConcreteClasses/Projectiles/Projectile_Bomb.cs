@@ -7,9 +7,7 @@ namespace _3902_Project
     public class Projectile_Bomb : ISprite
     {
         // variables for constructor assignments
-        private Texture2D _spriteSheet;
         private Vector2 _position;
-        public Renderer.DIRECTION _direction;
 
         // variables to change based on where your projectile is and what to print out
         private Vector2 _spritePosition_Bomb = new Vector2(129, 185);
@@ -26,10 +24,12 @@ namespace _3902_Project
         private float[] _frameRanges;
         private int _bombFire_Frames;
         private int _bombCloud_Frames;
+        public int _direction;
 
         // create timers
         private int _timerCounter;
         private int _timerTotal;
+
 
         // create Renderer objects
         private Renderer _bomb;
@@ -52,18 +52,17 @@ namespace _3902_Project
         /// <example>EXAMPLE: if entered [0.5, 0.7] for a 3 sprite projectile: from 0 -> 0.5 (first sprite) to 0.5 -> 0.7 (second sprite) 
         /// to 0.7 -> 1 (third sprite). </example>
         /// </param>
-        public Projectile_Bomb(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, int timer, float printScale, float[] frameRanges)
+        public Projectile_Bomb(Texture2D spriteSheet, int facingDirection, int timer, float printScale, float[] frameRanges)
         {
-            _spriteSheet = spriteSheet;
             _direction = facingDirection;
             _timerTotal = timer;
             _frameRanges = frameRanges;
             _bombFire_Frames = (int)((_timerTotal * (1 - frameRanges[0])) / 4);
             _bombCloud_Frames = (int)(_timerTotal * (1 - frameRanges[1]));
             // create renders of the bomb projectile
-            _bomb = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition_Bomb, _spriteDimensions_Bomb, _spriteDimensions_Bomb * printScale);
-            _bombFire = new Renderer(Renderer.STATUS.SingleAnimated, _spriteSheet, _spritePosition_BombFire, _spriteDimensions_BombFire, _spriteDimensions_BombFire * printScale, _spriteRowAndColumn_BombFire, _bombFire_Frames);
-            _bombCloud = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _spritePosition_BombCloud, _spriteDimensions_BombCloud, _spriteDimensions_BombFire * printScale, _spriteRowAndColumn_BombCloud, _bombCloud_Frames);
+            _bomb = new Renderer(Renderer.STATUS.Still, spriteSheet, _spritePosition_Bomb, _spriteDimensions_Bomb, _spriteDimensions_Bomb * printScale);
+            _bombFire = new Renderer(Renderer.STATUS.SingleAnimated, spriteSheet, _spritePosition_BombFire, _spriteDimensions_BombFire, _spriteDimensions_BombFire * printScale, _spriteRowAndColumn_BombFire, _bombFire_Frames);
+            _bombCloud = new Renderer(Renderer.STATUS.Animated, spriteSheet, _spritePosition_BombCloud, _spriteDimensions_BombCloud, _spriteDimensions_BombFire * printScale, _spriteRowAndColumn_BombCloud, _bombCloud_Frames);
         }
 
 

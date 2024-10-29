@@ -60,9 +60,6 @@ namespace _3902_Project
             ItemManager = new ItemManager(Content, _spriteBatch);
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
             EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
-            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, EnemyManager);
-            bulletManager = BulletManager.Instance;
-            bulletManager.LoadBulletTextures("Bullets", Content, _spriteBatch, collisionBoxes);
             Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
 
             EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, _blockCollisionBoxes);
@@ -111,7 +108,8 @@ namespace _3902_Project
             ItemManager.Update();
             ProjectileManager.Update();
             EnemyManager.Update();
-            EnvironmentFactory.Update();
+            Player.Update();
+            EnvironmentFactory.Update(Player);
             // Update input controls
             keyboardController.Update();
             mouseController.Update();
@@ -131,20 +129,13 @@ namespace _3902_Project
             BlockManager.Draw();
             ItemManager.Draw();
             ProjectileManager.Draw();
+            Player.Draw();
             EnemyManager.Draw();
 
             base.Draw(gameTime);
         }
 
 
-            base.Draw(gameTime);
-        }
-
-
-
-        public void ResetGame()
-        {
-            Initialize();
-        }
+        public void ResetGame() { Initialize(); }
     }
 }

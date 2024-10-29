@@ -1,4 +1,5 @@
-﻿using static _3902_Project.ILinkStateMachine;
+﻿using System.Numerics;
+using static _3902_Project.ILinkStateMachine;
 
 namespace _3902_Project
 {
@@ -12,23 +13,23 @@ namespace _3902_Project
 
             if (canFire)
             {
-                MOVEMENT dir = _linkStateMachine.getMovementState();
-                int x = (int)_linkMovement.getXPosition();
-                int y = (int)_linkMovement.getYPosition();
+                MOVEMENT direction = _linkStateMachine.getMovementState();
+                Vector2 linkPosition = new((int)_linkMovement.getXPosition(), (int)_linkMovement.getYPosition());
 
                 switch (_linkStateMachine.getInventory())
                 {
                     case 1:
-                        _projectileManager.launchBlueArrow(x, y, dir); break;
+                        float[] frameRangeArrow = { 0.85f };
+                        _projectileManager.CallProjectile(ProjectileManager.ProjectileNames.BlueArrow, linkPosition, (int)direction, 100, 2f, 2f, frameRangeArrow); break;
                     case 2:
-                        _projectileManager.launchBomb(x, y); break;
+                        float[] frameRangeBomb = { 0.50f, 0.70f };
+                        _projectileManager.CallProjectile(ProjectileManager.ProjectileNames.Bomb, linkPosition, (int)direction, 150, 2f, 2f, frameRangeBomb); break;
                     case 3:
-                        _projectileManager.launchBlueBoomerang(x, y, dir); break;
+                        _projectileManager.CallProjectile(ProjectileManager.ProjectileNames.FireBall, linkPosition, (int)direction, 100, 2f, 2f, 20); break;
 
                     default: break;
                 }
             }
-            */
         }
 
         public void MoveUp()

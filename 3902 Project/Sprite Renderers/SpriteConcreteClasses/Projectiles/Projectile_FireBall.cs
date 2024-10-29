@@ -7,10 +7,6 @@ namespace _3902_Project
 {
     public class Projectile_FireBall : ISprite
     {
-        // variables for constructor assignments
-        private Texture2D _spriteSheet;
-        private Renderer.DIRECTION _direction;
-
         // variables to change based on where your sprite is and what to print out
         private Vector2 _spritePosition = new (231, 62);
         private Vector2 _spriteDimensions = new (36, 10);
@@ -24,6 +20,7 @@ namespace _3902_Project
         private Vector2 _position;
         private Vector2 _updatePosition;
         private float _positionSpeed;
+        private int _direction;
 
         // create Renderer objects
         private Renderer _fireBall;
@@ -42,15 +39,14 @@ namespace _3902_Project
         /// <param name="frames">
         /// the amount of frames in the sprites animation, the greater the value, the slower the frame switching; and the inverse is true
         /// </param>
-        public Projectile_FireBall(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, int timer, float speed, float printScale, int frames)
+        public Projectile_FireBall(Texture2D spriteSheet, int facingDirection, int timer, float speed, float printScale, int frames)
         {
-            _spriteSheet = spriteSheet;
             _direction = facingDirection;
             _timerTotal = timer;
             _positionSpeed = speed;
             _frameRate = frames;
             // create renders of the blue arrow projectile
-            _fireBall = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions * printScale, _spriteRowsAndColumns, _frameRate);
+            _fireBall = new Renderer(Renderer.STATUS.Animated, spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions * printScale, _spriteRowsAndColumns, _frameRate);
         }
 
 
@@ -76,7 +72,7 @@ namespace _3902_Project
 
             // set the movement once
             if (_timerCounter == 0)
-                _updatePosition = _fireBall.GetUpdatePosition((int)_direction, _positionSpeed);
+                _updatePosition = _fireBall.GetUpdatePosition(_direction, _positionSpeed);
 
             // update position and movement counter
             _position += _updatePosition;

@@ -7,10 +7,9 @@ namespace _3902_Project
     public class GreenSlime : ISprite
     {
         // variables for constructor assignments
-        private Texture2D _spriteSheet;
         private Vector2 _position;
         private Vector2 _updatePosition;
-        private Renderer.DIRECTION _direction;
+        private int _direction;
 
         // variables to change based on where your block is and what to print out
         private Vector2 _spritePosition = new Vector2(79, 28);
@@ -45,11 +44,10 @@ namespace _3902_Project
         /// <param name="spriteSheet"></param>
         public GreenSlime(Texture2D spriteSheet, ProjectileManager projectileManager, float printScale, float speed, int moveTimerTotal, int frames)
         {
-            _spriteSheet = spriteSheet;
             _projectileManager = projectileManager;
             _positionSpeed = speed;
             _moveTotal = moveTimerTotal;
-            _enemy = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions, _rowAndColumns, frames);
+            _enemy = new Renderer(Renderer.STATUS.Animated, spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions, _rowAndColumns, frames);
         }
 
 
@@ -75,7 +73,7 @@ namespace _3902_Project
             _enemy.SetPosition(_position);
 
             // Change direction periodically (random horizontal or vertical movement)
-            if (_moveCounter == 0) { _updatePosition = _enemy.GetRandomMovement(_positionSpeed); _direction = _enemy.GetDirection(); }
+            if (_moveCounter == 0) { _updatePosition = _enemy.GetRandomMovement(_positionSpeed); _direction = (int)_enemy.GetDirection(); }
             // increase movement counter
             _moveCounter++;
             // Reset the timer
