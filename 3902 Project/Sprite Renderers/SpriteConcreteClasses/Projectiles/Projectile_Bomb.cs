@@ -70,11 +70,11 @@ namespace _3902_Project
         /// <summary>
         /// Passes to the Renderer GetPosition method
         /// </summary>
-        public Vector2 GetPosition()
+        public Rectangle GetRectanglePosition()
         {
-            if (_timerCounter < _timerCounter * _frameRanges[0]) { return _bomb.GetPosition(); }
-            else if (_timerCounter < _timerCounter * _frameRanges[1]) { return _bombFire.GetPosition(); }
-            else { return _bombCloud.GetPosition(); }
+            if (_timerCounter < _timerCounter * _frameRanges[0]) { return _bomb.GetRectanglePosition(); }
+            else if (_timerCounter < _timerCounter * _frameRanges[1]) { return _bombFire.GetRectanglePosition(); }
+            else { return _bombCloud.GetRectanglePosition(); }
         }
 
 

@@ -57,7 +57,7 @@ namespace _3902_Project
         /// <summary>
         /// Passes to the Renderer GetPosition method
         /// </summary>
-        public Vector2 GetPosition() { return _fireBall.GetPosition(); }
+        public Rectangle GetRectanglePosition() { return _fireBall.GetRectanglePosition(); }
 
 
         /// <summary>

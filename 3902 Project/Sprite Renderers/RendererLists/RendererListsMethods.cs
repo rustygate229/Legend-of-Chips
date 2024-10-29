@@ -46,38 +46,38 @@ namespace _3902_Project
 
         }
 
-        public Vector2 GetOnePosition()
+        public Rectangle GetOneRectanglePosition()
         {
-            Vector2 gettingPosition = new(0, 0);
+            Rectangle gettingPosition = new(0, 0, 0, 0);
             switch (_rendListType)
             {
                 case RendOrder.Size2:
                     if (_direction == Renderer.DIRECTION.DOWN || _direction == Renderer.DIRECTION.UP)
-                        gettingPosition = _rendDownUp.GetPosition();
+                        gettingPosition = _rendDownUp.GetRectanglePosition();
                     else if (_direction == Renderer.DIRECTION.RIGHT || _direction == Renderer.DIRECTION.LEFT)
-                        gettingPosition = _rendRightLeft.GetPosition();
+                        gettingPosition = _rendRightLeft.GetRectanglePosition();
                     break;
                 case RendOrder.Size3DownUp:
-                    if (_direction == Renderer.DIRECTION.RIGHT) { gettingPosition = _rendRight.GetPosition(); }
-                    else if (_direction == Renderer.DIRECTION.LEFT) { gettingPosition = _rendLeft.GetPosition(); }
-                    else { gettingPosition = _rendDownUp.GetPosition(); }
+                    if (_direction == Renderer.DIRECTION.RIGHT) { gettingPosition = _rendRight.GetRectanglePosition(); }
+                    else if (_direction == Renderer.DIRECTION.LEFT) { gettingPosition = _rendLeft.GetRectanglePosition(); }
+                    else { gettingPosition = _rendDownUp.GetRectanglePosition(); }
                     break;
                 case RendOrder.Size3RightLeft:
-                    if (_direction == Renderer.DIRECTION.DOWN) { gettingPosition = _rendDown.GetPosition(); }
-                    else if (_direction == Renderer.DIRECTION.UP) { gettingPosition = _rendUp.GetPosition(); }
-                    else { gettingPosition = _rendRightLeft.GetPosition(); }
+                    if (_direction == Renderer.DIRECTION.DOWN) { gettingPosition = _rendDown.GetRectanglePosition(); }
+                    else if (_direction == Renderer.DIRECTION.UP) { gettingPosition = _rendUp.GetRectanglePosition(); }
+                    else { gettingPosition = _rendRightLeft.GetRectanglePosition(); }
                     break;
                 case RendOrder.Size4:
                     switch (_direction)
                     {
                         case Renderer.DIRECTION.DOWN:
-                            gettingPosition = _rendDown.GetPosition(); break;
+                            gettingPosition = _rendDown.GetRectanglePosition(); break;
                         case Renderer.DIRECTION.UP:
-                            gettingPosition = _rendUp.GetPosition(); break;
+                            gettingPosition = _rendUp.GetRectanglePosition(); break;
                         case Renderer.DIRECTION.RIGHT:
-                            gettingPosition = _rendRight.GetPosition(); break;
+                            gettingPosition = _rendRight.GetRectanglePosition(); break;
                         case Renderer.DIRECTION.LEFT:
-                            gettingPosition = _rendLeft.GetPosition(); break;
+                            gettingPosition = _rendLeft.GetRectanglePosition(); break;
                         default: break;
                     }
                     break;

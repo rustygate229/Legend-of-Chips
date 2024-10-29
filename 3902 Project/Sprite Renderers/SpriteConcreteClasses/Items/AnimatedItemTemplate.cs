@@ -6,7 +6,6 @@ namespace _3902_Project
     public class AnimatedItemTemplate : ISprite
     {
         // variables for constructor assignments
-        private Texture2D _spriteSheet;
         private Vector2 _position;
 
         // variables to change based on where your item is and what to print out
@@ -26,15 +25,14 @@ namespace _3902_Project
         /// <param name="frames"></param>
         public AnimatedItemTemplate(Texture2D spriteSheet, float printScale, int frames)
         {
-            _spriteSheet = spriteSheet;
-            _item = new Renderer(Renderer.STATUS.Animated, _spriteSheet, _spritePosition, _spriteDimensions, _spriteDimensions * printScale, _spriteRowAndColumn, frames);
+            _item = new (Renderer.STATUS.Animated, spriteSheet, _spritePosition, _spriteDimensions, _spriteDimensions * printScale, _spriteRowAndColumn, frames);
         }
 
         /// <summary>
         /// Get position from sprites renderer position
         /// </summary>
         /// <returns>the position of the </returns>
-        public Vector2 GetPosition() { return _item.GetPosition(); }
+        public Rectangle GetRectanglePosition() { return _item.GetRectanglePosition(); }
 
         /// <summary>
         /// Set position in the this method and in the sprites renderer

@@ -13,7 +13,6 @@ namespace _3902_Project
         private Texture2D _enemySpritesheet;
         private Vector2 _position;
         private Vector2 _updatePosition;
-        private Renderer.DIRECTION _direction;
 
         // variables to change based on where your block is and what to print out
         private Vector2 _spriteDownPosition = new Vector2(1, 90);
@@ -87,7 +86,7 @@ namespace _3902_Project
         /// <summary>
         /// Passes to the Renderer GetPosition method
         /// </summary>
-        public Vector2 GetPosition() { return _rendererList.GetOnePosition(); }
+        public Rectangle GetRectanglePosition() { return _rendererList.GetOneRectanglePosition(); }
 
 
         /// <summary>
@@ -129,12 +128,12 @@ namespace _3902_Project
             if (_bombCounter == 20)
             {
                 _updatePosition = new(0, 0);
-                _projectileBlueArrow = _rendererList.CreateProjectile(_projectileManager, _bomb, _bombTotal, _bombSpeed, _bombPrintScale, _bombFrameRange);
+                _projectileBomb = _rendererList.CreateProjectile(_projectileManager, _bomb, _bombTotal, _bombSpeed, _bombPrintScale, _bombFrameRange);
             }
             // increase before assignment so that it runs again
             _bombCounter++;
             // reset projectile clock
-            if (_bombCounter == _bombTotal) { _bombCounter = 0; _projectileManager.UnloadProjectile(_projectileBlueArrow); }
+            if (_bombCounter == _bombTotal) { _bombCounter = 0; _projectileManager.UnloadProjectile(_projectileBomb); }
 
             // update position
             _position += _updatePosition;

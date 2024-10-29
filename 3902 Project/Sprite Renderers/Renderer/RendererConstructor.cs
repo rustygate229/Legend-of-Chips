@@ -159,10 +159,14 @@ namespace _3902_Project
 
 
         /// <summary>
-        /// gets current position of sprite
+        /// gets current position of sprite in a Vector2 of position on screen
         /// </summary>
-        public Vector2 GetPosition() { return _positionOnWindow; }
+        public Vector2 GetPosition() { return new Vector2((int)_positionOnWindow.X, (int)_positionOnWindow.Y); }
 
+        /// <summary>
+        /// gets current position of sprite in a Rectangle of position and dimensions on screen
+        /// </summary>
+        public Rectangle GetRectanglePosition() { return new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y); }
 
         /// <summary>
         /// sets current position of sprite

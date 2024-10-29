@@ -13,20 +13,11 @@ namespace _3902_Project
         // create a new instance of BlockSpriteFactory
         private static BlockSpriteFactory instance = new BlockSpriteFactory();
 
-        public static BlockSpriteFactory Instance
-        {
-            get
-            {
-                return instance;
-            }
-        }
+        public static BlockSpriteFactory Instance { get { return instance; } }
 
 
         // constructor to call the new instance method and initialize the sprite factory
-        public BlockSpriteFactory()
-        {
-            instance = this;
-        }
+        public BlockSpriteFactory() { instance = this; }
 
 
         // load all textures/spritesheet
@@ -58,35 +49,68 @@ namespace _3902_Project
                     return new PBlock_WhiteBrick(_blockSpritesheet, printScale);
                 case BlockManager.BlockNames.WhiteTile:
                     return new PBlock_WhiteTile(_blockSpritesheet, printScale);
+
+                case BlockManager.BlockNames.Stairs_RIGHT:
+                    return new FBlock_StatueFish(_blockSpritesheet, Renderer.DIRECTION.RIGHT, printScale);
+                case BlockManager.BlockNames.Stairs_LEFT:
+                    return new FBlock_StatueFish(_blockSpritesheet, Renderer.DIRECTION.LEFT, printScale);
+                case BlockManager.BlockNames.StatueDragon_RIGHT:
+                    return new FBlock_StatueFish(_blockSpritesheet, Renderer.DIRECTION.RIGHT, printScale);
+                case BlockManager.BlockNames.StatueDragon_LEFT:
+                    return new FBlock_StatueFish(_blockSpritesheet, Renderer.DIRECTION.LEFT, printScale);
+                case BlockManager.BlockNames.StatueFish_RIGHT:
+                    return new FBlock_StatueFish(_blockSpritesheet, Renderer.DIRECTION.RIGHT, printScale);
+                case BlockManager.BlockNames.StatueFish_LEFT:
+                    return new FBlock_StatueFish(_blockSpritesheet, Renderer.DIRECTION.LEFT, printScale);
+
+                case BlockManager.BlockNames.BombedDoor_DOWN:
+                    return new FBlock_BombedDoor(_blockSpritesheet, Renderer.DIRECTION.DOWN, printScale);
+                case BlockManager.BlockNames.BombedDoor_UP:
+                    return new FBlock_BombedDoor(_blockSpritesheet, Renderer.DIRECTION.UP, printScale);
+                case BlockManager.BlockNames.BombedDoor_RIGHT:
+                    return new FBlock_BombedDoor(_blockSpritesheet, Renderer.DIRECTION.RIGHT, printScale);
+                case BlockManager.BlockNames.BombedDoor_LEFT:
+                    return new FBlock_BombedDoor(_blockSpritesheet, Renderer.DIRECTION.LEFT, printScale);
+
+                case BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN:
+                    return new FBlock_DiamondHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.DOWN, printScale);
+                case BlockManager.BlockNames.DiamondHoleLockedDoor_UP:
+                    return new FBlock_DiamondHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.UP, printScale);
+                case BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT:
+                    return new FBlock_DiamondHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.RIGHT, printScale);
+                case BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT:
+                    return new FBlock_DiamondHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.LEFT, printScale);
+
+                case BlockManager.BlockNames.KeyHoleLockedDoor_DOWN:
+                    return new FBlock_KeyHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.DOWN, printScale);
+                case BlockManager.BlockNames.KeyHoleLockedDoor_UP:
+                    return new FBlock_KeyHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.UP, printScale);
+                case BlockManager.BlockNames.KeyHoleLockedDoor_RIGHT:
+                    return new FBlock_KeyHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.RIGHT, printScale);
+                case BlockManager.BlockNames.KeyHoleLockedDoor_LEFT:
+                    return new FBlock_KeyHoleLockedDoor(_blockSpritesheet, Renderer.DIRECTION.LEFT, printScale);
+
+                case BlockManager.BlockNames.OpenDoor_DOWN:
+                    return new FBlock_OpenDoor(_blockSpritesheet, Renderer.DIRECTION.DOWN, printScale);
+                case BlockManager.BlockNames.OpenDoor_UP:
+                    return new FBlock_OpenDoor(_blockSpritesheet, Renderer.DIRECTION.UP, printScale);
+                case BlockManager.BlockNames.OpenDoor_RIGHT:
+                    return new FBlock_OpenDoor(_blockSpritesheet, Renderer.DIRECTION.RIGHT, printScale);
+                case BlockManager.BlockNames.OpenDoor_LEFT:
+                    return new FBlock_OpenDoor(_blockSpritesheet, Renderer.DIRECTION.LEFT, printScale);
+
+                case BlockManager.BlockNames.Wall_DOWN:
+                    return new FBlock_Wall(_blockSpritesheet, Renderer.DIRECTION.DOWN, printScale);
+                case BlockManager.BlockNames.Wall_UP:
+                    return new FBlock_Wall(_blockSpritesheet, Renderer.DIRECTION.UP, printScale);
+                case BlockManager.BlockNames.Wall_RIGHT:
+                    return new FBlock_Wall(_blockSpritesheet, Renderer.DIRECTION.RIGHT, printScale);
+                case BlockManager.BlockNames.Wall_LEFT:
+                    return new FBlock_Wall(_blockSpritesheet, Renderer.DIRECTION.LEFT, printScale);
                 default: throw new ArgumentException("Invalid block name");
             }
         }
-        /// <summary>
-        /// CreateBlock for sprites that have multiple directions
-        /// </summary>
-        /// <param name="blockName"></param>
-        /// <param name="direction"></param>
-        /// <param name="printScale"></param>
-        /// <returns>the sprite it creates, used fro unloading</returns>
-        public ISprite CreateBlock(BlockManager.BlockNames blockName, Renderer.DIRECTION direction, float printScale)
-        {
-            switch (blockName)
-            {
-                case BlockManager.BlockNames.StatueFish:
-                    return new FBlock_StatueFish(_blockSpritesheet, direction, printScale);
-                case BlockManager.BlockNames.BombedDoor:
-                    return new FBlock_BombedDoor(_blockSpritesheet, direction, printScale);
-                case BlockManager.BlockNames.DiamondHoleLockedDoor:
-                    return new FBlock_DiamondHoleLockedDoor(_blockSpritesheet, direction, printScale);
-                case BlockManager.BlockNames.KeyHoleLockedDoor:
-                    return new FBlock_KeyHoleLockedDoor(_blockSpritesheet, direction, printScale);
-                case BlockManager.BlockNames.OpenDoor:
-                    return new FBlock_OpenDoor(_blockSpritesheet, direction, printScale);
-                case BlockManager.BlockNames.Wall:
-                    return new FBlock_Wall(_blockSpritesheet, direction, printScale);
-                default: throw new ArgumentException("Invalid block name");
-            }
-        }
+
         /// <summary>
         /// CreateBlock that has speed also, mainly needed for MoveableBlocks
         /// </summary>

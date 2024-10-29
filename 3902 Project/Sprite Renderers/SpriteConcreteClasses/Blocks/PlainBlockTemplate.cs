@@ -32,7 +32,7 @@ namespace _3902_Project
         /// <summary>
         /// Passes to the Renderer GetPosition method
         /// </summary>
-        public Vector2 GetPosition() { return _block.GetPosition(); }
+        public Rectangle GetRectanglePosition() { return _block.GetRectanglePosition(); }
 
 
         /// <summary>

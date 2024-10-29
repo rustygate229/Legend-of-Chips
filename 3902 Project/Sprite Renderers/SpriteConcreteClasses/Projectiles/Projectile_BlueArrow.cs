@@ -72,11 +72,11 @@ namespace _3902_Project
         /// <summary>
         /// Passes to the Renderer GetPosition method
         /// </summary>
-        public Vector2 GetPosition()
+        public Rectangle GetRectanglePosition()
         {
             if (_timerCounter >= (_timerTotal * _frameRanges[0]))
-                return _explodeArrow.GetPosition();
-            else return _rendererList.GetOnePosition();
+                return _explodeArrow.GetRectanglePosition();
+            else return _rendererList.GetOneRectanglePosition();
         }
 
 

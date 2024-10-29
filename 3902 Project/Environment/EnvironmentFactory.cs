@@ -127,10 +127,10 @@ namespace _3902_Project
             _environment = ReadCsvFile(filepath);
 
             _blockManager.AddBlock(BlockManager.BlockNames.Environment, new Vector2(0, 0), 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor, new Vector2(448, 0), Renderer.DIRECTION.DOWN, 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor, new Vector2(448, 576), Renderer.DIRECTION.UP, 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor, new Vector2(0, 288), Renderer.DIRECTION.RIGHT, 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor, new Vector2(1024 - 128, 288), Renderer.DIRECTION.LEFT, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN, new Vector2(448, 0), 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_UP, new Vector2(448, 576), 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT, new Vector2(0, 288), 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT, new Vector2(1024 - 128, 288), 4F);
 
 
             for (int i = 0; i < _environment.Count; i++)
