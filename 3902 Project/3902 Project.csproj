@@ -18,10 +18,13 @@
   <ItemGroup>
     <Compile Remove="GamePlay\**" />
     <Compile Remove="Old Code - Could be Useful\**" />
+    <Compile Remove="Sprite Renderers\Spawners\**" />
     <EmbeddedResource Remove="GamePlay\**" />
     <EmbeddedResource Remove="Old Code - Could be Useful\**" />
+    <EmbeddedResource Remove="Sprite Renderers\Spawners\**" />
     <None Remove="GamePlay\**" />
     <None Remove="Old Code - Could be Useful\**" />
+    <None Remove="Sprite Renderers\Spawners\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Icon.ico" />
@@ -46,7 +49,6 @@
     <Folder Include="Collision Logic\" />
     <Folder Include="obj\Debug\net6.0\refint\" />
     <Folder Include="obj\Debug\net6.0\ref\" />
-    <Folder Include="Renderer\Spawners\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="obj\3902 Project.csproj.nuget.g.props" />
