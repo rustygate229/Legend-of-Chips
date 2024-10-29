@@ -12,6 +12,10 @@ namespace _3902_Project
         ILinkMovement _linkMovement;
         ILinkStateMachine _linkStateMachine;
         ProjectileManager _projectileManager;
+        LinkInventory _linkInventory;
+        LinkPlayerStatus _status;
+
+
 
         //double x, y;
         public LinkPlayer(SpriteBatch sb, ContentManager content, ProjectileManager projectileManager)
@@ -21,9 +25,25 @@ namespace _3902_Project
             _animation = new LinkAnimation(sb, content, _linkStateMachine);
 
             _projectileManager = projectileManager;
+            _status = new LinkPlayerStatus();
 
 
+        }
 
+        public void DecreaseHealth(int amount)
+        {
+            _status.DecreaseHealth(amount);
+        }
+
+        public void AddItemToInventory(string itemName)
+        {
+            _status.AddItemToInventory(itemName);
+        }
+
+        //get current HP
+        public int GetHealth()
+        {
+            return _status.Health;
         }
 
         public ICollisionBox getCollisionBox()
