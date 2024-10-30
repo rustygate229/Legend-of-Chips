@@ -107,6 +107,7 @@ namespace _3902_Project
             }
             else if (objectB is BlockCollisionBox block)
             {
+                Debug.Print("Link colliding with block");
                 HandleCollision(objectA, (BlockCollisionBox)objectB, side);
                 
             }
@@ -115,7 +116,7 @@ namespace _3902_Project
                 var names = ((ItemCollisionBox)objectB).getItemInfo();
                 Debug.Print("picked up item " + names.name);
 
-                
+                _link.AddItem(names.name, names.amount);
 
                 _itemManager.RemoveItem(item);
             }
