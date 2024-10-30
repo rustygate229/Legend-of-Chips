@@ -177,7 +177,11 @@ namespace _3902_Project
 
                     if (itemToPlace != "-")
                     {
-                        currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 3F);
+                        if (itemToPlace == "fs" || itemToPlace == "fp")
+                            currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 2F, 9);
+                        else if (itemToPlace == "bk")
+                            currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 3F);
+
                     }
                 }
             }

@@ -24,14 +24,15 @@ namespace _3902_Project
 
             foreach (var collision in collisions)
             {
-                if (_projectiles.Contains((ProjectileCollisionBox)collision.ObjectA) || _projectiles.Contains((ProjectileCollisionBox)collision.ObjectB))
+                if ((_projectiles.Contains(collision.ObjectA as ProjectileCollisionBox) && collision.ObjectA is ProjectileCollisionBox) ||
+                    (_projectiles.Contains(collision.ObjectB as ProjectileCollisionBox) && collision.ObjectB is ProjectileCollisionBox))
                 {
                     _collisionHandler.HandleCollision(collision.ObjectA, collision.ObjectB, collision.CollisionSide, true);
                 }
             }
         }
 
-        public void ProjectileIsDead(ProjectileCollisionBox projectile)
+            public void ProjectileIsDead(ProjectileCollisionBox projectile)
         {
             _projectiles.Remove(projectile);
         }

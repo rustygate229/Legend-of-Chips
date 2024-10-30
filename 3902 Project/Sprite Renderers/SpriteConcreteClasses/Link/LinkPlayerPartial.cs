@@ -20,7 +20,7 @@ namespace _3902_Project
                 {
                     case 1:
                         float[] frameRangeArrow = { 0.85f };
-                        _projectileManager.CallProjectile(ProjectileManager.ProjectileNames.BlueArrow, linkPosition, (int)direction, 100, 2f, 2f, frameRangeArrow); break;
+                        _projectileManager.CallProjectile(ProjectileManager.ProjectileNames.BlueArrow, linkPosition, (int)direction, 300, 2f, 2f, frameRangeArrow); break;
                     case 2:
                         float[] frameRangeBomb = { 0.50f, 0.70f };
                         _projectileManager.CallProjectile(ProjectileManager.ProjectileNames.Bomb, linkPosition, (int)direction, 150, 2f, 2f, frameRangeBomb); break;
