@@ -1,18 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using System.IO;
 
 namespace _3902_Project
 {
-    public class EnvironmentFactory
+    class EnvironmentFactory
     {
         private BlockManager _blockManager;
         private ItemManager _itemManager;
         private EnemyManager _enemyManager;
         private CollisionDetector _collisionDetector;
         private CollisionHandlerManager _collisionHandlerManager;
-        private ProjectileCollisionManager _projectileCollisionManager; // Renamed for consistency
+        private ProjectileCollisionManager _projectileCollisionManager; // Added ProjectileCollisionManager
 
         private int _level;
         private int _prevLevel = -1; // -1 is a stand-in for a null value
@@ -24,119 +23,210 @@ namespace _3902_Project
         private List<List<string>> _enemies;
         private List<List<string>> _items;
 
-        private List<ICollisionBox> _blockCollisionBoxes;
-
-        public EnvironmentFactory(BlockManager block, ItemManager item, LinkPlayer link, EnemyManager enemy, List<ICollisionBox> blockCollisionBoxes, ProjectileCollisionManager projectileCollisionManager)
+        public EnvironmentFactory(BlockManager block, ItemManager item, LinkPlayer link, EnemyManager enemy, List<ICollisionBox> blockCollisionBoxes, ProjectileCollisionManager projectileManager)
         {
             _blockManager = block;
             _itemManager = item;
             _enemyManager = enemy;
-            _blockCollisionBoxes = blockCollisionBoxes;
-            _projectileCollisionManager = projectileCollisionManager; // Initialize the projectileCollisionManager
+            _projectileCollisionManager = projectileManager; // Initialize the ProjectileCollisionManager
 
             // Initialize Collision
             _collisionDetector = new CollisionDetector();
-            _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item, blockCollisionBoxes, projectileCollisionManager);
+            _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item, blockCollisionBoxes, projectileManager);
 
             _level = 0;
 
             _csvTranslationsBlock = new Dictionary<string, BlockManager.BlockNames>();
             _csvTranslationsEnemy = new Dictionary<string, EnemyManager.EnemyNames>();
             _csvTranslationsItem = new Dictionary<string, ItemManager.ItemNames>();
-            GenerateTranslations();
-
-            // Initialize environment lists
-            _environment = new List<List<string>>();
-            _enemies = new List<List<string>>();
-            _items = new List<List<string>>();
+            generateTranslations();
         }
 
-        private void GenerateTranslations()
+        // Read CSV files
+        private List<List<string>> ReadCsvFile(string filePath)
         {
-            // Implement your translation logic here
-            // Map CSV identifiers to enums
-        }
+            var matrix = new List<List<string>>();
 
-        public void LoadLevel()
-        {
-            // Load level data from CSV or other sources
-            // Example:
-            // LoadEnvironment("Level1Environment.csv");
-            // LoadEnemies("Level1Enemies.csv");
-            // LoadItems("Level1Items.csv");
-
-            // Initialize blocks, enemies, and items based on loaded data
-            InitializeEnvironment();
-            InitializeEnemies();
-            InitializeItems();
-        }
-
-        private void InitializeEnvironment()
-        {
-            // Loop through _environment data and create blocks
-            foreach (var row in _environment)
+            using (StreamReader reader = new StreamReader(filePath))
             {
-                foreach (var cell in row)
+                string line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    // Create blocks based on cell data
-                    // Add collision boxes to _blockCollisionBoxes if necessary
+                    var values = line.Split(',');
+                    matrix.Add(new List<string>(values));
+                }
+            }
+
+            return matrix;
+        }
+
+        private void generateTranslations()
+        {
+            _csvTranslationsBlock.Add("-", BlockManager.BlockNames.Tile);
+            _csvTranslationsBlock.Add("s", BlockManager.BlockNames.Square);
+            _csvTranslationsBlock.Add("d", BlockManager.BlockNames.Dirt);
+
+            _csvTranslationsEnemy.Add("g", EnemyManager.EnemyNames.GreenSlime);
+            _csvTranslationsEnemy.Add("b", EnemyManager.EnemyNames.BrownSlime);
+            _csvTranslationsEnemy.Add("d", EnemyManager.EnemyNames.Darknut);
+
+            _csvTranslationsItem.Add("fs", ItemManager.ItemNames.FlashingScripture);
+            _csvTranslationsItem.Add("fp", ItemManager.ItemNames.FlashingPotion);
+            _csvTranslationsItem.Add("bk", ItemManager.ItemNames.BossKey);
+        }
+
+        // This method must be refactored
+        public Dictionary<BlockManager.BlockNames, List<ICollisionBox>> getCollidables()
+        {
+            Dictionary<BlockManager.BlockNames, List<ICollisionBox>> result = new Dictionary<BlockManager.BlockNames, List<ICollisionBox>>();
+
+            HashSet<BlockManager.BlockNames> collidables = new HashSet<BlockManager.BlockNames>
+            {
+                BlockManager.BlockNames.Square
+            };
+
+            for (int i = 0; i < _environment.Count; i++)
+            {
+                for (int j = 0; j < _environment[i].Count; j++)
+                {
+                    string blockToCheck = _environment[i][j];
+                    if (collidables.Contains(_csvTranslationsBlock[blockToCheck]))
+                    {
+                        if (!result.ContainsKey(_csvTranslationsBlock[blockToCheck]))
+                        {
+                            result[_csvTranslationsBlock[blockToCheck]] = new List<ICollisionBox>();
+                        }
+                        Rectangle bounds = new Rectangle(128 + (j * 64), 128 + (i * 64), 64, 64);
+                        result[_csvTranslationsBlock[blockToCheck]].Add(new BlockCollisionBox(bounds, true));
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public Rectangle getRoomDimensions()
+        {
+            return new Rectangle(128, 128, 768, 448);
+        }
+
+        public int getLevel()
+        {
+            return _level;
+        }
+
+        private void loadBlocks()
+        {
+            string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Levels/Level" + _level.ToString() + ".csv";
+            _environment = ReadCsvFile(filepath);
+
+            _blockManager.AddBlock(BlockManager.BlockNames.Environment, new Vector2(0, 0), 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN, new Vector2(448, 0), 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_UP, new Vector2(448, 576), 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT, new Vector2(0, 288), 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT, new Vector2(1024 - 128, 288), 4F);
+
+            for (int i = 0; i < _environment.Count; i++)
+            {
+                for (int j = 0; j < _environment[i].Count; j++)
+                {
+                    string blockToPlace = _environment[i][j];
+                    ISprite currentBlock;
+
+                    if (blockToPlace == "-")
+                        currentBlock = _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 4F);
+                    else if (blockToPlace == "s")
+                        currentBlock = _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 4F);
+                    else if (blockToPlace == "d")
+                        currentBlock = _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 4F);
                 }
             }
         }
 
-        private void InitializeEnemies()
+        private void loadEnemies()
         {
-            // Loop through _enemies data and create enemies
-            foreach (var enemyData in _enemies)
-            {
-                // Parse enemyData to get position, type, etc.
-                Vector2 position = ParsePosition(enemyData);
-                EnemyManager.EnemyNames enemyType = ParseEnemyType(enemyData);
+            string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Enemies/Enemy" + _level.ToString() + ".csv";
+            _enemies = ReadCsvFile(filepath);
 
-                // Add enemy to EnemyManager
-                _enemyManager.AddEnemy(enemyType, position, printScale: 1.0f, spriteSpeed: 1.0f, moveTotalTimerTotal: 100, frames: 4);
+            for (int i = 0; i < _enemies.Count; i++)
+            {
+                for (int j = 0; j < _enemies[i].Count; j++)
+                {
+                    string enemyToPlace = _enemies[i][j];
+                    ISprite currentEnemy;
+
+                    if (enemyToPlace != "-")
+                    {
+                        currentEnemy = _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 3F, 3F, 50, 30);
+                    }
+                }
             }
         }
 
-        private void InitializeItems()
+        private void loadItems()
         {
-            // Loop through _items data and create items
-            foreach (var itemData in _items)
+            string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Items/Item" + _level.ToString() + ".csv";
+            _items = ReadCsvFile(filepath);
+
+            for (int i = 0; i < _items.Count; i++)
             {
-                // Create items based on itemData
+                for (int j = 0; j < _items[i].Count; j++)
+                {
+                    string itemToPlace = _items[i][j];
+                    ISprite currentItem;
+
+                    if (itemToPlace != "-")
+                    {
+                        currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 3F);
+                    }
+                }
             }
+        }
+
+        public void loadLevel()
+        {
+            loadBlocks();
+            loadEnemies();
+            loadItems();
+        }
+
+        public void incrementLevel()
+        {
+            if (_level < 2) { _level++; }
+        }
+
+        public void decrementLevel()
+        {
+            if (_level > 0) { _level--; }
         }
 
         public void Update(LinkPlayer player)
         {
-            // Update environment logic
-            // Handle collisions involving projectiles
-            List<ICollisionBox> collisionBoxes = new List<ICollisionBox>();
-            collisionBoxes.AddRange(_blockCollisionBoxes);
-            collisionBoxes.AddRange(_enemyManager.collisionBoxes);
-            collisionBoxes.AddRange(_projectileCollisionManager.GetCollisionBoxes());
-            // Add other collision boxes as needed
+            if (_prevLevel != -1 && _prevLevel != _level)
+            {
+                _enemyManager.UnloadAllEnemies();
+                _itemManager.UnloadAllItems();
+                _blockManager.UnloadAllBlocks();
 
-            // Update projectile collisions
-            _projectileCollisionManager.UpdateCollisions(collisionBoxes);
+                loadLevel();
+            }
 
-            // Detect and handle collisions
-            List<CollisionData> collisions = _collisionDetector.DetectCollisions(collisionBoxes);
+            _prevLevel = _level;
+
+            // Get player and item CollisionBox
+            List<ICollisionBox> gameObjects = new List<ICollisionBox>
+            {
+                player.getCollisionBox()
+            };
+            gameObjects.AddRange(_itemManager.GetCollisionBoxes());
+            gameObjects.AddRange(_enemyManager.collisionBoxes);
+            gameObjects.AddRange(_projectileCollisionManager.GetCollisionBoxes()); // Add projectile collision boxes
+
+            // Detect Collision
+            List<CollisionData> collisions = _collisionDetector.DetectCollisions(gameObjects);
+
+            // Handle Collision
             _collisionHandlerManager.HandleCollisions(collisions);
         }
-
-        private Vector2 ParsePosition(List<string> data)
-        {
-            // Implement parsing logic to get position from data
-            return Vector2.Zero;
-        }
-
-        private EnemyManager.EnemyNames ParseEnemyType(List<string> data)
-        {
-            // Implement parsing logic to get enemy type from data
-            return EnemyManager.EnemyNames.GreenSlime;
-        }
-
-        // Implement other methods as needed
     }
 }

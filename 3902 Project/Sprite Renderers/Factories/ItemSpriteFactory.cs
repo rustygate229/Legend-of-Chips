@@ -73,7 +73,9 @@ namespace _3902_Project
                     return new SItem_Sword(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.WaterPlate:
                     return new SItem_WaterPlate(_itemSpritesheet, printScale);
-                default: throw new ArgumentException("invalid item name");
+                //
+                default:
+                    throw new ArgumentException("invalid item name");
             }
         }
         public ISprite CreateItem(ItemManager.ItemNames itemName, float printScale, int frames)

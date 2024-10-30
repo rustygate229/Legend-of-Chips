@@ -64,7 +64,7 @@ namespace _3902_Project
             // **Initialize ProjectileCollisionManager**
             _projectileCollisionManager = new ProjectileCollisionManager(EnemyManager);
 
-            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, _blockCollisionBoxes);
+            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, _blockCollisionBoxes, _projectileCollisionManager);
 
             // Initialize input controllers
             keyboardController = new KeyboardInput(this);
