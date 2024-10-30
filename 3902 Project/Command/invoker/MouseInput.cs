@@ -28,18 +28,18 @@ namespace _3902_Project
                 newbuttonsClicked.Add("rc");
             else if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 newbuttonsClicked.Add("lc");
-               
+
             // for each key, find if it is either previously pressed or a movement key
             foreach (string key in newbuttonsClicked)
             {
                 if (key == "rc" && !previousMouseButtons.Contains("rc"))
                 {
-                    _game.EnvironmentFactory.incrementLevel();
+                    _game.EnvironmentFactory.IncrementLevel();
                 }
 
                 else if (key == "lc" && !previousMouseButtons.Contains("lc"))
                 {
-                    _game.EnvironmentFactory.decrementLevel();
+                    _game.EnvironmentFactory.DecrementLevel();
                 }
             }
 

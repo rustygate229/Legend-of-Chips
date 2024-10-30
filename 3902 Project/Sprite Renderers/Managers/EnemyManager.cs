@@ -54,8 +54,19 @@ namespace _3902_Project
         {
             ISprite currentSprite = _factory.CreateEnemy(name, printScale, spriteSpeed, moveTotalTimerTotal, frames);
 
+
+            
+
+            // Set projectile damage
+            int projectileDamage = 20; // Adjust this value as needed
+            // Set enemy health to require 5 hits to be defeated
+            int enemyHealth = projectileDamage * 5;
+
+            // Create the enemy collision box with the calculated health
+            EnemyCollisionBox collision = new EnemyCollisionBox(currentSprite.GetRectanglePosition(), true, enemyHealth, 10);
+            collisionBoxes.Add(collision);
             //hardcoded for now for demo purposes - assumes it is a brown slime CHANGE LATER PLEASE
-            ICollisionBox collision = new EnemyCollisionBox(currentSprite.GetRectanglePosition(), true, 100, 10);
+            // ICollisionBox collision = new EnemyCollisionBox(currentSprite.GetRectanglePosition(), true, 100, 10);
             collisionBoxes.Add(collision);
 
             currentSprite.SetPosition(placementPosition);
@@ -92,21 +103,29 @@ namespace _3902_Project
         public void UpdateBounds(EnemyCollisionBox collisionBox, Rectangle newBounds)
         {
             int i = collisionBoxes.IndexOf(collisionBox);
-            collisionBoxes[i].Bounds = newBounds;
-            _runningEnemies[i].SetPosition(new Vector2(newBounds.X, newBounds.Y));
+            if (i >= 0)
+            {
+                collisionBoxes[i].Bounds = newBounds;
+                _runningEnemies[i].SetPosition(new Vector2(newBounds.X, newBounds.Y));
 
+            }
         }
-
         public void Update()
         {
-            int i = 0;
-            foreach (ISprite enemy in _runningEnemies)
+            for (int i = _runningEnemies.Count - 1; i >= 0; i--)
             {
-                enemy.Update();
+                ISprite enemy = _runningEnemies[i];
+                EnemyCollisionBox collisionBox = (EnemyCollisionBox)collisionBoxes[i];
 
-                collisionBoxes[i].Bounds = enemy.GetRectanglePosition();
-                i++;
-
+                if (collisionBox.Health <= 0)
+                {
+                    EnemyIsDead(collisionBox);
+                }
+                else
+                {
+                    enemy.Update();
+                    collisionBox.Bounds = enemy.GetRectanglePosition();
+                }
             }
         }
         public void EnemyIsDead(EnemyCollisionBox enemyCollisionBox)
