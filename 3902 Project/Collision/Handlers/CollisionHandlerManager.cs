@@ -33,16 +33,15 @@ namespace _3902_Project
         {
 
             bool isCollidable = (objectA is BlockCollisionBox blockA && blockA.IsCollidable) || (objectB is BlockCollisionBox blockB && blockB.IsCollidable);
-
-            //case if object is player character
-            if(objectA is BulletCollisionBox || objectB is BulletCollisionBox)
+            if(objectB is BulletCollisionBox)
             {
                 //temporary fix for bullet
+                //nothing more temporary than a permanent fix.
                 EnemyCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
             }
             else if (objectA is LinkCollisionBox || objectB is LinkCollisionBox)
             {
-                LinkCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
+                LinkCollisionHandler.HandleCollision((LinkCollisionBox)objectA, objectB, side, isCollidable);
             }
 
             //case if object is enemy 

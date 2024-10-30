@@ -22,18 +22,19 @@ namespace _3902_Project
                     {
                         CollisionType side = DetermineCollisionSide(objectA, objectB);
                         
-                        if (objectB.GetType() == typeof(LinkCollisionBox))
+                        if (objectB is LinkCollisionBox)
                         {
                             //Link, <Other> collision
                             collisions.Add(new CollisionData(objectB, objectA, side));
                         }
-                        else if (objectB.GetType() == typeof(EnemyCollisionBox))
+                        else if (objectB is EnemyCollisionBox)
                         {
                             //Enemy, <Other> collision (NOT link.) 
                             collisions.Add(new CollisionData(objectB, objectA, side));
                         }
                         else if(objectB is BulletCollisionBox)
                         {
+                            //bullet, block collision
 
                             collisions.Add(new CollisionData(objectB, objectA, side));
                         }

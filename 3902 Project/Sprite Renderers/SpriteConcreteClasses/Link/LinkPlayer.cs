@@ -34,17 +34,6 @@ namespace _3902_Project
             return ((LinkMovement)_linkMovement).getCollisionBox();
         }
 
-        public double getXPosition() {
-            //also updates x and y just to be sure 
-            return _linkMovement.getXPosition();
-
-
-        }
-        public double getYPosition() {
-            return _linkMovement.getYPosition();
-
-        }
-
         private bool CannotMove()
         {
             return (_linkStateMachine.getAttackState() == ATTACK.THROW);

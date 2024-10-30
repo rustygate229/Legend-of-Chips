@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-public class EnemyCollisionHandler : ICollisionHandler
+public class EnemyCollisionHandler 
 {
     EnemyManager _enemyManager;
     public EnemyCollisionHandler(EnemyManager enemyManager)

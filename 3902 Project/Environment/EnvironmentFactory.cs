@@ -233,6 +233,7 @@ namespace _3902_Project
             _prevLevel = _level;
 
             // get player and item CollisionBox
+            //potential source of memory leakage here - gameObjects is constantly being updated every frame
             List<ICollisionBox> gameObjects = new List<ICollisionBox>
     {
         player.getCollisionBox()

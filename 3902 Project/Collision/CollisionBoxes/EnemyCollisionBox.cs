@@ -15,8 +15,8 @@ public class EnemyCollisionBox : ICollisionBox
         //and cannot be collided with
         _bounds = new Rectangle();
         _collidable = false;
-        _health = 0;
-        _damage = 0;
+        _health = 1;
+        _damage = 1;
 
     }
 

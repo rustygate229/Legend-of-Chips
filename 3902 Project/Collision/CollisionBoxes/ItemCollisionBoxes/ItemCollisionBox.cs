@@ -10,13 +10,17 @@ namespace _3902_Project
         private bool _isCollidable;
         private int _health;
         private int _damage;
+        private ItemManager.ItemNames _itemName;
+        private int _itemCount;
 
-        public ItemCollisionBox(Rectangle bounds)
+        public ItemCollisionBox(Rectangle bounds, ItemManager.ItemNames itemName, int amount)
         {
             _bounds = bounds;
-            _isCollidable = true; 
-            _health = 0; 
-            _damage = 0; 
+            _isCollidable = true;
+            _health = -1;
+            _damage = 0;
+            _itemName = itemName;
+            _itemCount = amount;
         }
 
         public Rectangle Bounds
@@ -43,5 +47,9 @@ namespace _3902_Project
             set { _damage = value; }
         }
 
+
+        public (ItemManager.ItemNames name, int amount) getItemInfo() {
+            return (_itemName, _itemCount);
+        }
     }
 }

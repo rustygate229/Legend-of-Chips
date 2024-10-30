@@ -53,7 +53,7 @@ namespace _3902_Project
             _runningItems.Add(currentSprite);
 
             // Add item collision box for collision detection
-            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20));
+            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20), name, 1);
             _itemCollisionDictionary[collisionBox] = currentSprite;
 
             return currentSprite;
@@ -73,7 +73,7 @@ namespace _3902_Project
             _runningItems.Add(currentSprite);
 
             // Add item collision box for collision detection
-            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20));
+            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20), name, 1);
             _itemCollisionDictionary[collisionBox] = currentSprite;
 
             return currentSprite;
