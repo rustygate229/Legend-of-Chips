@@ -49,7 +49,6 @@ namespace _3902_Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
             // Initialize all managers
             BlockManager = new BlockManager(Content, _spriteBatch);
@@ -57,6 +56,7 @@ namespace _3902_Project
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
             EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
             Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
+            Debug.Print("test");
 
 
             // Initialize keyboard input controller
@@ -76,14 +76,6 @@ namespace _3902_Project
             whiteRectangle.SetData(new[] { Color.White });
 
             EnvironmentFactory.loadLevel();
-
-
-            /*Dictionary<BlockManager.BlockNames, List<ICollisionBox>> BlockCollisionDict = EnvironmentFactory.getCollidables(); // Load collision boxes from ENVIRONMENT
-            List<ICollisionBox> CollisionList = new List<ICollisionBox>();
-            if (BlockCollisionDict.TryGetValue(BlockManager.BlockNames.Square, out CollisionList))
-            {
-                _blockCollisionBoxes.AddRange(CollisionList);
-            }*/
 
         }
 
@@ -111,26 +103,33 @@ namespace _3902_Project
             Player.Draw();
             EnemyManager.Draw();
 
+            DrawCollidables();
+
+
+            base.Draw(gameTime);
+        }
+
+        public void DrawCollidables()
+        {
             List<List<ICollisionBox>> collidables = EnvironmentFactory._collisionBoxes;
             _spriteBatch.Begin();
+            Color color = Color.White;
 
-            for(int i = 0; i < collidables.Count; i++)
+            for (int i = 0; i < collidables.Count; i++)
             {
+                //if (i == 1) continue;
                 List<ICollisionBox> collisionBoxes = collidables[i];
-                foreach(ICollisionBox collisionBox in collisionBoxes)
-                {
-                    if( i == 2 && collisionBox.Bounds.Width > 64) { Debug.Print("index of playable area: " + collisionBoxes.IndexOf(collisionBox));  }
-
-                    _spriteBatch.Draw(whiteRectangle, collisionBox.Bounds, Color.White);
+                foreach (ICollisionBox collisionBox in collisionBoxes)
+                { 
+                    if (i == 0) color = Color.White;
+                    if (i == 1) color = Color.Red;
+                    if (i == 2) color = Color.Green;
+                    if (i == 3) color = Color.Blue;
+                    _spriteBatch.Draw(whiteRectangle, collisionBox.Bounds, color);
                 }
 
             }
             _spriteBatch.End();
-
-
-
-
-            base.Draw(gameTime);
         }
 
 

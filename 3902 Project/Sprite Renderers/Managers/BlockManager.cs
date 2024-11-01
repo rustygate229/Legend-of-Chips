@@ -2,13 +2,14 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace _3902_Project
 {
     public class BlockManager
     {
         // create block names for finding them
-        public enum BlockNames 
+        public enum BlockNames
         {
             Environment, Dirt, Square, Tile, WhiteBrick, WhiteTile,
             BombedDoor_DOWN, BombedDoor_UP, BombedDoor_RIGHT, BombedDoor_LEFT,
@@ -56,7 +57,13 @@ namespace _3902_Project
             ISprite currentSprite = _factory.CreateBlock(name, printScale);
             currentSprite.SetPosition(placementPosition);
             _runningBlocks.Add(currentSprite);
-            collisionBoxes.Add(new BlockCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, (int)(16 * printScale),(int)(16*printScale)), true));
+
+            if (name == BlockNames.Square)
+            {
+                //also check for correctness here
+                //check with evan later about how to get width and height of blocks
+                collisionBoxes.Add(new BlockCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, (int)(16 * printScale), (int)(16 * printScale)), true));
+            }
             return currentSprite;
         }
 
@@ -82,13 +89,15 @@ namespace _3902_Project
         /// Remove/Unload an block from the block list based on it's ISprite
         /// </summary>
         /// <param name="sprite"></param>
-        public void UnloadBlock(ISprite sprite) {
+        /// this currently isn't going to work because not all sprites have associated collisionboxes
+        /*public void UnloadBlock(ISprite sprite)
+        {
             int i = _runningBlocks.IndexOf(sprite);
             collisionBoxes.RemoveAt(i);
             _runningBlocks.RemoveAt(i);
 
 
-        }
+        }*/
 
 
         /// <summary>

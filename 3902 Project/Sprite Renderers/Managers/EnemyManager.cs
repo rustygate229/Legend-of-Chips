@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace _3902_Project
 {
@@ -52,14 +53,17 @@ namespace _3902_Project
         /// <param name="placementPosition"></param>
         public ISprite AddEnemy(EnemyNames name, Vector2 placementPosition, float printScale, float spriteSpeed, int moveTotalTimerTotal, int frames)
         {
+            //brown slimes don't work for some reason??
             ISprite currentSprite = _factory.CreateEnemy(name, printScale, spriteSpeed, moveTotalTimerTotal, frames);
 
             //hardcoded for now for demo purposes - assumes it is a brown slime CHANGE LATER PLEASE
-            ICollisionBox collision = new EnemyCollisionBox(currentSprite.GetRectanglePosition(), true, 100, 10);
+            ICollisionBox collision = new EnemyCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 64, 64), true, 100, 10);
+
             collisionBoxes.Add(collision);
 
             currentSprite.SetPosition(placementPosition);
             _runningEnemies.Add(currentSprite);
+            Debug.Print("Added sprite " + name.ToString() + " to runningEnemies");
 
             return currentSprite;
         }

@@ -2,16 +2,35 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 
 namespace _3902_Project
 {
 
-    public class CollisionDetector : ICollisionDetector
+    public class CollisionDetector 
     {
-        public List<CollisionData> DetectCollisions(List<ICollisionBox> gameObjects)
+        public static List<CollisionData> DetectCollisions(List<List<ICollisionBox>> gameObjects)
         {
+            List<CollisionData> collisions = new List<CollisionData>();
+            //broken into multiple segments - one is link and everything, one is enemy and block
+            ICollisionBox link = gameObjects[0][0];
+
+            for(int i = 1; i < gameObjects.Count; i++)
+            {
+                for(int j = 0; j < gameObjects[i].Count; j++)
+                {
+                    ICollisionBox objectB = gameObjects[i][j];
+                    if(link.Bounds.Intersects(objectB.Bounds))
+                    {
+                        collisions.Add(new CollisionData(link, objectB));
+                    }
+                }
+            }
+
+
+
             //List<ICollisionBox> gameObjects = gameCollisions.SelectMany
-            var collisions = new List<CollisionData>();
+            /*var collisions = new List<CollisionData>();
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 for (int j = i + 1; j < gameObjects.Count; j++)
@@ -22,29 +41,11 @@ namespace _3902_Project
                     {
                         CollisionType side = DetermineCollisionSide(objectA, objectB);
                         
-                        if (objectB is LinkCollisionBox)
-                        {
-                            //Link, <Other> collision
-                            collisions.Add(new CollisionData(objectB, objectA, side));
-                        }
-                        else if (objectB is EnemyCollisionBox)
-                        {
-                            //Enemy, <Other> collision (NOT link.) 
-                            collisions.Add(new CollisionData(objectB, objectA, side));
-                        }
-                        else if(objectB is BulletCollisionBox)
-                        {
-                            //bullet, block collision
-
-                            collisions.Add(new CollisionData(objectB, objectA, side));
-                        }
-                        else
-                        {
                             collisions.Add(new CollisionData(objectA, objectB, side));
-                        }
+                        
                     }
                 }
-            }
+            }*/
             return collisions;
         }
 

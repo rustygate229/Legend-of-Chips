@@ -24,9 +24,9 @@ namespace _3902_Project
 
         public void UpdateCollisions(List<ICollisionBox> blocks)
         {
-            var allObjects = new List<ICollisionBox>(_collisionBoxes);
+            /*var allObjects = new List<ICollisionBox>(_collisionBoxes);
             allObjects.AddRange(blocks);
-            List<CollisionData> collisions = _collisionDetector.DetectCollisions(allObjects);
+            //List<CollisionData> collisions = _collisionDetector.DetectCollisions(allObjects);
 
             foreach (var collision in collisions)
             {
@@ -34,7 +34,7 @@ namespace _3902_Project
                 {
                     _collisionHandler.HandleCollision(collision.ObjectA, collision.ObjectB, collision.CollisionSide, true);
                 }
-            }
+            }*/
         }
 
         public void EnemyIsDead(ICollisionBox enemy)

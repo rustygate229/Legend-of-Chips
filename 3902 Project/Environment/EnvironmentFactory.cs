@@ -12,7 +12,6 @@ namespace _3902_Project
         private BlockManager _blockManager;
         private ItemManager _itemManager;
         private EnemyManager _enemyManager;
-        private CollisionDetector _collisionDetector;
         private CollisionHandlerManager _collisionHandlerManager;
         private LinkPlayer _link;
 
@@ -36,11 +35,11 @@ namespace _3902_Project
             _blockManager = block;
             _itemManager = item;
             _enemyManager = enemy;
+            _link = link;
 
             _collisionBoxes = new List<List<ICollisionBox>>(4);
             
             //Initialize Collision
-            _collisionDetector = new CollisionDetector();
             _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item);
 
             _level = 0;
@@ -89,7 +88,7 @@ namespace _3902_Project
         }
 
         // This method must be refactored
-        public Dictionary<BlockManager.BlockNames, List<ICollisionBox>> getCollidables()
+        /*public Dictionary<BlockManager.BlockNames, List<ICollisionBox>> getCollidables()
         {
             Dictionary<BlockManager.BlockNames, List<ICollisionBox>> result = new Dictionary<BlockManager.BlockNames, List<ICollisionBox>>();
 
@@ -117,7 +116,7 @@ namespace _3902_Project
             }
 
             return result;
-        }
+        }*/
 
         public Rectangle getRoomDimensions()
         {
@@ -214,13 +213,12 @@ namespace _3902_Project
         public void loadCollisions()
         {
             _collisionBoxes.Clear();
-            List<ICollisionBox> temp = new List<ICollisionBox>();
-            /*List<ICollisionBox> temp = new List<ICollisionBox>
+            //List<ICollisionBox> temp = new List<ICollisionBox>();
+            List<ICollisionBox> temp = new List<ICollisionBox>
             {
                 _link.getCollisionBox()
-            };*/
+            };
 
-            //the real question: does _collisionboxes add a REFERENCE to these lists or a VALUE
             _collisionBoxes.Add(temp);
             _collisionBoxes.Add(_enemyManager.collisionBoxes);
             _collisionBoxes.Add(_blockManager.collisionBoxes);
@@ -262,10 +260,10 @@ namespace _3902_Project
 
 
             // Detect Collisions
-            //List<CollisionData> collisions = _collisionDetector.DetectCollisions(_collisionBoxes);
+            List<CollisionData> collisions = CollisionDetector.DetectCollisions(_collisionBoxes);
 
             // Handle Collisions
-            //_collisionHandlerManager.HandleCollisions(collisions);
+            _collisionHandlerManager.HandleCollisions(collisions);
         }
     }
 }

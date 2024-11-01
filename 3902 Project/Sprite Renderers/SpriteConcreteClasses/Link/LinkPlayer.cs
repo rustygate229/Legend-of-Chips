@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 using static _3902_Project.ILinkStateMachine;
 
 namespace _3902_Project
@@ -9,7 +10,7 @@ namespace _3902_Project
     public partial class LinkPlayer
     {
         IAnimation _animation;
-        ILinkMovement _linkMovement;
+        LinkMovement _linkMovement;
         ILinkStateMachine _linkStateMachine;
         ProjectileManager _projectileManager;
         LinkInventory _linkInventory;
@@ -24,14 +25,11 @@ namespace _3902_Project
             _linkInventory = new LinkInventory();
 
             _projectileManager = projectileManager;
-
-
-
         }
 
         public ICollisionBox getCollisionBox()
         {
-            return ((LinkMovement)_linkMovement).getCollisionBox();
+            return _linkMovement.getCollisionBox();
         }
 
         private bool CannotMove()
