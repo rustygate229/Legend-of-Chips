@@ -56,8 +56,6 @@ namespace _3902_Project
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
             EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
             Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
-            Debug.Print("test");
-
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
@@ -103,7 +101,7 @@ namespace _3902_Project
             Player.Draw();
             EnemyManager.Draw();
 
-            DrawCollidables();
+            //DrawCollidables();
 
 
             base.Draw(gameTime);
