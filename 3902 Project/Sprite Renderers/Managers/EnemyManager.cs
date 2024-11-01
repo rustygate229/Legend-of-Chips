@@ -69,13 +69,13 @@ namespace _3902_Project
         /// Remove/Unload an enemy from the enemy list based on it's ISprite
         /// </summary>
         /// <param name="name"></param>
-        public void UnloadEnemy(ISprite sprite) { _runningEnemies.Remove(sprite); }
+        //public void UnloadEnemy(ISprite sprite) { _runningEnemies.Remove(sprite); }
 
 
         /// <summary>
         /// Remove/Unload all Enemy Sprites
         /// </summary>
-        public void UnloadAllEnemies() { _runningEnemies = new List<ISprite>();  }
+        public void UnloadAllEnemies() { _runningEnemies.Clear(); collisionBoxes.Clear(); }
 
 
         /// <summary>
@@ -99,9 +99,8 @@ namespace _3902_Project
 
         public void Update()
         {
-            int i = 0;
-            foreach (ISprite enemy in _runningEnemies)
-            {
+            for(int i = 0; i < _runningEnemies.Count; i++) {
+                ISprite enemy = _runningEnemies[i];
                 enemy.Update();
 
                 collisionBoxes[i].Bounds = enemy.GetRectanglePosition();

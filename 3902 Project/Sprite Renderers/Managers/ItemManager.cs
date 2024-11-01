@@ -89,7 +89,7 @@ namespace _3902_Project
             }
         }
 
-        public void UnloadAllItems() { _runningItems = new List<ISprite>(); }
+        public void UnloadAllItems() { _runningItems.Clear(); _itemCollisionDictionary.Clear(); }
 
 
         /// <summary>
@@ -116,9 +116,15 @@ namespace _3902_Project
         }
 
         // Method to get collision boxes for all items
-        public List<ItemCollisionBox> GetCollisionBoxes()
+        public List<ICollisionBox> GetCollisionBoxes()
         {
-            return new List<ItemCollisionBox>(_itemCollisionDictionary.Keys);
+            List<ICollisionBox> temp = new List<ICollisionBox>();
+            foreach (ItemCollisionBox item in new List<ItemCollisionBox>(_itemCollisionDictionary.Keys))
+            {
+                //adding in precise order (hopefully) workaround for item collision box issue
+                temp.Add((ICollisionBox)item);
+            }
+            return temp;
         }
     }
 }

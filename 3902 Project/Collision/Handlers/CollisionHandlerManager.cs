@@ -11,13 +11,13 @@ namespace _3902_Project
         private ItemCollisionHandler ItemCollisionHandler;
         private BlockCollisionHandler BlockCollisionHandler;
 
-        public CollisionHandlerManager(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager, List<ICollisionBox> blockCollisionBoxes)
+        public CollisionHandlerManager(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager)
         {
             EnemyCollisionHandler = new EnemyCollisionHandler(enemyManager);
             EnemyCollisionManager enemyCollisionManager = new EnemyCollisionManager(enemyManager);
             LinkCollisionHandler = new LinkCollisionHandler(link, enemyCollisionManager, itemManager);
-            ItemCollisionHandler = new ItemCollisionHandler(link, itemManager);
-            BlockCollisionHandler = new BlockCollisionHandler(blockCollisionBoxes);
+            //ItemCollisionHandler = new ItemCollisionHandler(link, itemManager);
+            //BlockCollisionHandler = new BlockCollisionHandler(blockCollisionBoxes);
         }
 
         public void HandleCollisions(List<CollisionData> collisions)
@@ -51,6 +51,7 @@ namespace _3902_Project
                 EnemyCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
             }
 
+            
             //case if object is block
             else if (objectA is BlockCollisionBox)
             {

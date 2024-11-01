@@ -7,11 +7,10 @@ namespace _3902_Project
 {
     public class BlockCollisionHandler : ICollisionHandler
     {
-        private List<ICollisionBox> _blocks;
+        //private List<ICollisionBox> _blocks;
 
-        public BlockCollisionHandler(List<ICollisionBox> blocks)
+        public BlockCollisionHandler()
         {
-            _blocks = blocks;
         }
 
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable)

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 
 namespace _3902_Project
 {
@@ -12,6 +14,7 @@ namespace _3902_Project
         private EnemyManager _enemyManager;
         private CollisionDetector _collisionDetector;
         private CollisionHandlerManager _collisionHandlerManager;
+        private LinkPlayer _link;
 
          
 
@@ -26,15 +29,19 @@ namespace _3902_Project
         private List<List<string>> _enemies;
         private List<List<string>> _items;
 
-        public EnvironmentFactory(BlockManager block, ItemManager item, LinkPlayer link, EnemyManager enemy, List<ICollisionBox> blockCollisionBoxes) 
+        public List<List<ICollisionBox>> _collisionBoxes;
+
+        public EnvironmentFactory(BlockManager block, ItemManager item, LinkPlayer link, EnemyManager enemy) 
         {
             _blockManager = block;
             _itemManager = item;
             _enemyManager = enemy;
+
+            _collisionBoxes = new List<List<ICollisionBox>>(4);
             
             //Initialize Collision
             _collisionDetector = new CollisionDetector();
-            _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item, blockCollisionBoxes);
+            _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item);
 
             _level = 0;
 
@@ -176,7 +183,7 @@ namespace _3902_Project
             }
         }
 
-     
+
         private void loadItems()
         {
             string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Items/Item" + _level.ToString() + ".csv";
@@ -199,14 +206,35 @@ namespace _3902_Project
                     }
                 }
             }
+
+
         }
         
+        //expects this to be called AFTER everything else has loaded so collision boxes can be correctly added 
+        public void loadCollisions()
+        {
+            _collisionBoxes.Clear();
+            List<ICollisionBox> temp = new List<ICollisionBox>();
+            /*List<ICollisionBox> temp = new List<ICollisionBox>
+            {
+                _link.getCollisionBox()
+            };*/
+
+            //the real question: does _collisionboxes add a REFERENCE to these lists or a VALUE
+            _collisionBoxes.Add(temp);
+            _collisionBoxes.Add(_enemyManager.collisionBoxes);
+            _collisionBoxes.Add(_blockManager.collisionBoxes);
+            _collisionBoxes.Add(_itemManager.GetCollisionBoxes());
+        }
+        
+
 
         public void loadLevel()
         {
             loadBlocks();
             loadEnemies();
             loadItems();
+            loadCollisions();
         }
 
         public void incrementLevel()
@@ -232,19 +260,12 @@ namespace _3902_Project
 
             _prevLevel = _level;
 
-            // get player and item CollisionBox
-            //potential source of memory leakage here - gameObjects is constantly being updated every frame
-            List<ICollisionBox> gameObjects = new List<ICollisionBox>
-    {
-        player.getCollisionBox()
-    };
-            gameObjects.AddRange(_itemManager.GetCollisionBoxes());
 
-            // Detect Collision
-            List<CollisionData> collisions = _collisionDetector.DetectCollisions(gameObjects);
+            // Detect Collisions
+            //List<CollisionData> collisions = _collisionDetector.DetectCollisions(_collisionBoxes);
 
-            // Handle Collision
-            _collisionHandlerManager.HandleCollisions(collisions);
+            // Handle Collisions
+            //_collisionHandlerManager.HandleCollisions(collisions);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace _3902_Project
             _collisionDetector = new CollisionDetector();
 
             //commented out for when we add this method to enemyManager
-            //_collisionBoxes = enemyManager.getCollisionBoxes();
+            _collisionBoxes = enemyManager.collisionBoxes;
         }
 
         public void UpdateCollisions(List<ICollisionBox> blocks)
