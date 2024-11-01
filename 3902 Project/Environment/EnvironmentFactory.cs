@@ -87,37 +87,6 @@ namespace _3902_Project
             _csvTranslationsItem.Add("bk", ItemManager.ItemNames.BossKey);
         }
 
-        // This method must be refactored
-        /*public Dictionary<BlockManager.BlockNames, List<ICollisionBox>> getCollidables()
-        {
-            Dictionary<BlockManager.BlockNames, List<ICollisionBox>> result = new Dictionary<BlockManager.BlockNames, List<ICollisionBox>>();
-
-            // List the collidables
-            HashSet<BlockManager.BlockNames> collidables = new HashSet<BlockManager.BlockNames>();
-            collidables.Add(BlockManager.BlockNames.Square);
-
-            for (int i = 0; i < _environment.Count; i++)
-            {
-                for (int j = 0; j < _environment[i].Count; j++)
-                {
-                    string blockToCheck = _environment[i][j];
-                    if (collidables.Contains(_csvTranslationsBlock[blockToCheck]))
-                    {
-                        //Add collidable to dictionary
-                        if (!result.ContainsKey(_csvTranslationsBlock[blockToCheck]))
-                        {
-                            //if result does NOT contain key
-                            result[_csvTranslationsBlock[blockToCheck]] = new List<ICollisionBox>();
-                        }
-                        Rectangle bounds = new Rectangle(128 + (j * 64), 128 + (i * 64), 64, 64);
-                        result[_csvTranslationsBlock[blockToCheck]].Add(new BlockCollisionBox(bounds, true));
-                    }
-                }
-            }
-
-            return result;
-        }*/
-
         public Rectangle getRoomDimensions()
         {
             return new Rectangle(128, 128, 768, 448);

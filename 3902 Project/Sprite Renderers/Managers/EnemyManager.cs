@@ -79,7 +79,12 @@ namespace _3902_Project
         /// <summary>
         /// Remove/Unload all Enemy Sprites
         /// </summary>
-        public void UnloadAllEnemies() { _runningEnemies.Clear(); collisionBoxes.Clear(); }
+        public void UnloadAllEnemies() { 
+            _runningEnemies.Clear(); 
+            collisionBoxes.Clear(); 
+            _manager.UnloadAllProjectiles();
+        
+        }
 
 
         /// <summary>
@@ -93,11 +98,10 @@ namespace _3902_Project
             }
         }
 
-        public void UpdateBounds(EnemyCollisionBox collisionBox, Rectangle newBounds)
+        public void UpdateBounds(EnemyCollisionBox collisionBox)
         {
             int i = collisionBoxes.IndexOf(collisionBox);
-            collisionBoxes[i].Bounds = newBounds;
-            _runningEnemies[i].SetPosition(new Vector2(newBounds.X, newBounds.Y));
+            _runningEnemies[i].SetPosition(new Vector2(collisionBox.Bounds.X, collisionBox.Bounds.Y));
 
         }
 

@@ -88,7 +88,7 @@ namespace _3902_Project
         /// <summary>
         /// Remove/Unload all Projectile Sprites
         /// </summary>
-        public void UnloadAllBlocks() { _runningProjectiles = new List<ISprite>(); }
+        public void UnloadAllProjectiles() { _runningProjectiles.Clear(); }
 
 
         /// <summary>

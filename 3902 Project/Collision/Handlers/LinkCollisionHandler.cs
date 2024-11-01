@@ -107,7 +107,7 @@ namespace _3902_Project
             }
             else if (objectB is BlockCollisionBox block)
             {
-                Debug.Print("Link colliding with block");
+                //Debug.Print("Link colliding with block");
                 HandleCollision(objectA, (BlockCollisionBox)objectB, side);
                 
             }
