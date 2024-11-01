@@ -103,7 +103,7 @@ namespace _3902_Project
             Player.Draw();
             EnemyManager.Draw();
 
-            DrawCollidables();
+            //DrawCollidables();
 
 
             base.Draw(gameTime);

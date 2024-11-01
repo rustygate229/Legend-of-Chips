@@ -39,7 +39,7 @@ namespace _3902_Project
                 //nothing more temporary than a permanent fix.
                 EnemyCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
             }
-            else if (objectA is LinkCollisionBox)
+            else if (objectA is LinkCollisionBox || objectB is LinkCollisionBox)
             {
                 LinkCollisionHandler.HandleCollision((LinkCollisionBox)objectA, objectB, side, isCollidable);
             }

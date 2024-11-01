@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Diagnostics;
 
 namespace _3902_Project
 {
@@ -13,11 +14,13 @@ namespace _3902_Project
         {
             if (b is LinkCollisionBox)
             {
+                //Debug.Print("b is link collision box, swapping args");
                 ObjectA = b;
                 ObjectB = a;
             }
-            else if (b is EnemyCollisionBox)
+            else if (a is not LinkCollisionBox && b is EnemyCollisionBox)
             {
+                //Debug.Print("b is enemy collision box, swapping args");
                 //enemy, OTHER collision (not link.)
                 ObjectA = b;
                 ObjectB = a;

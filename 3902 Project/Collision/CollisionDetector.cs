@@ -14,6 +14,7 @@ namespace _3902_Project
             List<CollisionData> collisions = new List<CollisionData>();
             //broken into multiple segments - one is link and everything, one is enemy and block
             ICollisionBox link = gameObjects[0][0];
+            bool collidedWithBlock = false;
 
             for(int i = 1; i < gameObjects.Count; i++)
             {
@@ -22,45 +23,43 @@ namespace _3902_Project
                     ICollisionBox objectB = gameObjects[i][j];
                     if(link.Bounds.Intersects(objectB.Bounds))
                     {
+                        if (i == 2)
+                        {
+                            //looping over blocks
+                            if(!collidedWithBlock)
+                            {
+                                    //only create one block collision - check if one overlap is greater than another
+                                    collisions.Add(new CollisionData(link, objectB));
+                                    collidedWithBlock = true;
+                            } else
+                            {
+                                //collided with different block already 
+                                break; //hopefully this breaks out of the innermost loop only
+                            }
+                        }
+
                         collisions.Add(new CollisionData(link, objectB));
+
                     }
                 }
             }
 
-
-
-            //List<ICollisionBox> gameObjects = gameCollisions.SelectMany
-            /*var collisions = new List<CollisionData>();
-            for (int i = 0; i < gameObjects.Count; i++)
+            //looping over enemy and blocks
+            for(int i = 0; i < gameObjects[1].Count; i++)
             {
-                for (int j = i + 1; j < gameObjects.Count; j++)
+                for(int j = 0; j < gameObjects[2].Count; j++)
                 {
-                    var objectA = gameObjects[i];
-                    var objectB = gameObjects[j];
-                    if (objectA.Bounds.Intersects(objectB.Bounds))
+                    //enemy, block collision checks
+                    ICollisionBox objectA = gameObjects[1][i];
+                    ICollisionBox objectB = gameObjects[2][j];
+                    if(objectA.Bounds.Intersects(objectB.Bounds))
                     {
-                        CollisionType side = DetermineCollisionSide(objectA, objectB);
-                        
-                            collisions.Add(new CollisionData(objectA, objectB, side));
-                        
+                        collisions.Add(new CollisionData(objectA, objectB));
                     }
                 }
-            }*/
-            return collisions;
-        }
 
-        internal static CollisionType DetermineCollisionSide(ICollisionBox objectA, ICollisionBox objectB)
-        {
-            // Determine collision side based on positions and overlap areas
-            Rectangle intersection = Rectangle.Intersect(objectA.Bounds, objectB.Bounds);
-            if (intersection.Width >= intersection.Height)
-            {
-                return objectA.Bounds.Top < objectB.Bounds.Top ? CollisionType.BOTTOM : CollisionType.TOP;
             }
-            else
-            {
-                return objectA.Bounds.Left < objectB.Bounds.Left ? CollisionType.RIGHT : CollisionType.LEFT;
-            }
+            return collisions;
         }
 
     }
