@@ -78,12 +78,20 @@ namespace _3902_Project
             _csvTranslationsBlock.Add("s", BlockManager.BlockNames.Square);
             _csvTranslationsBlock.Add("d", BlockManager.BlockNames.Dirt);
 
+
             _csvTranslationsEnemy.Add("g", EnemyManager.EnemyNames.GreenSlime);
             _csvTranslationsEnemy.Add("b", EnemyManager.EnemyNames.BrownSlime);
             _csvTranslationsEnemy.Add("d", EnemyManager.EnemyNames.Darknut);
             
+
             _csvTranslationsItem.Add("fs", ItemManager.ItemNames.FlashingScripture);
+            
             _csvTranslationsItem.Add("fp", ItemManager.ItemNames.FlashingPotion);
+
+            _csvTranslationsItem.Add("fa", ItemManager.ItemNames.FlashingArrow);
+            _csvTranslationsItem.Add("bo", ItemManager.ItemNames.Bomb);
+
+            _csvTranslationsItem.Add("nk", ItemManager.ItemNames.NormalKey);
             _csvTranslationsItem.Add("bk", ItemManager.ItemNames.BossKey);
         }
 

@@ -8,8 +8,8 @@ namespace _3902_Project
         //private List<ICollisionHandler> _collisionHandlers;
         private LinkCollisionHandler LinkCollisionHandler;
         private EnemyCollisionHandler EnemyCollisionHandler;
-        private ItemCollisionHandler ItemCollisionHandler;
-        private BlockCollisionHandler BlockCollisionHandler;
+        //private ItemCollisionHandler ItemCollisionHandler;
+        //private BlockCollisionHandler BlockCollisionHandler;
 
         public CollisionHandlerManager(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager)
         {
@@ -53,7 +53,7 @@ namespace _3902_Project
 
             
             //case if object is block
-            else if (objectA is BlockCollisionBox)
+            /*else if (objectA is BlockCollisionBox)
             {
 
                 BlockCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
@@ -65,7 +65,7 @@ namespace _3902_Project
 
                 ItemCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
 
-            }
+            }*/
 
         }
     }
