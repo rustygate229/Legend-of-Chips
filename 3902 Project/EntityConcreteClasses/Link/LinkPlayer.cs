@@ -16,14 +16,14 @@ namespace _3902_Project
 
 
         //double x, y;
-        public LinkPlayer(SpriteBatch sb, ContentManager content, ProjectileManager projectileManager)
+        public LinkPlayer(Game1 game, SpriteBatch sb)
         {
             _linkMovement = new LinkMovement();
             _linkStateMachine = new LinkStateMachine();
-            _animation = new LinkAnimation(sb, content, _linkStateMachine);
+            _animation = new LinkAnimation(sb, game.Content, _linkStateMachine);
             _linkInventory = new LinkInventory();
 
-            _projectileManager = projectileManager;
+            _projectileManager = game.ProjectileManager;
 
 
 

@@ -4,12 +4,13 @@ using System;
 
 namespace _3902_Project
 {
-    public class BrownSlime : ISprite
+    public class GreenSlime : ISprite
     {
         // variables for constructor assignments
         private Vector2 _position;
         private Vector2 _updatePosition;
         private int _direction;
+        private int frames = 12;
 
         // variables to change based on where your block is and what to print out
         private Vector2 _spritePosition = new Vector2(79, 28);
@@ -27,11 +28,11 @@ namespace _3902_Project
         private ISprite _projectileFireBall;
         private ProjectileManager _projectileManager;
         private ProjectileManager.ProjectileNames _fireBall = ProjectileManager.ProjectileNames.FireBall;
-        private float _fireBallPrintScale = 3F;
+        private float _fireBallPrintScale = 6F;
         // variables specific to Darknuts implementation of the blue arrow sprite
         private int _fireBallCounter;
-        private int _fireBallTotal = 100; // cool down value for firing projectiles
-        private float _fireBallSpeed = 5F;
+        private int _fireBallTotal = 200; // cool down value for firing projectiles
+        private float _fireBallSpeed = 3F;
         private int _fireBallFrames = 12; // read summary in respective Projectile Concrete Classes for explanation
 
         // create enemy renderer
@@ -42,11 +43,9 @@ namespace _3902_Project
         /// Constructs the enemy (set values, create Rendering, etc.)
         /// </summary>
         /// <param name="spriteSheet"></param>
-        public BrownSlime(Texture2D spriteSheet, ProjectileManager projectileManager, float printScale, float speed, int moveTimerTotal, int frames)
+        public GreenSlime(Texture2D spriteSheet, float printScale, Game1 game)
         {
-            _projectileManager = projectileManager;
-            _positionSpeed = speed;
-            _moveTotal = moveTimerTotal;
+            _projectileManager = game.ProjectileManager;
             _enemy = new Renderer(Renderer.STATUS.Animated, spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions, _rowAndColumns, frames);
         }
 

@@ -26,9 +26,9 @@ namespace _3902_Project
         private SpriteBatch _spriteBatch;
 
         // constructor
-        public ItemManager(ContentManager contentManager, SpriteBatch spriteBatch)
+        public ItemManager(Game1 game, SpriteBatch spriteBatch)
         {
-            _contentManager = contentManager;
+            _contentManager = game.Content;
             _spriteBatch = spriteBatch;
         }
 

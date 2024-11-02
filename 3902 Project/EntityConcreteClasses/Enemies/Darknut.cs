@@ -33,9 +33,9 @@ namespace _3902_Project
 
         // variables for moving the enemy
         private int _moveCounter;
-        private int _moveTotal;
-        private int _frameRate;
-        private float _positionSpeed;
+        private int _moveTotal = 150;
+        private int _frameRate = 12;
+        private float _positionSpeed = 2f;
         private static Random _random = new Random();
 
         // variables for shooting arrow projectile
@@ -64,19 +64,15 @@ namespace _3902_Project
         /// Constructs the enemy (set values, create Rendering, etc.); takes the Enemy Spritesheet
         /// </summary>
         /// <param name="spriteSheet"></param>
-        public Darknut(Texture2D spriteSheet, ProjectileManager manager, float printScale, float spriteSpeed, int moveTotalTimer, int frames)
+        public Darknut(Texture2D spriteSheet, float printScale, Game1 game)
         {
-            _enemySpritesheet = spriteSheet;
-            _projectileManager = manager;
-            _positionSpeed = spriteSpeed;
-            _moveTotal = moveTotalTimer;
-            _frameRate = frames;
+            _projectileManager = game.ProjectileManager;
             // create our renderer list
             Renderer[] _rendererListArray = // positions in array correlate to above positions, usually: DOWN, UP, RIGHT, LEFT
             {
-                new Renderer(Renderer.STATUS.Animated, _enemySpritesheet, _spriteDownPosition, _spriteDownDimensions, _spritePrintDimensions * printScale, _spriteDownRowAndColumns, _frameRate),
-                new Renderer(Renderer.STATUS.SingleAnimated, _enemySpritesheet, _spriteUpPosition, _spriteUpDimensions, _spritePrintDimensions * printScale, _spriteUpRowAndColumns, _frameRate),
-                new Renderer(Renderer.STATUS.Animated, _enemySpritesheet, _spriteRightLeftPosition, _spriteRightLeftDimensions, _spritePrintDimensions * printScale, _spriteRightLeftRowAndColumns, _frameRate)
+                new Renderer(Renderer.STATUS.Animated, spriteSheet, _spriteDownPosition, _spriteDownDimensions, _spritePrintDimensions * printScale, _spriteDownRowAndColumns, _frameRate),
+                new Renderer(Renderer.STATUS.SingleAnimated, spriteSheet, _spriteUpPosition, _spriteUpDimensions, _spritePrintDimensions * printScale, _spriteUpRowAndColumns, _frameRate),
+                new Renderer(Renderer.STATUS.Animated, spriteSheet, _spriteRightLeftPosition, _spriteRightLeftDimensions, _spritePrintDimensions * printScale, _spriteRightLeftRowAndColumns, _frameRate)
             };
             // create and assign what type of renderer list it is, and if it is centered
             _rendererList = new RendererLists(_rendererListArray, RendererLists.RendOrder.Size3RightLeft);

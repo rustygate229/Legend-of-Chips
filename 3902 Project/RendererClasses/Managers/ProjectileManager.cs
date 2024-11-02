@@ -24,9 +24,9 @@ namespace _3902_Project
         private SpriteBatch _spriteBatch;
 
         // constructor
-        public ProjectileManager(ContentManager contentManager, SpriteBatch spriteBatch)
+        public ProjectileManager(Game1 game, SpriteBatch spriteBatch)
         {
-            _contentManager = contentManager;
+            _contentManager = game.Content;
             _spriteBatch = spriteBatch;
         }
 
@@ -48,6 +48,7 @@ namespace _3902_Project
             _runningProjectiles.Add(currentSprite);
             return currentSprite;
         }
+
         /// <summary>
         /// call the projectile for sprites with only frames, meaning that it is a projectile that is only one animation, and NO direction or NO frame/renderer switching
         /// </summary>
@@ -110,6 +111,7 @@ namespace _3902_Project
         {
             foreach (var projectile in _runningProjectiles)
             {
+                if (projectile.)
                 projectile.Update();
             }
         }

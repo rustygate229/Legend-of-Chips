@@ -119,7 +119,7 @@ namespace _3902_Project
         /// <param name="printScale"></param>
         /// <param name="speed"></param>
         /// <returns>the sprite it creates, used fro unloading</returns>
-        public ISprite CreateBlock(BlockManager.BlockNames blockName, Renderer.DIRECTION direction, float printScale, float speed)
+        public ISprite CreateBlock(BlockManager.BlockNames blockName, float printScale, float speed)
         {
             switch (blockName)
             {

@@ -11,12 +11,12 @@ namespace _3902_Project
         private ItemCollisionHandler ItemCollisionHandler;
         private BlockCollisionHandler BlockCollisionHandler;
 
-        public CollisionHandlerManager(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager, List<ICollisionBox> blockCollisionBoxes)
+        public CollisionHandlerManager(Game1 game, List<ICollisionBox> blockCollisionBoxes)
         {
-            EnemyCollisionHandler = new EnemyCollisionHandler(enemyManager);
-            EnemyCollisionManager enemyCollisionManager = new EnemyCollisionManager(enemyManager);
-            LinkCollisionHandler = new LinkCollisionHandler(link, enemyCollisionManager, itemManager);
-            ItemCollisionHandler = new ItemCollisionHandler(link, itemManager);
+            EnemyCollisionHandler = new EnemyCollisionHandler(game.EnemyManager);
+            EnemyCollisionManager enemyCollisionManager = new EnemyCollisionManager(game.EnemyManager);
+            LinkCollisionHandler = new LinkCollisionHandler(game.Player, enemyCollisionManager, game.ItemManager);
+            ItemCollisionHandler = new ItemCollisionHandler(game.Player, game.ItemManager);
             BlockCollisionHandler = new BlockCollisionHandler(blockCollisionBoxes);
         }
 

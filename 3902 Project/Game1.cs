@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
@@ -56,13 +55,13 @@ namespace _3902_Project
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
             // Initialize all managers
-            BlockManager = new BlockManager(Content, _spriteBatch);
-            ItemManager = new ItemManager(Content, _spriteBatch);
-            ProjectileManager = new ProjectileManager(Content, _spriteBatch);
-            EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
-            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
+            BlockManager = new BlockManager(this, _spriteBatch);
+            ItemManager = new ItemManager(this, _spriteBatch);
+            ProjectileManager = new ProjectileManager(this, _spriteBatch);
+            EnemyManager = new EnemyManager(this, _spriteBatch);
+            Player = new LinkPlayer(this, _spriteBatch);
 
-            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, _blockCollisionBoxes);
+            EnvironmentFactory = new EnvironmentFactory(this, _blockCollisionBoxes);
 
 
             // Initialize keyboard input controller
@@ -84,16 +83,14 @@ namespace _3902_Project
 
             EnvironmentFactory.loadLevel();
 
-
             Dictionary<BlockManager.BlockNames, List<ICollisionBox>> BlockCollisionDict = EnvironmentFactory.getCollidables(); // Load collision boxes from ENVIRONMENT
             List<ICollisionBox> CollisionList = new List<ICollisionBox>();
             if (BlockCollisionDict.TryGetValue(BlockManager.BlockNames.Square, out CollisionList))
             {
                 _blockCollisionBoxes.AddRange(CollisionList);
             }
-
        
-            CollisionHandlerManager = new CollisionHandlerManager(Player, EnemyManager, ItemManager, _blockCollisionBoxes);
+            CollisionHandlerManager = new CollisionHandlerManager(this, _blockCollisionBoxes);
 
             // Add collision objects to the collisionBoxes list
             _EnemyCollisionBoxes = EnemyManager.collisionBoxes;
@@ -118,7 +115,6 @@ namespace _3902_Project
             List<CollisionData> collisions = CollisionDetector.DetectCollisions(collisionBoxes);
             CollisionHandlerManager.HandleCollisions(collisions);
 
-
             base.Update(gameTime);
         }
 
@@ -134,7 +130,6 @@ namespace _3902_Project
 
             base.Draw(gameTime);
         }
-
 
         public void ResetGame() { Initialize(); }
     }

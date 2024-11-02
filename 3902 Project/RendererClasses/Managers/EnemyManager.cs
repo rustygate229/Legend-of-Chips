@@ -27,13 +27,12 @@ namespace _3902_Project
 
 
         // constructor
-        public EnemyManager(Game1 game, SpriteBatch spriteBatch, ProjectileManager manager)
+        public EnemyManager(Game1 game, SpriteBatch spriteBatch)
         {
-            _manager = manager;
-            _spriteBatch = spriteBatch;
             _game = game;
             _contentManager = _game.Content;
-            _factory.SetManager(_manager);
+            _manager = _game.ProjectileManager;
+            _spriteBatch = spriteBatch;
 
             collisionBoxes = new List<ICollisionBox>();
         }
@@ -50,9 +49,9 @@ namespace _3902_Project
         /// </summary>
         /// <param name="name"></param>
         /// <param name="placementPosition"></param>
-        public ISprite AddEnemy(EnemyNames name, Vector2 placementPosition, float printScale, float spriteSpeed, int moveTotalTimerTotal, int frames)
+        public ISprite AddEnemy(EnemyNames name, Vector2 placementPosition, float printScale)
         {
-            ISprite currentSprite = _factory.CreateEnemy(name, printScale, spriteSpeed, moveTotalTimerTotal, frames);
+            ISprite currentSprite = _factory.CreateEnemy(name, printScale, _game);
 
             //hardcoded for now for demo purposes - assumes it is a brown slime CHANGE LATER PLEASE
             ICollisionBox collision = new EnemyCollisionBox(currentSprite.GetRectanglePosition(), true, 100, 10);

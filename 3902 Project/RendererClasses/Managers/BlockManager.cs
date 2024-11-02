@@ -28,9 +28,9 @@ namespace _3902_Project
 
 
         // constructor
-        public BlockManager(ContentManager contentManager, SpriteBatch spriteBatch)
+        public BlockManager(Game1 game, SpriteBatch spriteBatch)
         {
-            _contentManager = contentManager;
+            _contentManager = game.Content;
             _spriteBatch = spriteBatch;
         }
 
@@ -64,9 +64,9 @@ namespace _3902_Project
         /// <param name="printScale"></param>
         /// <param name="direction"></param>
         /// <param name="speed"></param>
-        public ISprite AddBlock(BlockNames name, Vector2 placementPosition, Renderer.DIRECTION direction, float speed, float printScale)
+        public ISprite AddBlock(BlockNames name, Vector2 placementPosition, float printScale, float speed)
         {
-            ISprite currentSprite = _factory.CreateBlock(name, direction, speed, printScale);
+            ISprite currentSprite = _factory.CreateBlock(name, printScale, speed);
             currentSprite.SetPosition(placementPosition);
             _runningBlocks.Add(currentSprite);
             return currentSprite;

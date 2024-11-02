@@ -23,20 +23,17 @@ namespace _3902_Project
 
         public void UnloadAllTextures(ContentManager content) { _enemySpritesheet.Dispose(); }
 
-        public void SetManager(ProjectileManager manager) { _projectileManager = manager; }
-
-
         // create every type of enemy
-        public ISprite CreateEnemy(EnemyManager.EnemyNames enemyName, float printScale, float spriteSpeed, int moveTotalTimerTotal, int frames)
+        public ISprite CreateEnemy(EnemyManager.EnemyNames enemyName, float printScale, Game1 game)
         {
             switch (enemyName)
             {
                 case EnemyManager.EnemyNames.BrownSlime:
-                    return new BrownSlime(_enemySpritesheet, _projectileManager, printScale, spriteSpeed, moveTotalTimerTotal, frames);
+                    return new BrownSlime(_enemySpritesheet, printScale, game);
                 case EnemyManager.EnemyNames.GreenSlime:
-                    return new GreenSlime(_enemySpritesheet, _projectileManager, printScale, spriteSpeed, moveTotalTimerTotal, frames);
+                    return new GreenSlime(_enemySpritesheet, printScale, game);
                 case EnemyManager.EnemyNames.Darknut:
-                    return new Darknut(_enemySpritesheet, _projectileManager, printScale, spriteSpeed, moveTotalTimerTotal, frames);
+                    return new Darknut(_enemySpritesheet, printScale, game);
                 default: throw new ArgumentException("invalid enemy name");
             }
         }

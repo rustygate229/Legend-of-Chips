@@ -26,15 +26,15 @@ namespace _3902_Project
         private List<List<string>> _enemies;
         private List<List<string>> _items;
 
-        public EnvironmentFactory(BlockManager block, ItemManager item, LinkPlayer link, EnemyManager enemy, List<ICollisionBox> blockCollisionBoxes) 
+        public EnvironmentFactory(Game1 game, List<ICollisionBox> blockCollisionBoxes) 
         {
-            _blockManager = block;
-            _itemManager = item;
-            _enemyManager = enemy;
+            _blockManager = game.BlockManager;
+            _itemManager = game.ItemManager;
+            _enemyManager = game.EnemyManager;
             
             //Initialize Collision
             _collisionDetector = new CollisionDetector();
-            _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item, blockCollisionBoxes);
+            _collisionHandlerManager = new CollisionHandlerManager(game, blockCollisionBoxes);
 
             _level = 0;
 
@@ -79,6 +79,7 @@ namespace _3902_Project
             _csvTranslationsItem.Add("fs", ItemManager.ItemNames.FlashingScripture);
             _csvTranslationsItem.Add("fp", ItemManager.ItemNames.FlashingPotion);
             _csvTranslationsItem.Add("bk", ItemManager.ItemNames.BossKey);
+            _csvTranslationsItem.Add("c", ItemManager.ItemNames.Compass);
         }
 
         // This method must be refactored
@@ -141,12 +142,7 @@ namespace _3902_Project
                     string blockToPlace = _environment[i][j];
                     ISprite currentBlock;
 
-                    if (blockToPlace == "-")
-                        currentBlock = _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 4F);
-                    else if (blockToPlace == "s")
-                        currentBlock = _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 4F);
-                    else if (blockToPlace == "d")
-                        currentBlock = _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 4F);
+                    currentBlock = _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 4F);
                 }
             }
         }
@@ -165,12 +161,7 @@ namespace _3902_Project
 
                     if (enemyToPlace != "-")
                     {
-                        if (enemyToPlace == "g")
-                            currentEnemy = _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 3F, 3F, 50, 30);
-                        else if (enemyToPlace == "b")
-                            currentEnemy = _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 3F, 3F, 50, 30);
-                        else if (enemyToPlace == "d")
-                            currentEnemy = _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 4F, 2F, 50, 30);
+                        currentEnemy = _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 3F);
                     }
                 }
             }
@@ -191,10 +182,10 @@ namespace _3902_Project
 
                     if (itemToPlace != "-")
                     {
-                        if (itemToPlace == "fs" || itemToPlace == "fp")
-                            currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 2F, 9);
-                        else if (itemToPlace == "bk")
+                        if (itemToPlace == "bk" || itemToPlace == "c")
                             currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 3F);
+                        else
+                            currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 2F, 9);
 
                     }
                 }
