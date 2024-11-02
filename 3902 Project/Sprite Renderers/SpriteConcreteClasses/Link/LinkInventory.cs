@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 public class LinkInventory
 {
 
-    public enum LINK_PROJECTILES {BOMB, ARROW, BLUE_ARROW, BOOMERANG, BLUE_BOOMERANG, FIRE }
+    public enum LINK_PROJECTILES { BOMB, ARROW, BLUE_ARROW, BOOMERANG, BLUE_BOOMERANG, FIRE }
 
     private Dictionary<LINK_PROJECTILES, int> InventoryDict;
     //potentially more variables to be added here
@@ -45,7 +42,14 @@ public class LinkInventory
 
     public void addProjectiles(LINK_PROJECTILES projectiles, int count)
     {
-        InventoryDict.Add(projectiles, count);
+        if (InventoryDict.ContainsKey(projectiles))
+        {
+            InventoryDict[projectiles] += count;
+        }
+        else
+        {
+            InventoryDict.Add(projectiles, count);
+        }
     }
 
 

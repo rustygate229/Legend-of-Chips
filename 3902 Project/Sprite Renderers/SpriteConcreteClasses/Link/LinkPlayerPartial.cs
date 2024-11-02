@@ -10,7 +10,23 @@ namespace _3902_Project
         {
             //some items immediately add health so must be handled in here
             //other items are handled by link inventory so must be passed into there
+            switch (name)
+            {
+                case ItemManager.ItemNames.FlashingArrow:
+                    _linkInventory.addProjectiles(LinkInventory.LINK_PROJECTILES.BLUE_ARROW, amount); break;
 
+                case ItemManager.ItemNames.Bomb:
+                    _linkInventory.addProjectiles(LinkInventory.LINK_PROJECTILES.BOMB, amount); break;
+
+                case ItemManager.ItemNames.FlashingLife:
+                    _linkMovement.getCollisionBox().Health += amount;
+                    break;
+
+
+
+
+                default: break;
+            }
 
         }
 

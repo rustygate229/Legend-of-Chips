@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 namespace _3902_Project
@@ -8,11 +8,11 @@ namespace _3902_Project
     public class ItemManager
     {
         // create item names for finding them
-        public enum ItemNames 
-        { 
-            FullHeart, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Ladder, 
-            MagicStaff, Game, NormalKey, BossKey, Compass, FlashingLife, DepletingHeart, FlashingEmerald, 
-            FlashingPotion, FlashingScripture, FlashingSword, FlashingBanana, FlashingArrow, 
+        public enum ItemNames
+        {
+            FullHeart, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Ladder,
+            MagicStaff, Game, NormalKey, BossKey, Compass, FlashingLife, DepletingHeart, FlashingEmerald,
+            FlashingPotion, FlashingScripture, FlashingSword, FlashingBanana, FlashingArrow,
             FlashingCandle, FlashingRing, FlashingTriForce
         }
 
@@ -71,6 +71,7 @@ namespace _3902_Project
         public ISprite AddItem(ItemNames name, Vector2 placementPosition, float printScale, int frames)
         {
             ISprite currentSprite = _factory.CreateItem(name, printScale, frames);
+
             currentSprite.SetPosition(placementPosition);
             _runningItems.Add(currentSprite);
 
