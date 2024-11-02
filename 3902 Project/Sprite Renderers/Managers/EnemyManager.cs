@@ -2,7 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Diagnostics;
+using _3902_Project; 
+
 
 namespace _3902_Project
 {
@@ -20,7 +21,8 @@ namespace _3902_Project
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
         private Game1 _game;
-        
+        private Rectangle playAreaBoundary = new Rectangle(125, 125, 765, 450);
+
 
 
         public List <ICollisionBox> collisionBoxes { get; private set; }
@@ -112,9 +114,21 @@ namespace _3902_Project
                 enemy.Update();
 
                 collisionBoxes[i].Bounds = enemy.GetRectanglePosition();
-                i++;
 
+                // Use CollisionBoxHelper to keep the enemy within bounds and only adjust if it goes out of bounds
+                Rectangle originalBounds = collisionBoxes[i].Bounds;
+                CollisionBoxHelper.KeepInBounds(collisionBoxes[i], playAreaBoundary);
+
+                // If the collision box position is adjusted, update the enemy's position synchronously
+                if (collisionBoxes[i].Bounds != originalBounds)
+                {
+                    enemy.SetPosition(new Vector2(collisionBoxes[i].Bounds.X, collisionBoxes[i].Bounds.Y));
+                }
+
+                i++;
             }
         }
+
+
     }
 }
