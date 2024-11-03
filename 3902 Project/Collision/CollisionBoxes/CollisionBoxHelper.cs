@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using _3902_Project;
+using System;
 
 public static class CollisionBoxHelper
 {
@@ -31,5 +32,7 @@ public static class CollisionBoxHelper
         //Update the collision box position
         collisionBox.Bounds = currentBounds;
     }
+    
+    
 
 }

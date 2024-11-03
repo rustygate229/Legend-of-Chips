@@ -2,7 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using _3902_Project; 
+using _3902_Project;
+using System;
 
 
 namespace _3902_Project
@@ -14,6 +15,8 @@ namespace _3902_Project
 
         // enemy dictionary/inventory
         private List<ISprite> _runningEnemies = new List<ISprite>();
+        // enemy direction
+        private List<Vector2> _enemyDirections = new List<Vector2>(); 
 
         // create variables for passing
         private EnemySpriteFactory _factory = EnemySpriteFactory.Instance;
@@ -55,20 +58,41 @@ namespace _3902_Project
         /// <param name="placementPosition"></param>
         public ISprite AddEnemy(EnemyNames name, Vector2 placementPosition, float printScale, float spriteSpeed, int moveTotalTimerTotal, int frames)
         {
-            //brown slimes don't work for some reason??
             ISprite currentSprite = _factory.CreateEnemy(name, printScale, spriteSpeed, moveTotalTimerTotal, frames);
 
-            //hardcoded for now for demo purposes - assumes it is a brown slime CHANGE LATER PLEASE
-            ICollisionBox collision = new EnemyCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 64, 64), true, 100, 10);
+            // Randomly initialize the direction
+            Vector2 initialDirection;
+            Random random = new Random();
+            int directionChoice = random.Next(4); //0-3 represents four directions
+            switch (directionChoice)
+            {
+                case 0:
+                    initialDirection = new Vector2(2, 0); // move right
+                    break;
+                case 1:
+                    initialDirection = new Vector2(-2, 0); // move left
+                    break;
+                case 2:
+                    initialDirection = new Vector2(0, 2); // move down
+                    break;
+                default:
+                    initialDirection = new Vector2(0, -2); // move up
+                    break;
+            }
 
-            collisionBoxes.Add(collision);
+            // add collision box 
+            collisionBoxes.Add(new EnemyCollisionBox(currentSprite.GetRectanglePosition(), true, 100, 10));
 
-            currentSprite.SetPosition(placementPosition);
+            // add enemy and direction
             _runningEnemies.Add(currentSprite);
-         
+            _enemyDirections.Add(initialDirection);
+
+            //set position
+            currentSprite.SetPosition(placementPosition);
 
             return currentSprite;
         }
+
 
 
         /// <summary>
@@ -106,28 +130,70 @@ namespace _3902_Project
             _runningEnemies[i].SetPosition(new Vector2(collisionBox.Bounds.X, collisionBox.Bounds.Y));
 
         }
+        public void UpdateDirection(EnemyCollisionBox enemy, Vector2 newDirection)
+        {
+            int index = collisionBoxes.IndexOf(enemy);
+            if (index >= 0)
+            {
+                _enemyDirections[index] = newDirection;
+            }
+        }
+
 
         public void Update()
         {
-            for(int i = 0; i < _runningEnemies.Count; i++) {
+            Random random = new Random();
+
+            for (int i = 0; i < _runningEnemies.Count; i++)
+            {
                 ISprite enemy = _runningEnemies[i];
-                enemy.Update();
+                Vector2 direction = _enemyDirections[i];
 
-                collisionBoxes[i].Bounds = enemy.GetRectanglePosition();
-
-                // Use CollisionBoxHelper to keep the enemy within bounds and only adjust if it goes out of bounds
-                Rectangle originalBounds = collisionBoxes[i].Bounds;
-                CollisionBoxHelper.KeepInBounds(collisionBoxes[i], playAreaBoundary);
-
-                // If the collision box position is adjusted, update the enemy's position synchronously
-                if (collisionBoxes[i].Bounds != originalBounds)
+                // 3% chance to randomly change direction
+                if (random.Next(100) < 3)
                 {
-                    enemy.SetPosition(new Vector2(collisionBoxes[i].Bounds.X, collisionBoxes[i].Bounds.Y));
+                    int directionChoice = random.Next(4);
+                    switch (directionChoice)
+                    {
+                        case 0:
+                            direction = new Vector2(2, 0); // move right
+                            break;
+                        case 1:
+                            direction = new Vector2(-2, 0); // move left
+                            break;
+                        case 2:
+                            direction = new Vector2(0, 2); // move down
+                            break;
+                        default:
+                            direction = new Vector2(0, -2); // move up 
+                            break;
+                    }
+                    _enemyDirections[i] = direction;
                 }
 
-                i++;
+                // Update enemy position based on direction
+                Vector2 newPosition = new Vector2(collisionBoxes[i].Bounds.X + direction.X, collisionBoxes[i].Bounds.Y + direction.Y);
+                collisionBoxes[i].Bounds = new Rectangle((int)newPosition.X, (int)newPosition.Y, collisionBoxes[i].Bounds.Width, collisionBoxes[i].Bounds.Height);
+
+                // Check bounds and reverse direction if exceeded
+                if (!playAreaBoundary.Contains(collisionBoxes[i].Bounds))
+                {
+                    direction *= -1; // reverse direction
+                    _enemyDirections[i] = direction;
+
+                    // Adjust the position to keep it within the boundaries
+                    CollisionBoxHelper.KeepInBounds(collisionBoxes[i], playAreaBoundary);
+                    newPosition = new Vector2(collisionBoxes[i].Bounds.X, collisionBoxes[i].Bounds.Y);
+                }
+
+                // Update the enemy's position to sync with the collision box
+                enemy.SetPosition(new Vector2(collisionBoxes[i].Bounds.X, collisionBoxes[i].Bounds.Y));
+                enemy.Update();
             }
         }
+
+
+
 
 
     }

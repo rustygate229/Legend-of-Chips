@@ -63,6 +63,8 @@ namespace _3902_Project
             return keyboard.IsKeyDown(Keys.E);
         }
 
+        private Rectangle playAreaBoundary = new Rectangle(125, 125, 765, 450);
+
         public void Attack() { _linkStateMachine.setMelee(); }
         public void Throw() {
             _linkStateMachine.setThrow();
@@ -87,8 +89,12 @@ namespace _3902_Project
 
             int x = (int)_linkMovement.getXPosition();
             int y = (int)_linkMovement.getYPosition();
+
             //updates linkMovement according to any collisions
-            ((LinkMovement)_linkMovement).getCollisionBox().Bounds = new Rectangle(x, y, ((LinkMovement)_linkMovement).getCollisionBox().Bounds.Width, ((LinkMovement)_linkMovement).getCollisionBox().Bounds.Height);
+            ICollisionBox playerCollisionBox = ((LinkMovement)_linkMovement).getCollisionBox();
+            playerCollisionBox.Bounds = new Rectangle(x, y, playerCollisionBox.Bounds.Width, playerCollisionBox.Bounds.Height);
+
+            CollisionBoxHelper.KeepInBounds(playerCollisionBox, playAreaBoundary);
 
             if (!IsDamagedKeysPressed()) { StopDamage(); }
             if (!IsMovementKeysPressed()) { StayStill(); }
