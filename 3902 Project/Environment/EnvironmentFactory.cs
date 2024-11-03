@@ -17,7 +17,8 @@ namespace _3902_Project
 
         private int _level;
         private int _prevLevel = -1; // -1 is a stand in for a null value
-                private Dictionary<string, BlockManager.BlockNames> _csvTranslationsBlock;
+        
+        private Dictionary<string, BlockManager.BlockNames> _csvTranslationsBlock;
         private Dictionary<string, EnemyManager.EnemyNames> _csvTranslationsEnemy;
         private Dictionary<string, ItemManager.ItemNames> _csvTranslationsItem;
 
@@ -27,6 +28,8 @@ namespace _3902_Project
 
         private int STARTINGX = 0;
         private int STARTINGY = 200;
+
+        private int ENDING_LEVEL = 4;
 
         public List<List<ICollisionBox>> _collisionBoxes;
 
@@ -42,7 +45,7 @@ namespace _3902_Project
             //Initialize Collision
             _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item);
 
-            _level = 0;
+            _level = 1;
 
             _csvTranslationsBlock = new Dictionary<string, BlockManager.BlockNames>();
             _csvTranslationsEnemy = new Dictionary<string, EnemyManager.EnemyNames>();
@@ -75,6 +78,8 @@ namespace _3902_Project
         private void generateTranslations()
         {
             _csvTranslationsBlock.Add("-", BlockManager.BlockNames.Tile);
+            _csvTranslationsBlock.Add("b", BlockManager.BlockNames.Blue);
+            _csvTranslationsBlock.Add("p", BlockManager.BlockNames.Pyramid);
             _csvTranslationsBlock.Add("s", BlockManager.BlockNames.Square);
             _csvTranslationsBlock.Add("d", BlockManager.BlockNames.Dirt);
 
@@ -87,12 +92,14 @@ namespace _3902_Project
             _csvTranslationsItem.Add("fs", ItemManager.ItemNames.FlashingScripture);
             _csvTranslationsItem.Add("fl", ItemManager.ItemNames.FlashingLife);
             _csvTranslationsItem.Add("fp", ItemManager.ItemNames.FlashingPotion);
-
+            _csvTranslationsItem.Add("fh", ItemManager.ItemNames.FullHeart);
             _csvTranslationsItem.Add("fa", ItemManager.ItemNames.FlashingArrow);
             _csvTranslationsItem.Add("bo", ItemManager.ItemNames.Bomb);
-
             _csvTranslationsItem.Add("nk", ItemManager.ItemNames.NormalKey);
             _csvTranslationsItem.Add("bk", ItemManager.ItemNames.BossKey);
+            _csvTranslationsItem.Add("c", ItemManager.ItemNames.Clock);
+            _csvTranslationsItem.Add("m", ItemManager.ItemNames.Meat);
+            _csvTranslationsItem.Add("h", ItemManager.ItemNames.Horn);
         }
 
         public Rectangle getRoomDimensions()
@@ -209,12 +216,12 @@ namespace _3902_Project
 
         public void incrementLevel()
         {
-            if (_level < 2) { _level++; }
+            if (_level < ENDING_LEVEL) { _level++; }
         }
 
         public void decrementLevel()
         {
-            if (_level > 0) { _level--; }
+            if (_level > 1) { _level--; }
         }
 
         public void Update(LinkPlayer player)

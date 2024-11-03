@@ -18,6 +18,7 @@ namespace _3902_Project
         internal EnemyManager EnemyManager { get; private set; }
         public ProjectileManager ProjectileManager { get;  set; }
         internal EnvironmentFactory EnvironmentFactory { get; private set; }
+        internal MusicManager MusicManager { get; set; }
 
         //private List<ICollisionBox> _EnemyCollisionBoxes;
 
@@ -51,6 +52,7 @@ namespace _3902_Project
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Initialize all managers
+            MusicManager = new MusicManager(Content);
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
@@ -66,7 +68,7 @@ namespace _3902_Project
             ItemManager.LoadAllTextures();
             EnemyManager.LoadAllTextures();
             ProjectileManager.LoadAllTextures(Content);
-
+            MusicManager.LoadSongs();
 
             EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager);
 
