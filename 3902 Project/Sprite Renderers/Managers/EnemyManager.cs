@@ -65,7 +65,7 @@ namespace _3902_Project
 
             currentSprite.SetPosition(placementPosition);
             _runningEnemies.Add(currentSprite);
-            Debug.Print("Added sprite " + name.ToString() + " to runningEnemies");
+         
 
             return currentSprite;
         }
