@@ -51,11 +51,11 @@ namespace _3902_Project
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Initialize all managers
+            ProjectileManager = new ProjectileManager(Content, _spriteBatch);
+            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
             EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
-            ProjectileManager = new ProjectileManager(Content, _spriteBatch, EnemyManager);
-            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput

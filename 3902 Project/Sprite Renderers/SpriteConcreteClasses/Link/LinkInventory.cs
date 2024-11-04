@@ -11,6 +11,7 @@ public class LinkInventory
     {
         InventoryDict = new System.Collections.Generic.Dictionary<LINK_PROJECTILES, int>();
         InventoryDict.Add(LINK_PROJECTILES.BOMB, 1);
+        InventoryDict.Add(LINK_PROJECTILES.ARROW, 100);
 
 
         //other variables to be instantiated here

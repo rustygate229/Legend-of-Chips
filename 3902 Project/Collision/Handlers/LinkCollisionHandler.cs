@@ -20,15 +20,11 @@ namespace _3902_Project
 
         //reference to item
         ItemManager _itemManager;
-        private LinkPlayer link;
-        private EnemyManager enemyManager;
-        private ItemManager itemManager;
-
         public LinkCollisionHandler(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager)
         {
-            this.link = link;
-            this.enemyManager = enemyManager;
-            this.itemManager = itemManager;
+            _link = link;
+            _enemyManager = enemyManager;
+            _itemManager = itemManager;
         }
 
         private void HandleCollision(LinkCollisionBox objectA, EnemyCollisionBox objectB, CollisionType side)

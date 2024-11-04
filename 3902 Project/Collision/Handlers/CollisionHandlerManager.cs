@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace _3902_Project
@@ -32,14 +31,14 @@ namespace _3902_Project
         {
             bool isCollidable = objectA.IsCollidable && objectB.IsCollidable;
 
-            // Handle collisions involving projectiles
-            if (objectA is ProjectileCollisionBox || objectB is ProjectileCollisionBox)
-            {
-                ProjectileCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
-            }
-            else if (objectA is LinkCollisionBox || objectB is LinkCollisionBox)
+            // Handle collisions involving projectiles (highest priority given since projectile manager needs these)
+            if (objectA is LinkCollisionBox || objectB is LinkCollisionBox)
             {
                 LinkCollisionHandler.HandleCollision((LinkCollisionBox)objectA, objectB, side, isCollidable);
+            }
+            else if (objectA is ProjectileCollisionBox || objectB is ProjectileCollisionBox)
+            {
+                ProjectileCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
             }
             else if (objectA is EnemyCollisionBox || objectB is EnemyCollisionBox)
             {

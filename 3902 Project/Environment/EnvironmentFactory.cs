@@ -12,7 +12,7 @@ namespace _3902_Project
         private ItemManager _itemManager;
         private EnemyManager _enemyManager;
         private CollisionHandlerManager _collisionHandlerManager;
-        private ProjectileManager _projectileCollisionManager;
+        private ProjectileManager _projectileManager;
         private LinkPlayer _link;
 
         private int _level;
@@ -26,11 +26,6 @@ namespace _3902_Project
         private List<List<string>> _items;
 
         public List<List<ICollisionBox>> _collisionBoxes;
-        private BlockManager blockManager;
-        private ItemManager itemManager;
-        private LinkPlayer player;
-        private EnemyManager enemyManager;
-        private ProjectileManager projectileManager;
 
         public EnvironmentFactory(BlockManager block, ItemManager item, LinkPlayer link, EnemyManager enemy, ProjectileManager projectileManager)
         {
@@ -38,7 +33,7 @@ namespace _3902_Project
             _itemManager = item;
             _enemyManager = enemy;
             _link = link;
-            _projectileCollisionManager = projectileManager;
+            _projectileManager = projectileManager;
 
             _collisionBoxes = new List<List<ICollisionBox>>(4);
             
@@ -193,6 +188,7 @@ namespace _3902_Project
             _collisionBoxes.Add(_enemyManager.collisionBoxes);
             _collisionBoxes.Add(_blockManager.collisionBoxes);
             _collisionBoxes.Add(_itemManager.GetCollisionBoxes());
+            _collisionBoxes.Add(_projectileManager.GetCollisionBoxes());
         }
 
         public void loadLevel()
@@ -220,6 +216,7 @@ namespace _3902_Project
                 _enemyManager.UnloadAllEnemies();
                 _itemManager.UnloadAllItems();
                 _blockManager.UnloadAllBlocks();
+                _projectileManager.UnloadAllProjectiles();
 
                 loadLevel();
             }

@@ -13,19 +13,15 @@ namespace _3902_Project
         }
 
         private List<ISprite> _runningProjectiles = new List<ISprite>();
-        private List<ProjectileCollisionBox> _projectilesCollisions = new List<ProjectileCollisionBox>();
+        private List<ICollisionBox> _projectileCollisionBoxes = new List<ICollisionBox>();
         private ProjectileFactory _factory = ProjectileFactory.Instance;
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
-        private CollisionDetector _collisionDetector;
-        private ProjectileCollisionHandler _collisionHandler;
 
-        public ProjectileManager(ContentManager contentManager, SpriteBatch spriteBatch, EnemyManager enemyManager)
+        public ProjectileManager(ContentManager contentManager, SpriteBatch spriteBatch)
         {
             _contentManager = contentManager;
             _spriteBatch = spriteBatch;
-            _collisionHandler = new ProjectileCollisionHandler(this, enemyManager);
-            _collisionDetector = new CollisionDetector();
         }
 
         public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, int direction, int timer, float speed, float printScale, float[] frameRanges)
@@ -41,12 +37,8 @@ namespace _3902_Project
             ISprite currentSprite = _factory.CreateProjectile(name, direction, timer, speed, printScale, frames);
             currentSprite.SetPosition(placementPosition);
             _runningProjectiles.Add(currentSprite);
+            _projectileCollisionBoxes.Add(new ProjectileCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 32, 32), 10, 1));
             return currentSprite;
-        }
-
-        public void AddProjectileCollisionBox(ProjectileCollisionBox projectile)
-        {
-            _projectilesCollisions.Add(projectile);
         }
 
         public void LoadAllTextures(ContentManager content)
@@ -61,13 +53,15 @@ namespace _3902_Project
 
         public void UnloadProjectile(ISprite sprite)
         {
+            int index = _runningProjectiles.IndexOf(sprite);
             _runningProjectiles.Remove(sprite);
+            _projectileCollisionBoxes.RemoveAt(index);
         }
 
         public void UnloadAllProjectiles()
         {
             _runningProjectiles.Clear();
-            _projectilesCollisions.Clear();
+            _projectileCollisionBoxes.Clear();
         }
 
         public void Draw()
@@ -80,15 +74,15 @@ namespace _3902_Project
 
         public void UpdateProjectiles(GameTime gameTime)
         {
-            for (int i = _projectilesCollisions.Count - 1; i >= 0; i--)
+            for (int i = _projectileCollisionBoxes.Count - 1; i >= 0; i--)
             {
-                var projectile = _projectilesCollisions[i];
+                var projectile = _projectileCollisionBoxes[i];
                 // Uncomment and update projectile's position as needed.
                 // projectile.Update(gameTime);
 
                 if (IsOffScreen(projectile))
                 {
-                    _projectilesCollisions.Remove(projectile);
+                    ProjectileIsDead(projectile);
                 }
             }
 
@@ -98,7 +92,7 @@ namespace _3902_Project
             }
         }
 
-        public void UpdateCollisions(List<ICollisionBox> otherObjects)
+        /*public void UpdateCollisions(List<ICollisionBox> otherObjects)
         {
             var allObjects = new List<ICollisionBox>(_projectilesCollisions);
             allObjects.AddRange(otherObjects);
@@ -112,14 +106,16 @@ namespace _3902_Project
                     _collisionHandler.HandleCollision(collision.ObjectA, collision.ObjectB, collision.CollisionSide, true);
                 }
             }
-        }
+        }*/
 
-        public void ProjectileIsDead(ProjectileCollisionBox projectile)
+        public void ProjectileIsDead(ICollisionBox projectile)
         {
-            _projectilesCollisions.Remove(projectile);
+            int index = _projectileCollisionBoxes.IndexOf(projectile);
+            _projectileCollisionBoxes.Remove(projectile);
+            _runningProjectiles.RemoveAt(index);
         }
 
-        private bool IsOffScreen(ProjectileCollisionBox projectile)
+        private bool IsOffScreen(ICollisionBox projectile)
         {
             // Implement logic to check if the projectile is off-screen
             // Example:
@@ -129,7 +125,7 @@ namespace _3902_Project
 
         public List<ICollisionBox> GetCollisionBoxes()
         {
-            return new List<ICollisionBox>(_projectilesCollisions);
+            return _projectileCollisionBoxes;
         }
     }
 }
