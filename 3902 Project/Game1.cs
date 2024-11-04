@@ -23,13 +23,12 @@ namespace _3902_Project
         internal CollisionDetector CollisionDetector;
         public List<ICollisionBox> collisionBoxes;
         private List<ICollisionBox> _blockCollisionBoxes;
-        private List<ICollisionBox> _itemCollisionBoxes;
 
         // Input controllers
         private IController keyboardController;
         private IController mouseController;
 
-        // **Added ProjectileCollisionManager**
+        // Projectile collision manager
         private ProjectileCollisionManager _projectileCollisionManager;
 
         public Game1()
@@ -51,9 +50,6 @@ namespace _3902_Project
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            collisionBoxes = new List<ICollisionBox>();
-            EnemySpriteFactory.Instance.LoadAllTextures(Content);
-
             // Initialize all managers
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
@@ -61,9 +57,11 @@ namespace _3902_Project
             EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
             Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
 
-            // **Initialize ProjectileCollisionManager**
+            // Initialize projectile collision manager
             _projectileCollisionManager = new ProjectileCollisionManager(EnemyManager);
 
+            // Environment factory setup
+            _blockCollisionBoxes = new List<ICollisionBox>();
             EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, _blockCollisionBoxes, _projectileCollisionManager);
 
             // Initialize input controllers
@@ -72,7 +70,8 @@ namespace _3902_Project
 
             // Initialize collision logic
             CollisionDetector = new CollisionDetector();
-            _blockCollisionBoxes = new List<ICollisionBox>();
+            _EnemyCollisionBoxes = new List<ICollisionBox>();
+            collisionBoxes = new List<ICollisionBox>();
 
             // Load all textures
             BlockManager.LoadAllTextures();
@@ -89,7 +88,7 @@ namespace _3902_Project
                 _blockCollisionBoxes.AddRange(collisionList);
             }
 
-            // **Update CollisionHandlerManager instantiation**
+            // Update CollisionHandlerManager instantiation
             CollisionHandlerManager = new CollisionHandlerManager(
                 Player,
                 EnemyManager,
@@ -99,7 +98,6 @@ namespace _3902_Project
 
             // Add collision objects to the collisionBoxes list
             _EnemyCollisionBoxes = EnemyManager.collisionBoxes;
-
             collisionBoxes.AddRange(_blockCollisionBoxes);
             collisionBoxes.AddRange(_EnemyCollisionBoxes);
             collisionBoxes.AddRange(_projectileCollisionManager.GetCollisionBoxes());
@@ -117,7 +115,7 @@ namespace _3902_Project
             keyboardController.Update();
             mouseController.Update();
 
-            // **Update projectile collisions**
+            // Update projectile collisions
             _projectileCollisionManager.UpdateCollisions(collisionBoxes);
 
             // Detect and handle collisions

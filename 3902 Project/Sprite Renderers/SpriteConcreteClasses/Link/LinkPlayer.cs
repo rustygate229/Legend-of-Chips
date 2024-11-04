@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 using static _3902_Project.ILinkStateMachine;
 
 namespace _3902_Project
@@ -9,7 +10,7 @@ namespace _3902_Project
     public partial class LinkPlayer
     {
         IAnimation _animation;
-        ILinkMovement _linkMovement;
+        LinkMovement _linkMovement;
         ILinkStateMachine _linkStateMachine;
         ProjectileManager _projectileManager;
         LinkInventory _linkInventory;
@@ -24,25 +25,11 @@ namespace _3902_Project
             _linkInventory = new LinkInventory();
 
             _projectileManager = projectileManager;
-
-
-
         }
 
         public ICollisionBox getCollisionBox()
         {
-            return ((LinkMovement)_linkMovement).getCollisionBox();
-        }
-
-        public double getXPosition() {
-            //also updates x and y just to be sure 
-            return _linkMovement.getXPosition();
-
-
-        }
-        public double getYPosition() {
-            return _linkMovement.getYPosition();
-
+            return _linkMovement.getCollisionBox();
         }
 
         private bool CannotMove()
@@ -76,6 +63,8 @@ namespace _3902_Project
             return keyboard.IsKeyDown(Keys.E);
         }
 
+        private Rectangle playAreaBoundary = new Rectangle(125, 125, 765, 450);
+
         public void Attack() { _linkStateMachine.setMelee(); }
         public void Throw() {
             _linkStateMachine.setThrow();
@@ -100,8 +89,12 @@ namespace _3902_Project
 
             int x = (int)_linkMovement.getXPosition();
             int y = (int)_linkMovement.getYPosition();
+
             //updates linkMovement according to any collisions
-            ((LinkMovement)_linkMovement).getCollisionBox().Bounds = new Rectangle(x, y, ((LinkMovement)_linkMovement).getCollisionBox().Bounds.Width, ((LinkMovement)_linkMovement).getCollisionBox().Bounds.Height);
+            ICollisionBox playerCollisionBox = ((LinkMovement)_linkMovement).getCollisionBox();
+            playerCollisionBox.Bounds = new Rectangle(x, y, playerCollisionBox.Bounds.Width, playerCollisionBox.Bounds.Height);
+
+            CollisionBoxHelper.KeepInBounds(playerCollisionBox, playAreaBoundary);
 
             if (!IsDamagedKeysPressed()) { StopDamage(); }
             if (!IsMovementKeysPressed()) { StayStill(); }

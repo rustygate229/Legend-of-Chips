@@ -1,56 +1,108 @@
-﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace _3902_Project
 {
-    public class CollisionDetector : ICollisionDetector
-    {
-        public List<CollisionData> DetectCollisions(List<ICollisionBox> gameObjects)
-        {
-            var collisions = new List<CollisionData>();
-            for (int i = 0; i < gameObjects.Count; i++)
-            {
-                for (int j = i + 1; j < gameObjects.Count; j++)
-                {
-                    var objectA = gameObjects[i];
-                    var objectB = gameObjects[j];
-                    if (objectA.Bounds.Intersects(objectB.Bounds))
-                    {
-                        CollisionType side = DetermineCollisionSide(objectA, objectB);
 
-                        if (objectB.GetType() == typeof(LinkCollisionBox))
+    public class CollisionDetector
+    {
+        public static List<CollisionData> DetectCollisions(List<List<ICollisionBox>> gameObjects)
+        {
+            List<CollisionData> collisions = new List<CollisionData>();
+            //broken into multiple segments - one is link and everything, one is enemy and block
+            ICollisionBox link = gameObjects[0][0];
+
+            for (int i = 1; i < gameObjects.Count; i++)
+            {
+                if (i == 2)
+                {
+                    //runs block collisions
+                    CollisionData collision = DetectBlockCollisions(link, gameObjects[i]);
+                    if (collision != null) collisions.Add(collision);
+                }
+                else
+                {
+                    //for all other collision lists
+                    for (int j = 0; j < gameObjects[i].Count; j++)
+                    {
+                        ICollisionBox objectB = gameObjects[i][j];
+                        if (link.Bounds.Intersects(objectB.Bounds))
                         {
-                            collisions.Add(new CollisionData(objectB, objectA, side));
-                        }
-                        else if (objectB.GetType() == typeof(EnemyCollisionBox))
-                        {
-                            collisions.Add(new CollisionData(objectB, objectA, side));
-                        }
-                        else if (objectB is ProjectileCollisionBox)
-                        {
-                            collisions.Add(new CollisionData(objectB, objectA, side));
-                        }
-                        else
-                        {
-                            collisions.Add(new CollisionData(objectA, objectB, side));
+                            collisions.Add(new CollisionData(link, objectB));
+
                         }
                     }
                 }
             }
+
+            //looping over enemy and blocks
+            for (int i = 0; i < gameObjects[1].Count; i++)
+            {
+                for (int j = 0; j < gameObjects[2].Count; j++)
+                {
+                    //enemy, block collision checks
+                    ICollisionBox objectA = gameObjects[1][i];
+                    ICollisionBox objectB = gameObjects[2][j];
+                    if (objectA.Bounds.Intersects(objectB.Bounds))
+                    {
+                        collisions.Add(new CollisionData(objectA, objectB));
+                    }
+                }
+
+            }
             return collisions;
         }
 
-        internal static CollisionType DetermineCollisionSide(ICollisionBox objectA, ICollisionBox objectB)
+        public static CollisionData DetectBlockCollisions(ICollisionBox link, List<ICollisionBox> collisions)
         {
-            Rectangle intersection = Rectangle.Intersect(objectA.Bounds, objectB.Bounds);
-            if (intersection.Width >= intersection.Height)
+            bool collidedWithBlock = false;
+            float percent = 0f;
+            CollisionData collision = null;
+
+            for (int x = 0; x < collisions.Count; x++)
             {
-                return objectA.Bounds.Top < objectB.Bounds.Top ? CollisionType.BOTTOM : CollisionType.TOP;
+                ICollisionBox block = collisions[x];
+                if (link.Bounds.Intersects(block.Bounds))
+                {
+                    float tempPercent = IntersectsPercentage(link.Bounds, block.Bounds);
+                    if (!collidedWithBlock)
+                    {
+                        collidedWithBlock = true;
+                        collision = new CollisionData(link, block);
+                        percent = tempPercent;
+                    } else if (collidedWithBlock && tempPercent > percent)
+                    {
+                        Debug.Print("detected second block collision");
+                        collision = new CollisionData(link, block);
+                        percent = tempPercent;
+                    }
+                }
             }
-            else
-            {
-                return objectA.Bounds.Left < objectB.Bounds.Left ? CollisionType.RIGHT : CollisionType.LEFT;
-            }
+
+            return collision;
+
         }
+
+        public static float IntersectsPercentage(Rectangle source, Rectangle target)
+        {
+            if (source.Width == 0 || source.Height == 0)
+            {
+                //checks for divide by 0 exception
+                return 0f;
+            }
+
+            Rectangle.Intersect(ref source, ref target, out Rectangle overlap);
+
+            float xIntersect = (float)overlap.Width / (float)source.Width;
+            float yIntersect = (float)overlap.Height / (float)source.Height;
+
+            return xIntersect * yIntersect;
+        }
+
+
+
+
     }
 }
+

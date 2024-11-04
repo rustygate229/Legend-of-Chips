@@ -7,5 +7,5 @@ public interface ISprite : IPosition
     void Update();
 
     void Draw(SpriteBatch spriteBatch);
-    Rectangle GetRectanglePosition();
+
 }

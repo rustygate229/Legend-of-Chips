@@ -16,8 +16,8 @@ public class BlockCollisionBox : ICollisionBox
         //and cannot be collided with
         _bounds = new Rectangle();
         _collidable = false;
-        _health = 0;
-        _damage = 0;
+        _health = -1;
+        _damage = -1;
 
     }
 
@@ -25,8 +25,8 @@ public class BlockCollisionBox : ICollisionBox
     {
         _bounds = bounds;
         _collidable = isCollidable;
-        _health = 9999;
-        _damage = 0;
+        _health = -1;
+        _damage = -1;
 
     }
 
@@ -44,21 +44,8 @@ public class BlockCollisionBox : ICollisionBox
         _bounds = bounds;
         _collidable = isCollidable;
         _health = health;
-        _damage = 0;
+        _damage = -1;
 
-    }
-
-    public static List<BlockCollisionBox> GetDefaultBlocks()
-    {
-        return new List<BlockCollisionBox>
-        {
-            new BlockCollisionBox(new Rectangle(400, 400, 50, 50), true), // TestBlock 1
-            new BlockCollisionBox(new Rectangle(200, 150, 50, 50), true), // TestBlock 2
-            new BlockCollisionBox(new Rectangle(400, 200, 100, 50), true),  // TestBlock 3
-
-            new BlockCollisionBox(new Rectangle(400, 300, 60, 60), false) //block can be pass through
-
-        };
     }
 
     public Rectangle Bounds

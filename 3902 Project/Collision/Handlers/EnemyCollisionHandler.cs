@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-public class EnemyCollisionHandler : ICollisionHandler
+public class EnemyCollisionHandler 
 {
     EnemyManager _enemyManager;
     public EnemyCollisionHandler(EnemyManager enemyManager)
@@ -26,29 +26,31 @@ public class EnemyCollisionHandler : ICollisionHandler
     {
         if (!block.IsCollidable) return;
 
+        Microsoft.Xna.Framework.Rectangle ABounds = enemy.Bounds;
+        Microsoft.Xna.Framework.Rectangle BBounds = block.Bounds;
+
         switch (side)
         {
             case CollisionType.LEFT:
-                // Handle enemy collision from the left side
-                enemy.Bounds = new Rectangle(block.Bounds.Left - enemy.Bounds.Width, enemy.Bounds.Y, enemy.Bounds.Width, enemy.Bounds.Height);
-                
+                ABounds.X = BBounds.Right; // Move player to the right of the block
+                _enemyManager.UpdateDirection(enemy, new Vector2(1, 0));
                 break;
             case CollisionType.RIGHT:
-                // Handle enemy collision from the right side
-                enemy.Bounds = new Rectangle(block.Bounds.Right, enemy.Bounds.Y, enemy.Bounds.Width, enemy.Bounds.Height);
+                ABounds.X = BBounds.Left - ABounds.Width; // Move player to the left of the block
+                _enemyManager.UpdateDirection(enemy, new Vector2(-1, 0));
                 break;
             case CollisionType.TOP:
-                // Handle enemy collision from the top side
-                enemy.Bounds = new Rectangle(enemy.Bounds.X, block.Bounds.Top - enemy.Bounds.Height, enemy.Bounds.Width, enemy.Bounds.Height);
+                ABounds.Y = BBounds.Bottom; // Move player below the block
+                _enemyManager.UpdateDirection(enemy, new Vector2(0, 1));
                 break;
             case CollisionType.BOTTOM:
-                // Handle enemy collision from the bottom side
-                enemy.Bounds = new Rectangle(enemy.Bounds.X, block.Bounds.Bottom, enemy.Bounds.Width, enemy.Bounds.Height);
+                ABounds.Y = BBounds.Top - ABounds.Height; // Move player above the block
+                _enemyManager.UpdateDirection(enemy, new Vector2(0, -1));
                 break;
             default:
                 break;
         }
 
-        _enemyManager.UpdateBounds(enemy, enemy.Bounds);
+        _enemyManager.UpdateBounds(enemy);
     }
 }

@@ -48,14 +48,6 @@ public class BulletCollisionBox : ICollisionBox
 
     }
 
-    public static List<BulletCollisionBox> GetDefaultBlocks()
-    {
-        return new List<BulletCollisionBox>
-        {
-            new BulletCollisionBox(new Rectangle(20, 20, 10, 10), true), // TestBlock 1
-        };
-    }
-
     public Rectangle Bounds
     {
         get { return _bounds; }

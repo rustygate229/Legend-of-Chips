@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace _3902_Project
@@ -40,7 +40,7 @@ namespace _3902_Project
             }
             else if (objectA is LinkCollisionBox || objectB is LinkCollisionBox)
             {
-                LinkCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
+                LinkCollisionHandler.HandleCollision((LinkCollisionBox)objectA, objectB, side, isCollidable);
             }
             else if (objectA is EnemyCollisionBox || objectB is EnemyCollisionBox)
             {

@@ -36,7 +36,7 @@ namespace _3902_Project
         }
 
 
-        // create every type of enemy
+        // create every type of item
         public ISprite CreateItem(ItemManager.ItemNames itemName, float printScale)
         {
             switch (itemName)

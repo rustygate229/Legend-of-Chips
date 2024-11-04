@@ -6,6 +6,30 @@ namespace _3902_Project
     public partial class LinkPlayer
     {
 
+        public void AddItem(ItemManager.ItemNames name, int amount)
+        {
+            //some items immediately add health so must be handled in here
+            //other items are handled by link inventory so must be passed into there
+            switch (name)
+            {
+                case ItemManager.ItemNames.FlashingArrow:
+                    _linkInventory.addProjectiles(LinkInventory.LINK_PROJECTILES.BLUE_ARROW, amount); break;
+
+                case ItemManager.ItemNames.Bomb:
+                    _linkInventory.addProjectiles(LinkInventory.LINK_PROJECTILES.BOMB, amount); break;
+
+                case ItemManager.ItemNames.FlashingLife:
+                    _linkMovement.getCollisionBox().Health += amount;
+                    break;
+
+
+
+
+                default: break;
+            }
+
+        }
+
         public void FireProjectile()
         {
             int inventory = _linkStateMachine.getInventory();

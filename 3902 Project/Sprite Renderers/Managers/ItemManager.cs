@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 namespace _3902_Project
@@ -8,17 +8,18 @@ namespace _3902_Project
     public class ItemManager
     {
         // create item names for finding them
-        public enum ItemNames 
-        { 
-            FullHeart, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Ladder, 
-            MagicStaff, Game, NormalKey, BossKey, Compass, FlashingLife, DepletingHeart, FlashingEmerald, 
-            FlashingPotion, FlashingScripture, FlashingSword, FlashingBanana, FlashingArrow, 
+        public enum ItemNames
+        {
+            FullHeart, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Ladder,
+            MagicStaff, Game, NormalKey, BossKey, Compass, FlashingLife, DepletingHeart, FlashingEmerald,
+            FlashingPotion, FlashingScripture, FlashingSword, FlashingBanana, FlashingArrow,
             FlashingCandle, FlashingRing, FlashingTriForce
         }
 
         // item dictionary/inventory
         private List<ISprite> _runningItems = new List<ISprite>();
         private Dictionary<ItemCollisionBox, ISprite> _itemCollisionDictionary = new Dictionary<ItemCollisionBox, ISprite>();
+        List<ICollisionBox> collisionBoxes = new List<ICollisionBox>();
 
         // create variables for passing
         private ItemSpriteFactory _factory = ItemSpriteFactory.Instance;
@@ -53,8 +54,9 @@ namespace _3902_Project
             _runningItems.Add(currentSprite);
 
             // Add item collision box for collision detection
-            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20));
+            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20), name, 1);
             _itemCollisionDictionary[collisionBox] = currentSprite;
+            collisionBoxes.Add(collisionBox);
 
             return currentSprite;
         }
@@ -69,11 +71,13 @@ namespace _3902_Project
         public ISprite AddItem(ItemNames name, Vector2 placementPosition, float printScale, int frames)
         {
             ISprite currentSprite = _factory.CreateItem(name, printScale, frames);
+
             currentSprite.SetPosition(placementPosition);
             _runningItems.Add(currentSprite);
 
             // Add item collision box for collision detection
-            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20));
+            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20), name, 1);
+            collisionBoxes.Add(collisionBox);
             _itemCollisionDictionary[collisionBox] = currentSprite;
 
             return currentSprite;
@@ -85,11 +89,12 @@ namespace _3902_Project
             if (_itemCollisionDictionary.TryGetValue(item, out ISprite spriteToRemove))
             {
                 _runningItems.Remove(spriteToRemove);
+                collisionBoxes.Remove(item);
                 _itemCollisionDictionary.Remove(item);
             }
         }
 
-        public void UnloadAllItems() { _runningItems = new List<ISprite>(); }
+        public void UnloadAllItems() { _runningItems.Clear(); _itemCollisionDictionary.Clear(); collisionBoxes.Clear(); }
 
 
         /// <summary>
@@ -116,9 +121,9 @@ namespace _3902_Project
         }
 
         // Method to get collision boxes for all items
-        public List<ItemCollisionBox> GetCollisionBoxes()
+        public List<ICollisionBox> GetCollisionBoxes()
         {
-            return new List<ItemCollisionBox>(_itemCollisionDictionary.Keys);
+            return collisionBoxes;
         }
     }
 }

@@ -7,11 +7,10 @@ namespace _3902_Project
 {
     public class BlockCollisionHandler : ICollisionHandler
     {
-        private List<ICollisionBox> _blocks;
+        //private List<ICollisionBox> _blocks;
 
-        public BlockCollisionHandler(List<ICollisionBox> blocks)
+        public BlockCollisionHandler()
         {
-            _blocks = blocks;
         }
 
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable)
@@ -26,12 +25,13 @@ namespace _3902_Project
             }
         }
 
+
         private void PreventPlayerMovement(LinkCollisionBox player, BlockCollisionBox block, CollisionType side)
-        {
+        {/*
             // Logic to prevent the player from moving through the block
             if (player != null && block != null)
             {
-                switch (CollisionDetector.DetermineCollisionSide(player, block))
+                switch (CollisionData.DetermineCollisionSide((ICollisionBox)player, (ICollisionBox)block))
                 {
                     case CollisionType.LEFT:
                         player.Bounds = new Rectangle(player.Bounds.X + 5, player.Bounds.Y, player.Bounds.Width, player.Bounds.Height);
@@ -46,7 +46,7 @@ namespace _3902_Project
                         player.Bounds = new Rectangle(player.Bounds.X, player.Bounds.Y - 5, player.Bounds.Width, player.Bounds.Height);
                         break;
                 }
-            }
+            }*/
         }
     }
 }
