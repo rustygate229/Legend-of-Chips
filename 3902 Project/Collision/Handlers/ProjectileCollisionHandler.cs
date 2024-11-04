@@ -4,10 +4,10 @@ namespace _3902_Project
 {
     public class ProjectileCollisionHandler : ICollisionHandler
     {
-        private ProjectileCollisionManager _projectileManager;
+        private ProjectileManager _projectileManager;
         private EnemyManager _enemyManager;
 
-        public ProjectileCollisionHandler(ProjectileCollisionManager projectileManager, EnemyManager enemyManager)
+        public ProjectileCollisionHandler(ProjectileManager projectileManager, EnemyManager enemyManager)
         {
             _projectileManager = projectileManager;
             _enemyManager = enemyManager;

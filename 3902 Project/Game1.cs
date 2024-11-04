@@ -53,24 +53,24 @@ namespace _3902_Project
             // Initialize all managers
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
-            ProjectileManager = new ProjectileManager(Content, _spriteBatch);
             EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
+            ProjectileManager = new ProjectileManager(Content, _spriteBatch, EnemyManager);
             Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
             mouseController = new MouseInput(this);
 
-            ProjectileManager.LoadAllTextures(Content);
+            
             // Block and Item Texture Loading
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
             EnemyManager.LoadAllTextures();
+            ProjectileManager.LoadAllTextures(Content);
 
-            ProjectileCollisionManager projManager = new ProjectileCollisionManager(EnemyManager);
-          
 
-            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, projManager);
+
+            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, ProjectileManager);
 
             whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
             whiteRectangle.SetData(new[] { Color.White });
@@ -82,7 +82,7 @@ namespace _3902_Project
         protected override void Update(GameTime gameTime)
         {
             ItemManager.Update();
-            ProjectileManager.Update();
+            ProjectileManager.UpdateProjectiles(gameTime); // Updated method call
             EnemyManager.Update();
             Player.Update();
             EnvironmentFactory.Update(Player);

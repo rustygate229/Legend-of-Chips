@@ -12,7 +12,7 @@ namespace _3902_Project
         private ItemManager _itemManager;
         private EnemyManager _enemyManager;
         private CollisionHandlerManager _collisionHandlerManager;
-        private ProjectileCollisionManager _projectileCollisionManager;
+        private ProjectileManager _projectileCollisionManager;
         private LinkPlayer _link;
 
         private int _level;
@@ -32,7 +32,7 @@ namespace _3902_Project
         private EnemyManager enemyManager;
         private ProjectileManager projectileManager;
 
-        public EnvironmentFactory(BlockManager block, ItemManager item, LinkPlayer link, EnemyManager enemy, ProjectileCollisionManager projectileManager)
+        public EnvironmentFactory(BlockManager block, ItemManager item, LinkPlayer link, EnemyManager enemy, ProjectileManager projectileManager)
         {
             _blockManager = block;
             _itemManager = item;
