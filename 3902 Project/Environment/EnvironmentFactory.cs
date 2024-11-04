@@ -26,6 +26,11 @@ namespace _3902_Project
         private List<List<string>> _items;
 
         public List<List<ICollisionBox>> _collisionBoxes;
+        private BlockManager blockManager;
+        private ItemManager itemManager;
+        private LinkPlayer player;
+        private EnemyManager enemyManager;
+        private ProjectileManager projectileManager;
 
         public EnvironmentFactory(BlockManager block, ItemManager item, LinkPlayer link, EnemyManager enemy, List<ICollisionBox> blockCollisionBoxes, ProjectileCollisionManager projectileManager)
         {
@@ -46,6 +51,15 @@ namespace _3902_Project
             _csvTranslationsEnemy = new Dictionary<string, EnemyManager.EnemyNames>();
             _csvTranslationsItem = new Dictionary<string, ItemManager.ItemNames>();
             generateTranslations();
+        }
+
+        public EnvironmentFactory(BlockManager blockManager, ItemManager itemManager, LinkPlayer player, EnemyManager enemyManager, ProjectileManager projectileManager)
+        {
+            this.blockManager = blockManager;
+            this.itemManager = itemManager;
+            this.player = player;
+            this.enemyManager = enemyManager;
+            this.projectileManager = projectileManager;
         }
 
         // Read CSV files

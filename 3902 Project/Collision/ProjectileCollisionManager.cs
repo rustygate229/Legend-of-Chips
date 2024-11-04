@@ -20,7 +20,7 @@ namespace _3902_Project
         {
             var allObjects = new List<ICollisionBox>(_projectiles);
             allObjects.AddRange(otherObjects);
-            List<CollisionData> collisions = _collisionDetector.DetectCollisions(allObjects);
+            List<CollisionData> collisions = CollisionDetector.DetectCollisions(new List<List<ICollisionBox>> { allObjects });
 
             foreach (var collision in collisions)
             {
