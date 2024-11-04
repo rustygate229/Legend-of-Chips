@@ -73,7 +73,7 @@ namespace _3902_Project
                         percent = tempPercent;
                     } else if (collidedWithBlock && tempPercent > percent)
                     {
-                        Debug.Print("detected second block collision");
+                        //Debug.Print("detected second block collision");
                         collision = new CollisionData(link, block);
                         percent = tempPercent;
                     }

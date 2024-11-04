@@ -186,15 +186,16 @@ namespace _3902_Project
         {
             _collisionBoxes.Clear();
             //List<ICollisionBox> temp = new List<ICollisionBox>();
-            List<ICollisionBox> temp = new List<ICollisionBox>
+            List<ICollisionBox> linkCollision = new List<ICollisionBox>
             {
                 _link.getCollisionBox()
             };
 
-            _collisionBoxes.Add(temp);
+            _collisionBoxes.Add(linkCollision);
             _collisionBoxes.Add(_enemyManager.collisionBoxes);
             _collisionBoxes.Add(_blockManager.collisionBoxes);
             _collisionBoxes.Add(_itemManager.GetCollisionBoxes());
+            //_collisionBoxes.Add(_enemyManager.getProjectileCollisionBoxes());
         }
         
 

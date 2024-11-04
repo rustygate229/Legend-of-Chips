@@ -59,7 +59,8 @@ namespace _3902_Project
         public ISprite AddEnemy(EnemyNames name, Vector2 placementPosition, float printScale, float spriteSpeed, int moveTotalTimerTotal, int frames)
         {
             ISprite currentSprite = _factory.CreateEnemy(name, printScale, spriteSpeed, moveTotalTimerTotal, frames);
-
+            //set position
+            currentSprite.SetPosition(placementPosition);
             // Randomly initialize the direction
             Vector2 initialDirection;
             Random random = new Random();
@@ -86,9 +87,6 @@ namespace _3902_Project
             // add enemy and direction
             _runningEnemies.Add(currentSprite);
             _enemyDirections.Add(initialDirection);
-
-            //set position
-            currentSprite.SetPosition(placementPosition);
 
             return currentSprite;
         }
