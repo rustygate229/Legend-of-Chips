@@ -11,7 +11,7 @@ namespace _3902_Project
         private BlockCollisionHandler BlockCollisionHandler;
         private ProjectileCollisionHandler ProjectileCollisionHandler;
 
-        public CollisionHandlerManager(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager, List<ICollisionBox> blockCollisionBoxes, ProjectileCollisionManager projectileManager)
+        public CollisionHandlerManager(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager, ProjectileCollisionManager projectileManager)
         {
             EnemyCollisionHandler = new EnemyCollisionHandler(enemyManager);
             EnemyCollisionManager enemyCollisionManager = new EnemyCollisionManager(enemyManager);

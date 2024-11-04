@@ -32,7 +32,7 @@ namespace _3902_Project
         private EnemyManager enemyManager;
         private ProjectileManager projectileManager;
 
-        public EnvironmentFactory(BlockManager block, ItemManager item, LinkPlayer link, EnemyManager enemy, List<ICollisionBox> blockCollisionBoxes, ProjectileCollisionManager projectileManager)
+        public EnvironmentFactory(BlockManager block, ItemManager item, LinkPlayer link, EnemyManager enemy, ProjectileCollisionManager projectileManager)
         {
             _blockManager = block;
             _itemManager = item;
@@ -43,7 +43,7 @@ namespace _3902_Project
             _collisionBoxes = new List<List<ICollisionBox>>(4);
             
             // Initialize Collision
-            _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item, blockCollisionBoxes, projectileManager);
+            _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item, projectileManager);
 
             _level = 0;
 
@@ -53,14 +53,14 @@ namespace _3902_Project
             generateTranslations();
         }
 
-        public EnvironmentFactory(BlockManager blockManager, ItemManager itemManager, LinkPlayer player, EnemyManager enemyManager, ProjectileManager projectileManager)
+        /*public EnvironmentFactory(BlockManager blockManager, ItemManager itemManager, LinkPlayer player, EnemyManager enemyManager, ProjectileManager projectileManager)
         {
             this.blockManager = blockManager;
             this.itemManager = itemManager;
             this.player = player;
             this.enemyManager = enemyManager;
             this.projectileManager = projectileManager;
-        }
+        }*/
 
         // Read CSV files
         private List<List<string>> ReadCsvFile(string filePath)
