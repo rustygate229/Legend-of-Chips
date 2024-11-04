@@ -101,7 +101,7 @@ namespace _3902_Project
         { 
             _runningEnemies.Clear(); 
             collisionBoxes.Clear(); 
-            _manager.UnloadAllProjectiles();
+           
         }
 
         /// <summary>
@@ -206,16 +206,7 @@ namespace _3902_Project
                 ISprite enemySprite = _runningEnemies[index];
                 _runningEnemies.RemoveAt(index);
 
-                // Optionally, trigger death animation or sound effect
-                // enemySprite.TriggerDeathAnimation();
-
-                // Optional: Spawn item drops, update score, etc.
-                // Vector2 position = new Vector2(enemyCollisionBox.Bounds.X, enemyCollisionBox.Bounds.Y);
-                // _itemManager.SpawnItem(position);
-                // _game.Score += enemySprite.PointValue;
-
-                // Log or debug
-                // Debug.WriteLine($"Enemy at index {index} has been defeated and removed.");
+                
             }
         }
     }
