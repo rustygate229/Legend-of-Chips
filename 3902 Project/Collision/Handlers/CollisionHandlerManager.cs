@@ -17,7 +17,7 @@ namespace _3902_Project
             EnemyCollisionManager enemyCollisionManager = new EnemyCollisionManager(enemyManager);
             LinkCollisionHandler = new LinkCollisionHandler(link, enemyCollisionManager, itemManager);
             ItemCollisionHandler = new ItemCollisionHandler(link, itemManager);
-            BlockCollisionHandler = new BlockCollisionHandler(blockCollisionBoxes);
+            BlockCollisionHandler = new BlockCollisionHandler();
             ProjectileCollisionHandler = new ProjectileCollisionHandler(projectileManager, enemyManager);
         }
 
