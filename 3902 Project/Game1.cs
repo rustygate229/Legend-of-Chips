@@ -19,6 +19,7 @@ namespace _3902_Project
         public ProjectileManager ProjectileManager { get;  set; }
         internal EnvironmentFactory EnvironmentFactory { get; private set; }
         internal MusicManager MusicManager { get; set; }
+        internal Menu Menu { get; set; }
 
         //private List<ICollisionBox> _EnemyCollisionBoxes;
 
@@ -58,6 +59,7 @@ namespace _3902_Project
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
             EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
             Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
+            Menu = new Menu(Content, _spriteBatch, ItemManager);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
@@ -69,11 +71,9 @@ namespace _3902_Project
             EnemyManager.LoadAllTextures();
             ProjectileManager.LoadAllTextures(Content);
             MusicManager.LoadSongs();
+            Menu.LoadContent();
 
             EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager);
-
-            whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
-            whiteRectangle.SetData(new[] { Color.White });
 
             EnvironmentFactory.loadLevel();
 
@@ -102,37 +102,13 @@ namespace _3902_Project
             ProjectileManager.Draw();
             Player.Draw();
             EnemyManager.Draw();
+            Menu.Draw();
 
             //DrawCollidables();
 
 
             base.Draw(gameTime);
         }
-
-        public void DrawCollidables()
-        {
-            List<List<ICollisionBox>> collidables = EnvironmentFactory._collisionBoxes;
-            _spriteBatch.Begin();
-            Color color = Color.White;
-
-            for (int i = 0; i < collidables.Count; i++)
-            {
-                //if (i == 1) continue;
-                List<ICollisionBox> collisionBoxes = collidables[i];
-                foreach (ICollisionBox collisionBox in collisionBoxes)
-                { 
-                    if (i == 0) color = Color.White;
-                    if (i == 1) color = Color.Red;
-                    if (i == 2) color = Color.Green;
-                    if (i == 3) color = Color.Blue;
-                    _spriteBatch.Draw(whiteRectangle, collisionBox.Bounds, color);
-                }
-
-            }
-            _spriteBatch.End();
-        }
-
-
         public void ResetGame() { Initialize(); }
     }
 }
