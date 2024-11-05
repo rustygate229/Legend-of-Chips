@@ -10,6 +10,7 @@
   - 1, 2, 3: Selects Blue Arrow, Blue Boomerang, and Bomb 
   - N: Uses selected item
   - E: Link takes damage
+  - M: Mutes/Unmutes Background Music
 * Other
   - Q: Quit/Close Program
   - R: Resets Program
