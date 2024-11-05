@@ -65,7 +65,7 @@ namespace _3902_Project
             return keyboard.IsKeyDown(Keys.E);
         }
 
-        private Rectangle playAreaBoundary = new Rectangle(125, 125, 765, 450);
+        private Rectangle playAreaBoundary = new Rectangle(125, 320, 780, 450);
 
         public void Attack() { _linkStateMachine.setMelee(); }
         public void Throw() {

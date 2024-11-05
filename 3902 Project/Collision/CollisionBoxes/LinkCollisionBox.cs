@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Diagnostics;
 
 namespace _3902_Project;
 
@@ -8,17 +9,6 @@ public class LinkCollisionBox : ICollisionBox
     private bool _collidable;
     private int _health;
     public int _damage;
-
-    public LinkCollisionBox()
-    {
-        //default constructor creates a new rectangle at 0,0, with no concept of health and damage
-        //and cannot be collided with
-        _bounds = new Rectangle();
-        _collidable = false;
-        _health = 0;
-        _damage = 0;
-
-    }
 
     public LinkCollisionBox(Rectangle bounds, bool isCollidable, int health, int damage)
     {
