@@ -54,6 +54,9 @@ namespace _3902_Project
         public ISprite AddEnemy(EnemyNames name, Vector2 placementPosition, float printScale, float spriteSpeed, int moveTotalTimerTotal, int frames)
         {
             ISprite currentSprite = _factory.CreateEnemy(name, printScale, spriteSpeed, moveTotalTimerTotal, frames);
+            //set position
+            currentSprite.SetPosition(placementPosition);
+
 
             // Set projectile damage
             int projectileDamage = 20; // Adjust this value as needed
@@ -63,8 +66,6 @@ namespace _3902_Project
             // Create the enemy collision box with the calculated health
             EnemyCollisionBox collision = new EnemyCollisionBox(currentSprite.GetRectanglePosition(), true, enemyHealth, 10);
             collisionBoxes.Add(collision);
-            //set position
-            currentSprite.SetPosition(placementPosition);
           
             // Randomly initialize the direction
             Vector2 initialDirection;

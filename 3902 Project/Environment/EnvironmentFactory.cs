@@ -189,7 +189,7 @@ namespace _3902_Project
             _collisionBoxes.Add(_blockManager.collisionBoxes);
             _collisionBoxes.Add(_itemManager.GetCollisionBoxes());
 
-            //_collisionBoxes.Add(_enemyManager.getProjectileCollisionBoxes());
+            _collisionBoxes.Add(_projectileManager.GetCollisionBoxes());
         }
 
         public void loadLevel()
