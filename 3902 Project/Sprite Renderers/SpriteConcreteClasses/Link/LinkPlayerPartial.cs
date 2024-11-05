@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Diagnostics;
+using System.Numerics;
 using static _3902_Project.ILinkStateMachine;
 
 namespace _3902_Project

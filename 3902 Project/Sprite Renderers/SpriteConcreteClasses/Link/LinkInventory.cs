@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 
 public class LinkInventory
 {
@@ -16,24 +17,49 @@ public class LinkInventory
 
         //other variables to be instantiated here
     }
-    public LinkInventory(Dictionary<LINK_PROJECTILES, int> inventoryDict) { InventoryDict = inventoryDict; }
+    //public LinkInventory(Dictionary<LINK_PROJECTILES, int> inventoryDict) { InventoryDict = inventoryDict; }
+    public LINK_PROJECTILES translateNumbers(int number)
+    {
+        //numbers run from 1 to 5
+        //logic for figuring out which numbers represent which values - hard coded for now
+        LINK_PROJECTILES temp = LINK_PROJECTILES.ARROW;
+        if (number == 1)
+        {
+            temp = LINK_PROJECTILES.ARROW;
+        }
+        else if (number == 2)
+        {
+            temp = LINK_PROJECTILES.BOMB;
+        }
+        else if (number == 3)
+        {
+            temp = LINK_PROJECTILES.BLUE_ARROW;
+        }
+        else if (number == 4)
+        {
+            temp = LINK_PROJECTILES.BOOMERANG;
+        }
+        else if (number == 5)
+        {
+            temp = LINK_PROJECTILES.FIRE;
+        }
+        return temp;
+    }
 
     public bool canFireProjectiles(int num)
     {
-        //num is indexed at 1, want to start at 0 for LINK_PROJECTILES
-        num--;
-        LINK_PROJECTILES type = (LINK_PROJECTILES)num;
-
         //dictionary is numbered according to projectile enums
         bool canFire = false;
+
+        LINK_PROJECTILES type = translateNumbers(num);
 
         if (InventoryDict.TryGetValue(type, out int value))
         {
             if (value > 0)
             {
+                //Debug.Print("firing " + type.ToString());
                 canFire = true;
                 //assumes it fires so subtracts by 1 
-                //Debug.Print("value: " + value);
                 InventoryDict[type] = value - 1;
             }
 
@@ -45,6 +71,7 @@ public class LinkInventory
     {
         if (InventoryDict.ContainsKey(projectiles))
         {
+            Debug.Print(projectiles.ToString() + " added to inventory");
             InventoryDict[projectiles] += count;
         }
         else

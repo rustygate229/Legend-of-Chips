@@ -1,4 +1,5 @@
-﻿using static _3902_Project.ILinkStateMachine;
+﻿using System.Diagnostics;
+using static _3902_Project.ILinkStateMachine;
 
 namespace _3902_Project
 {
@@ -51,7 +52,9 @@ namespace _3902_Project
 
         public void setDamage() { Damage = true; }
         public void stopDamage() { Damage = false; }
-        public void setInventory(int num) { Inventory = num; }
+        public void setInventory(int num) {
+            Inventory = num; 
+        }
         public int getInventory() { return Inventory;}
     }
 }

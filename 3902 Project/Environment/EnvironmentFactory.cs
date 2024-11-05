@@ -179,16 +179,17 @@ namespace _3902_Project
         public void loadCollisions()
         {
             _collisionBoxes.Clear();
-            List<ICollisionBox> temp = new List<ICollisionBox>
+            List<ICollisionBox> linkCollision = new List<ICollisionBox>
             {
                 _link.getCollisionBox()
             };
 
-            _collisionBoxes.Add(temp);
+            _collisionBoxes.Add(linkCollision);
             _collisionBoxes.Add(_enemyManager.collisionBoxes);
             _collisionBoxes.Add(_blockManager.collisionBoxes);
             _collisionBoxes.Add(_itemManager.GetCollisionBoxes());
-            _collisionBoxes.Add(_projectileManager.GetCollisionBoxes());
+
+            //_collisionBoxes.Add(_enemyManager.getProjectileCollisionBoxes());
         }
 
         public void loadLevel()

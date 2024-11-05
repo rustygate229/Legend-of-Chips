@@ -63,7 +63,9 @@ namespace _3902_Project
             // Create the enemy collision box with the calculated health
             EnemyCollisionBox collision = new EnemyCollisionBox(currentSprite.GetRectanglePosition(), true, enemyHealth, 10);
             collisionBoxes.Add(collision);
-
+            //set position
+            currentSprite.SetPosition(placementPosition);
+          
             // Randomly initialize the direction
             Vector2 initialDirection;
             Random random = new Random();
@@ -87,9 +89,6 @@ namespace _3902_Project
             // add enemy and direction
             _runningEnemies.Add(currentSprite);
             _enemyDirections.Add(initialDirection);
-
-            //set position
-            currentSprite.SetPosition(placementPosition);
 
             return currentSprite;
         }
