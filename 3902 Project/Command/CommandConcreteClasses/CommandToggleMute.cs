@@ -3,11 +3,11 @@ namespace _3902_Project
 {
     public class CommandToggleMute : ICommand
     {
-        private MusicManager _music;
+        private BackgroundMusic _music;
 
         public CommandToggleMute(Game1 Game)
         {
-            _music = Game.MusicManager;
+            _music = Game.BackgroundMusic;
         }
 
         public void Execute()

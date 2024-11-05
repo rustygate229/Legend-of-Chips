@@ -3,12 +3,12 @@ using Microsoft.Xna.Framework.Media;
 
 namespace _3902_Project
 {
-    class MusicManager
+    class BackgroundMusic
     {
         private ContentManager _content;
         private Song song;
 
-        public MusicManager(ContentManager content)
+        public BackgroundMusic(ContentManager content)
         {
             _content = content;
         }
