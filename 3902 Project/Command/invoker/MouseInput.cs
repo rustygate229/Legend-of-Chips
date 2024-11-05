@@ -28,7 +28,7 @@ namespace _3902_Project
                 newbuttonsClicked.Add("rc");
             else if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 newbuttonsClicked.Add("lc");
-               
+
             // for each key, find if it is either previously pressed or a movement key
             foreach (string key in newbuttonsClicked)
             {

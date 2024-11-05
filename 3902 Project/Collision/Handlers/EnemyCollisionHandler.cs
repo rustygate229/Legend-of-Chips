@@ -20,13 +20,13 @@ public class EnemyCollisionHandler
         {
             HandleEnemyBlockCollision((EnemyCollisionBox)objectB, (BlockCollisionBox)objectA, side);
         }
-        else if (objectA is LinkPlayer linkPlayerA && objectB is BulletCollisionBox bulletB)
+        else if (objectA is LinkCollisionBox linkPlayerA && objectB is BulletCollisionBox bulletB)
         {
-            linkPlayerA.TakeDamage(bulletB._damage);
+            linkPlayerA.Health = linkPlayerA.Health - bulletB.Damage;
         }
-        else if (objectA is BulletCollisionBox bulletA && objectB is LinkPlayer linkPlayerB)
+        else if (objectA is BulletCollisionBox bulletA && objectB is LinkCollisionBox linkPlayerB)
         {
-            linkPlayerB.TakeDamage(bulletA._damage);
+            linkPlayerB.Health = linkPlayerB.Health - bulletA.Damage;
         }
     }
 

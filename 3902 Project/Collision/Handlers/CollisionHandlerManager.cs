@@ -1,23 +1,22 @@
-﻿using System;
 using System.Collections.Generic;
 
 namespace _3902_Project
 {
     public class CollisionHandlerManager
     {
-        //private List<ICollisionHandler> _collisionHandlers;
         private LinkCollisionHandler LinkCollisionHandler;
         private EnemyCollisionHandler EnemyCollisionHandler;
-        //private ItemCollisionHandler ItemCollisionHandler;
-        //private BlockCollisionHandler BlockCollisionHandler;
+        private ItemCollisionHandler ItemCollisionHandler;
+        private BlockCollisionHandler BlockCollisionHandler;
+        private ProjectileCollisionHandler ProjectileCollisionHandler;
 
-        public CollisionHandlerManager(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager)
+        public CollisionHandlerManager(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager, ProjectileManager projectileManager)
         {
             EnemyCollisionHandler = new EnemyCollisionHandler(enemyManager);
-            EnemyCollisionManager enemyCollisionManager = new EnemyCollisionManager(enemyManager);
-            LinkCollisionHandler = new LinkCollisionHandler(link, enemyCollisionManager, itemManager);
-            //ItemCollisionHandler = new ItemCollisionHandler(link, itemManager);
-            //BlockCollisionHandler = new BlockCollisionHandler(blockCollisionBoxes);
+            LinkCollisionHandler = new LinkCollisionHandler(link, enemyManager, itemManager);
+            ItemCollisionHandler = new ItemCollisionHandler(link, itemManager);
+            BlockCollisionHandler = new BlockCollisionHandler();
+            ProjectileCollisionHandler = new ProjectileCollisionHandler(projectileManager, enemyManager);
         }
 
         public void HandleCollisions(List<CollisionData> collisions)
@@ -28,46 +27,31 @@ namespace _3902_Project
             }
         }
 
-        // Unified method to handle collision using specific handlers.
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side)
         {
+            bool isCollidable = objectA.IsCollidable && objectB.IsCollidable;
 
-            bool isCollidable = (objectA is BlockCollisionBox blockA && blockA.IsCollidable) || (objectB is BlockCollisionBox blockB && blockB.IsCollidable);
-            if(objectB is BulletCollisionBox)
-            {
-                //temporary fix for bullet
-                //nothing more temporary than a permanent fix.
-                EnemyCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
-            }
-            else if (objectA is LinkCollisionBox || objectB is LinkCollisionBox)
+            // Handle collisions involving projectiles (highest priority given since projectile manager needs these)
+            if (objectA is LinkCollisionBox || objectB is LinkCollisionBox)
             {
                 LinkCollisionHandler.HandleCollision((LinkCollisionBox)objectA, objectB, side, isCollidable);
             }
-
-            //case if object is enemy 
-            else if (objectA is EnemyCollisionBox || objectB is EnemyCollisionBox || objectA is BulletCollisionBox || objectB is BulletCollisionBox)
+            else if (objectA is ProjectileCollisionBox || objectB is ProjectileCollisionBox)
             {
-
+                ProjectileCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
+            }
+            else if (objectA is EnemyCollisionBox || objectB is EnemyCollisionBox)
+            {
                 EnemyCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
             }
-
-            
-            //case if object is block
-            /*else if (objectA is BlockCollisionBox)
+            else if (objectA is BlockCollisionBox || objectB is BlockCollisionBox)
             {
-
                 BlockCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
             }
-
-            //case if object is item
-            else if (objectA is ItemCollisionBox)
+            else if (objectA is ItemCollisionBox || objectB is ItemCollisionBox)
             {
-
                 ItemCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
-
-            }*/
-
+            }
         }
     }
 }
-

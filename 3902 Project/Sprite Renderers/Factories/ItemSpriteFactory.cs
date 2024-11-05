@@ -78,7 +78,7 @@ namespace _3902_Project
         }
         public ISprite CreateItem(ItemManager.ItemNames itemName, float printScale, int frames)
         {
-            switch(itemName) 
+            switch (itemName)
             {
                 case ItemManager.ItemNames.DepletingHeart:
                     return new AItem_DepletingHeart(_itemSpritesheet, printScale, frames);

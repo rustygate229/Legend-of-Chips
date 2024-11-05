@@ -8,5 +8,4 @@ public interface ISprite : IPosition
 
     void Draw(SpriteBatch spriteBatch);
 
-  
 }

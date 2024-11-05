@@ -1,69 +1,44 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using static _3902_Project.BlockManager;
 
 namespace _3902_Project
 {
     public class ProjectileManager
     {
-        // create block names for finding them
         public enum ProjectileNames
         {
             Bomb, BlueArrow, FireBall
         }
 
-        // block dictionary/inventory
         private List<ISprite> _runningProjectiles = new List<ISprite>();
-
-        // create variables for passing
+        private List<ICollisionBox> _projectileCollisionBoxes = new List<ICollisionBox>();
         private ProjectileFactory _factory = ProjectileFactory.Instance;
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
 
-        // constructor
         public ProjectileManager(ContentManager contentManager, SpriteBatch spriteBatch)
         {
             _contentManager = contentManager;
             _spriteBatch = spriteBatch;
         }
 
-        /// <summary>
-        /// call the projectile for sprites with only frames, meaning that it is a projectile that is only one animation, and NO direction or NO frame/renderer switching
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="placementPosition"></param>
-        /// <param name="direction"></param>
-        /// <param name="timer"></param>
-        /// <param name="speed"></param>
-        /// <param name="printScale"></param>
-        /// <param name="frameRanges"></param>
-        /// <returns>the sprite added to the list</returns>
         public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, int direction, int timer, float speed, float printScale, float[] frameRanges)
         {
             ISprite currentSprite = _factory.CreateProjectile(name, direction, timer, speed, printScale, frameRanges);
             currentSprite.SetPosition(placementPosition);
             _runningProjectiles.Add(currentSprite);
+            _projectileCollisionBoxes.Add(new ProjectileCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 32, 32), 10, 1));
             return currentSprite;
         }
-        /// <summary>
-        /// call the projectile for sprites with only frames, meaning that it is a projectile that is only one animation, and NO direction or NO frame/renderer switching
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="placementPosition"></param>
-        /// <param name="direction"></param>
-        /// <param name="timer"></param>
-        /// <param name="speed"></param>
-        /// <param name="printScale"></param>
-        /// <param name="frames"></param>
-        /// <returns>the sprite added to the list</returns>
+
         public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, int direction, int timer, float speed, float printScale, int frames)
         {
             ISprite currentSprite = _factory.CreateProjectile(name, direction, timer, speed, printScale, frames);
             currentSprite.SetPosition(placementPosition);
             _runningProjectiles.Add(currentSprite);
+            _projectileCollisionBoxes.Add(new ProjectileCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 32, 32), 10, 1));
             return currentSprite;
         }
 
@@ -77,23 +52,19 @@ namespace _3902_Project
             _factory.UnloadAllTextures(content);
         }
 
+        public void UnloadProjectile(ISprite sprite)
+        {
+            int index = _runningProjectiles.IndexOf(sprite);
+            _runningProjectiles.Remove(sprite);
+            //_projectileCollisionBoxes.RemoveAt(index);
+        }
 
-        /// <summary>
-        /// Remove/Unload an projectile from the block list based on it's ISprite
-        /// </summary>
-        /// <param name="name"></param>
-        public void UnloadProjectile(ISprite sprite) { _runningProjectiles.Remove(sprite); }
+        public void UnloadAllProjectiles()
+        {
+            _runningProjectiles.Clear();
+            _projectileCollisionBoxes.Clear();
+        }
 
-
-        /// <summary>
-        /// Remove/Unload all Projectile Sprites
-        /// </summary>
-        public void UnloadAllProjectiles() { _runningProjectiles.Clear(); }
-
-
-        /// <summary>
-        /// Draw all blocks in the List
-        /// </summary>
         public void Draw()
         {
             foreach (var projectile in _runningProjectiles)
@@ -102,16 +73,59 @@ namespace _3902_Project
             }
         }
 
-
-        /// <summary>
-        /// Update all blocks in the List
-        /// </summary>
-        public void Update()
+        public void UpdateProjectiles(GameTime gameTime)
         {
-            foreach (var projectile in _runningProjectiles)
+            int i = 0;
+            foreach (ISprite projectile in _runningProjectiles)
             {
                 projectile.Update();
+            
+                var box = _projectileCollisionBoxes[i];
+                // Uncomment and update projectile's position as needed.
+                //box.Bounds = new Rectangle(projectile.get);
+
+                if (IsOffScreen(box))
+                {
+                    ProjectileIsDead(box);
+                }
+                i++;
             }
+        }
+
+        /*public void UpdateCollisions(List<ICollisionBox> otherObjects)
+        {
+            var allObjects = new List<ICollisionBox>(_projectilesCollisions);
+            allObjects.AddRange(otherObjects);
+            List<CollisionData> collisions = CollisionDetector.DetectCollisions(new List<List<ICollisionBox>> { allObjects });
+
+            foreach (var collision in collisions)
+            {
+                if ((_projectilesCollisions.Contains(collision.ObjectA as ProjectileCollisionBox) && collision.ObjectA is ProjectileCollisionBox) ||
+                    (_projectilesCollisions.Contains(collision.ObjectB as ProjectileCollisionBox) && collision.ObjectB is ProjectileCollisionBox))
+                {
+                    _collisionHandler.HandleCollision(collision.ObjectA, collision.ObjectB, collision.CollisionSide, true);
+                }
+            }
+        }*/
+
+        public void ProjectileIsDead(ICollisionBox projectile)
+        {
+            int index = _projectileCollisionBoxes.IndexOf(projectile);
+            _projectileCollisionBoxes.Remove(projectile);
+            _runningProjectiles.RemoveAt(index);
+        }
+
+        private bool IsOffScreen(ICollisionBox projectile)
+        {
+            // Implement logic to check if the projectile is off-screen
+            // Example:
+            // return !gameViewport.Bounds.Contains(projectile.Bounds);
+            return false;
+        }
+
+        public List<ICollisionBox> GetCollisionBoxes()
+        {
+            return _projectileCollisionBoxes;
         }
     }
 }

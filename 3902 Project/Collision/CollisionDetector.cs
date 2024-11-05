@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -49,12 +49,28 @@ namespace _3902_Project
                         collisions.Add(new CollisionData(objectA, objectB));
                     }
                 }
+            }
+
+            //enemy and PROJECTILES collision checks
+            for (int i = 0; i < gameObjects[1].Count; i++)
+            {
+                for (int j = 0; j < gameObjects[4].Count; j++)
+                {
+                    ICollisionBox objectA = gameObjects[1][i];
+                    ICollisionBox objectB = gameObjects[4][j];
+                    if (objectA.Bounds.Intersects(objectB.Bounds))
+                    {
+                        //enemy, projectiles
+                        collisions.Add(new CollisionData(objectA, objectB));
+                    }
+                }
 
             }
+
             return collisions;
         }
 
-        public static CollisionData DetectBlockCollisions(ICollisionBox link, List<ICollisionBox> collisions)
+        private static CollisionData DetectBlockCollisions(ICollisionBox link, List<ICollisionBox> collisions)
         {
             bool collidedWithBlock = false;
             float percent = 0f;
@@ -71,7 +87,8 @@ namespace _3902_Project
                         collidedWithBlock = true;
                         collision = new CollisionData(link, block);
                         percent = tempPercent;
-                    } else if (collidedWithBlock && tempPercent > percent)
+                    }
+                    else if (collidedWithBlock && tempPercent > percent)
                     {
                         //Debug.Print("detected second block collision");
                         collision = new CollisionData(link, block);
@@ -84,7 +101,7 @@ namespace _3902_Project
 
         }
 
-        public static float IntersectsPercentage(Rectangle source, Rectangle target)
+        private static float IntersectsPercentage(Rectangle source, Rectangle target)
         {
             if (source.Width == 0 || source.Height == 0)
             {
@@ -105,3 +122,4 @@ namespace _3902_Project
 
     }
 }
+
