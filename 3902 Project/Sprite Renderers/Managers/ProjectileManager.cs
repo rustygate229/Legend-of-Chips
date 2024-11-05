@@ -29,6 +29,7 @@ namespace _3902_Project
             ISprite currentSprite = _factory.CreateProjectile(name, direction, timer, speed, printScale, frameRanges);
             currentSprite.SetPosition(placementPosition);
             _runningProjectiles.Add(currentSprite);
+            _projectileCollisionBoxes.Add(new ProjectileCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 32, 32), 10, 1));
             return currentSprite;
         }
 
@@ -55,7 +56,7 @@ namespace _3902_Project
         {
             int index = _runningProjectiles.IndexOf(sprite);
             _runningProjectiles.Remove(sprite);
-            _projectileCollisionBoxes.RemoveAt(index);
+            //_projectileCollisionBoxes.RemoveAt(index);
         }
 
         public void UnloadAllProjectiles()
@@ -74,21 +75,20 @@ namespace _3902_Project
 
         public void UpdateProjectiles(GameTime gameTime)
         {
-            for (int i = _projectileCollisionBoxes.Count - 1; i >= 0; i--)
-            {
-                var projectile = _projectileCollisionBoxes[i];
-                // Uncomment and update projectile's position as needed.
-                // projectile.Update(gameTime);
-
-                if (IsOffScreen(projectile))
-                {
-                    ProjectileIsDead(projectile);
-                }
-            }
-
-            foreach (var projectile in _runningProjectiles)
+            int i = 0;
+            foreach (ISprite projectile in _runningProjectiles)
             {
                 projectile.Update();
+            
+                var box = _projectileCollisionBoxes[i];
+                // Uncomment and update projectile's position as needed.
+                //box.Bounds = new Rectangle(projectile.get);
+
+                if (IsOffScreen(box))
+                {
+                    ProjectileIsDead(box);
+                }
+                i++;
             }
         }
 
