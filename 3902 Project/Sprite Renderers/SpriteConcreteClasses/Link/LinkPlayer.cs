@@ -14,6 +14,7 @@ namespace _3902_Project
         ILinkStateMachine _linkStateMachine;
         ProjectileManager _projectileManager;
         LinkInventory _linkInventory;
+        CharacterStateManager _characterState;
 
 
         //double x, y;
@@ -23,6 +24,7 @@ namespace _3902_Project
             _linkStateMachine = new LinkStateMachine();
             _animation = new LinkAnimation(sb, content, _linkStateMachine);
             _linkInventory = new LinkInventory();
+            _characterState = new CharacterStateManager(100);
 
             _projectileManager = projectileManager;
         }
@@ -63,10 +65,28 @@ namespace _3902_Project
             return keyboard.IsKeyDown(Keys.E);
         }
 
+        private Rectangle playAreaBoundary = new Rectangle(125, 125, 765, 450);
+
         public void Attack() { _linkStateMachine.setMelee(); }
         public void Throw() {
             _linkStateMachine.setThrow();
             FireProjectile();
+        }
+
+        //Character State Logic
+        public void TakeDamage(int damageAmount)
+        {
+            _characterState.DecreaseHealth(damageAmount);
+        }
+
+        public void PickUpItem(string itemName)
+        {
+            _characterState.AddItem(itemName);
+        }
+
+        public void UseItem(string itemName)
+        {
+            _characterState.UseItem(itemName);
         }
 
 
@@ -87,8 +107,12 @@ namespace _3902_Project
 
             int x = (int)_linkMovement.getXPosition();
             int y = (int)_linkMovement.getYPosition();
+
             //updates linkMovement according to any collisions
-            ((LinkMovement)_linkMovement).getCollisionBox().Bounds = new Rectangle(x, y, ((LinkMovement)_linkMovement).getCollisionBox().Bounds.Width, ((LinkMovement)_linkMovement).getCollisionBox().Bounds.Height);
+            ICollisionBox playerCollisionBox = ((LinkMovement)_linkMovement).getCollisionBox();
+            playerCollisionBox.Bounds = new Rectangle(x, y, playerCollisionBox.Bounds.Width, playerCollisionBox.Bounds.Height);
+
+            CollisionBoxHelper.KeepInBounds(playerCollisionBox, playAreaBoundary);
 
             if (!IsDamagedKeysPressed()) { StopDamage(); }
             if (!IsMovementKeysPressed()) { StayStill(); }

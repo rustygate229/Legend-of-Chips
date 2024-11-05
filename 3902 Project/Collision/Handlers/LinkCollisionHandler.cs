@@ -14,21 +14,18 @@ namespace _3902_Project
         LinkPlayer _link;
 
         //reference to enemy manager as well? 
-        EnemyCollisionManager _enemyManager;
+        EnemyManager _enemyManager;
 
         //no need for block manager
 
         //reference to item
         ItemManager _itemManager;
-
-
-        public LinkCollisionHandler(LinkPlayer link, EnemyCollisionManager enemyManager, ItemManager itemManager)
+        public LinkCollisionHandler(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager)
         {
             _link = link;
             _enemyManager = enemyManager;
             _itemManager = itemManager;
         }
-
 
         private void HandleCollision(LinkCollisionBox objectA, EnemyCollisionBox objectB, CollisionType side)
         {

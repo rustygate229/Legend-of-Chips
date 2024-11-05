@@ -16,7 +16,7 @@ namespace _3902_Project
         internal BlockManager BlockManager { get; private set; }  // Block manager
         internal ItemManager ItemManager { get; private set; }  // Item manager
         internal EnemyManager EnemyManager { get; private set; }
-        public ProjectileManager ProjectileManager { get;  set; }
+        public ProjectileManager ProjectileManager { get; set; }
         internal EnvironmentFactory EnvironmentFactory { get; private set; }
         internal BackgroundMusic BackgroundMusic { get; set; }
         internal Menu Menu { get; set; }
@@ -54,9 +54,10 @@ namespace _3902_Project
 
             // Initialize all managers
             BackgroundMusic = new BackgroundMusic(Content);
+            ProjectileManager = new ProjectileManager(Content, _spriteBatch);
+            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
-            ProjectileManager = new ProjectileManager(Content, _spriteBatch);
             EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
             Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
             Menu = new Menu(Content, _spriteBatch, ItemManager);
@@ -65,6 +66,7 @@ namespace _3902_Project
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
             mouseController = new MouseInput(this);
 
+            
             // Block and Item Texture Loading
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
@@ -73,7 +75,8 @@ namespace _3902_Project
             BackgroundMusic.LoadSongs();
             Menu.LoadContent();
 
-            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager);
+
+            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, ProjectileManager);
 
             EnvironmentFactory.loadLevel();
 
@@ -82,7 +85,7 @@ namespace _3902_Project
         protected override void Update(GameTime gameTime)
         {
             ItemManager.Update();
-            ProjectileManager.Update();
+            ProjectileManager.UpdateProjectiles(gameTime); // Updated method call
             EnemyManager.Update();
             Player.Update();
             EnvironmentFactory.Update(Player);
@@ -109,6 +112,31 @@ namespace _3902_Project
 
             base.Draw(gameTime);
         }
+
+        public void DrawCollidables()
+        {
+            List<List<ICollisionBox>> collidables = EnvironmentFactory._collisionBoxes;
+            _spriteBatch.Begin();
+            Color color = Color.White;
+
+            for (int i = 0; i < collidables.Count; i++)
+            {
+                //if (i == 1) continue;
+                List<ICollisionBox> collisionBoxes = collidables[i];
+                foreach (ICollisionBox collisionBox in collisionBoxes)
+                {
+                    if (i == 0) color = Color.White;
+                    if (i == 1) color = Color.Red;
+                    if (i == 2) color = Color.Green;
+                    if (i == 3) color = Color.Blue;
+                    _spriteBatch.Draw(whiteRectangle, collisionBox.Bounds, color);
+                }
+
+            }
+            _spriteBatch.End();
+        }
+
+
         public void ResetGame() { Initialize(); }
     }
 }
