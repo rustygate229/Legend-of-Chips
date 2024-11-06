@@ -73,6 +73,12 @@ namespace _3902_Project
                     return new SItem_Sword(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.WaterPlate:
                     return new SItem_WaterPlate(_itemSpritesheet, printScale);
+                case ItemManager.ItemNames.HP2:
+                    return new SItem_HP2(_itemSpritesheet, printScale);
+                case ItemManager.ItemNames.HP1:
+                    return new SItem_HP1(_itemSpritesheet, printScale);
+                case ItemManager.ItemNames.HP0:
+                    return new SItem_HP0(_itemSpritesheet, printScale);
                 default: throw new ArgumentException("invalid item name");
             }
         }
