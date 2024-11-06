@@ -33,7 +33,7 @@ namespace _3902_Project
         // Input controller
         private IController keyboardController;
         private IController mouseController;
-
+        
 
         public Game1()
         {
@@ -79,7 +79,7 @@ namespace _3902_Project
             Menu.LoadContent();
 
 
-            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, ProjectileManager);
+            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, ProjectileManager, CharacterStateManager);
 
             EnvironmentFactory.loadLevel();
 

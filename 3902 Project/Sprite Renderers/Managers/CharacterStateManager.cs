@@ -9,6 +9,7 @@ namespace _3902_Project
         public int MaxHealth { get; private set; }
         public bool IsDead => Health <= 0;
 
+
         private Dictionary<string, int> inventory;
 
         public CharacterStateManager(int maxHealth)
