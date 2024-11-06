@@ -13,10 +13,11 @@ namespace _3902_Project
 
         // Game objects and managers
         internal LinkPlayer Player { get; private set; }  // Player object
-        internal BlockManager BlockManager { get; private set; }  // Block manager.
+        internal BlockManager BlockManager { get; private set; }  // Block manager
         internal ItemManager ItemManager { get; private set; }  // Item manager
-        internal EnemyManager EnemyManager { get; private set; }
-        public ProjectileManager ProjectileManager { get; set; }
+        internal EnemyManager EnemyManager { get; private set; } //Enemy manager
+        public ProjectileManager ProjectileManager { get; set; }   //Projectile manager
+        internal CharacterStateManager CharacterStateManager { get; private set; }  //Character manager
         internal EnvironmentFactory EnvironmentFactory { get; private set; }
         internal BackgroundMusic BackgroundMusic { get; set; }
         internal Menu Menu { get; set; }
@@ -32,6 +33,7 @@ namespace _3902_Project
         // Input controller
         private IController keyboardController;
         private IController mouseController;
+
 
         public Game1()
         {
@@ -51,6 +53,7 @@ namespace _3902_Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            CharacterStateManager = new CharacterStateManager(6); //assume maximum HP = 6
 
             // Initialize all managers
             BackgroundMusic = new BackgroundMusic(Content);
@@ -60,13 +63,13 @@ namespace _3902_Project
             ItemManager = new ItemManager(Content, _spriteBatch);
             EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
             Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
-            Menu = new Menu(Content, _spriteBatch, ItemManager);
+            Menu = new Menu(Content, _spriteBatch, ItemManager, CharacterStateManager);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
             mouseController = new MouseInput(this);
 
-            
+
             // Block and Item Texture Loading
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
