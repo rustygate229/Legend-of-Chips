@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _3902_Project
 {
@@ -54,10 +51,9 @@ namespace _3902_Project
         {
             if (inventory.ContainsKey(itemName) && inventory[itemName] > 0)
             {
-                // 假设药瓶可以恢复一定的血量
                 if (itemName == "HealthPotion")
                 {
-                    IncreaseHealth(20); // 假设药瓶恢复 20 HP
+                    IncreaseHealth(2);
                 }
                 inventory[itemName]--;
 
@@ -68,11 +64,19 @@ namespace _3902_Project
             }
         }
 
+        public int GetFullHearts()
+        {
+            return Health / 2; // Each heart represents 2 HP
+        }
+
+        public bool HasHalfHeart()
+        {
+            return Health % 2 != 0; // If the remainder is not 0, it means there is half a heart
+        }
+
         private void HandleDeath()
         {
-            //Test
             Console.WriteLine("Character is dead.");
         }
     }
 }
-
