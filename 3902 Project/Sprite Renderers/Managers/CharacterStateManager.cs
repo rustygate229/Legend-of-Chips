@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace _3902_Project
@@ -9,6 +10,8 @@ namespace _3902_Project
         public int MaxHealth { get; private set; }
         public bool IsDead => Health <= 0;
 
+        private float _damageCooldownTime = 1.0f; 
+        private float _currentCooldownTime = 0.0f;
 
         private Dictionary<string, int> inventory;
 
@@ -19,14 +22,32 @@ namespace _3902_Project
             inventory = new Dictionary<string, int>();
         }
 
+        public void UpdateCooldown(GameTime gameTime)
+        {
+            if (_currentCooldownTime > 0)
+            {
+                _currentCooldownTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+        }
+
+        public bool CanTakeDamage()
+        {
+            return _currentCooldownTime <= 0;
+        }
+
         public void DecreaseHealth(int amount)
         {
-            Health -= amount;
-            if (Health < 0) Health = 0;
-
-            if (IsDead)
+            if (CanTakeDamage())
             {
-                HandleDeath();
+                Health -= amount;
+                _currentCooldownTime = _damageCooldownTime;
+
+                if (Health < 0) Health = 0;
+
+                if (IsDead)
+                {
+                    HandleDeath();
+                }
             }
         }
 

@@ -87,11 +87,14 @@ namespace _3902_Project
 
         protected override void Update(GameTime gameTime)
         {
+            CharacterStateManager.UpdateCooldown(gameTime);
+
             ItemManager.Update();
             ProjectileManager.UpdateProjectiles(gameTime); // Updated method call
             EnemyManager.Update();
             Player.Update();
             EnvironmentFactory.Update(Player);
+            
             // Update input controls
             keyboardController.Update();
             mouseController.Update();

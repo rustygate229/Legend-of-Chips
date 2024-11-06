@@ -16,9 +16,9 @@ public class LinkCollisionHandler
         _characterState = characterState;
     }
 
-    private void HandleCollision(LinkCollisionBox objectA, EnemyCollisionBox objectB, CollisionType side)
+    
+    private void HandleEnemyCollision(LinkCollisionBox objectA, EnemyCollisionBox objectB, CollisionType side)
     {
-        // Handle player collision with enemy
         if (_link.getAttack() == ILinkStateMachine.ATTACK.MELEE)
         {
             // Link is attacking, deal damage to the enemy
@@ -44,13 +44,17 @@ public class LinkCollisionHandler
         else
         {
             // Link is not attacking, take damage from enemy
-            _characterState.DecreaseHealth(1); // reduces 1 HP/half a heart
-            Debug.WriteLine($"LinkPlayer took damage. Current Health: {_characterState.Health}");
-            _link.flipDamaged(); //update damage state
+            if (_characterState.CanTakeDamage())
+            {
+                _characterState.DecreaseHealth(1); // reduces 1 HP/half a heart
+                Debug.WriteLine($"LinkPlayer took damage. Current Health: {_characterState.Health}");
+                _link.flipDamaged(); //update damage state
+            }
         }
     }
 
-    private void HandleCollision(LinkCollisionBox objectA, BlockCollisionBox objectB, CollisionType side)
+    
+    private void HandleBlockCollision(LinkCollisionBox objectA, BlockCollisionBox objectB, CollisionType side)
     {
         if (objectB.IsCollidable)
         {
@@ -82,13 +86,13 @@ public class LinkCollisionHandler
 
     public void HandleCollision(LinkCollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable)
     {
-        if (objectB.IsCollidable && objectB is EnemyCollisionBox enemyBox)
+        if (isCollidable && objectB is EnemyCollisionBox enemyBox)
         {
-            HandleCollision(objectA, enemyBox, side);
+            HandleEnemyCollision(objectA, enemyBox, side);
         }
         else if (objectB is BlockCollisionBox block)
         {
-            HandleCollision(objectA, block, side);
+            HandleBlockCollision(objectA, block, side);
         }
         else if (objectB is ItemCollisionBox item && objectA is LinkCollisionBox)
         {
