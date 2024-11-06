@@ -39,6 +39,33 @@ namespace _3902_Project
             _batch.DrawString(_font, "LEVEL - " + level, new Vector2(50, 30), Color.White);
             _batch.DrawString(_font, "- LIFE -", new Vector2(700, 30), Color.Red);
             _batch.End();
+
+            // Draw a heart shape based on the character's HP
+            int fullHearts = _characterState.GetFullHearts();
+            bool hasHalfHeart = _characterState.HasHalfHeart();
+            int maxHearts = _characterState.MaxHealth / 2;
+
+            float heartScale = 4F; 
+            //3 case for diiferent heart
+            for (int i = 0; i < maxHearts; i++)
+            {
+                ISprite heartSprite;
+
+                if (i < fullHearts)
+                {
+                    heartSprite = _itemManager.AddItem(ItemManager.ItemNames.HP2, new Vector2(700 + i * 40, 60), heartScale);
+                }
+                else if (i == fullHearts && hasHalfHeart)
+                {
+                    heartSprite = _itemManager.AddItem(ItemManager.ItemNames.HP1, new Vector2(700 + i * 40, 60), heartScale);
+                }
+                else
+                {
+                    heartSprite = _itemManager.AddItem(ItemManager.ItemNames.HP0, new Vector2(700 + i * 40, 60), heartScale);
+                }
+
+                heartSprite.Draw(_batch); 
+            }
         }
     }
 }

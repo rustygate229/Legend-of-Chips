@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 
+
 namespace _3902_Project
 {
     public class CollisionHandlerManager
@@ -10,9 +11,9 @@ namespace _3902_Project
         private BlockCollisionHandler BlockCollisionHandler;
         private ProjectileCollisionHandler ProjectileCollisionHandler;
 
-        public CollisionHandlerManager(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager, ProjectileManager projectileManager)
+        public CollisionHandlerManager(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager, ProjectileManager projectileManager, CharacterStateManager characterStateManager)
         {
-            EnemyCollisionHandler = new EnemyCollisionHandler(enemyManager);
+            EnemyCollisionHandler = new EnemyCollisionHandler(enemyManager, characterStateManager);
             LinkCollisionHandler = new LinkCollisionHandler(link, enemyManager, itemManager);
             ItemCollisionHandler = new ItemCollisionHandler(link, itemManager);
             BlockCollisionHandler = new BlockCollisionHandler();

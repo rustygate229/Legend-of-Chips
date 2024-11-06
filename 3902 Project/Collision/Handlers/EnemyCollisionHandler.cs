@@ -1,64 +1,101 @@
 ﻿using _3902_Project;
-using Microsoft.Xna.Framework;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 
-public class EnemyCollisionHandler 
+public class LinkCollisionHandler
 {
-    EnemyManager _enemyManager;
-    public EnemyCollisionHandler(EnemyManager enemyManager)
+    private LinkPlayer _link;
+    private EnemyManager _enemyManager;
+    private ItemManager _itemManager;
+    private CharacterStateManager _characterState;
+
+    public LinkCollisionHandler(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager, CharacterStateManager characterState)
     {
+        _link = link;
         _enemyManager = enemyManager;
-    }
-    public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable)
-    {
-        if (objectA is EnemyCollisionBox && objectB is BlockCollisionBox)
-        {
-            HandleEnemyBlockCollision((EnemyCollisionBox)objectA, (BlockCollisionBox)objectB, side);
-        }
-        else if (objectB is EnemyCollisionBox && objectA is BlockCollisionBox)
-        {
-            HandleEnemyBlockCollision((EnemyCollisionBox)objectB, (BlockCollisionBox)objectA, side);
-        }
-        else if (objectA is LinkCollisionBox linkPlayerA && objectB is BulletCollisionBox bulletB)
-        {
-            linkPlayerA.Health = linkPlayerA.Health - bulletB.Damage;
-        }
-        else if (objectA is BulletCollisionBox bulletA && objectB is LinkCollisionBox linkPlayerB)
-        {
-            linkPlayerB.Health = linkPlayerB.Health - bulletA.Damage;
-        }
+        _itemManager = itemManager;
+        _characterState = characterState;
     }
 
-    private void HandleEnemyBlockCollision(EnemyCollisionBox enemy, BlockCollisionBox block, CollisionType side)
+    private void HandleCollision(LinkCollisionBox objectA, EnemyCollisionBox objectB, CollisionType side)
     {
-        if (!block.IsCollidable) return;
-
-        Microsoft.Xna.Framework.Rectangle ABounds = enemy.Bounds;
-        Microsoft.Xna.Framework.Rectangle BBounds = block.Bounds;
-
-        switch (side)
+        // Handle player collision with enemy
+        if (_link.getAttack() == ILinkStateMachine.ATTACK.MELEE)
         {
-            case CollisionType.LEFT:
-                ABounds.X = BBounds.Right; // Move player to the right of the block
-                _enemyManager.UpdateDirection(enemy, new Vector2(1, 0));
-                break;
-            case CollisionType.RIGHT:
-                ABounds.X = BBounds.Left - ABounds.Width; // Move player to the left of the block
-                _enemyManager.UpdateDirection(enemy, new Vector2(-1, 0));
-                break;
-            case CollisionType.TOP:
-                ABounds.Y = BBounds.Bottom; // Move player below the block
-                _enemyManager.UpdateDirection(enemy, new Vector2(0, 1));
-                break;
-            case CollisionType.BOTTOM:
-                ABounds.Y = BBounds.Top - ABounds.Height; // Move player above the block
-                _enemyManager.UpdateDirection(enemy, new Vector2(0, -1));
-                break;
-            default:
-                break;
+            // Link is attacking, deal damage to the enemy
+            int dmg = objectA.Damage;
+            ILinkStateMachine.MOVEMENT move = _link.getState();
+            if ((move == ILinkStateMachine.MOVEMENT.SUP || move == ILinkStateMachine.MOVEMENT.MUP) && side == CollisionType.TOP)
+            {
+                objectB.Health -= dmg;
+            }
+            else if ((move == ILinkStateMachine.MOVEMENT.SDOWN || move == ILinkStateMachine.MOVEMENT.MDOWN) && side == CollisionType.BOTTOM)
+            {
+                objectB.Health -= dmg;
+            }
+            else if ((move == ILinkStateMachine.MOVEMENT.SLEFT || move == ILinkStateMachine.MOVEMENT.MLEFT) && side == CollisionType.LEFT)
+            {
+                objectB.Health -= dmg;
+            }
+            else if ((move == ILinkStateMachine.MOVEMENT.SRIGHT || move == ILinkStateMachine.MOVEMENT.MRIGHT) && side == CollisionType.RIGHT)
+            {
+                objectB.Health -= dmg;
+            }
         }
+        else
+        {
+            // Link is not attacking, take damage from enemy
+            _characterState.DecreaseHealth(1); //Each collision reduces 1 HP, equivalent to half a heart
+            Debug.WriteLine($"LinkPlayer took damage. Current Health: {_characterState.Health}");
+            _link.flipDamaged(); 
+        }
+    }
 
-        _enemyManager.UpdateBounds(enemy);
+    private void HandleCollision(LinkCollisionBox objectA, BlockCollisionBox objectB, CollisionType side)
+    {
+        if (objectB.IsCollidable)
+        {
+            // Handle player collision with block
+            Microsoft.Xna.Framework.Rectangle ABounds = objectA.Bounds;
+            Microsoft.Xna.Framework.Rectangle BBounds = objectB.Bounds;
+
+            switch (side)
+            {
+                case CollisionType.LEFT:
+                    ABounds.X = BBounds.Right; // Move player to the right of the block
+                    break;
+                case CollisionType.RIGHT:
+                    ABounds.X = BBounds.Left - ABounds.Width; // Move player to the left of the block
+                    break;
+                case CollisionType.TOP:
+                    ABounds.Y = BBounds.Bottom; // Move player below the block
+                    break;
+                case CollisionType.BOTTOM:
+                    ABounds.Y = BBounds.Top - ABounds.Height; // Move player above the block
+                    break;
+                default:
+                    break;
+            }
+
+            objectA.Bounds = ABounds;
+        }
+    }
+
+    public void HandleCollision(LinkCollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable)
+    {
+        if (objectB.IsCollidable && objectB is EnemyCollisionBox enemyBox)
+        {
+            HandleCollision(objectA, enemyBox, side);
+        }
+        else if (objectB is BlockCollisionBox block)
+        {
+            HandleCollision(objectA, block, side);
+        }
+        else if (objectB is ItemCollisionBox item && objectA is LinkCollisionBox)
+        {
+            var names = item.getItemInfo();
+            Debug.Print("Picked up item " + names.name);
+            _link.AddItem(names.name, names.amount);
+            _itemManager.RemoveItem(item);
+        }
     }
 }

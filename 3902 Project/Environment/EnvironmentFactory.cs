@@ -14,6 +14,7 @@ namespace _3902_Project
         private CollisionHandlerManager _collisionHandlerManager;
         private ProjectileManager _projectileManager;
         private LinkPlayer _link;
+        private CharacterStateManager characterStateManager;
 
         private int _level;
         private int _prevLevel = -1; // -1 is a stand in for a null value
@@ -32,6 +33,7 @@ namespace _3902_Project
         private int ENDING_LEVEL = 4;
 
         public List<List<ICollisionBox>> _collisionBoxes;
+        
 
         public EnvironmentFactory(BlockManager block, ItemManager item, LinkPlayer link, EnemyManager enemy, ProjectileManager projectileManager)
         {
@@ -44,7 +46,7 @@ namespace _3902_Project
             _collisionBoxes = new List<List<ICollisionBox>>(4);
             
             // Initialize Collision
-            _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item, projectileManager);
+            _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item, projectileManager, characterStateManager);
 
             _level = 1;
 
