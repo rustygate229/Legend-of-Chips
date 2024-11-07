@@ -34,12 +34,12 @@ namespace _3902_Project
             {
                 if (key == "rc" && !previousMouseButtons.Contains("rc"))
                 {
-                    _game.EnvironmentFactory.incrementLevel();
+                    _game._EnvironmentFactory.incrementLevel();
                 }
 
                 else if (key == "lc" && !previousMouseButtons.Contains("lc"))
                 {
-                    _game.EnvironmentFactory.decrementLevel();
+                    _game._EnvironmentFactory.decrementLevel();
                 }
             }
 

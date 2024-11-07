@@ -39,7 +39,7 @@ namespace _3902_Project
         /// <summary>
         /// Passes to the Renderer SetPosition method
         /// </summary>
-        public void SetPosition(Vector2 position) { _bomb.SetPosition(position); }
+        public void SetPosition(Vector2 position) { _bombCloud.SetPosition(position); }
 
 
         /// <summary>

@@ -40,13 +40,13 @@ namespace _3902_Project
             switch ((int)_direction)
             {
                 case 0: // spawn DOWN
-                    return manager.CallProjectile(projectileName, _rendDownUp.GetPosition(), (int)_direction, timer, speed, printScale, frameRanges);
+                    return manager.CallProjectile(projectileName, _rendDownUp.GetVectorPosition(), _direction, printScale);
                 case 1: // spawn UP
-                    return manager.CallProjectile(projectileName,_rendDownUp.GetPosition(), (int)_direction, timer, speed, printScale, frameRanges);
+                    return manager.CallProjectile(projectileName,_rendDownUp.GetVectorPosition(), _direction, printScale);
                 case 2: // spawn RIGHT
-                    return manager.CallProjectile(projectileName, _rendRightLeft.GetPosition(), (int)_direction, timer, speed, printScale, frameRanges);
+                    return manager.CallProjectile(projectileName, _rendRightLeft.GetVectorPosition(), _direction, printScale);
                 case 3: // spawn LEFT
-                    return manager.CallProjectile(projectileName, _rendRightLeft.GetPosition(), (int)_direction, timer, speed, printScale, frameRanges);
+                    return manager.CallProjectile(projectileName, _rendRightLeft.GetVectorPosition(), _direction, printScale);
                 default: throw new ArgumentException("Invalid direction for CreateProjectile");
             }
         }
@@ -56,13 +56,13 @@ namespace _3902_Project
             switch ((int)_direction)
             {
                 case 0: // spawn DOWN
-                    return manager.CallProjectile(projectileName, _rendDownUp.GetPosition(), (int)_direction, timer, speed, printScale, frameRanges);
+                    return manager.CallProjectile(projectileName, _rendDownUp.GetVectorPosition(), _direction, printScale);
                 case 1: // spawn UP
-                    return manager.CallProjectile(projectileName, _rendDownUp.GetPosition(), (int)_direction, timer, speed, printScale, frameRanges);
+                    return manager.CallProjectile(projectileName, _rendDownUp.GetVectorPosition(), _direction, printScale);
                 case 2: // spawn RIGHT
-                    return manager.CallProjectile(projectileName, _rendRight.GetPosition(), (int)_direction, timer, speed, printScale, frameRanges);
+                    return manager.CallProjectile(projectileName, _rendRight.GetVectorPosition(), _direction, printScale);
                 case 3: // spawn LEFT
-                    return manager.CallProjectile(projectileName, _rendLeft.GetPosition(), (int)_direction, timer, speed, printScale, frameRanges);
+                    return manager.CallProjectile(projectileName, _rendLeft.GetVectorPosition(), _direction, printScale);
                 default: throw new ArgumentException("Invalid direction for CreateProjectile");
             }
         }
@@ -72,13 +72,13 @@ namespace _3902_Project
             switch ((int)_direction)
             {
                 case 0: // spawn DOWN
-                    return manager.CallProjectile(projectileName, _rendDown.GetPosition(), (int)_direction, timer, speed, printScale, frameRanges);
+                    return manager.CallProjectile(projectileName, _rendDown.GetVectorPosition(), _direction, printScale);
                 case 1: // spawn UP
-                    return manager.CallProjectile(projectileName, _rendUp.GetPosition(), (int)_direction, timer, speed, printScale, frameRanges);
+                    return manager.CallProjectile(projectileName, _rendUp.GetVectorPosition(), _direction, printScale);
                 case 2: // spawn RIGHT
-                    return manager.CallProjectile(projectileName, _rendRightLeft.GetPosition(), (int)_direction, timer, speed, printScale, frameRanges);
+                    return manager.CallProjectile(projectileName, _rendRightLeft.GetVectorPosition(), _direction, printScale);
                 case 3: // spawn LEFT
-                    return manager.CallProjectile(projectileName, _rendRightLeft.GetPosition(), (int)_direction, timer, speed, printScale, frameRanges);
+                    return manager.CallProjectile(projectileName, _rendRightLeft.GetVectorPosition(), _direction, printScale);
                 default: throw new ArgumentException("Invalid direction for CreateProjectile");
             }
         }
@@ -88,13 +88,13 @@ namespace _3902_Project
             switch ((int)_direction)
             {
                 case 0: // spawn DOWN
-                    return manager.CallProjectile(projectileName, _rendDown.GetPosition(), (int)_direction, timer, speed, printScale, frameRanges);
+                    return manager.CallProjectile(projectileName, _rendDown.GetVectorPosition(), _direction, printScale);
                 case 1: // spawn UP
-                    return manager.CallProjectile(projectileName, _rendUp.GetPosition(), (int)_direction, timer, speed, printScale, frameRanges);
+                    return manager.CallProjectile(projectileName, _rendUp.GetVectorPosition(), _direction, printScale);
                 case 2: // spawn RIGHT
-                    return manager.CallProjectile(projectileName, _rendRight.GetPosition(), (int)_direction, timer, speed, printScale, frameRanges);
+                    return manager.CallProjectile(projectileName, _rendRight.GetVectorPosition(), _direction, printScale);
                 case 3: // spawn LEFT
-                    return manager.CallProjectile(projectileName, _rendLeft.GetPosition(), (int)_direction, timer, speed, printScale, frameRanges);
+                    return manager.CallProjectile(projectileName, _rendLeft.GetVectorPosition(), _direction, printScale);
                 default: throw new ArgumentException("Invalid direction for CreateProjectile");
             }
         }

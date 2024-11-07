@@ -35,6 +35,8 @@ namespace _3902_Project
             _rendererList.CreateSetAnimationStatus(Renderer.STATUS.RowAndColumnAnimated);
             // set correct direciton
             _rendererList.SetDirection(facingDirection);
+
+            _linkMoving = new LinkMoving(_rendererList);
         }
 
         /// <summary>

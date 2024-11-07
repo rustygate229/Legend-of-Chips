@@ -4,7 +4,7 @@ using System;
 
 namespace _3902_Project
 {
-    private partial class Renderer
+    public partial class Renderer
     {
         private bool _isCentered = false;
         private int _tileSize = 64;

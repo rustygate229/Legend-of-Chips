@@ -29,10 +29,10 @@ namespace _3902_Project
 
         public EnvironmentFactory(Game1 game, List<ICollisionBox> blockCollisionBoxes) 
         {
-            _blockManager = game.BlockManager;
-            _itemManager = game.ItemManager;
-            _enemyManager = game.EnemyManager;
-            _linkManager = game.Link;
+            _blockManager = game._BlockManager;
+            _itemManager = game._ItemManager;
+            _enemyManager = game._EnemyManager;
+            _linkManager = game._Link;
             _linkManager.SetLinkPosition(new Vector2(100, 200));
 
             //Initialize Collision
@@ -188,7 +188,7 @@ namespace _3902_Project
                         if (itemToPlace == "bk" || itemToPlace == "c")
                             currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 3F);
                         else
-                            currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 2F, 9);
+                            currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(128 + (j * 64), 128 + (i * 64)), 2F);
 
                     }
                 }

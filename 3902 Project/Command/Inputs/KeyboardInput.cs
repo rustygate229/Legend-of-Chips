@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework.Input;
 
 namespace _3902_Project
@@ -70,13 +72,14 @@ namespace _3902_Project
                 // if key passes check, then execute
                 if ((keysToCommands.ContainsKey(key) && (!_previousKeys.Contains(key)) || IsMoveKey(key)))
                 {
+                    //Console.WriteLine("moving");
                     ICommand setKeyboardCommand = keysToCommands[key];
                     setKeyboardCommand.Execute();
                 } 
-                else if (!IsMoveKey(key)) { new CommandLinkStill(_game); }
                 // add keys to a new previous
                 newPreviousKeys.Add(key);
             }
+            if (currentKeyboardPressed.Length == 0) { new CommandLinkStill(_game).Execute(); Console.WriteLine("stopped moving"); }
 
             // set old previous keys = new previous keys
             _previousKeys = newPreviousKeys;

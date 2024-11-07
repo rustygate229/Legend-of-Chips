@@ -10,12 +10,12 @@ namespace _3902_Project
         private SpriteBatch _spriteBatch;
 
         // Game objects and managers
-        internal LinkManager Link { get; private set; }  // Player object
-        internal BlockManager BlockManager { get; private set; }  // Block manager
-        internal ItemManager ItemManager { get; private set; }  // Item manager
-        internal EnemyManager EnemyManager { get; private set; }
-        public ProjectileManager ProjectileManager { get;  set; }
-        internal EnvironmentFactory EnvironmentFactory { get; private set; }
+        internal LinkManager _Link { get; private set; }  // Player object
+        internal BlockManager _BlockManager { get; private set; }  // Block manager
+        internal ItemManager _ItemManager { get; private set; }  // Item manager
+        internal EnemyManager _EnemyManager { get; private set; }
+        public ProjectileManager _ProjectileManager { get;  set; }
+        internal EnvironmentFactory _EnvironmentFactory { get; private set; }
 
         private List<ICollisionBox> _EnemyCollisionBoxes;
 
@@ -54,30 +54,38 @@ namespace _3902_Project
             collisionBoxes = new List<ICollisionBox>();
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
-            EnvironmentFactory = new EnvironmentFactory(this, _blockCollisionBoxes);
-
-
-            // Initialize keyboard input controller
-            keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
-            mouseController = new MouseInput(this);
-
             // Initialize collision logic
             CollisionDetector = new CollisionDetector();
             _blockCollisionBoxes = new List<ICollisionBox>();
 
             // Block and Item Texture Loading
-            BlockManager.LoadAll(_spriteBatch, Content);
-            ItemManager.LoadAll(_spriteBatch, Content);
-            ProjectileManager.LoadAll(_spriteBatch, Content);
-            EnemyManager.LoadAll(_spriteBatch, Content, ProjectileManager);
-            Link.LoadAll(_spriteBatch, Content, ProjectileManager);
+            _BlockManager = new BlockManager();
+            _BlockManager.LoadAll(_spriteBatch, Content);
+
+            _ItemManager = new ItemManager();
+            _ItemManager.LoadAll(_spriteBatch, Content);
+
+            _ProjectileManager = new ProjectileManager();
+            _ProjectileManager.LoadAll(_spriteBatch, Content);
+
+            _EnemyManager = new EnemyManager();
+            _EnemyManager.LoadAll(_spriteBatch, Content, _ProjectileManager);
+
+            _Link = new LinkManager();
+            _Link.LoadAll(_spriteBatch, Content, _ProjectileManager);
+
+            _EnvironmentFactory = new EnvironmentFactory(this, _blockCollisionBoxes);
+
+            // Initialize keyboard input controller
+            keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
+            mouseController = new MouseInput(this);
 
             whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
             whiteRectangle.SetData(new[] { Color.White });
 
-            EnvironmentFactory.loadLevel();
+            _EnvironmentFactory.loadLevel();
 
-            Dictionary<BlockManager.BlockNames, List<ICollisionBox>> BlockCollisionDict = EnvironmentFactory.getCollidables(); // Load collision boxes from ENVIRONMENT
+            Dictionary<BlockManager.BlockNames, List<ICollisionBox>> BlockCollisionDict = _EnvironmentFactory.getCollidables(); // Load collision boxes from ENVIRONMENT
             List<ICollisionBox> CollisionList = new List<ICollisionBox>();
             if (BlockCollisionDict.TryGetValue(BlockManager.BlockNames.Square, out CollisionList))
             {
@@ -87,7 +95,7 @@ namespace _3902_Project
             CollisionHandlerManager = new CollisionHandlerManager(this, _blockCollisionBoxes);
 
             // Add collision objects to the collisionBoxes list
-            _EnemyCollisionBoxes = EnemyManager.collisionBoxes;
+            _EnemyCollisionBoxes = _EnemyManager.collisionBoxes;
 
             collisionBoxes.AddRange(_blockCollisionBoxes); // Add all block collision boxes
             //collisionBoxes.AddRange(_itemCollisionBoxes); // Add all item collision boxes
@@ -96,11 +104,11 @@ namespace _3902_Project
 
         protected override void Update(GameTime gameTime)
         {
-            ItemManager.Update();
-            ProjectileManager.Update();
-            EnemyManager.Update();
-            Link.Update();
-            EnvironmentFactory.Update(Link);
+            _ItemManager.Update();
+            _ProjectileManager.Update();
+            _EnemyManager.Update();
+            _Link.Update();
+            _EnvironmentFactory.Update(_Link);
             // Update input controls
             keyboardController.Update();
             mouseController.Update();
@@ -116,11 +124,11 @@ namespace _3902_Project
         {
             GraphicsDevice.Clear(Color.Black);
 
-            BlockManager.Draw();
-            ItemManager.Draw();
-            ProjectileManager.Draw();
-            Link.Draw();
-            EnemyManager.Draw();
+            _BlockManager.Draw();
+            _ItemManager.Draw();
+            _ProjectileManager.Draw();
+            _Link.Draw();
+            _EnemyManager.Draw();
 
             base.Draw(gameTime);
         }

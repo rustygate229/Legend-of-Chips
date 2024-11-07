@@ -13,7 +13,6 @@ namespace _3902_Project
         // create a Renderer object
         private RendererLists _rendererList;
         private LinkStanding _linkStanding;
-        private Game1 _game;
 
         private int _currentFrame;
 
@@ -21,9 +20,8 @@ namespace _3902_Project
         /// <summary>
         /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
         /// </summary>
-        public LinkStandardStanding(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale, Game1 game)
+        public LinkStandardStanding(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale)
         {
-            _game = game;
             // create different facing block sprites for the renderer list
             Renderer linkDown = new(spriteSheet, _spriteDownPosition, printScale);
             Renderer linkUp = new(spriteSheet, _spriteUpPosition, printScale);

@@ -7,7 +7,7 @@ namespace _3902_Project
 
         public CommandLinkSetInventory(Game1 game, int key)
         {
-            _link = game.Link;
+            _link = game._Link;
         }
 
         public void Execute()

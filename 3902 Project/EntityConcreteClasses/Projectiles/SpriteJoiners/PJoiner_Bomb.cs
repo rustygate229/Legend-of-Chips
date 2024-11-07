@@ -29,18 +29,18 @@ namespace _3902_Project
         /// <summary>
         /// Passes to the Renderer GetPosition method
         /// </summary>
-        public Rectangle GetRectanglePosition()  {  return _;  }
+        public Rectangle GetRectanglePosition()  {  return new Rectangle(0, 0, 0, 0);  }
 
 
         /// <summary>
         /// Passes to the Renderer GetPosition method
         /// </summary>
-        public Vector2 GetVectorPosition() { return _rendererList.GetVectorPosition(); }
+        public Vector2 GetVectorPosition() { return new Vector2(0, 0); }
 
         /// <summary>
         /// Passes to the Renderer SetPosition method
         /// </summary>
-        public void SetPosition(Vector2 position) { _rendererList.SetPositions(position); }
+        public void SetPosition(Vector2 position) { /*_rendererList.SetPositions(position);*/ }
 
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace _3902_Project
         public void Update()
         {
             // set positions at every update
-            _rendererList.SetPositions(_position);
+            //_rendererList.SetPositions(_position);
         }
 
 
@@ -57,6 +57,7 @@ namespace _3902_Project
         /// Draws the block in the given SpriteBatch
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch, true); }
+        public void Draw(SpriteBatch spriteBatch) { //_rendererList.CreateSpriteDraw(spriteBatch, true);
+                                                    }
     }
 }

@@ -7,7 +7,7 @@ namespace _3902_Project
 
         public CommandLinkThrow(Game1 game)
         {
-            _link = game.Link;
+            _link = game._Link;
         }
 
         public void Execute()

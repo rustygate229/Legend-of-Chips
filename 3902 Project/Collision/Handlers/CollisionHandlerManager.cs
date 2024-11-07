@@ -12,9 +12,9 @@ namespace _3902_Project
 
         public CollisionHandlerManager(Game1 game, List<ICollisionBox> blockCollisionBoxes)
         {
-            EnemyCollisionHandler = new EnemyCollisionHandler(game.EnemyManager);
-            EnemyCollisionManager enemyCollisionManager = new EnemyCollisionManager(game.EnemyManager);
-            ItemCollisionHandler = new ItemCollisionHandler(game.Link, game.ItemManager);
+            EnemyCollisionHandler = new EnemyCollisionHandler(game._EnemyManager);
+            EnemyCollisionManager enemyCollisionManager = new EnemyCollisionManager(game._EnemyManager);
+            ItemCollisionHandler = new ItemCollisionHandler(game._Link, game._ItemManager);
             BlockCollisionHandler = new BlockCollisionHandler(blockCollisionBoxes);
         }
 

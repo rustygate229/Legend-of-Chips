@@ -35,7 +35,7 @@ namespace _3902_Project
                 case EnemyManager.EnemyNames.GreenSlime:
                     return new GreenSlime(_enemySpritesheet, printScale, _projectileManager);
                 case EnemyManager.EnemyNames.Darknut:
-                    return new Darknut(_enemySpritesheet, printScale, _projectileManager);
+                    return new Darknut(_enemySpritesheet, printScale);
                 default: throw new ArgumentException("invalid enemy name");
             }
         }

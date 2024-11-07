@@ -29,12 +29,19 @@ namespace _3902_Project
         public LinkManager() { }
 
         // Load all link textures
-        public void LoadAll(SpriteBatch spriteBatch, ContentManager content, ProjectileManager manager) { _spriteBatch = spriteBatch; _factory.LoadAllTextures(content); _manager = manager; }
+        public void LoadAll(SpriteBatch spriteBatch, ContentManager content, ProjectileManager manager) { 
+            _spriteBatch = spriteBatch; 
+            _factory.LoadAllTextures(content); 
+            _manager = manager;
+            _currentLinkAction = LinkActions.StandardStanding;
+            _direction = Renderer.DIRECTION.UP;
+            _currentLink = _factory.CreateLink(_currentLinkAction, _direction, _printScale, _manager);
+        }
 
 
         public void SetLinkState(LinkActions currentAction) { _currentLinkAction = currentAction; ReplaceLink(currentAction); }
 
-        public void SetLinkDirection(Renderer.DIRECTION direction) { _direction = direction; }
+        public void SetLinkDirection(Renderer.DIRECTION direction) { _direction = direction;}
 
         public void SetLinkPosition(Vector2 position) { _position = position; _currentLink.SetPosition(position); }
 

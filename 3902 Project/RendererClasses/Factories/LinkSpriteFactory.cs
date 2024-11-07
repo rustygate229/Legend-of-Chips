@@ -28,7 +28,7 @@ namespace _3902_Project
             switch (linkAction)
             {
                 case LinkManager.LinkActions.StandardStanding:
-                    return new LinkStandardStanding(_linkSpritesheet, direction, printScale, manager);
+                    return new LinkStandardStanding(_linkSpritesheet, direction, printScale);
                 case LinkManager.LinkActions.StandardMoving:
                     return new LinkStandardMoving(_linkSpritesheet, direction, printScale, manager);
                 default: throw new ArgumentException("invalid link name");
