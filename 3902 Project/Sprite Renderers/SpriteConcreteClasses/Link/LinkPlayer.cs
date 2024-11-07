@@ -18,14 +18,13 @@ namespace _3902_Project
 
 
         //double x, y;
-        public LinkPlayer(SpriteBatch sb, ContentManager content, ProjectileManager projectileManager)
+        public LinkPlayer(SpriteBatch sb, ContentManager content, ProjectileManager projectileManager, CharacterStateManager characterState)
         {
             _linkMovement = new LinkMovement();
             _linkStateMachine = new LinkStateMachine();
             _animation = new LinkAnimation(sb, content, _linkStateMachine);
             _linkInventory = new LinkInventory();
-            _characterState = new CharacterStateManager(100);
-
+            _characterState = characterState;
             _projectileManager = projectileManager;
         }
 
