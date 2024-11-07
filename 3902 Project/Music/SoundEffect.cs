@@ -10,15 +10,15 @@ namespace _3902_Project
 
         public BackgroundMusic(ContentManager content)
         {
-           // _content = content;
+            _content = content;
         }
 
         public void LoadSongs()
         {
-            //song = _content.Load<Song>("Title_BGM");
+            song = _content.Load<Song>("Title_BGM");
 
-            //MediaPlayer.Play(song);
-            //MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(song);
+            MediaPlayer.IsRepeating = true;
         }
 
         public void ToggleMute()
