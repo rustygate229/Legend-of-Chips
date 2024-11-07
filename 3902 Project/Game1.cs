@@ -10,7 +10,7 @@ namespace _3902_Project
         private SpriteBatch _spriteBatch;
 
         // Game objects and managers
-        internal LinkPlayer Player { get; private set; }  // Player object
+        internal LinkManager Link { get; private set; }  // Player object
         internal BlockManager BlockManager { get; private set; }  // Block manager
         internal ItemManager ItemManager { get; private set; }  // Item manager
         internal EnemyManager EnemyManager { get; private set; }
@@ -54,13 +54,6 @@ namespace _3902_Project
             collisionBoxes = new List<ICollisionBox>();
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
-            // Initialize all managers
-            BlockManager = new BlockManager(this, _spriteBatch);
-            ItemManager = new ItemManager(this, _spriteBatch);
-            ProjectileManager = new ProjectileManager(this, _spriteBatch);
-            EnemyManager = new EnemyManager(this, _spriteBatch);
-            Player = new LinkPlayer(this, _spriteBatch);
-
             EnvironmentFactory = new EnvironmentFactory(this, _blockCollisionBoxes);
 
 
@@ -73,10 +66,11 @@ namespace _3902_Project
             _blockCollisionBoxes = new List<ICollisionBox>();
 
             // Block and Item Texture Loading
-            BlockManager.LoadAllTextures();
-            ItemManager.LoadAllTextures();
-            EnemyManager.LoadAllTextures();
-            ProjectileManager.LoadAllTextures(Content);
+            BlockManager.LoadAll(_spriteBatch, Content);
+            ItemManager.LoadAll(_spriteBatch, Content);
+            ProjectileManager.LoadAll(_spriteBatch, Content);
+            EnemyManager.LoadAll(_spriteBatch, Content, ProjectileManager);
+            Link.LoadAll(_spriteBatch, Content, ProjectileManager);
 
             whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
             whiteRectangle.SetData(new[] { Color.White });
@@ -105,8 +99,8 @@ namespace _3902_Project
             ItemManager.Update();
             ProjectileManager.Update();
             EnemyManager.Update();
-            Player.Update();
-            EnvironmentFactory.Update(Player);
+            Link.Update();
+            EnvironmentFactory.Update(Link);
             // Update input controls
             keyboardController.Update();
             mouseController.Update();
@@ -125,7 +119,7 @@ namespace _3902_Project
             BlockManager.Draw();
             ItemManager.Draw();
             ProjectileManager.Draw();
-            Player.Draw();
+            Link.Draw();
             EnemyManager.Draw();
 
             base.Draw(gameTime);

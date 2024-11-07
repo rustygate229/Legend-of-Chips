@@ -22,22 +22,13 @@ namespace _3902_Project
 
         // create variables for passing
         private ItemSpriteFactory _factory = ItemSpriteFactory.Instance;
-        private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
 
         // constructor
-        public ItemManager(Game1 game, SpriteBatch spriteBatch)
-        {
-            _contentManager = game.Content;
-            _spriteBatch = spriteBatch;
-        }
+        public ItemManager() { }
 
         // load all textures relating to blocks
-        public void LoadAllTextures()
-        {
-            // loading sprite factory
-            _factory.LoadAllTextures(_contentManager);
-        }
+        public void LoadAll(SpriteBatch spriteBatch, ContentManager content) { _spriteBatch = spriteBatch; _factory.LoadAllTextures(content); }
 
 
         /// <summary>
@@ -53,27 +44,7 @@ namespace _3902_Project
             _runningItems.Add(currentSprite);
 
             // Add item collision box for collision detection
-            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20));
-            _itemCollisionDictionary[collisionBox] = currentSprite;
-
-            return currentSprite;
-        }
-
-        /// <summary>
-        /// Add an item to the running item list
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="placementPosition"></param>
-        /// <param name="printScale"></param>
-        /// <param name="frames"></param>
-        public ISprite AddItem(ItemNames name, Vector2 placementPosition, float printScale, int frames)
-        {
-            ISprite currentSprite = _factory.CreateItem(name, printScale, frames);
-            currentSprite.SetPosition(placementPosition);
-            _runningItems.Add(currentSprite);
-
-            // Add item collision box for collision detection
-            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20));
+            var collisionBox = new ItemCollisionBox(currentSprite.GetRectanglePosition());
             _itemCollisionDictionary[collisionBox] = currentSprite;
 
             return currentSprite;

@@ -13,27 +13,13 @@ namespace _3902_Project
         // create a new instance of ItemSpriteFactory
         private static ItemSpriteFactory instance = new ItemSpriteFactory();
 
-        public static ItemSpriteFactory Instance
-        {
-            get
-            {
-                return instance;
-            }
-        }
-
+        public static ItemSpriteFactory Instance { get { return instance; } }
 
         // constructor to call the new instance method and initialize the sprite factory
-        private ItemSpriteFactory()
-        {
-            instance = this;
-        }
-
+        private ItemSpriteFactory() { instance = this; }
 
         // load all textures/spritesheet
-        public void LoadAllTextures(ContentManager content)
-        {
-            _itemSpritesheet = content.Load<Texture2D>("Items Spritesheet");
-        }
+        public void LoadAllTextures(ContentManager content) { _itemSpritesheet = content.Load<Texture2D>("Items Spritesheet"); }
 
 
         // create every type of enemy
@@ -73,35 +59,28 @@ namespace _3902_Project
                     return new SItem_Sword(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.WaterPlate:
                     return new SItem_WaterPlate(_itemSpritesheet, printScale);
-                default: throw new ArgumentException("invalid item name");
-            }
-        }
-        public ISprite CreateItem(ItemManager.ItemNames itemName, float printScale, int frames)
-        {
-            switch(itemName) 
-            {
                 case ItemManager.ItemNames.DepletingHeart:
-                    return new AItem_DepletingHeart(_itemSpritesheet, printScale, frames);
+                    return new AItem_DepletingHeart(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.FlashingArrow:
-                    return new AItem_FArrow(_itemSpritesheet, printScale, frames);
+                    return new AItem_FArrow(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.FlashingBanana:
-                    return new AItem_FBanana(_itemSpritesheet, printScale, frames);
+                    return new AItem_FBanana(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.FlashingCandle:
-                    return new AItem_FCandle(_itemSpritesheet, printScale, frames);
+                    return new AItem_FCandle(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.FlashingEmerald:
-                    return new AItem_FEmerald(_itemSpritesheet, printScale, frames);
+                    return new AItem_FEmerald(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.FlashingLife:
-                    return new AItem_FLife(_itemSpritesheet, printScale, frames);
+                    return new AItem_FLife(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.FlashingPotion:
-                    return new AItem_FPotion(_itemSpritesheet, printScale, frames);
+                    return new AItem_FPotion(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.FlashingRing:
-                    return new AItem_FRing(_itemSpritesheet, printScale, frames);
+                    return new AItem_FRing(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.FlashingScripture:
-                    return new AItem_FScripture(_itemSpritesheet, printScale, frames);
+                    return new AItem_FScripture(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.FlashingSword:
-                    return new AItem_FSword(_itemSpritesheet, printScale, frames);
+                    return new AItem_FSword(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.FlashingTriForce:
-                    return new AItem_FTriForce(_itemSpritesheet, printScale, frames);
+                    return new AItem_FTriForce(_itemSpritesheet, printScale);
                 default: throw new ArgumentException("invalid item name");
             }
             // More public ISprite returning methods follow

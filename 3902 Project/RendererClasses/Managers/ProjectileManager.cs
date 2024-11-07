@@ -20,15 +20,12 @@ namespace _3902_Project
 
         // create variables for passing
         private ProjectileFactory _factory = ProjectileFactory.Instance;
-        private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
 
         // constructor
-        public ProjectileManager(Game1 game, SpriteBatch spriteBatch)
-        {
-            _contentManager = game.Content;
-            _spriteBatch = spriteBatch;
-        }
+        public ProjectileManager() { }
+
+        public void LoadAll(SpriteBatch spriteBatch, ContentManager content) { _spriteBatch = spriteBatch; _factory.LoadAllTextures(content); }
 
         /// <summary>
         /// call the projectile for sprites with only frames, meaning that it is a projectile that is only one animation, and NO direction or NO frame/renderer switching
@@ -36,14 +33,10 @@ namespace _3902_Project
         /// <param name="name"></param>
         /// <param name="placementPosition"></param>
         /// <param name="direction"></param>
-        /// <param name="timer"></param>
-        /// <param name="speed"></param>
-        /// <param name="printScale"></param>
-        /// <param name="frameRanges"></param>
         /// <returns>the sprite added to the list</returns>
-        public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, int direction, int timer, float speed, float printScale, float[] frameRanges)
+        public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, Renderer.DIRECTION direction, float printScale)
         {
-            ISprite currentSprite = _factory.CreateProjectile(name, direction, timer, speed, printScale, frameRanges);
+            ISprite currentSprite = _factory.CreateProjectile(name, direction, printScale);
             currentSprite.SetPosition(placementPosition);
             _runningProjectiles.Add(currentSprite);
             return currentSprite;
@@ -54,28 +47,13 @@ namespace _3902_Project
         /// </summary>
         /// <param name="name"></param>
         /// <param name="placementPosition"></param>
-        /// <param name="direction"></param>
-        /// <param name="timer"></param>
-        /// <param name="speed"></param>
-        /// <param name="printScale"></param>
-        /// <param name="frames"></param>
         /// <returns>the sprite added to the list</returns>
-        public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, int direction, int timer, float speed, float printScale, int frames)
+        public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, float printScale)
         {
-            ISprite currentSprite = _factory.CreateProjectile(name, direction, timer, speed, printScale, frames);
+            ISprite currentSprite = _factory.CreateProjectile(name, printScale);
             currentSprite.SetPosition(placementPosition);
             _runningProjectiles.Add(currentSprite);
             return currentSprite;
-        }
-
-        public void LoadAllTextures(ContentManager content)
-        {
-            _factory.LoadAllTextures(content);
-        }
-
-        public void UnloadAllTextures(ContentManager content)
-        {
-            _factory.UnloadAllTextures(content);
         }
 
 
@@ -89,7 +67,7 @@ namespace _3902_Project
         /// <summary>
         /// Remove/Unload all Projectile Sprites
         /// </summary>
-        public void UnloadAllBlocks() { _runningProjectiles = new List<ISprite>(); }
+        public void UnloadAllProjectiles() { _runningProjectiles = new List<ISprite>(); }
 
 
         /// <summary>
@@ -111,7 +89,6 @@ namespace _3902_Project
         {
             foreach (var projectile in _runningProjectiles)
             {
-                if (projectile.)
                 projectile.Update();
             }
         }

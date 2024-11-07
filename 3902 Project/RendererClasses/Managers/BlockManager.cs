@@ -28,18 +28,13 @@ namespace _3902_Project
 
 
         // constructor
-        public BlockManager(Game1 game, SpriteBatch spriteBatch)
+        public BlockManager() { }
+
+
+        public void LoadAll(SpriteBatch spriteBatch, ContentManager content)
         {
-            _contentManager = game.Content;
             _spriteBatch = spriteBatch;
-        }
-
-
-        // load all textures relating to items
-        public void LoadAllTextures()
-        {
-            // loading sprite sheet
-            _factory.LoadAllTextures(_contentManager);
+            _factory.LoadAllTextures(content);
         }
 
         /// <summary>

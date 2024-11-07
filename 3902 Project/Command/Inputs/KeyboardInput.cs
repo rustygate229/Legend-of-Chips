@@ -43,9 +43,9 @@ namespace _3902_Project
             keysToCommands.Add(Keys.R, new CommandReset(game));
 
             // Mapping keys for moving through the inventory
-            keysToCommands.Add(Keys.D1, new CommandLinkSetInventory1(game));
-            keysToCommands.Add(Keys.D2, new CommandLinkSetInventory2(game));
-            keysToCommands.Add(Keys.D3, new CommandLinkSetInventory3(game));
+            keysToCommands.Add(Keys.D1, new CommandLinkSetInventory(game, 1));
+            keysToCommands.Add(Keys.D2, new CommandLinkSetInventory(game, 2));
+            keysToCommands.Add(Keys.D3, new CommandLinkSetInventory(game, 3));
 
         }
 
@@ -68,11 +68,12 @@ namespace _3902_Project
             foreach (Keys key in currentKeyboardPressed)
             {
                 // if key passes check, then execute
-                if (keysToCommands.ContainsKey(key) && (!_previousKeys.Contains(key) || IsMoveKey(key)))
+                if ((keysToCommands.ContainsKey(key) && (!_previousKeys.Contains(key)) || IsMoveKey(key)))
                 {
                     ICommand setKeyboardCommand = keysToCommands[key];
                     setKeyboardCommand.Execute();
-                }
+                } 
+                else if (!IsMoveKey(key)) { new CommandLinkStill(_game); }
                 // add keys to a new previous
                 newPreviousKeys.Add(key);
             }

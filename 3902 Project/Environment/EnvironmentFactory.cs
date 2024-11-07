@@ -10,6 +10,7 @@ namespace _3902_Project
         private BlockManager _blockManager;
         private ItemManager _itemManager;
         private EnemyManager _enemyManager;
+        private LinkManager _linkManager;
         private CollisionDetector _collisionDetector;
         private CollisionHandlerManager _collisionHandlerManager;
 
@@ -31,7 +32,9 @@ namespace _3902_Project
             _blockManager = game.BlockManager;
             _itemManager = game.ItemManager;
             _enemyManager = game.EnemyManager;
-            
+            _linkManager = game.Link;
+            _linkManager.SetLinkPosition(new Vector2(100, 200));
+
             //Initialize Collision
             _collisionDetector = new CollisionDetector();
             _collisionHandlerManager = new CollisionHandlerManager(game, blockCollisionBoxes);
@@ -210,7 +213,7 @@ namespace _3902_Project
             if (_level > 0) { _level--; }
         }
 
-        public void Update(LinkPlayer player)
+        public void Update(LinkManager player)
         {
             if (_prevLevel != -1 && _prevLevel != _level)
             {
@@ -224,17 +227,14 @@ namespace _3902_Project
             _prevLevel = _level;
 
             // get player and item CollisionBox
-            List<ICollisionBox> gameObjects = new List<ICollisionBox>
-    {
-        player.getCollisionBox()
-    };
-            gameObjects.AddRange(_itemManager.GetCollisionBoxes());
+            //List<ICollisionBox> gameObjects = new List<ICollisionBox> { player.getCollisionBox() };
+            // gameObjects.AddRange(_itemManager.GetCollisionBoxes());
 
             // Detect Collision
-            List<CollisionData> collisions = _collisionDetector.DetectCollisions(gameObjects);
+            //List<CollisionData> collisions = _collisionDetector.DetectCollisions(gameObjects);
 
             // Handle Collision
-            _collisionHandlerManager.HandleCollisions(collisions);
+            //_collisionHandlerManager.HandleCollisions(collisions);
         }
     }
 }

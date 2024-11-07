@@ -6,14 +6,8 @@ namespace _3902_Project
 {
     public class FBlock_StatueFish : ISprite
     {
-        // variables for constructor assignments
-        private Texture2D _spriteSheet;
-        private Vector2 _position;
-        private Renderer.DIRECTION _direction;
-
         // variables to change based on where your block is and what to print out
-        private Vector2 _spritePosition = new Vector2(1018, 11);
-        private Vector2 _spriteDimensions = new Vector2(16, 16);
+        private Rectangle _spritePosition = new (1018, 11, 16, 16);
 
         // create a Renderer object
         private Renderer _block;
@@ -24,9 +18,11 @@ namespace _3902_Project
         /// </summary>
         public FBlock_StatueFish(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale)
         {
-            _spriteSheet = spriteSheet;
-            _direction = facingDirection;
-            _block = new Renderer(Renderer.STATUS.Still, _spriteSheet, _spritePosition, _spriteDimensions, _spriteDimensions * printScale);
+            // create different facing block sprites for the renderer list
+            _block = new(spriteSheet, _spritePosition, printScale);
+            _block.SetAnimationStatus(Renderer.STATUS.Still);
+            // set correct direciton
+            _block.SetDirection(facingDirection);
         }
 
 
@@ -35,11 +31,16 @@ namespace _3902_Project
         /// </summary>
         public Rectangle GetRectanglePosition() { return _block.GetRectanglePosition(); }
 
+        /// <summary>
+        /// Passes to the Renderer GetPosition method
+        /// </summary>
+        public Vector2 GetVectorPosition() { return _block.GetVectorPosition(); }
+
 
         /// <summary>
         /// Passes to the Renderer SetPosition method
         /// </summary>
-        public void SetPosition(Vector2 position) { _position = position; _block.SetPosition(position); }
+        public void SetPosition(Vector2 position) { _block.SetPosition(position); }
 
 
         /// <summary>
@@ -51,12 +52,6 @@ namespace _3902_Project
         /// <summary>
         /// Draws the block in the given SpriteBatch
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            if (_direction == Renderer.DIRECTION.RIGHT)
-                _block.Draw(spriteBatch, _block.GetSourceRectangle(), _block.GetDestinationRectangle());
-            else if (_direction == Renderer.DIRECTION.LEFT)
-                _block.DrawHorizontallyFlipped(spriteBatch, false);
-        }
+        public void Draw(SpriteBatch spriteBatch) { _block.Draw(spriteBatch, false); }
     }
 }

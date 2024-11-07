@@ -16,9 +16,19 @@ namespace _3902_Project
             {
                 case RendOrder.Size2:
                     CreateUpdateFramesSize2(); break;
+                case RendOrder.Size2DownUpFlip:
+                    CreateUpdateFramesSize2(); break;
+                case RendOrder.Size2RightLeftFlip:
+                    CreateUpdateFramesSize2(); break;
+                case RendOrder.Size2Flip:
+                    CreateUpdateFramesSize2(); break;
                 case RendOrder.Size3DownUp:
                     CreateUpdateFramesSize3DownUp(); break;
+                case RendOrder.Size3DownUpFlip:
+                    CreateUpdateFramesSize3DownUp(); break;
                 case RendOrder.Size3RightLeft:
+                    CreateUpdateFramesSize3RightLeft(); break;
+                case RendOrder.Size3RightLeftFlip:
                     CreateUpdateFramesSize3RightLeft(); break;
                 case RendOrder.Size4:
                     CreateUpdateFramesSize4(); break;

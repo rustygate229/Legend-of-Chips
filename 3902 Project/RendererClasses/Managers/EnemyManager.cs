@@ -15,33 +15,26 @@ namespace _3902_Project
 
         // create variables for passing
         private EnemySpriteFactory _factory = EnemySpriteFactory.Instance;
-        private ProjectileManager _manager;
-        private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
-        private Game1 _game;
         
-
 
         public List <ICollisionBox> collisionBoxes { get; private set; }
         private int _currentEnemyIndex = 0;
 
 
         // constructor
-        public EnemyManager(Game1 game, SpriteBatch spriteBatch)
+        public EnemyManager()
         {
-            _game = game;
-            _contentManager = _game.Content;
-            _manager = _game.ProjectileManager;
-            _spriteBatch = spriteBatch;
-
             collisionBoxes = new List<ICollisionBox>();
         }
 
 
-        // Load all enemy textures
-        public void LoadAllTextures()
+        // Load all of enemies necesities
+        public void LoadAll(SpriteBatch spriteBatch, ContentManager content, ProjectileManager projectile) 
         {
-            _factory.LoadAllTextures(_contentManager);
+            _spriteBatch = spriteBatch;
+            _factory.LoadAllTextures(content);
+            _factory.LoadProjectileManager(projectile); 
         }
 
         /// <summary>
@@ -51,7 +44,7 @@ namespace _3902_Project
         /// <param name="placementPosition"></param>
         public ISprite AddEnemy(EnemyNames name, Vector2 placementPosition, float printScale)
         {
-            ISprite currentSprite = _factory.CreateEnemy(name, printScale, _game);
+            ISprite currentSprite = _factory.CreateEnemy(name, printScale);
 
             //hardcoded for now for demo purposes - assumes it is a brown slime CHANGE LATER PLEASE
             ICollisionBox collision = new EnemyCollisionBox(currentSprite.GetRectanglePosition(), true, 100, 10);

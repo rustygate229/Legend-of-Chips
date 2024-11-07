@@ -6,7 +6,6 @@ namespace _3902_Project
     public class CollisionHandlerManager
     {
         //private List<ICollisionHandler> _collisionHandlers;
-        private LinkCollisionHandler LinkCollisionHandler;
         private EnemyCollisionHandler EnemyCollisionHandler;
         private ItemCollisionHandler ItemCollisionHandler;
         private BlockCollisionHandler BlockCollisionHandler;
@@ -15,8 +14,7 @@ namespace _3902_Project
         {
             EnemyCollisionHandler = new EnemyCollisionHandler(game.EnemyManager);
             EnemyCollisionManager enemyCollisionManager = new EnemyCollisionManager(game.EnemyManager);
-            LinkCollisionHandler = new LinkCollisionHandler(game.Player, enemyCollisionManager, game.ItemManager);
-            ItemCollisionHandler = new ItemCollisionHandler(game.Player, game.ItemManager);
+            ItemCollisionHandler = new ItemCollisionHandler(game.Link, game.ItemManager);
             BlockCollisionHandler = new BlockCollisionHandler(blockCollisionBoxes);
         }
 
@@ -40,10 +38,7 @@ namespace _3902_Project
                 //temporary fix for bullet
                 EnemyCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
             }
-            else if (objectA is LinkCollisionBox || objectB is LinkCollisionBox)
-            {
-                LinkCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
-            }
+
 
             //case if object is enemy 
             else if (objectA is EnemyCollisionBox || objectB is EnemyCollisionBox || objectA is BulletCollisionBox || objectB is BulletCollisionBox)

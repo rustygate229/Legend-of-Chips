@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace _3902_Project
 {
@@ -40,59 +41,77 @@ namespace _3902_Project
         /// <summary>
         /// used in int[] directionArray formula, and also in other areas to set the direction
         /// </summary>
-        /// <param name="directionValue">the value, in int, that represents the correct DIRECTION enum: 0: DOWN, 1: UP, 2: RIGHT, 3: LEFT</param>
-        public void SetDirection(int directionValue) 
-        {
-            if (directionValue == _directionArray[0])
-                _direction = Renderer.DIRECTION.DOWN;
-            else if (directionValue ==  _directionArray[1])
-                _direction = Renderer.DIRECTION.UP;
-            else if (directionValue == _directionArray[2])
-                _direction = Renderer.DIRECTION.RIGHT;
-            else if (directionValue == _directionArray[3])
-                _direction = Renderer.DIRECTION.LEFT;
+        /// <param name="directionValue">the value that represents the correct DIRECTION enum</param>
+        public void SetDirection(Renderer.DIRECTION directionValue) { _direction = directionValue; }
 
-        }
+        /// <summary>
+        /// used in int[] directionArray formula, and also in other areas to set the direction
+        /// </summary>
+        /// <param name="directionValue">the value, in int, that represents the correct DIRECTION enum: 0: DOWN, 1: UP, 2: RIGHT, 3: LEFT</param>
+        public void SetDirection(int directionValue) { _direction = (Renderer.DIRECTION)directionValue; }
+
+        public Renderer.DIRECTION GetDirection() {  return _direction; }
 
         /// <returns>the rectangle position of the current sprite needed</returns>
         public Rectangle GetOneRectanglePosition()
         {
-            Rectangle gettingPosition = new(0, 0, 0, 0);
             switch (_rendListType)
             {
                 case RendOrder.Size2:
                     if (_direction == Renderer.DIRECTION.DOWN || _direction == Renderer.DIRECTION.UP)
-                        gettingPosition = _rendDownUp.GetRectanglePosition();
-                    else if (_direction == Renderer.DIRECTION.RIGHT || _direction == Renderer.DIRECTION.LEFT)
-                        gettingPosition = _rendRightLeft.GetRectanglePosition();
-                    break;
+                        return _rendDownUp.GetRectanglePosition();
+                    else 
+                        return _rendRightLeft.GetRectanglePosition();
                 case RendOrder.Size3DownUp:
-                    if (_direction == Renderer.DIRECTION.RIGHT) { gettingPosition = _rendRight.GetRectanglePosition(); }
-                    else if (_direction == Renderer.DIRECTION.LEFT) { gettingPosition = _rendLeft.GetRectanglePosition(); }
-                    else { gettingPosition = _rendDownUp.GetRectanglePosition(); }
-                    break;
+                    if (_direction == Renderer.DIRECTION.RIGHT) { return _rendRight.GetRectanglePosition(); }
+                    else if (_direction == Renderer.DIRECTION.LEFT) { return _rendLeft.GetRectanglePosition(); }
+                    else { return _rendDownUp.GetRectanglePosition(); }
                 case RendOrder.Size3RightLeft:
-                    if (_direction == Renderer.DIRECTION.DOWN) { gettingPosition = _rendDown.GetRectanglePosition(); }
-                    else if (_direction == Renderer.DIRECTION.UP) { gettingPosition = _rendUp.GetRectanglePosition(); }
-                    else { gettingPosition = _rendRightLeft.GetRectanglePosition(); }
-                    break;
+                    if (_direction == Renderer.DIRECTION.DOWN) { return _rendDown.GetRectanglePosition(); }
+                    else if (_direction == Renderer.DIRECTION.UP) { return _rendUp.GetRectanglePosition(); }
+                    else { return _rendRightLeft.GetRectanglePosition(); }
                 case RendOrder.Size4:
                     switch (_direction)
                     {
-                        case Renderer.DIRECTION.DOWN:
-                            gettingPosition = _rendDown.GetRectanglePosition(); break;
-                        case Renderer.DIRECTION.UP:
-                            gettingPosition = _rendUp.GetRectanglePosition(); break;
-                        case Renderer.DIRECTION.RIGHT:
-                            gettingPosition = _rendRight.GetRectanglePosition(); break;
-                        case Renderer.DIRECTION.LEFT:
-                            gettingPosition = _rendLeft.GetRectanglePosition(); break;
-                        default: break;
+                        case Renderer.DIRECTION.DOWN: return _rendDown.GetRectanglePosition(); 
+                        case Renderer.DIRECTION.UP: return _rendUp.GetRectanglePosition();
+                        case Renderer.DIRECTION.RIGHT: return _rendRight.GetRectanglePosition();
+                        case Renderer.DIRECTION.LEFT: return _rendLeft.GetRectanglePosition();
+                        default: throw new ArgumentException("Invalid current direction for RednererList");
                     }
-                    break;
-                default: break;
+                default: throw new ArgumentException("Invalid current direction for RednererList");
             }
-            return gettingPosition;
+        }
+
+        /// <returns>the vector2 position of the current sprite needed</returns>
+        public Vector2 GetVectorPosition()
+        {
+            switch (_rendListType)
+            {
+                case RendOrder.Size2:
+                    if (_direction == Renderer.DIRECTION.DOWN || _direction == Renderer.DIRECTION.UP)
+                        return _rendDownUp.GetVectorPosition();
+                    else
+                        return _rendRightLeft.GetVectorPosition();
+                case RendOrder.Size3DownUp:
+                    if (_direction == Renderer.DIRECTION.RIGHT) { return _rendRight.GetVectorPosition(); }
+                    else if (_direction == Renderer.DIRECTION.LEFT) { return _rendLeft.GetVectorPosition(); }
+                    else { return _rendDownUp.GetVectorPosition(); }
+                case RendOrder.Size3RightLeft:
+                    if (_direction == Renderer.DIRECTION.DOWN) { return _rendDown.GetVectorPosition(); }
+                    else if (_direction == Renderer.DIRECTION.UP) { return _rendUp.GetVectorPosition(); }
+                    else { return _rendRightLeft.GetVectorPosition(); }
+                case RendOrder.Size4:
+                    switch (_direction)
+                    {
+                        case Renderer.DIRECTION.DOWN: return _rendDown.GetVectorPosition();
+                        case Renderer.DIRECTION.UP: return _rendUp.GetVectorPosition();
+                        case Renderer.DIRECTION.RIGHT: return _rendRight.GetVectorPosition();
+                        case Renderer.DIRECTION.LEFT: return _rendLeft.GetVectorPosition();
+                        default: throw new ArgumentException("Invalid current direction for RednererList");
+                    }
+                default: throw new ArgumentException("Invalid current direction for RednererList");
+            }
         }
 
         /// <summary>

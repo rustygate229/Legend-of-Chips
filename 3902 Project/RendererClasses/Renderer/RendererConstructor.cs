@@ -7,8 +7,8 @@ namespace _3902_Project
     public partial class Renderer
     {
         // animation status
-        public enum STATUS { Still, SingleAnimated, Animated, ReverseAnimated };
-        private int _statusNumber = 0;
+        public enum STATUS { Still, SingleAnimated, RowAndColumnAnimated, ReverseRowAndColumnAnimated, SeperatedAnimated };
+        private STATUS _status;
 
         public enum DIRECTION { DOWN, UP, RIGHT, LEFT }
         private DIRECTION _direction;
@@ -33,16 +33,15 @@ namespace _3902_Project
         /// <param name="spritePosition"></param>
         /// <param name="spriteDimension"></param>
         /// <param name="spritePrintDimension"></param>
-        public Renderer(Renderer.STATUS status, Texture2D spriteSheet, Vector2 spritePosition, Vector2 spriteDimension, Vector2 spritePrintDimension)
+        public Renderer(Texture2D spriteSheet, Rectangle spritePositionAndDimension, float printScale)
         {
             // set animated state and import spritesheet
-            _statusNumber = (int)status;
             _spriteSheet = spriteSheet;
 
             // set all positions
-            _spritePosition = spritePosition;
-            _spriteDimensions = spriteDimension;
-            _spritePrintDimensions = spritePrintDimension;
+            _spritePosition = new (spritePositionAndDimension.X, spritePositionAndDimension.Y);
+            _spriteDimensions = new(spritePositionAndDimension.Width, spritePositionAndDimension.Height);
+            _spritePrintDimensions = new(spritePositionAndDimension.Width * printScale, spritePositionAndDimension.Height * printScale);
         }
 
 
@@ -69,17 +68,12 @@ namespace _3902_Project
         /// <summary>
         /// constructor for getting information for rendering ANIMATED sprites
         /// </summary>
-        /// <param name="status"></param>
         /// <param name="spriteSheet"></param>
-        /// <param name="spritePosition"></param>
-        /// <param name="spriteDimension"></param>
-        /// <param name="spritePrintDimension"></param>
         /// <param name="rowAndColumn"></param>
         /// <param name="frameRate"></param>
-        public Renderer(Renderer.STATUS status, Texture2D spriteSheet, Vector2 spritePosition, Vector2 spriteDimension, Vector2 spritePrintDimension, Vector2 rowAndColumn, int frameRate)
+        public Renderer(Texture2D spriteSheet, Rectangle spritePositionAndDimension, Vector2 rowAndColumn, float printScale, int frameRate)
         {
             // set animated state and import spritesheet
-            _statusNumber = (int)status;
             _spriteSheet = spriteSheet;
 
             // call framerate manager
@@ -89,9 +83,14 @@ namespace _3902_Project
             SetUpFrames();
 
             // sprite positioning
-            _spritePosition = spritePosition;
-            _spriteDimensions = spriteDimension;
-            _spritePrintDimensions = spritePrintDimension;
+            _spritePosition = new(spritePositionAndDimension.X, spritePositionAndDimension.Y);
+            _spriteDimensions = new(spritePositionAndDimension.Width, spritePositionAndDimension.Height);
+            // needed since dimensions are in terms of the whole row/column
+            _spritePrintDimensions = 
+                new(
+                    (spritePositionAndDimension.Width / _rowsAndColumns.Y) * printScale, 
+                    (spritePositionAndDimension.Height / _rowsAndColumns.X) * printScale
+                    );
         }
 
 
@@ -101,10 +100,11 @@ namespace _3902_Project
         public void SetUpFrames()
         {
             // rows/columns stuff for sprite animation - if statement needed for Single Animation
-            if ((int)_rowsAndColumns.X * (int)_rowsAndColumns.Y == 1)
-                _totalFrames = 2;
-            else
-                _totalFrames = (int)_rowsAndColumns.X * (int)_rowsAndColumns.Y;
+            if ((int)_rowsAndColumns.X * (int)_rowsAndColumns.Y == 1) _totalFrames = 2;
+            else _totalFrames = (int)_rowsAndColumns.X * (int)_rowsAndColumns.Y;
+            // safety measure for if someone enters a value below the available frames: sets it too lowest value = _totalFrames
+            if (_frameRate < _totalFrames) _frameRate = _totalFrames;
+
 
             // get the total amount of sprite shifts in animation
             _frameTotalSpriteShift = 0;
@@ -123,7 +123,7 @@ namespace _3902_Project
             // reset frame rate variables
             _framesCounter = 0;
             _framesPerSprite = _frameRate / _totalFrames;
-            _reversedFrame = _frameTotalSpriteShift;
+            _reversedFrame = (_frameTotalSpriteShift - 1);
         }
 
 
@@ -133,7 +133,7 @@ namespace _3902_Project
         public void UpdateFrames()
         {
             // if crea
-            if (_statusNumber > 0)
+            if (_status != STATUS.Still)
             {
                 // logic for creating a framerate
                 if (_framesCounter < _framesPerSprite)
@@ -143,36 +143,17 @@ namespace _3902_Project
                 else if (_framesCounter == _frameRate)
                 {
                     _currentFrame = 0;
-                    _reversedFrame = _frameTotalSpriteShift;
+                    _reversedFrame = (_frameTotalSpriteShift - 1);
                     _framesCounter = 0;
                     _framesPerSprite = _frameRate / _totalFrames;
                 }
                 else
                 {
-                    _previousFrame = _currentFrame;
-                    _currentFrame++;
-                    _reversedFrame--;
+                    if (_isReversed) { _previousFrame = _reversedFrame; _reversedFrame--; }
+                    else if (!_isReversed) { _previousFrame = _currentFrame; _currentFrame++; }
                     _framesPerSprite += _frameRate / _totalFrames;
                 }
             }
         }
-
-
-        /// <summary>
-        /// gets current position of sprite in a Vector2 of position on screen
-        /// </summary>
-        public Vector2 GetPosition() { return new Vector2((int)_positionOnWindow.X, (int)_positionOnWindow.Y); }
-
-        /// <summary>
-        /// gets current position of sprite in a Rectangle of position and dimensions on screen
-        /// </summary>
-        public Rectangle GetRectanglePosition() { return new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y); }
-
-        /// <summary>
-        /// sets current position of sprite
-        /// </summary>
-        /// <param name="position"></param>
-        public void SetPosition(Vector2 position) { _positionOnWindow = position; }
-
     }
 }

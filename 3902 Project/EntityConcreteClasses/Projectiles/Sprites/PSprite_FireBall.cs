@@ -5,25 +5,20 @@ using System.Threading;
 
 namespace _3902_Project
 {
-    public class Projectile_FireBall : ISprite
+    public class PSprite_FireBall : ISprite
     {
         // variables to change based on where your sprite is and what to print out
-        private Vector2 _spritePosition = new (231, 62);
-        private Vector2 _spriteDimensions = new (36, 10);
+        private Rectangle _spriteFireBall = new (231, 62, 36, 10);
         private Vector2 _spriteRowsAndColumns = new (1, 4);
-        private Vector2 _spritePrintDimensions = new(5, 5);
-
-        // create timers, movement and speed variables
-        private int _frameRate;
-        private int _timerCounter;
-        private int _timerTotal;
-        private Vector2 _position;
-        private Vector2 _updatePosition;
-        private float _positionSpeed;
-        private int _direction;
 
         // create Renderer objects
         private Renderer _fireBall;
+
+        // create timers, movement and speed variables
+        private int _frameRate = 30;
+        private Vector2 _position;
+        private Vector2 _updatePosition;
+        private float _positionSpeed = 2f;
 
 
         /// <summary>
@@ -33,20 +28,16 @@ namespace _3902_Project
         /// <param name="facingDirection">
         /// direction the sprite spawn in. EXAMPLE: if facingDirection = DOWN, then the sprite will spawned in facing and moving downwards.
         /// </param>
-        /// <param name="timer">the total time until the sprite is deloaded</param>
-        /// <param name="speed">the speed of the projectiles movement on screen</param>
         /// <param name="printScale">the print scale of the projectile: printScale * spriteDimensions</param>
-        /// <param name="frames">
-        /// the amount of frames in the sprites animation, the greater the value, the slower the frame switching; and the inverse is true
-        /// </param>
-        public Projectile_FireBall(Texture2D spriteSheet, int facingDirection, int timer, float speed, float printScale, int frames)
+        public PSprite_FireBall(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale)
         {
-            _direction = facingDirection;
-            _timerTotal = timer;
-            _positionSpeed = speed;
-            _frameRate = frames;
             // create renders of the blue arrow projectile
-            _fireBall = new Renderer(Renderer.STATUS.Animated, spriteSheet, _spritePosition, _spriteDimensions, _spritePrintDimensions * printScale, _spriteRowsAndColumns, _frameRate);
+            _fireBall = new (spriteSheet, _spriteFireBall, _spriteRowsAndColumns, printScale, _frameRate);
+            _fireBall.SetAnimationStatus(Renderer.STATUS.RowAndColumnAnimated);
+            _fireBall.SetDirection(facingDirection);
+            // only need to update position once
+            _updatePosition = _fireBall.GetUpdatePosition(_positionSpeed);
+
         }
 
 
@@ -55,6 +46,10 @@ namespace _3902_Project
         /// </summary>
         public Rectangle GetRectanglePosition() { return _fireBall.GetRectanglePosition(); }
 
+        /// <summary>
+        /// Passes to the Renderer GetPosition method
+        /// </summary>
+        public Vector2 GetVectorPosition() { return _fireBall.GetVectorPosition(); }
 
         /// <summary>
         /// Passes to the Renderer SetPosition method
@@ -70,13 +65,8 @@ namespace _3902_Project
             // set positions at every update
             _fireBall.SetPosition(_position);
 
-            // set the movement once
-            if (_timerCounter == 0)
-                _updatePosition = _fireBall.GetUpdatePosition(_direction, _positionSpeed);
-
             // update position and movement counter
             _position += _updatePosition;
-            _timerCounter++;
 
             // update the animation frames
             _fireBall.UpdateFrames();
@@ -87,6 +77,6 @@ namespace _3902_Project
         /// Draws the sprite in the given SpriteBatch
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch) { _fireBall.DrawCentered(spriteBatch, _fireBall.GetSourceRectangle()); }
+        public void Draw(SpriteBatch spriteBatch) { _fireBall.Draw(spriteBatch, true); }
     }
 }
