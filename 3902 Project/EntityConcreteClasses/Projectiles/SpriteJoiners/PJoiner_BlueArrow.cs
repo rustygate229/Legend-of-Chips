@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System;
+using System.ComponentModel.Design;
 
 namespace _3902_Project
 {
@@ -9,6 +10,9 @@ namespace _3902_Project
         // variables to change based on where your sprite is and what to print out
         private PSprite_BlueArrow _blueArrow;
         private PSprite_SmallExplosion _smallExplosion;
+
+        public enum STATUS { BlueArrow, SmallExplosion }
+        private STATUS _status;
 
         /// <summary>
         /// constructor for the projectile sprite: <c>Bomb</c>
@@ -28,18 +32,32 @@ namespace _3902_Project
         /// <summary>
         /// Passes to the Renderer GetPosition method
         /// </summary>
-        public Rectangle GetRectanglePosition()  {  return _;  }
+        public Rectangle GetRectanglePosition()  
+        { 
+            if (_status == STATUS.BlueArrow) return _blueArrow.GetRectanglePosition();
+            else return _smallExplosion.GetRectanglePosition();
+        }
 
 
         /// <summary>
         /// Passes to the Renderer GetPosition method
         /// </summary>
-        public Vector2 GetVectorPosition() { return _rendererList.GetVectorPosition(); }
+        public Vector2 GetVectorPosition()
+        {
+            if (_status == STATUS.BlueArrow) return _blueArrow.GetVectorPosition();
+            else return _smallExplosion.GetVectorPosition();
+        }
 
         /// <summary>
         /// Passes to the Renderer SetPosition method
         /// </summary>
-        public void SetPosition(Vector2 position) { _position = position; _rendererList.SetPositions(position); }
+        public void SetPosition(Vector2 position)
+        {
+            if (_status == STATUS.BlueArrow) _blueArrow.SetPosition(position);
+            else _smallExplosion.SetPosition(position);
+        }
+
+        public void SetStatus(STATUS status) { _status = status; }
 
 
         /// <summary>
@@ -47,11 +65,8 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            // set positions at every update
-            _rendererList.SetPositions(_position);
-
-            // update position and movement counter
-            _position += _updatePosition;
+            if (_status == STATUS.BlueArrow) _blueArrow.Update();
+            else _smallExplosion.Update();
         }
 
 
@@ -59,6 +74,10 @@ namespace _3902_Project
         /// Draws the block in the given SpriteBatch
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch, true); }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            if (_status == STATUS.BlueArrow) _blueArrow.Draw(spriteBatch);
+            else _smallExplosion.Draw(spriteBatch);
+        }
     }
 }

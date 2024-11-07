@@ -48,10 +48,7 @@ namespace _3902_Project
         /// Updates the sprite (movement, animation, etc.)
         /// </summary>
         public void Update()
-        {
-            // update the animation frames
-            _fireBall.Update();
-        }
+        { _fireBall.Update(); }
 
 
         /// <summary>

@@ -50,9 +50,6 @@ namespace _3902_Project
         {
             // set positions at every update
             _rendererList.SetPositions(_position);
-
-            // update position and movement counter
-            _position += _updatePosition;
         }
 
 
