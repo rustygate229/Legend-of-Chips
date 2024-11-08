@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace _3902_Project
 {
@@ -58,7 +59,10 @@ namespace _3902_Project
         /// <summary>
         /// Updates the block (movement, animation, etc.)
         /// </summary>
-        public void Update() { _linkMoving.Update(); _rendererList.CreateUpdateFrames(); }
+        public void Update() { 
+            _linkMoving.Update(); 
+            _rendererList.CreateUpdateFrames(); 
+        }
 
 
         /// <summary>

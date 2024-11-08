@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace _3902_Project
 {
@@ -32,8 +33,10 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            float positionSpeed = 2f;
+            float positionSpeed = 4f;
             Vector2 updatePosition = _rendererList.CreateGetUpdatePosition(positionSpeed);
+            //Console.WriteLine("renderer direction: " + _rendererList.GetDirection().ToString());
+            //Console.WriteLine("updatePosition: " +  updatePosition);
             Vector2 currentPosition = _rendererList.GetVectorPosition() + updatePosition;
             _rendererList.SetPositions(currentPosition);
         }

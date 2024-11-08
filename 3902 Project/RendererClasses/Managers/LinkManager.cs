@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System;
 
 namespace _3902_Project
 {
@@ -45,7 +46,11 @@ namespace _3902_Project
 
         public void SetLinkPosition(Vector2 position) { _position = position; _currentLink.SetPosition(position); }
 
-        public void ReplaceLink(LinkActions name) { _currentLinkAction = name; _currentLink = _factory.CreateLink(name, _direction, _printScale, _manager); }
+        public void ReplaceLink(LinkActions name) { 
+            _currentLinkAction = name; 
+            _currentLink = _factory.CreateLink(name, _direction, _printScale, _manager);
+            _currentLink.SetPosition(_position);
+        }
 
         public Vector2 GetLinkPosition() { return _position; }
 
@@ -54,7 +59,10 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
+            //Console.WriteLine("direction: " + _direction.ToString());
             _currentLink.Update();
+            
+            _position = _currentLink.GetVectorPosition();
         }
 
 

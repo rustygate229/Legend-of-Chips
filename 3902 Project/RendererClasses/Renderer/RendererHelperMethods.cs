@@ -27,6 +27,7 @@ namespace _3902_Project
         /// <returns>the updated position to be added to position</returns>
         public Vector2 GetUpdatePosition(float positionSpeed)
         {
+            //Console.WriteLine("renderer helper methods: " + _direction.ToString());
             // movement variables
             switch (_direction)
             {

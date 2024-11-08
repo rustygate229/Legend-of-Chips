@@ -42,7 +42,44 @@ namespace _3902_Project
         /// used in int[] directionArray formula, and also in other areas to set the direction
         /// </summary>
         /// <param name="directionValue">the value that represents the correct DIRECTION enum</param>
-        public void SetDirection(Renderer.DIRECTION directionValue) { _direction = directionValue; }
+        public void SetDirection(Renderer.DIRECTION directionValue) { 
+            _direction = directionValue;
+            switch(_rendListType)
+            {
+                case RendOrder.Size2:
+                case RendOrder.Size2DownUpFlip:
+                case RendOrder.Size2Flip:
+                case RendOrder.Size2RightLeftFlip:
+                    _rendDownUp.SetDirection(directionValue);
+                    _rendRightLeft.SetDirection(directionValue);
+                break;
+
+                case RendOrder.Size3DownUp:
+                case RendOrder.Size3DownUpFlip:
+                    _rendDown.SetDirection(directionValue);
+                    _rendUp.SetDirection(directionValue);
+                    _rendRightLeft.SetDirection(directionValue);
+                break;
+
+
+                case RendOrder.Size3RightLeft:
+                case RendOrder.Size3RightLeftFlip:
+                    _rendRightLeft.SetDirection(directionValue);
+                    _rendDown.SetDirection(directionValue);
+                    _rendUp.SetDirection(directionValue);
+                break;
+
+                case RendOrder.Size4:
+                    _rendRight.SetDirection(directionValue);
+                    _rendLeft.SetDirection(directionValue);
+                    _rendUp.SetDirection(directionValue);
+                    _rendDown.SetDirection(directionValue);
+
+                    break;
+
+            }
+        
+        }
 
         /// <summary>
         /// used in int[] directionArray formula, and also in other areas to set the direction
