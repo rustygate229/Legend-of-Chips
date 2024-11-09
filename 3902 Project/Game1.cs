@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -55,6 +54,22 @@ namespace _3902_Project
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             CharacterStateManager = new CharacterStateManager(6); //assume maximum HP = 6
 
+            // Initialize collision logic
+            CollisionDetector = new CollisionDetector();
+            _blockCollisionBoxes = new List<ICollisionBox>();
+
+            // Block and Item Texture Loading
+            _BlockManager = new BlockManager();
+            _BlockManager.LoadAll(_spriteBatch, Content);
+
+            _ItemManager = new ItemManager();
+            _ItemManager.LoadAll(_spriteBatch, Content);
+
+            _ProjectileManager = new ProjectileManager();
+            _ProjectileManager.LoadAll(_spriteBatch, Content);
+
+            _EnemyManager = new EnemyManager();
+            _EnemyManager.LoadAll(_spriteBatch, Content, _ProjectileManager);
             // Initialize all managers
             BackgroundMusic = new BackgroundMusic(Content);
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
@@ -81,17 +96,17 @@ namespace _3902_Project
 
             EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, ProjectileManager);
 
-            EnvironmentFactory.loadLevel();
+            _EnvironmentFactory.loadLevel();
 
         }
 
         protected override void Update(GameTime gameTime)
         {
-            ItemManager.Update();
-            ProjectileManager.UpdateProjectiles(gameTime); // Updated method call
-            EnemyManager.Update();
-            Player.Update();
-            EnvironmentFactory.Update(Player);
+            _ItemManager.Update();
+            _ProjectileManager.Update();
+            _EnemyManager.Update();
+            _Link.Update();
+            _EnvironmentFactory.Update(_Link);
             // Update input controls
             keyboardController.Update();
             mouseController.Update();
@@ -103,6 +118,11 @@ namespace _3902_Project
         {
             GraphicsDevice.Clear(Color.Black);
 
+            _BlockManager.Draw();
+            _ItemManager.Draw();
+            _ProjectileManager.Draw();
+            _Link.Draw();
+            _EnemyManager.Draw();
             BlockManager.Draw();
             ItemManager.Draw();
             ProjectileManager.Draw();
