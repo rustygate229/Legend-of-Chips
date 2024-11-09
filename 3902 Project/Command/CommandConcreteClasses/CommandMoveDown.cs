@@ -15,7 +15,7 @@ namespace _3902_Project
         public void Execute()
         {
             _link.SetLinkDirection(Renderer.DIRECTION.DOWN);
-            _link.SetLinkState(LinkManager.LinkActions.StandardMoving);
+            _link.SetLinkState(LinkManager.LinkActions.Moving);
         }
     }
 }

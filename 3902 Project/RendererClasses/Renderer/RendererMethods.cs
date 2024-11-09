@@ -49,7 +49,7 @@ namespace _3902_Project
 
         private Rectangle GetSourceRectangle_SingleAnimated()
         {
-            if (_currentFrame == 0) return new Rectangle((int)_spritePosition.X + (int)_spriteDimensions.X, (int)_spritePosition.Y, -(int)_spriteDimensions.X, (int)_spriteDimensions.Y);
+            if (_currentFrame == 0) return new Rectangle((int)_spritePosition.X, (int)_spritePosition.Y, (int)_spriteDimensions.X, (int)_spriteDimensions.Y);
             else return new Rectangle((int)_spritePosition.X + (int)_spriteDimensions.X, (int)_spritePosition.Y, -(int)_spriteDimensions.X, (int)_spriteDimensions.Y);
         }
 

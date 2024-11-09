@@ -12,7 +12,7 @@ namespace _3902_Project
 
         public void Execute()
         {
-            _link.SetLinkState(LinkManager.LinkActions.StandardStanding);
+            _link.SetLinkState(LinkManager.LinkActions.Standing);
         }
     }
 }

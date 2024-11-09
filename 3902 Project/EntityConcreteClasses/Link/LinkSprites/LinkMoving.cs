@@ -4,7 +4,7 @@ using System;
 
 namespace _3902_Project
 {
-    public class LinkStandardMoving : ISprite
+    public class LinkMoving : ISprite
     {
         // variables for link in frame 1 of the moving link sprite animation
         private Rectangle _spriteDownPosition = new(0, 11, 32, 16);
@@ -17,13 +17,12 @@ namespace _3902_Project
 
         // create a Renderer object
         private RendererLists _rendererList;
-        private LinkMoving _linkMoving;
         private ProjectileManager _manager;
 
         /// <summary>
         /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
         /// </summary>
-        public LinkStandardMoving(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale, ProjectileManager manager)
+        public LinkMoving(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale, ProjectileManager manager)
         {
             _manager = manager;
             // create different facing block sprites for the renderer list
@@ -36,8 +35,6 @@ namespace _3902_Project
             _rendererList.CreateSetAnimationStatus(Renderer.STATUS.RowAndColumnAnimated);
             // set correct direciton
             _rendererList.SetDirection(facingDirection);
-
-            _linkMoving = new LinkMoving(_rendererList);
         }
 
         /// <summary>
@@ -59,8 +56,13 @@ namespace _3902_Project
         /// <summary>
         /// Updates the block (movement, animation, etc.)
         /// </summary>
-        public void Update() { 
-            _linkMoving.Update(); 
+        public void Update() {
+            float positionSpeed = 4f;
+            Vector2 updatePosition = _rendererList.CreateGetUpdatePosition(positionSpeed);
+            //Console.WriteLine("renderer direction: " + _rendererList.GetDirection().ToString());
+            //Console.WriteLine("updatePosition: " +  updatePosition);
+            Vector2 currentPosition = _rendererList.GetVectorPosition() + updatePosition;
+            _rendererList.SetPositions(currentPosition);
             _rendererList.CreateUpdateFrames(); 
         }
 

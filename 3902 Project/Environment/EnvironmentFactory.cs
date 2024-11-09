@@ -29,6 +29,7 @@ namespace _3902_Project
 
         public EnvironmentFactory(Game1 game, List<ICollisionBox> blockCollisionBoxes) 
         {
+
             _blockManager = game._BlockManager;
             _itemManager = game._ItemManager;
             _enemyManager = game._EnemyManager;

@@ -9,7 +9,7 @@ namespace _3902_Project
     public class LinkManager
     {
         // create link names for finding them
-        public enum LinkActions { StandardStanding, StandardMoving }
+        public enum LinkActions { Standing, Moving, Throwing }
         private LinkActions _currentLinkAction;
 
         // link dictionary/inventory
@@ -34,7 +34,7 @@ namespace _3902_Project
             _spriteBatch = spriteBatch; 
             _factory.LoadAllTextures(content); 
             _manager = manager;
-            _currentLinkAction = LinkActions.StandardStanding;
+            _currentLinkAction = LinkActions.Standing;
             _direction = Renderer.DIRECTION.UP;
             _currentLink = _factory.CreateLink(_currentLinkAction, _direction, _printScale, _manager);
         }
@@ -54,12 +54,14 @@ namespace _3902_Project
 
         public Vector2 GetLinkPosition() { return _position; }
 
+
         /// <summary>
         /// Updates the current link
         /// </summary>
         public void Update()
         {
             //Console.WriteLine("direction: " + _direction.ToString());
+            
             _currentLink.Update();
             
             _position = _currentLink.GetVectorPosition();

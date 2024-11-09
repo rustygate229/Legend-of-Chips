@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Microsoft.Xna.Framework.Input;
 
 namespace _3902_Project
@@ -10,6 +11,7 @@ namespace _3902_Project
     {
         // Dictionary to map keys to corresponding commands
         private Dictionary<Keys, ICommand> keysToCommands = new Dictionary<Keys, ICommand>();
+        private Dictionary<Keys, ICommand> keysMoveToCommands = new Dictionary<Keys, ICommand>();
 
         // Create a set of previous keys for previous 
         private HashSet<Keys> _previousKeys = new HashSet<Keys>();
@@ -24,14 +26,14 @@ namespace _3902_Project
             this._game = game;
 
             // Mapping keys to corresponding commands for player movement
-            keysToCommands.Add(Keys.W, new CommandMoveUp(game));
-            keysToCommands.Add(Keys.S, new CommandMoveDown(game));
-            keysToCommands.Add(Keys.A, new CommandMoveLeft(game));
-            keysToCommands.Add(Keys.D, new CommandMoveRight(game));
-            keysToCommands.Add(Keys.Up, new CommandMoveUp(game));
-            keysToCommands.Add(Keys.Down, new CommandMoveDown(game));
-            keysToCommands.Add(Keys.Left, new CommandMoveLeft(game));
-            keysToCommands.Add(Keys.Right, new CommandMoveRight(game));
+            keysMoveToCommands.Add(Keys.W, new CommandMoveUp(game));
+            keysMoveToCommands.Add(Keys.S, new CommandMoveDown(game));
+            keysMoveToCommands.Add(Keys.A, new CommandMoveLeft(game));
+            keysMoveToCommands.Add(Keys.D, new CommandMoveRight(game));
+            keysMoveToCommands.Add(Keys.Up, new CommandMoveUp(game));
+            keysMoveToCommands.Add(Keys.Down, new CommandMoveDown(game));
+            keysMoveToCommands.Add(Keys.Left, new CommandMoveLeft(game));
+            keysMoveToCommands.Add(Keys.Right, new CommandMoveRight(game));
 
             // Mapping keys for damaged state
             keysToCommands.Add(Keys.E, new CommandLinkDamaged(game));
@@ -70,16 +72,32 @@ namespace _3902_Project
             foreach (Keys key in currentKeyboardPressed)
             {
                 // if key passes check, then execute
-                if ((keysToCommands.ContainsKey(key) && (!_previousKeys.Contains(key)) || IsMoveKey(key)))
+                if (keysToCommands.ContainsKey(key)) 
                 {
-                    //Console.WriteLine("moving");
-                    ICommand setKeyboardCommand = keysToCommands[key];
-                    setKeyboardCommand.Execute();
-                } 
-                // add keys to a new previous
-                newPreviousKeys.Add(key);
+                    if (!_previousKeys.Contains(key))
+                    {
+                        ICommand setKeyboardCommand = keysToCommands[key];
+                        setKeyboardCommand.Execute();
+                    }
+                    // add keys to a new previous
+                    newPreviousKeys.Add(key);
+                }
             }
-            if (currentKeyboardPressed.Length == 0) { new CommandLinkStill(_game).Execute(); Console.WriteLine("stopped moving"); }
+            // if conditions for movement keys
+            if (currentKeyboardPressed.Length == 0) { new CommandLinkStill(_game).Execute(); }
+            else if (currentKeyboardPressed.Length > 0)
+            {
+                Keys key = currentKeyboardPressed[currentKeyboardPressed.Length - 1];
+                if (keysMoveToCommands.ContainsKey(key))
+                {
+                    if (!_previousKeys.Contains(key))
+                    {
+                        ICommand setKeyboardCommand = keysMoveToCommands[key];
+                        setKeyboardCommand.Execute();
+                    }
+                    newPreviousKeys.Add(key);
+                }
+            }
 
             // set old previous keys = new previous keys
             _previousKeys = newPreviousKeys;

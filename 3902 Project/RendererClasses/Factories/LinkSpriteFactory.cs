@@ -27,10 +27,12 @@ namespace _3902_Project
         {
             switch (linkAction)
             {
-                case LinkManager.LinkActions.StandardStanding:
+                case LinkManager.LinkActions.Standing:
                     return new LinkStandardStanding(_linkSpritesheet, direction, printScale);
-                case LinkManager.LinkActions.StandardMoving:
-                    return new LinkStandardMoving(_linkSpritesheet, direction, printScale, manager);
+                case LinkManager.LinkActions.Throwing:
+                    return new LinkActionStanding(_linkSpritesheet, direction, printScale);
+                case LinkManager.LinkActions.Moving:
+                    return new LinkMoving(_linkSpritesheet, direction, printScale, manager);
                 default: throw new ArgumentException("invalid link name");
             }
         }

@@ -3,16 +3,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _3902_Project
 {
-    public class LinkStandardStanding : ISprite
+    public class LinkActionStanding : ISprite
     {
         // variables for link in frame 1 of the moving link sprite animation
-        private Rectangle _spriteDownPosition = new(0, 11, 16, 16);
-        private Rectangle _spriteUpPosition = new(69, 11, 16, 16);
-        private Rectangle _spriteRightLeftPosition = new(34, 11, 16, 16);
+        private Rectangle _spriteDownPosition = new(107, 11, 16, 16);
+        private Rectangle _spriteUpPosition = new(141, 11, 16, 16);
+        private Rectangle _spriteRightLeftPosition = new(123, 11, 16, 16);
 
         // create a Renderer object
         private RendererLists _rendererList;
-        private LinkStanding _linkStanding;
 
         private int _currentFrame;
 
@@ -20,7 +19,7 @@ namespace _3902_Project
         /// <summary>
         /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
         /// </summary>
-        public LinkStandardStanding(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale)
+        public LinkActionStanding(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale)
         {
             // create different facing block sprites for the renderer list
             Renderer linkDown = new(spriteSheet, _spriteDownPosition, printScale);
@@ -54,7 +53,7 @@ namespace _3902_Project
         /// <summary>
         /// Updates the block (movement, animation, etc.)
         /// </summary>
-        public void Update() { _linkStanding = new LinkStanding(_rendererList); }
+        public void Update() { }
 
 
         /// <summary>

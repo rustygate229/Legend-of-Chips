@@ -13,7 +13,7 @@ namespace _3902_Project
         public void Execute()
         {
             _link.SetLinkDirection(Renderer.DIRECTION.RIGHT);
-            _link.SetLinkState(LinkManager.LinkActions.StandardMoving);
+            _link.SetLinkState(LinkManager.LinkActions.Moving);
         }
     }
 }
