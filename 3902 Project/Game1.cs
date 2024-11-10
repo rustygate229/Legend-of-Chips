@@ -52,39 +52,24 @@ namespace _3902_Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            CharacterStateManager = new CharacterStateManager(6); //assume maximum HP = 6
+            
 
-            // Initialize collision logic
-            CollisionDetector = new CollisionDetector();
-            _blockCollisionBoxes = new List<ICollisionBox>();
+            CharacterStateManager = new CharacterStateManager(6, this); //assume maximum HP = 6
 
-            // Block and Item Texture Loading
-            _BlockManager = new BlockManager();
-            _BlockManager.LoadAll(_spriteBatch, Content);
-
-            _ItemManager = new ItemManager();
-            _ItemManager.LoadAll(_spriteBatch, Content);
-
-            _ProjectileManager = new ProjectileManager();
-            _ProjectileManager.LoadAll(_spriteBatch, Content);
-
-            _EnemyManager = new EnemyManager();
-            _EnemyManager.LoadAll(_spriteBatch, Content, _ProjectileManager);
             // Initialize all managers
             BackgroundMusic = new BackgroundMusic(Content);
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
-            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
             EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
-            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
+            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager, CharacterStateManager);
             Menu = new Menu(Content, _spriteBatch, ItemManager, CharacterStateManager);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
             mouseController = new MouseInput(this);
 
-            
+
             // Block and Item Texture Loading
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
@@ -94,7 +79,7 @@ namespace _3902_Project
             Menu.LoadContent();
 
 
-            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, ProjectileManager);
+            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, ProjectileManager, CharacterStateManager);
 
             _EnvironmentFactory.loadLevel();
 
@@ -102,11 +87,15 @@ namespace _3902_Project
 
         protected override void Update(GameTime gameTime)
         {
-            _ItemManager.Update();
-            _ProjectileManager.Update();
-            _EnemyManager.Update();
-            _Link.Update();
-            _EnvironmentFactory.Update(_Link);
+            CharacterStateManager.UpdateCooldown(gameTime);
+           
+
+            ItemManager.Update();
+            ProjectileManager.UpdateProjectiles(gameTime); // Updated method call
+            EnemyManager.Update();
+            Player.Update();
+            EnvironmentFactory.Update(Player);
+            
             // Update input controls
             keyboardController.Update();
             mouseController.Update();

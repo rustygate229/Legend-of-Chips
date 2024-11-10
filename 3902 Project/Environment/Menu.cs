@@ -31,7 +31,7 @@ namespace _3902_Project
             _font = _content.Load<SpriteFont>("Menu");
         }
 
-        public void incrementLevel() { if (level < 4)  level++;  }
+        public void incrementLevel() { if (level < 4) level++; }
         public void decrementLevel() { if (level > 1) level--; }
 
 

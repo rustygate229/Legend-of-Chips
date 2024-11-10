@@ -9,11 +9,12 @@ namespace _3902_Project
         private ItemCollisionHandler ItemCollisionHandler;
         private BlockCollisionHandler BlockCollisionHandler;
         private ProjectileCollisionHandler ProjectileCollisionHandler;
+        private CharacterStateManager characterState;
 
-        public CollisionHandlerManager(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager, ProjectileManager projectileManager)
+        public CollisionHandlerManager(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager, ProjectileManager projectileManager, CharacterStateManager characterStateManager)
         {
-            EnemyCollisionHandler = new EnemyCollisionHandler(enemyManager);
-            LinkCollisionHandler = new LinkCollisionHandler(link, enemyManager, itemManager);
+            EnemyCollisionHandler = new EnemyCollisionHandler(enemyManager, characterStateManager);
+            LinkCollisionHandler = new LinkCollisionHandler(link, enemyManager, itemManager, characterStateManager);
             ItemCollisionHandler = new ItemCollisionHandler(link, itemManager);
             BlockCollisionHandler = new BlockCollisionHandler();
             ProjectileCollisionHandler = new ProjectileCollisionHandler(projectileManager, enemyManager);

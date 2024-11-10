@@ -14,10 +14,11 @@ namespace _3902_Project
         private CollisionHandlerManager _collisionHandlerManager;
         private ProjectileManager _projectileManager;
         private LinkPlayer _link;
+        private CharacterStateManager _characterStateManager;
 
         private int _level;
         private int _prevLevel = -1; // -1 is a stand in for a null value
-        
+
         private Dictionary<string, BlockManager.BlockNames> _csvTranslationsBlock;
         private Dictionary<string, EnemyManager.EnemyNames> _csvTranslationsEnemy;
         private Dictionary<string, ItemManager.ItemNames> _csvTranslationsItem;
@@ -32,19 +33,20 @@ namespace _3902_Project
         private int ENDING_LEVEL = 4;
 
         public List<List<ICollisionBox>> _collisionBoxes;
+        
 
-        public EnvironmentFactory(BlockManager block, ItemManager item, LinkPlayer link, EnemyManager enemy, ProjectileManager projectileManager)
+        public EnvironmentFactory(BlockManager block, ItemManager item, LinkPlayer link, EnemyManager enemy, ProjectileManager projectileManager, CharacterStateManager characterStateManager)
         {
             _blockManager = block;
             _itemManager = item;
             _enemyManager = enemy;
             _link = link;
             _projectileManager = projectileManager;
-
+            _characterStateManager = characterStateManager;
             _collisionBoxes = new List<List<ICollisionBox>>(4);
-            
+
             // Initialize Collision
-            _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item, projectileManager);
+            _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item, projectileManager,characterStateManager);
 
             _level = 1;
 
@@ -136,7 +138,7 @@ namespace _3902_Project
 
                     if (_csvTranslationsBlock.ContainsKey(blockToPlace))
                     {
-                            currentBlock = _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2(STARTINGX + 128 + (j * 64), STARTINGY + 128 + (i * 64)), 4F);
+                        currentBlock = _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2(STARTINGX + 128 + (j * 64), STARTINGY + 128 + (i * 64)), 4F);
                     }
                 }
             }
@@ -154,8 +156,8 @@ namespace _3902_Project
                     string enemyToPlace = _enemies[i][j];
                     ISprite currentEnemy;
 
-                        if(_csvTranslationsEnemy.ContainsKey(enemyToPlace))
-                            currentEnemy = _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(STARTINGX + 128 + (j * 64), STARTINGY + 128 + (i * 64)), 4F, 2F, 50, 30);
+                    if (_csvTranslationsEnemy.ContainsKey(enemyToPlace))
+                        currentEnemy = _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(STARTINGX + 128 + (j * 64), STARTINGY + 128 + (i * 64)), 4F, 2F, 50, 30);
                 }
             }
         }
@@ -242,4 +244,3 @@ namespace _3902_Project
         }
     }
 }
-
