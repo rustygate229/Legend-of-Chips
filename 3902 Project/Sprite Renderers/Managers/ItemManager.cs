@@ -91,6 +91,7 @@ namespace _3902_Project
                 _runningItems.Remove(spriteToRemove);
                 collisionBoxes.Remove(item);
                 _itemCollisionDictionary.Remove(item);
+                MySoundEffect.ItemPlaySound();
             }
         }
 

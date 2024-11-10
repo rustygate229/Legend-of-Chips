@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace _3902_Project
         internal EnvironmentFactory EnvironmentFactory { get; private set; }
         internal BackgroundMusic BackgroundMusic { get; set; }
         internal Menu Menu { get; set; }
-
+        internal MySoundEffect MySoundEffect { get; set;}
         //private List<ICollisionBox> _EnemyCollisionBoxes;
 
 
@@ -54,7 +55,7 @@ namespace _3902_Project
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             CharacterStateManager = new CharacterStateManager(6); //assume maximum HP = 6
-
+            MySoundEffect = new MySoundEffect(Content);
             // Initialize all managers
             BackgroundMusic = new BackgroundMusic(Content);
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
@@ -77,6 +78,7 @@ namespace _3902_Project
             ProjectileManager.LoadAllTextures(Content);
             BackgroundMusic.LoadSongs();
             Menu.LoadContent();
+            MySoundEffect.LoadSongs();
 
 
             EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, ProjectileManager, CharacterStateManager);

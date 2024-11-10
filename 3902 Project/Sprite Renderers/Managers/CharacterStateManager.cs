@@ -99,6 +99,7 @@ namespace _3902_Project
         private void HandleDeath()
         {
             Console.WriteLine("Character is dead.");
+            MySoundEffect.DiePlaySound();
         }
     }
 }
