@@ -19,10 +19,10 @@ namespace _3902_Project
 
         public void LoadSongs()
         {
-            // Load background music (Song type)
+            // Load item pickup sound effects
             ItemEffect = _content.Load<SoundEffect>("item-102soundboards");
 
-            // Load player death sound effect (SoundEffect type)
+            // Load player death sound effects
             DieEffect = _content.Load<SoundEffect>("life-lost-102soundboards");
         }
 
