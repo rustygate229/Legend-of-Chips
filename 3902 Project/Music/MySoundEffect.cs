@@ -8,25 +8,25 @@ namespace _3902_Project
     class MySoundEffect
     {
         private ContentManager _content;
-        private static SoundEffect DieEffect;  // 玩家死亡音效
-        private static SoundEffect ItemEffect;        // 拾取道具背景音乐
+        private static SoundEffect DieEffect;  // Link death sound effects
+        private static SoundEffect ItemEffect;        // Item pickup sound effects
 
         public MySoundEffect(ContentManager content)
         {
             _content = content;
         }
 
-        // 加载音效和背景音乐
+
         public void LoadSongs()
         {
-            // 加载背景音乐（Song 类型）
+            // Load background music (Song type)
             ItemEffect = _content.Load<SoundEffect>("item-102soundboards");
 
-            // 加载玩家死亡音效（SoundEffect 类型）
+            // Load player death sound effect (SoundEffect type)
             DieEffect = _content.Load<SoundEffect>("life-lost-102soundboards");
         }
 
-        // 播放拾取道具音效
+        // Play the pickup sound effect
         public static void ItemPlaySound()
         {
             if (ItemEffect != null)
@@ -35,12 +35,11 @@ namespace _3902_Project
             }
         }
 
-        // 播放玩家死亡音效
+        // Play Link death soudn effects
         public static void DiePlaySound()
         {
             if (DieEffect != null)
             {
-                // 使用 SoundEffect 播放音效
                 DieEffect.Play();
             }
         }
