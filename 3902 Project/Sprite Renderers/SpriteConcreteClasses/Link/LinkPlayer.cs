@@ -15,6 +15,8 @@ namespace _3902_Project
         ProjectileManager _projectileManager;
         LinkInventory _linkInventory;
         CharacterStateManager _characterState;
+        IAnimation _deathAnimation;
+        bool _isDead;
 
 
         //double x, y;
