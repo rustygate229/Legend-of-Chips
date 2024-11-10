@@ -11,7 +11,7 @@ namespace _3902_Project
         // create block names for finding them
         public enum BlockNames
         {
-            Environment, Dirt, Square, Tile, WhiteBrick, WhiteTile,
+            Environment, Pyramid, Dirt, Square, Tile, WhiteBrick, WhiteTile, Blue,
             BombedDoor_DOWN, BombedDoor_UP, BombedDoor_RIGHT, BombedDoor_LEFT,
             DiamondHoleLockedDoor_DOWN, DiamondHoleLockedDoor_UP, DiamondHoleLockedDoor_RIGHT, DiamondHoleLockedDoor_LEFT,
             KeyHoleLockedDoor_DOWN, KeyHoleLockedDoor_UP, KeyHoleLockedDoor_RIGHT, KeyHoleLockedDoor_LEFT,
@@ -46,6 +46,19 @@ namespace _3902_Project
             _factory.LoadAllTextures(_contentManager);
         }
 
+        private bool isCollidable(BlockNames name)
+        {
+            switch (name)
+            {
+                case BlockNames.Square:
+                case BlockNames.Pyramid:
+                case BlockNames.Blue:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         /// <summary>
         /// Add an block to the running block list
         /// </summary>
@@ -58,7 +71,7 @@ namespace _3902_Project
             currentSprite.SetPosition(placementPosition);
             _runningBlocks.Add(currentSprite);
 
-            if (name == BlockNames.Square)
+            if (isCollidable(name))
             {
                 //also check for correctness here
                 //check with evan later about how to get width and height of blocks

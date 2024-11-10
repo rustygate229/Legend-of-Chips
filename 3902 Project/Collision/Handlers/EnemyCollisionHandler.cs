@@ -3,12 +3,15 @@ using Microsoft.Xna.Framework;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-public class EnemyCollisionHandler 
+public class EnemyCollisionHandler
 {
     EnemyManager _enemyManager;
-    public EnemyCollisionHandler(EnemyManager enemyManager)
+    CharacterStateManager _characterStateManager;
+
+    public EnemyCollisionHandler(EnemyManager enemyManager,CharacterStateManager characterStateManager)
     {
         _enemyManager = enemyManager;
+        _characterStateManager = characterStateManager;
     }
     public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable)
     {

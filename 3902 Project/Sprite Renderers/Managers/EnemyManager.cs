@@ -23,7 +23,7 @@ namespace _3902_Project
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
         private Game1 _game;
-        private Rectangle playAreaBoundary = new Rectangle(125, 125, 765, 450);
+        private Rectangle playAreaBoundary = new Rectangle(125, 320, 780, 450);
 
         public List<ICollisionBox> collisionBoxes { get; private set; }
         private int _currentEnemyIndex = 0;

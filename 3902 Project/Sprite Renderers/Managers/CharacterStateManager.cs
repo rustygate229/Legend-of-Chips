@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace _3902_Project
 {
@@ -12,23 +11,48 @@ namespace _3902_Project
         public int MaxHealth { get; private set; }
         public bool IsDead => Health <= 0;
 
+        private float _damageCooldownTime = 1.0f; 
+        private float _currentCooldownTime = 0.0f;
+
+        private Game1 _game;
+
         private Dictionary<string, int> inventory;
 
-        public CharacterStateManager(int maxHealth)
+        public CharacterStateManager(int maxHealth, Game1 game)
+
         {
+            _game = game;
             MaxHealth = maxHealth;
             Health = maxHealth;
             inventory = new Dictionary<string, int>();
         }
 
+        public void UpdateCooldown(GameTime gameTime)
+        {
+            if (_currentCooldownTime > 0)
+            {
+                _currentCooldownTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+        }
+
+        public bool CanTakeDamage()
+        {
+            return _currentCooldownTime <= 0;
+        }
+
         public void DecreaseHealth(int amount)
         {
-            Health -= amount;
-            if (Health < 0) Health = 0;
-
-            if (IsDead)
+            if (CanTakeDamage())
             {
-                HandleDeath();
+                Health -= amount;
+                _currentCooldownTime = _damageCooldownTime;
+
+                if (Health < 0) Health = 0;
+
+                if (IsDead)
+                {
+                    HandleDeath();
+                }
             }
         }
 
@@ -54,10 +78,9 @@ namespace _3902_Project
         {
             if (inventory.ContainsKey(itemName) && inventory[itemName] > 0)
             {
-                // 假设药瓶可以恢复一定的血量
                 if (itemName == "HealthPotion")
                 {
-                    IncreaseHealth(20); // 假设药瓶恢复 20 HP
+                    IncreaseHealth(2);
                 }
                 inventory[itemName]--;
 
@@ -68,11 +91,22 @@ namespace _3902_Project
             }
         }
 
+        public int GetFullHearts()
+        {
+            return Health / 2; // Each heart represents 2 HP
+        }
+
+        public bool HasHalfHeart()
+        {
+            return Health % 2 != 0; // If the remainder is not 0, it means there is half a heart
+        }
+
         private void HandleDeath()
         {
-            //Test
-            Console.WriteLine("Character is dead.");
+            if (IsDead)
+            {
+                _game.ResetGame();
+            }
         }
     }
 }
-

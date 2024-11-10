@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin 01 Title BGM.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:01 Title BGM.mp3;Title_BGM.mp3
+
 #begin Dungeon_Block_and_Room_Spritesheet_transparent.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -60,6 +66,13 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Link Spritesheet transparent.png
+
+#begin Menu.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Menu.spritefont
 
 #begin Miscellaneous_Spritesheet_transparent.png
 /importer:TextureImporter

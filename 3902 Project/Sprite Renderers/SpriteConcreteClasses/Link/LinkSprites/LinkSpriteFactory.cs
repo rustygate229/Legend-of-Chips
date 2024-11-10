@@ -33,6 +33,7 @@ namespace _3902_Project
             linkStateMachine = state;
         }
 
+
         public ILinkSprite StationaryLinkSprite()
         {
             List<Rectangle> source = new List<Rectangle>();

@@ -39,6 +39,8 @@ namespace _3902_Project
             {
                 case BlockManager.BlockNames.Environment:
                     return new PBlock_Environment(_blockSpritesheet, printScale);
+                case BlockManager.BlockNames.Pyramid:
+                    return new PBlock_Pyramid(_blockSpritesheet, printScale);
                 case BlockManager.BlockNames.Dirt:
                     return new PBlock_Dirt(_blockSpritesheet, printScale);
                 case BlockManager.BlockNames.Tile:
@@ -49,6 +51,8 @@ namespace _3902_Project
                     return new PBlock_WhiteBrick(_blockSpritesheet, printScale);
                 case BlockManager.BlockNames.WhiteTile:
                     return new PBlock_WhiteTile(_blockSpritesheet, printScale);
+                case BlockManager.BlockNames.Blue:
+                    return new PBlock_Blue(_blockSpritesheet, printScale);
 
                 case BlockManager.BlockNames.Stairs_RIGHT:
                     return new FBlock_StatueFish(_blockSpritesheet, Renderer.DIRECTION.RIGHT, printScale);

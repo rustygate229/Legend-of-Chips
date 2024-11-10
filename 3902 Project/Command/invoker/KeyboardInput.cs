@@ -49,6 +49,9 @@ namespace _3902_Project
             keysToCommands.Add(Keys.D4, new CommandLinkSetInventory4(game));
             keysToCommands.Add(Keys.D5, new CommandLinkSetInventory5(game));
 
+            // Mapping keys for music management
+            keysToCommands.Add(Keys.M, new CommandToggleMute(game));
+
         }
 
 

@@ -15,9 +15,12 @@ namespace _3902_Project
         internal LinkPlayer Player { get; private set; }  // Player object
         internal BlockManager BlockManager { get; private set; }  // Block manager
         internal ItemManager ItemManager { get; private set; }  // Item manager
-        internal EnemyManager EnemyManager { get; private set; }
-        public ProjectileManager ProjectileManager { get; set; }
+        internal EnemyManager EnemyManager { get; private set; } //Enemy manager
+        public ProjectileManager ProjectileManager { get; set; }   //Projectile manager
+        internal CharacterStateManager CharacterStateManager { get; private set; }  //Character manager
         internal EnvironmentFactory EnvironmentFactory { get; private set; }
+        internal BackgroundMusic BackgroundMusic { get; set; }
+        internal Menu Menu { get; set; }
 
         //private List<ICollisionBox> _EnemyCollisionBoxes;
 
@@ -30,12 +33,13 @@ namespace _3902_Project
         // Input controller
         private IController keyboardController;
         private IController mouseController;
+        
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.PreferredBackBufferWidth = 1024;
-            _graphics.PreferredBackBufferHeight = 700;
+            _graphics.PreferredBackBufferHeight = 900;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -50,30 +54,32 @@ namespace _3902_Project
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            CharacterStateManager = new CharacterStateManager(6, this); //assume maximum HP = 6
+
             // Initialize all managers
+            BackgroundMusic = new BackgroundMusic(Content);
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
-            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
             EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
+            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager, CharacterStateManager);
+            Menu = new Menu(Content, _spriteBatch, ItemManager, CharacterStateManager);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
             mouseController = new MouseInput(this);
 
-            
+
             // Block and Item Texture Loading
             BlockManager.LoadAllTextures();
             ItemManager.LoadAllTextures();
             EnemyManager.LoadAllTextures();
             ProjectileManager.LoadAllTextures(Content);
+            BackgroundMusic.LoadSongs();
+            Menu.LoadContent();
 
 
-
-            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, ProjectileManager);
-
-            whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
-            whiteRectangle.SetData(new[] { Color.White });
+            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, ProjectileManager, CharacterStateManager);
 
             EnvironmentFactory.loadLevel();
 
@@ -81,11 +87,15 @@ namespace _3902_Project
 
         protected override void Update(GameTime gameTime)
         {
+            CharacterStateManager.UpdateCooldown(gameTime);
+           
+
             ItemManager.Update();
             ProjectileManager.UpdateProjectiles(gameTime); // Updated method call
             EnemyManager.Update();
             Player.Update();
             EnvironmentFactory.Update(Player);
+            
             // Update input controls
             keyboardController.Update();
             mouseController.Update();
@@ -102,6 +112,7 @@ namespace _3902_Project
             ProjectileManager.Draw();
             Player.Draw();
             EnemyManager.Draw();
+            Menu.Draw();
 
             //DrawCollidables();
 

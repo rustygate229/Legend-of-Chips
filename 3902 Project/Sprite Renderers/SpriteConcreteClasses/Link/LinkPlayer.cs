@@ -15,17 +15,18 @@ namespace _3902_Project
         ProjectileManager _projectileManager;
         LinkInventory _linkInventory;
         CharacterStateManager _characterState;
+        IAnimation _deathAnimation;
+        bool _isDead;
 
 
         //double x, y;
-        public LinkPlayer(SpriteBatch sb, ContentManager content, ProjectileManager projectileManager)
+        public LinkPlayer(SpriteBatch sb, ContentManager content, ProjectileManager projectileManager, CharacterStateManager characterState)
         {
             _linkMovement = new LinkMovement();
             _linkStateMachine = new LinkStateMachine();
             _animation = new LinkAnimation(sb, content, _linkStateMachine);
             _linkInventory = new LinkInventory();
-            _characterState = new CharacterStateManager(100);
-
+            _characterState = characterState;
             _projectileManager = projectileManager;
         }
 
@@ -65,7 +66,7 @@ namespace _3902_Project
             return keyboard.IsKeyDown(Keys.E);
         }
 
-        private Rectangle playAreaBoundary = new Rectangle(125, 125, 765, 450);
+        private Rectangle playAreaBoundary = new Rectangle(125, 320, 780, 450);
 
         public void Attack() { _linkStateMachine.setMelee(); }
         public void Throw() {
