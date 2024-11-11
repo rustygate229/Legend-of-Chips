@@ -7,7 +7,7 @@ namespace _3902_Project
         private Renderer[] _rendererList;
         public enum RendOrder { Size2, Size3DownUp, Size3RightLeft, Size4 }
         private RendOrder _rendListType;
-        private int[] _directionArray = { 0, 1, 2, 3 };
+        private int[] _directionArray = { 0, 1, 2, 3, 4, 5, 6, 7 };
         private Renderer.DIRECTION _direction;
 
         // case 1: Size2

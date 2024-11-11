@@ -60,6 +60,14 @@ namespace _3902_Project
                     return new Vector2(Math.Abs(positionSpeed), 0);
                 case 3: // LEFT
                     return new Vector2(-(Math.Abs(positionSpeed)), 0);
+                case 4: // DOWN
+                    return new Vector2(0, Math.Abs(positionSpeed));
+                case 5: // UP
+                    return new Vector2(0, -(Math.Abs(positionSpeed)));
+                case 6: // RIGHT
+                    return new Vector2(Math.Abs(positionSpeed), 0);
+                case 7: // LEFT
+                    return new Vector2(-(Math.Abs(positionSpeed)), 0);
                 default: throw new ArgumentException("Invalid direction type for updatePosition");
             }
         }

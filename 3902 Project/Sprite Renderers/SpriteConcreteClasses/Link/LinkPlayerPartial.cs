@@ -1,4 +1,6 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Collections.Generic;
+using System.Numerics;
 using static _3902_Project.ILinkStateMachine;
 
 namespace _3902_Project
@@ -23,12 +25,12 @@ namespace _3902_Project
                     break;
 
 
-
-
                 default: break;
             }
 
         }
+
+        private List<Tuple<ISprite, int>> _currentProjectiles = new List<Tuple<ISprite, int>> ();
 
         public void FireProjectile()
         {
@@ -44,12 +46,12 @@ namespace _3902_Project
                 {
                     case 1:
                         float[] frameRangeArrow = { 0.85f };
-                        _projectileManager.CallProjectile(ProjectileManager.ProjectileNames.BlueArrow, linkPosition, (int)direction, 100, 2f, 2f, frameRangeArrow); break;
+                        _currentProjectiles.Add(new Tuple<ISprite, int>(_projectileManager.CallProjectile(ProjectileManager.ProjectileNames.BlueArrow, linkPosition, (int)direction, 200, 4f, 4f, frameRangeArrow), 190)); break;
                     case 2:
                         float[] frameRangeBomb = { 0.50f, 0.70f };
-                        _projectileManager.CallProjectile(ProjectileManager.ProjectileNames.Bomb, linkPosition, (int)direction, 150, 2f, 2f, frameRangeBomb); break;
+                        _currentProjectiles.Add(new Tuple<ISprite, int>(_projectileManager.CallProjectile(ProjectileManager.ProjectileNames.Bomb, linkPosition, (int)direction, 150, 2f, 4f, frameRangeBomb), 140)); break;
                     case 3:
-                        _projectileManager.CallProjectile(ProjectileManager.ProjectileNames.FireBall, linkPosition, (int)direction, 100, 2f, 2f, 20); break;
+                        _currentProjectiles.Add(new Tuple<ISprite, int>(_projectileManager.CallProjectile(ProjectileManager.ProjectileNames.FireBall, linkPosition, (int)direction, 70, 8f, 4f, 15), 60)); break;
 
                     default: break;
                 }

@@ -3,14 +3,16 @@
 public class LinkInventory
 {
 
-    public enum LINK_PROJECTILES { BOMB, ARROW, BLUE_ARROW, BOOMERANG, BLUE_BOOMERANG, FIRE }
+    public enum LINK_PROJECTILES { BLUE_ARROW, BOMB, FIREBALL, BOOMERANG, BLUE_BOOMERANG, FIRE }
 
     private Dictionary<LINK_PROJECTILES, int> InventoryDict;
     //potentially more variables to be added here
     public LinkInventory()
     {
         InventoryDict = new System.Collections.Generic.Dictionary<LINK_PROJECTILES, int>();
-        InventoryDict.Add(LINK_PROJECTILES.BOMB, 1);
+        InventoryDict.Add(LINK_PROJECTILES.BLUE_ARROW, 1000);
+        InventoryDict.Add(LINK_PROJECTILES.BOMB, 1000);
+        InventoryDict.Add(LINK_PROJECTILES.FIREBALL, 1000);
 
 
         //other variables to be instantiated here

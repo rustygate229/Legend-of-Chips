@@ -18,7 +18,7 @@ namespace _3902_Project
 
         private float[] _frameRanges;
         private RendererLists _rendererList;
-        private int[] _directionArray = { 1, 0, 2, 3 };
+        private int[] _directionArray = { 1, 0, 2, 3, 5, 4, 6, 7 };
 
         // create timers, movement and speed variables
         private int _timerCounter;

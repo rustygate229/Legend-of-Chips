@@ -3,7 +3,7 @@
     public interface ILinkStateMachine
     {
 
-        public enum MOVEMENT { SUP, SDOWN, SLEFT, SRIGHT, MUP, MDOWN, MLEFT, MRIGHT }
+        public enum MOVEMENT { SDOWN, SUP, SRIGHT, SLEFT, MDOWN, MUP, MRIGHT, MLEFT }
         public enum ATTACK { MELEE, THROW, NO }
 
         MOVEMENT getMovementState();

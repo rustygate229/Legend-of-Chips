@@ -51,6 +51,14 @@ namespace _3902_Project
                 _direction = Renderer.DIRECTION.RIGHT;
             else if (directionValue == _directionArray[3])
                 _direction = Renderer.DIRECTION.LEFT;
+            else if (directionValue == _directionArray[4])
+                _direction = Renderer.DIRECTION.DOWN;
+            else if (directionValue == _directionArray[5])
+                _direction = Renderer.DIRECTION.UP;
+            else if (directionValue == _directionArray[6])
+                _direction = Renderer.DIRECTION.RIGHT;
+            else if (directionValue == _directionArray[7])
+                _direction = Renderer.DIRECTION.LEFT;
 
         }
 

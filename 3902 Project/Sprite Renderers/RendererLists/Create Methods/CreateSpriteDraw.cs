@@ -42,6 +42,14 @@ namespace _3902_Project
                         _rendRightLeft.DrawCentered(spriteBatch, _rendRightLeft.GetSourceRectangle()); break;
                     case 3: // LEFT sprite drawing
                         _rendRightLeft.DrawHorizontallyFlipped(spriteBatch, isCentered); break;
+                    case 4: // DOWN sprite drawing
+                        _rendDownUp.DrawCentered(spriteBatch, _rendDownUp.GetSourceRectangle()); break;
+                    case 5: // UP sprite drawing
+                        _rendDownUp.DrawVerticallyFlipped(spriteBatch, isCentered); break;
+                    case 6: // RIGHT sprite drawing
+                        _rendRightLeft.DrawCentered(spriteBatch, _rendRightLeft.GetSourceRectangle()); break;
+                    case 7: // LEFT sprite drawing
+                        _rendRightLeft.DrawHorizontallyFlipped(spriteBatch, isCentered); break;
                     default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
                 }
             }
@@ -56,6 +64,14 @@ namespace _3902_Project
                     case 2: // RIGHT sprite drawing
                         _rendRightLeft.Draw(spriteBatch, _rendRightLeft.GetSourceRectangle(), _rendRightLeft.GetDestinationRectangle()); break;
                     case 3: // LEFT sprite drawing
+                        _rendRightLeft.DrawHorizontallyFlipped(spriteBatch, isCentered); break;
+                    case 4: // DOWN sprite drawing
+                        _rendDownUp.Draw(spriteBatch, _rendDownUp.GetSourceRectangle(), _rendDownUp.GetDestinationRectangle()); break;
+                    case 5: // UP sprite drawing
+                        _rendDownUp.DrawVerticallyFlipped(spriteBatch, isCentered); break;
+                    case 6: // RIGHT sprite drawing
+                        _rendRightLeft.Draw(spriteBatch, _rendRightLeft.GetSourceRectangle(), _rendRightLeft.GetDestinationRectangle()); break;
+                    case 7: // LEFT sprite drawing
                         _rendRightLeft.DrawHorizontallyFlipped(spriteBatch, isCentered); break;
                     default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
                 }
@@ -76,6 +92,14 @@ namespace _3902_Project
                         _rendRight.DrawCentered(spriteBatch, _rendRightLeft.GetSourceRectangle()); break;
                     case 3: // LEFT sprite drawing
                         _rendLeft.DrawCentered(spriteBatch, _rendRightLeft.GetSourceRectangle()); break;
+                    case 4: // DOWN sprite drawing
+                        _rendDownUp.DrawCentered(spriteBatch, _rendDownUp.GetSourceRectangle()); break;
+                    case 5: // UP sprite drawing
+                        _rendDownUp.DrawVerticallyFlipped(spriteBatch, isCentered); break;
+                    case 6: // RIGHT sprite drawing
+                        _rendRight.DrawCentered(spriteBatch, _rendRightLeft.GetSourceRectangle()); break;
+                    case 7: // LEFT sprite drawing
+                        _rendLeft.DrawCentered(spriteBatch, _rendRightLeft.GetSourceRectangle()); break;
                     default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
                 }
             }
@@ -90,6 +114,14 @@ namespace _3902_Project
                     case 2: // RIGHT sprite drawing
                         _rendRight.Draw(spriteBatch, _rendRight.GetSourceRectangle(), _rendRight.GetDestinationRectangle()); break;
                     case 3: // LEFT sprite drawing
+                        _rendLeft.Draw(spriteBatch, _rendLeft.GetSourceRectangle(), _rendLeft.GetDestinationRectangle()); break;
+                    case 4: // DOWN sprite drawing
+                        _rendDownUp.Draw(spriteBatch, _rendDownUp.GetSourceRectangle(), _rendDownUp.GetDestinationRectangle()); break;
+                    case 5: // UP sprite drawing
+                        _rendDownUp.DrawVerticallyFlipped(spriteBatch, isCentered); break;
+                    case 6: // RIGHT sprite drawing
+                        _rendRight.Draw(spriteBatch, _rendRight.GetSourceRectangle(), _rendRight.GetDestinationRectangle()); break;
+                    case 7: // LEFT sprite drawing
                         _rendLeft.Draw(spriteBatch, _rendLeft.GetSourceRectangle(), _rendLeft.GetDestinationRectangle()); break;
                     default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
                 }
@@ -110,6 +142,14 @@ namespace _3902_Project
                         _rendRightLeft.DrawCentered(spriteBatch, _rendRightLeft.GetSourceRectangle()); break;
                     case 3: // LEFT sprite drawing
                         _rendRightLeft.DrawHorizontallyFlipped(spriteBatch, isCentered); break;
+                    case 4: // DOWN sprite drawing
+                        _rendDown.DrawCentered(spriteBatch, _rendDown.GetSourceRectangle()); break;
+                    case 5: // UP sprite drawing
+                        _rendUp.DrawCentered(spriteBatch, _rendUp.GetSourceRectangle()); break;
+                    case 6: // RIGHT sprite drawing
+                        _rendRightLeft.DrawCentered(spriteBatch, _rendRightLeft.GetSourceRectangle()); break;
+                    case 7: // LEFT sprite drawing
+                        _rendRightLeft.DrawHorizontallyFlipped(spriteBatch, isCentered); break;
                     default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
                 }
             }
@@ -124,6 +164,14 @@ namespace _3902_Project
                     case 2: // RIGHT sprite drawing
                         _rendRightLeft.Draw(spriteBatch, _rendRightLeft.GetSourceRectangle(), _rendRightLeft.GetDestinationRectangle()); break;
                     case 3: // LEFT sprite drawing
+                        _rendRightLeft.DrawHorizontallyFlipped(spriteBatch, isCentered); break;
+                    case 4: // DOWN sprite drawing
+                        _rendDown.Draw(spriteBatch, _rendDown.GetSourceRectangle(), _rendDown.GetDestinationRectangle()); break;
+                    case 5: // UP sprite drawing
+                        _rendUp.Draw(spriteBatch, _rendUp.GetSourceRectangle(), _rendUp.GetDestinationRectangle()); break;
+                    case 6: // RIGHT sprite drawing
+                        _rendRightLeft.Draw(spriteBatch, _rendRightLeft.GetSourceRectangle(), _rendRightLeft.GetDestinationRectangle()); break;
+                    case 7: // LEFT sprite drawing
                         _rendRightLeft.DrawHorizontallyFlipped(spriteBatch, isCentered); break;
                     default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
                 }
@@ -144,6 +192,14 @@ namespace _3902_Project
                         _rendRight.DrawCentered(spriteBatch, _rendRight.GetSourceRectangle()); break;
                     case 3: // LEFT sprite drawing
                         _rendLeft.DrawCentered(spriteBatch, _rendLeft.GetSourceRectangle()); break;
+                    case 4: // DOWN sprite drawing
+                        _rendDown.DrawCentered(spriteBatch, _rendDown.GetSourceRectangle()); break;
+                    case 5: // UP sprite drawing
+                        _rendUp.DrawCentered(spriteBatch, _rendUp.GetSourceRectangle()); break;
+                    case 6: // RIGHT sprite drawing
+                        _rendRight.DrawCentered(spriteBatch, _rendRight.GetSourceRectangle()); break;
+                    case 7: // LEFT sprite drawing
+                        _rendLeft.DrawCentered(spriteBatch, _rendLeft.GetSourceRectangle()); break;
                     default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
                 }
             }
@@ -158,6 +214,14 @@ namespace _3902_Project
                     case 2: // RIGHT sprite drawing
                         _rendRight.Draw(spriteBatch, _rendRight.GetSourceRectangle(), _rendRight.GetDestinationRectangle()); break;
                     case 3: // LEFT sprite drawing
+                        _rendLeft.Draw(spriteBatch, _rendLeft.GetSourceRectangle(), _rendLeft.GetDestinationRectangle()); break;
+                    case 4: // DOWN sprite drawing
+                        _rendDown.Draw(spriteBatch, _rendDown.GetSourceRectangle(), _rendDown.GetDestinationRectangle()); break;
+                    case 5: // UP sprite drawing
+                        _rendUp.Draw(spriteBatch, _rendUp.GetSourceRectangle(), _rendUp.GetDestinationRectangle()); break;
+                    case 6: // RIGHT sprite drawing
+                        _rendRight.Draw(spriteBatch, _rendRight.GetSourceRectangle(), _rendRight.GetDestinationRectangle()); break;
+                    case 7: // LEFT sprite drawing
                         _rendLeft.Draw(spriteBatch, _rendLeft.GetSourceRectangle(), _rendLeft.GetDestinationRectangle()); break;
                     default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
                 }

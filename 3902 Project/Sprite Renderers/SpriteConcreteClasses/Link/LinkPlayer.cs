@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using static _3902_Project.ILinkStateMachine;
 
@@ -93,6 +95,22 @@ namespace _3902_Project
             if (!IsDamagedKeysPressed()) { StopDamage(); }
             if (!IsMovementKeysPressed()) { StayStill(); }
             if (!IsAttackKeysPressed()) { StopAttack(); }
+
+            List<Tuple<ISprite, int>> tempList = new List<Tuple<ISprite, int>>();
+            foreach (var proj in _currentProjectiles)
+            {
+                int counter = proj.Item2;
+                counter--;
+                if (counter != 0)
+                {
+                    tempList.Add(new Tuple<ISprite, int>(proj.Item1, counter));
+                }
+                else
+                {
+                    _projectileManager.UnloadProjectile(proj.Item1);
+                }
+            }
+            _currentProjectiles = tempList;
         }
 
         public ILinkStateMachine.MOVEMENT getState()
