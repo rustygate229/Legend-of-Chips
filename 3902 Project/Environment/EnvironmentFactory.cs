@@ -46,7 +46,7 @@ namespace _3902_Project
             _characterStateManager = characterState;
 
             // Initialize Collision
-            _collisionBoxes = new List<List<ICollisionBox>>(4);
+            _collisionBoxes = new List<List<ICollisionBox>>();
             _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item, projectile, characterState);
 
             _level = 1;
@@ -193,6 +193,7 @@ namespace _3902_Project
         {
             _collisionBoxes.Clear();
             List<ICollisionBox> linkCollision = new List<ICollisionBox>();
+            linkCollision.Add(new LinkCollisionBox(new Rectangle(300, 300, 16, 16), true, 4, 10));
 
             _collisionBoxes.Add(linkCollision);
             _collisionBoxes.Add(_enemyManager.collisionBoxes);

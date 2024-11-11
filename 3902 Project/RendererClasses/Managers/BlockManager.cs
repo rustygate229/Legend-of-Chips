@@ -20,7 +20,7 @@ namespace _3902_Project
         }
 
         // block dictionary/inventory
-        public List<ICollisionBox> collisionBoxes;
+        public List<ICollisionBox> collisionBoxes = new List<ICollisionBox>();
 
         private List<ISprite> _runningBlocks = new List<ISprite>();
 
@@ -31,7 +31,7 @@ namespace _3902_Project
 
 
         // constructor
-        public BlockManager() { }
+        public BlockManager() {}
 
 
         public void LoadAll(SpriteBatch spriteBatch, ContentManager content)

@@ -38,7 +38,7 @@ namespace _3902_Project
             _graphics = new(this)
             {
                 PreferredBackBufferWidth = 256 * 4,
-                PreferredBackBufferHeight = (176 * 4) + ((176 * 4) * (1 / 4))  // (1024, 900)
+                PreferredBackBufferHeight = 900  // (1024, 900)
             };
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -68,6 +68,7 @@ namespace _3902_Project
             BackgroundMusic.LoadSongs();
             CharacterStateManager.LoadAll(this, 6);
             Menu.LoadAll(_spriteBatch, Content, CharacterStateManager, ItemManager);
+
             EnvironmentFactory.LoadAll(BlockManager, ItemManager, ProjectileManager, EnemyManager, LinkManager, CharacterStateManager);
             EnvironmentFactory.loadLevel();
 
@@ -85,8 +86,7 @@ namespace _3902_Project
             EnemyManager.Update(); 
             LinkManager.Update();
             EnvironmentFactory.Update();
-            
-            
+
             // Update input controls
             keyboardController.Update();
             mouseController.Update();

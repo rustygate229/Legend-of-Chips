@@ -16,6 +16,8 @@ namespace _3902_Project
         private LinkSprite _currentLinkSprite;
         private LinkActions _currentLinkAction;
 
+        private bool _linkDamaged;
+
         // link dictionary/inventory
         private ISprite _currentLink;
 
@@ -34,13 +36,14 @@ namespace _3902_Project
         public LinkManager() { }
 
         // Load all link textures
-        public void LoadAll(SpriteBatch spriteBatch, ContentManager content, ProjectileManager manager) { 
-            _spriteBatch = spriteBatch; 
-            _factory.LoadAllTextures(content); 
+        public void LoadAll(SpriteBatch spriteBatch, ContentManager content, ProjectileManager manager) {
+            _spriteBatch = spriteBatch;
+            _factory.LoadAllTextures(content);
             _manager = manager;
             _currentLinkSprite = LinkSprite.Standing;
             _currentLinkAction = LinkActions.None;
             _direction = Renderer.DIRECTION.UP;
+            _linkDamaged = false;
             _currentLink = _factory.CreateLink(_currentLinkSprite, _direction, _printScale, _manager);
         }
 
@@ -48,20 +51,21 @@ namespace _3902_Project
         public void SetLinkSpriteState(LinkSprite currentSprite) { _currentLinkSprite = currentSprite; ReplaceLinkSprite(currentSprite); }
         public void SetLinkActionState(LinkActions currentAction) { _currentLinkAction = currentAction; }
 
-        public void SetLinkDirection(Renderer.DIRECTION direction) { _direction = direction;}
-        public Renderer.DIRECTION GetLinkDirection() { return _direction ;}
+        public void SetLinkDirection(Renderer.DIRECTION direction) { _direction = direction; }
+        public Renderer.DIRECTION GetLinkDirection() { return _direction; }
 
         public void SetLinkPosition(Vector2 position) { _position = position; _currentLink.SetPosition(position); }
 
-        public void ReplaceLinkSprite(LinkSprite name) { 
-            _currentLinkSprite = name; 
+        public void ReplaceLinkSprite(LinkSprite name) {
+            _currentLinkSprite = name;
             _currentLink = _factory.CreateLink(name, _direction, _printScale, _manager);
             _currentLink.SetPosition(_position);
         }
 
         public Vector2 GetLinkPosition() { return _position; }
-        
         public LinkActions GetLinkActions() { return _currentLinkAction; }
+
+        public void flipDamaged() { _linkDamaged = !_linkDamaged; }
 
         /// <summary>
         /// Updates the current link

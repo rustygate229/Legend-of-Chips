@@ -22,14 +22,12 @@ namespace _3902_Project
 
         public List <ICollisionBox> collisionBoxes { get; private set; }
         private Game1 _game;
-
-        public List<ICollisionBox> _collisionBoxes { get; private set; }
         private int _currentEnemyIndex = 0;
 
         // constructor
         public EnemyManager()
         {
-            _collisionBoxes = new List<ICollisionBox>();
+            collisionBoxes = new List<ICollisionBox>();
         }
 
 
@@ -66,7 +64,7 @@ namespace _3902_Project
         public void UnloadAllEnemies() 
         { 
             _runningEnemies.Clear(); 
-            _collisionBoxes.Clear(); 
+            collisionBoxes.Clear(); 
         }
 
         /// <summary>
@@ -100,9 +98,10 @@ namespace _3902_Project
             }
         }
 
-        /*
+        
         public void EnemyIsDead(EnemyCollisionBox enemyCollisionBox)
         {
+            /*
             int index = collisionBoxes.IndexOf(enemyCollisionBox);
 
             if (index >= 0)
@@ -116,10 +115,10 @@ namespace _3902_Project
                 i++;
 
             }
+            */
         }
-        */
 
-        public void SetDirection() {}
+        public void UpdateDirection(EnemyCollisionBox enemy, Vector2 temp) {}
     }
 }
 
