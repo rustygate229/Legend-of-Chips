@@ -71,12 +71,14 @@ namespace _3902_Project
             EnemyManager.LoadAllTextures();
             ProjectileManager.LoadAllTextures(Content);
             BackgroundMusic.LoadSongs();
-            Menu.LoadContent();
+            Menu.Load();
 
             EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager);
-
             EnvironmentFactory.loadLevel();
 
+            Menu.addWeaponToA(ItemManager.ItemNames.LongSword);
+            Menu.addWeaponToB(ItemManager.ItemNames.Bomb);
+            Menu.addWeaponToA(ItemManager.ItemNames.Bow);
         }
 
         protected override void Update(GameTime gameTime)
