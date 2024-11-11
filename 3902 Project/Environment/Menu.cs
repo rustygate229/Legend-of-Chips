@@ -111,7 +111,7 @@ namespace _3902_Project
             }
             _spriteBatch.Begin();
             _spriteBatch.DrawString(_font, "LEVEL - " + level, new Vector2(50, 30), Color.White);
-            _spriteBatch.DrawString(_font, "- LIFE -", new Vector2(750, 30), Color.Red);
+            // _spriteBatch.DrawString(_font, "- LIFE -", new Vector2(750, 30), Color.Red);
             _spriteBatch.DrawString(_font, "X" + _emeraldCount, new Vector2(350, 40), Color.White);
             _spriteBatch.DrawString(_font, "X" + _keyCount, new Vector2(350, 100), Color.White);
             _spriteBatch.DrawString(_font, "X" + _orbCount, new Vector2(350, 150), Color.White);
