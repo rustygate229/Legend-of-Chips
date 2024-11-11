@@ -32,7 +32,7 @@ public static class CollisionBoxHelper
         //Update the collision box position
         collisionBox.Bounds = currentBounds;
     }
-    
-    
+
+
 
 }

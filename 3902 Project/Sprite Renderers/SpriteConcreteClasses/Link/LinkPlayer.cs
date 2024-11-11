@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using static _3902_Project.ILinkStateMachine;
 
@@ -16,6 +18,14 @@ namespace _3902_Project
         LinkInventory _linkInventory;
         CharacterStateManager _characterState;
 
+        // Link boundary area (x, y, width, height)
+        private Rectangle playAreaBoundary = new Rectangle(125, 320, 780, 450);
+        private Rectangle doorBoundaries2 = new Rectangle(500, 300, 20, 23);  //up
+        private Rectangle doorBoundaries3 = new Rectangle(500, 730, 20, 23);   //down
+        private Rectangle doorBoundaries1 = new Rectangle(100, 530, 23, 18);  //left
+        private Rectangle doorBoundaries4 = new Rectangle(880, 530, 23, 18);    //right
+
+
 
         //double x, y;
         public LinkPlayer(SpriteBatch sb, ContentManager content, ProjectileManager projectileManager, CharacterStateManager characterState)
@@ -27,7 +37,9 @@ namespace _3902_Project
             _characterState = characterState;
 
             _projectileManager = projectileManager;
+
         }
+        
 
         public ICollisionBox getCollisionBox()
         {
@@ -65,7 +77,7 @@ namespace _3902_Project
             return keyboard.IsKeyDown(Keys.E);
         }
 
-        private Rectangle playAreaBoundary = new Rectangle(125, 320, 780, 450);
+      
 
         public void Attack() { _linkStateMachine.setMelee(); }
         public void Throw() {
@@ -112,7 +124,30 @@ namespace _3902_Project
             ICollisionBox playerCollisionBox = ((LinkMovement)_linkMovement).getCollisionBox();
             playerCollisionBox.Bounds = new Rectangle(x, y, playerCollisionBox.Bounds.Width, playerCollisionBox.Bounds.Height);
 
-            CollisionBoxHelper.KeepInBounds(playerCollisionBox, playAreaBoundary);
+            // Ensure Link stays within the play area or door regions
+            if (!playAreaBoundary.Contains(playerCollisionBox.Bounds))
+            {
+                bool isWithinDoorArea = false;
+
+                // Check if Link is within any of the door boundaries
+                if (doorBoundaries1.Intersects(playerCollisionBox.Bounds) ||
+                    doorBoundaries2.Intersects(playerCollisionBox.Bounds) ||
+                    doorBoundaries3.Intersects(playerCollisionBox.Bounds) ||
+                    doorBoundaries4.Intersects(playerCollisionBox.Bounds))
+                {
+                    isWithinDoorArea = true;
+                }
+
+                // Keep in bounds only if not in a door area
+                if (!isWithinDoorArea)
+                {
+                    CollisionBoxHelper.KeepInBounds(playerCollisionBox, playAreaBoundary);
+                }
+            }
+
+            // Print Link's position for debugging purposes
+            Console.WriteLine($"Link Position: X = {x}, Y = {y}");
+
 
             if (!IsDamagedKeysPressed()) { StopDamage(); }
             if (!IsMovementKeysPressed()) { StayStill(); }
