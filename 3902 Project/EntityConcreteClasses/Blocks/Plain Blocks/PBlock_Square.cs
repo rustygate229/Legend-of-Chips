@@ -7,7 +7,7 @@ namespace _3902_Project
     public class PBlock_Square : ISprite
     {
         // variables to change based on where your block is and what to print out
-        private Rectangle _spritePosition = new (256 + (5*16), 11 + (5*16), 16, 16);
+        private Rectangle _spritePosition = new (1001, 11, 16, 16);
 
         // create a Renderer object
         private Renderer _block;

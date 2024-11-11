@@ -40,7 +40,7 @@ namespace _3902_Project
                 case ItemManager.ItemNames.Flute:
                     return new SItem_Flute(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.FullHeart:
-                    return new SItem_FullHeart(_itemSpritesheet, printScale);
+                    return new SItem_AddLife(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Game:
                     return new SItem_Game(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Horn:
@@ -59,19 +59,13 @@ namespace _3902_Project
                     return new SItem_Sword(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.WaterPlate:
                     return new SItem_WaterPlate(_itemSpritesheet, printScale);
-                case ItemManager.ItemNames.HP2:
-                    return new SItem_HP2(_itemSpritesheet, printScale);
-                case ItemManager.ItemNames.HP1:
-                    return new SItem_HP1(_itemSpritesheet, printScale);
-                case ItemManager.ItemNames.HP0:
-                    return new SItem_HP0(_itemSpritesheet, printScale);
-                default: throw new ArgumentException("invalid item name");
-            }
-        }
-        public ISprite CreateItem(ItemManager.ItemNames itemName, float printScale, int frames)
-        {
-            switch (itemName)
-            {
+                case ItemManager.ItemNames.HeartFull:
+                    return new SItem_HeartFull(_itemSpritesheet, printScale);
+                case ItemManager.ItemNames.HeartHalf:
+                    return new SItem_HeartHalf(_itemSpritesheet, printScale);
+                case ItemManager.ItemNames.HeartEmpty:
+                    return new SItem_HeartEmpty(_itemSpritesheet, printScale);
+
                 case ItemManager.ItemNames.DepletingHeart:
                     return new AItem_DepletingHeart(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.FlashingArrow:

@@ -36,7 +36,7 @@ namespace _3902_Project
         {
             switch (projectileName)
             {
-                case ProjectileManager.ProjectileNames.Bomb:
+                case ProjectileManager.ProjectileNames.FireBall:
                     return new PJoiner_FireBall(_linkSpriteSheet, direction, printScale);
                 case ProjectileManager.ProjectileNames.BlueArrow:
                     return new PJoiner_BlueArrow(_linkSpriteSheet, direction, printScale);
@@ -51,7 +51,7 @@ namespace _3902_Project
         {
             switch(projectileName)
             {
-                case ProjectileManager.ProjectileNames.FireBall:
+                case ProjectileManager.ProjectileNames.Bomb:
                     return new PJoiner_Bomb(_enemySpriteSheet, printScale);
                 default: throw new ArgumentException("Invalid projectile name in factory");
             }

@@ -11,7 +11,7 @@ namespace _3902_Project
         // create block names for finding them
         public enum BlockNames
         {
-            Environment, Pyramid, Dirt, Square, Tile, WhiteBrick, WhiteTile, Blue,
+            Environment, Dirt, Square, Tile, WhiteBrick, WhiteTile, Water,
             BombedDoor_DOWN, BombedDoor_UP, BombedDoor_RIGHT, BombedDoor_LEFT,
             DiamondHoleLockedDoor_DOWN, DiamondHoleLockedDoor_UP, DiamondHoleLockedDoor_RIGHT, DiamondHoleLockedDoor_LEFT,
             KeyHoleLockedDoor_DOWN, KeyHoleLockedDoor_UP, KeyHoleLockedDoor_RIGHT, KeyHoleLockedDoor_LEFT,
@@ -69,7 +69,7 @@ namespace _3902_Project
             {
                 //also check for correctness here
                 //check with evan later about how to get width and height of blocks
-                collisionBoxes.Add(new BlockCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, (int)(16 * printScale), (int)(16 * printScale)), true));
+                collisionBoxes.Add(new BlockCollisionBox(currentSprite.GetRectanglePosition(), true));
             }
             return currentSprite;
         }
@@ -87,7 +87,7 @@ namespace _3902_Project
             ISprite currentSprite = _factory.CreateBlock(name, printScale, speed);
             currentSprite.SetPosition(placementPosition);
             _runningBlocks.Add(currentSprite);
-            collisionBoxes.Add(new BlockCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, (int)(16 * printScale), (int)(16 * printScale)), true));
+            collisionBoxes.Add(new BlockCollisionBox(currentSprite.GetRectanglePosition(), true));
             return currentSprite;
         }
 

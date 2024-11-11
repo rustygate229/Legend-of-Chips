@@ -13,7 +13,7 @@ namespace _3902_Project
             FullHeart, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Ladder,
             MagicStaff, Game, NormalKey, BossKey, Compass, FlashingLife, DepletingHeart, FlashingEmerald,
             FlashingPotion, FlashingScripture, FlashingSword, FlashingBanana, FlashingArrow,
-            FlashingCandle, FlashingRing, FlashingTriForce, HP0, HP1, HP2,
+            FlashingCandle, FlashingRing, FlashingTriForce, HeartEmpty, HeartHalf, HeartFull,
         }
 
         // item dictionary/inventory
@@ -45,31 +45,9 @@ namespace _3902_Project
             _runningItems.Add(currentSprite);
 
             // Add item collision box for collision detection
-            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20), name, 1);
+            var collisionBox = new ItemCollisionBox(currentSprite.GetRectanglePosition(), name, 1);
             _itemCollisionDictionary[collisionBox] = currentSprite;
             collisionBoxes.Add(collisionBox);
-
-            return currentSprite;
-        }
-
-        /// <summary>
-        /// Add an item to the running item list
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="placementPosition"></param>
-        /// <param name="printScale"></param>
-        /// <param name="frames"></param>
-        public ISprite AddItem(ItemNames name, Vector2 placementPosition, float printScale, int frames)
-        {
-            ISprite currentSprite = _factory.CreateItem(name, printScale, frames);
-
-            currentSprite.SetPosition(placementPosition);
-            _runningItems.Add(currentSprite);
-
-            // Add item collision box for collision detection
-            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20), name, 1);
-            collisionBoxes.Add(collisionBox);
-            _itemCollisionDictionary[collisionBox] = currentSprite;
 
             return currentSprite;
         }

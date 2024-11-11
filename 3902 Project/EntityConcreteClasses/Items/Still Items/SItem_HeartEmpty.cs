@@ -3,21 +3,20 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _3902_Project
 {
-    public class SItem_FullHeart : ISprite
+    public class SItem_HeartEmpty : ISprite
     {
         // variables to change based on where your item is and what to print out
-        private Rectangle _spritePosition = new (25, 1, 13, 13);
+        private Rectangle _spritePosition = new (16, 0 8, 8);
 
         // create a Renderer object
         private Renderer _item;
 
-
         /// <summary>
-        /// construct the sprite, pass in spritesheet and print dimension scale
+        /// construct the sprite, pass in spritesheet, print dimension scale and amount of frames
         /// </summary>
         /// <param name="spriteSheet"></param>
         /// <param name="printScale"></param>
-        public SItem_FullHeart(Texture2D spriteSheet, float printScale)
+        public SItem_HeartEmpty(Texture2D spriteSheet, float printScale)
         {
             _item = new(spriteSheet, _spritePosition, printScale);
             _item.SetAnimationStatus(Renderer.STATUS.Still);

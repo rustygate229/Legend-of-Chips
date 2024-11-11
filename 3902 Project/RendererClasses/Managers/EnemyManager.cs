@@ -14,8 +14,6 @@ namespace _3902_Project
 
         // enemy dictionary/inventory
         private List<ISprite> _runningEnemies = new List<ISprite>();
-        // enemy direction
-        private List<Vector2> _enemyDirections = new List<Vector2>(); 
 
         // create variables for passing
         private EnemySpriteFactory _factory = EnemySpriteFactory.Instance;
@@ -24,15 +22,14 @@ namespace _3902_Project
 
         public List <ICollisionBox> collisionBoxes { get; private set; }
         private Game1 _game;
-        private Rectangle playAreaBoundary = new Rectangle(125, 320, 780, 450);
 
-        public List<ICollisionBox> collisionBoxes { get; private set; }
+        public List<ICollisionBox> _collisionBoxes { get; private set; }
         private int _currentEnemyIndex = 0;
 
         // constructor
         public EnemyManager()
         {
-            collisionBoxes = new List<ICollisionBox>();
+            _collisionBoxes = new List<ICollisionBox>();
         }
 
 
@@ -59,7 +56,6 @@ namespace _3902_Project
 
             currentSprite.SetPosition(placementPosition);
             _runningEnemies.Add(currentSprite);
-            _enemyDirections.Add(initialDirection);
 
             return currentSprite;
         }
@@ -70,8 +66,7 @@ namespace _3902_Project
         public void UnloadAllEnemies() 
         { 
             _runningEnemies.Clear(); 
-            collisionBoxes.Clear(); 
-           
+            _collisionBoxes.Clear(); 
         }
 
         /// <summary>
@@ -95,76 +90,17 @@ namespace _3902_Project
             }
         }
 
-        public void UpdateDirection(EnemyCollisionBox enemy, Vector2 newDirection)
-        {
-            int index = collisionBoxes.IndexOf(enemy);
-            if (index >= 0)
-            {
-                _enemyDirections[index] = newDirection;
-            }
-        }
-
         public void Update()
         {
             Random random = new Random();
 
-            for (int i = _runningEnemies.Count - 1; i >= 0; i--)
+            foreach (var enemy in _runningEnemies)
             {
-                ISprite enemy = _runningEnemies[i];
-                EnemyCollisionBox collisionBox = (EnemyCollisionBox)collisionBoxes[i];
-
-                if (collisionBox.Health <= 0)
-                {
-                    EnemyIsDead(collisionBox);
-                }
-                else
-                {
-                    Vector2 direction = _enemyDirections[i];
-
-                    // 3% chance to randomly change direction
-                    if (random.Next(100) < 3)
-                    {
-                        int directionChoice = random.Next(4);
-                        switch (directionChoice)
-                        {
-                            case 0:
-                                direction = new Vector2(2, 0); // move right
-                                break;
-                            case 1:
-                                direction = new Vector2(-2, 0); // move left
-                                break;
-                            case 2:
-                                direction = new Vector2(0, 2); // move down
-                                break;
-                            default:
-                                direction = new Vector2(0, -2); // move up 
-                                break;
-                        }
-                        _enemyDirections[i] = direction;
-                    }
-
-                    // Update enemy position based on direction
-                    Vector2 newPosition = new Vector2(collisionBox.Bounds.X + direction.X, collisionBox.Bounds.Y + direction.Y);
-                    collisionBox.Bounds = new Rectangle((int)newPosition.X, (int)newPosition.Y, collisionBox.Bounds.Width, collisionBox.Bounds.Height);
-
-                    // Check bounds and reverse direction if exceeded
-                    if (!playAreaBoundary.Contains(collisionBox.Bounds))
-                    {
-                        direction *= -1; // reverse direction
-                        _enemyDirections[i] = direction;
-
-                        // Adjust the position to keep it within the boundaries
-                        CollisionBoxHelper.KeepInBounds(collisionBox, playAreaBoundary);
-                        newPosition = new Vector2(collisionBox.Bounds.X, collisionBox.Bounds.Y);
-                    }
-
-                    // Update the enemy's position to sync with the collision box
-                    enemy.SetPosition(new Vector2(collisionBox.Bounds.X, collisionBox.Bounds.Y));
-                    enemy.Update();
-                }
+                enemy.Update();
             }
         }
 
+        /*
         public void EnemyIsDead(EnemyCollisionBox enemyCollisionBox)
         {
             int index = collisionBoxes.IndexOf(enemyCollisionBox);
@@ -181,6 +117,7 @@ namespace _3902_Project
 
             }
         }
+        */
     }
 }
 
