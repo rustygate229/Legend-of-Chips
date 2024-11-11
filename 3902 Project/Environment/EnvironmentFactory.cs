@@ -192,8 +192,9 @@ namespace _3902_Project
         public void loadCollisions()
         {
             _collisionBoxes.Clear();
+
             List<ICollisionBox> linkCollision = new List<ICollisionBox>();
-            linkCollision.Add(new LinkCollisionBox(new Rectangle(300, 300, 16, 16), true, 4, 10));
+            linkCollision.Add(_linkManager._collisionBox);
 
             _collisionBoxes.Add(linkCollision);
             _collisionBoxes.Add(_enemyManager.collisionBoxes);

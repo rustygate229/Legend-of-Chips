@@ -27,6 +27,7 @@ namespace _3902_Project
         private SpriteBatch _spriteBatch;
 
         // Links global variables
+        public LinkCollisionBox _collisionBox;
         private Vector2 _position;
         private Renderer.DIRECTION _direction;
         private float _printScale = 4f;
@@ -45,16 +46,22 @@ namespace _3902_Project
             _direction = Renderer.DIRECTION.UP;
             _linkDamaged = false;
             _currentLink = _factory.CreateLink(_currentLinkSprite, _direction, _printScale, _manager);
+
+            _collisionBox = new LinkCollisionBox(_currentLink.GetRectanglePosition(), true, 3, 10);
         }
 
 
         public void SetLinkSpriteState(LinkSprite currentSprite) { _currentLinkSprite = currentSprite; ReplaceLinkSprite(currentSprite); }
         public void SetLinkActionState(LinkActions currentAction) { _currentLinkAction = currentAction; }
-
         public void SetLinkDirection(Renderer.DIRECTION direction) { _direction = direction; }
         public Renderer.DIRECTION GetLinkDirection() { return _direction; }
+        public void SetLinkPosition(Vector2 position) { 
 
-        public void SetLinkPosition(Vector2 position) { _position = position; _currentLink.SetPosition(position); }
+            _position = position; 
+            _currentLink.SetPosition(position);
+
+            _collisionBox.Bounds = _currentLink.GetRectanglePosition();
+        }
 
         public void ReplaceLinkSprite(LinkSprite name) {
             _currentLinkSprite = name;
@@ -62,9 +69,9 @@ namespace _3902_Project
             _currentLink.SetPosition(_position);
         }
 
-        public Vector2 GetLinkPosition() { return _position; }
+        public Rectangle GetLinkRectanglePosition() { return _currentLink.GetRectanglePosition(); }
+        public Vector2 GetLinkPosition() { return _currentLink.GetVectorPosition();  }
         public LinkActions GetLinkActions() { return _currentLinkAction; }
-
         public void flipDamaged() { _linkDamaged = !_linkDamaged; }
 
         /// <summary>
@@ -72,8 +79,6 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            //Console.WriteLine("direction: " + _direction.ToString());
-            
             _currentLink.Update();
             _position = _currentLink.GetVectorPosition();
         }
