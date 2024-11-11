@@ -118,6 +118,8 @@ namespace _3902_Project
             }
         }
         */
+
+        public void SetDirection()
     }
 }
 

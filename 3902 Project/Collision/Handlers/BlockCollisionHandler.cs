@@ -9,9 +9,7 @@ namespace _3902_Project
     {
         //private List<ICollisionBox> _blocks;
 
-        public BlockCollisionHandler()
-        {
-        }
+        public BlockCollisionHandler() { }
 
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable)
         {

@@ -2,14 +2,14 @@
 
 namespace _3902_Project
 {
-    public class BulletCollisionBox : ICollisionBox
+    public class EnemyProjCollisionBox : ICollisionBox
     {
         private Rectangle _bounds;
         private bool _collidable;
         private int _damage;
         private int _health;
 
-        public BulletCollisionBox(Rectangle bounds, int damage, int health)
+        public EnemyProjCollisionBox(Rectangle bounds, int damage, int health)
         {
             _bounds = bounds;
             _collidable = true; 

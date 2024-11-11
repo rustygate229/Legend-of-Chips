@@ -9,8 +9,9 @@ namespace _3902_Project
     public class LinkManager
     {
         // create link names for finding them
-        public enum LinkActions { Standing, Moving, Throwing }
-        private LinkActions _currentLinkAction;
+        public enum LinkSprite { Standing, Moving, Throwing }
+        public enum LinkSprite { SwordAttack, SwordThrow }
+        private LinkSprite _currentLinkAction;
 
         // link dictionary/inventory
         private ISprite _currentLink;

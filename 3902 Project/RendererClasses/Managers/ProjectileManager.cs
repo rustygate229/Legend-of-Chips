@@ -34,7 +34,7 @@ namespace _3902_Project
             ISprite currentSprite = _factory.CreateProjectile(name, direction, printScale);
             currentSprite.SetPosition(placementPosition);
             _runningProjectiles.Add(currentSprite);
-            _projectileCollisionBoxes.Add(new ProjectileCollisionBox(currentSprite.GetRectanglePosition(), 10, 1));
+            _projectileCollisionBoxes.Add(new LinkProjCollisionBox(currentSprite.GetRectanglePosition(), 10, 1));
             return currentSprite;
         }
 
@@ -49,7 +49,7 @@ namespace _3902_Project
             ISprite currentSprite = _factory.CreateProjectile(name, printScale);
             currentSprite.SetPosition(placementPosition);
             _runningProjectiles.Add(currentSprite);
-            _projectileCollisionBoxes.Add(new ProjectileCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 32, 32), 10, 1));
+            _projectileCollisionBoxes.Add(new LinkProjCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 32, 32), 10, 1));
             return currentSprite;
         }
 

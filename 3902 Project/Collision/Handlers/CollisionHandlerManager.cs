@@ -13,7 +13,7 @@ namespace _3902_Project
 
         public CollisionHandlerManager(LinkManager link, EnemyManager enemyManager, ItemManager itemManager, ProjectileManager projectileManager, CharacterStateManager characterStateManager)
         {
-            EnemyCollisionHandler = new EnemyCollisionHandler(enemyManager, characterStateManager);
+            EnemyCollisionHandler = new EnemyCollisionHandler(enemyManager);
             LinkCollisionHandler = new LinkCollisionHandler(link, enemyManager, itemManager, characterStateManager);
             ItemCollisionHandler = new ItemCollisionHandler(link, itemManager);
             BlockCollisionHandler = new BlockCollisionHandler();
@@ -37,7 +37,7 @@ namespace _3902_Project
             {
                 LinkCollisionHandler.HandleCollision((LinkCollisionBox)objectA, objectB, side, isCollidable);
             }
-            else if (objectA is ProjectileCollisionBox || objectB is ProjectileCollisionBox)
+            else if (objectA is LinkProjCollisionBox || objectB is LinkProjCollisionBox)
             {
                 ProjectileCollisionHandler.HandleCollision(objectA, objectB, side, isCollidable);
             }

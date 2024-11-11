@@ -15,17 +15,17 @@ namespace _3902_Project
 
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable)
         {
-            if (objectA is ProjectileCollisionBox projectileA)
+            if (objectA is LinkProjCollisionBox projectileA)
             {
                 HandleProjectileCollision(projectileA, objectB, side);
             }
-            else if (objectB is ProjectileCollisionBox projectileB)
+            else if (objectB is LinkProjCollisionBox projectileB)
             {
                 HandleProjectileCollision(projectileB, objectA, side);
             }
         }
 
-        private void HandleProjectileCollision(ProjectileCollisionBox projectile, ICollisionBox otherObject, CollisionType side)
+        private void HandleProjectileCollision(LinkProjCollisionBox projectile, ICollisionBox otherObject, CollisionType side)
         {
             if (!projectile.IsCollidable || !otherObject.IsCollidable) return;
 
