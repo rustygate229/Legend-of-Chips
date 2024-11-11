@@ -7,12 +7,12 @@ namespace _3902_Project
 
         public CommandLinkStill(Game1 game)
         {
-            _link = game._Link;
+            _link = game.LinkManager;
         }
 
         public void Execute()
         {
-            _link.SetLinkState(LinkManager.LinkActions.Standing);
+            _link.SetLinkSpriteState(LinkManager.LinkSprite.Standing);
         }
     }
 }

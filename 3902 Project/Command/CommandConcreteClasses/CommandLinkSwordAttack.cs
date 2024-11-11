@@ -12,7 +12,7 @@ namespace _3902_Project
 
         public void Execute()
         {
-            _link.SetLinkState(LinkManager.LinkSprite.Throwing);
+            _link.SetLinkActionState(LinkManager.LinkActions.SwordAttack);
         }
     }
 }

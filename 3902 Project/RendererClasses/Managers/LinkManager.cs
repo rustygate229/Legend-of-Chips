@@ -45,14 +45,15 @@ namespace _3902_Project
         }
 
 
-        public void SetLinkSpriteState(LinkSprite currentSprite) { _currentLinkSprite = currentSprite; ReplaceLink(currentSprite); }
+        public void SetLinkSpriteState(LinkSprite currentSprite) { _currentLinkSprite = currentSprite; ReplaceLinkSprite(currentSprite); }
+        public void SetLinkActionState(LinkActions currentAction) { _currentLinkAction = currentAction; }
 
         public void SetLinkDirection(Renderer.DIRECTION direction) { _direction = direction;}
         public Renderer.DIRECTION GetLinkDirection() { return _direction ;}
 
         public void SetLinkPosition(Vector2 position) { _position = position; _currentLink.SetPosition(position); }
 
-        public void ReplaceLink(LinkSprite name) { 
+        public void ReplaceLinkSprite(LinkSprite name) { 
             _currentLinkSprite = name; 
             _currentLink = _factory.CreateLink(name, _direction, _printScale, _manager);
             _currentLink.SetPosition(_position);
