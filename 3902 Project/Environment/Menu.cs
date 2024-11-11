@@ -2,32 +2,30 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Diagnostics;
 
 namespace _3902_Project
 {
     public class Menu
     {
-        ContentManager _content;
-        SpriteBatch _batch;
-        ItemManager _itemManager;
-        CharacterStateManager _characterState;
-        SpriteFont _font;
+        private ContentManager _content;
+        private SpriteBatch _spriteBatch;
+        private ItemManager _itemManager;
+        private CharacterStateManager _characterState;
+        private SpriteFont _font;
 
-        int level;
+        private int level;
 
-        public Menu(ContentManager content, SpriteBatch spriteBatch, ItemManager itemManager, CharacterStateManager characterState)
+        public Menu() { }
+
+        public void LoadAll(SpriteBatch spriteBatch, ContentManager content, CharacterStateManager characterState, ItemManager item)
         {
+            _spriteBatch = spriteBatch;
             _content = content;
-            _batch = spriteBatch;
-            _itemManager = itemManager;
             _characterState = characterState ?? throw new ArgumentNullException(nameof(characterState));
+            _itemManager = item;
 
             level = 1;
-        }
 
-        public void LoadContent()
-        {
             _font = _content.Load<SpriteFont>("Menu");
         }
 
@@ -43,10 +41,10 @@ namespace _3902_Project
             //{
             //    throw new InvalidOperationException("CharacterStateManager is not initialized.");
             //}
-            _batch.Begin();
-            _batch.DrawString(_font, "LEVEL - " + level, new Vector2(50, 30), Color.White);
-            _batch.DrawString(_font, "- LIFE -", new Vector2(700, 30), Color.Red);
-            _batch.End();
+            _spriteBatch.Begin();
+            _spriteBatch.DrawString(_font, "LEVEL - " + level, new Vector2(50, 30), Color.White);
+            _spriteBatch.DrawString(_font, "- LIFE -", new Vector2(700, 30), Color.Red);
+            _spriteBatch.End();
 
             // Draw a heart shape based on the character's HP
             int fullHearts = _characterState.GetFullHearts();
@@ -61,18 +59,18 @@ namespace _3902_Project
 
                 if (i < fullHearts)
                 {
-                    heartSprite = _itemManager.AddItem(ItemManager.ItemNames.HP2, new Vector2(700 + i * 40, 60), heartScale);
+                    heartSprite = _itemManager.AddItem(ItemManager.ItemNames.HeartFull, new Vector2(700 + i * 40, 60), heartScale);
                 }
                 else if (i == fullHearts && hasHalfHeart)
                 {
-                    heartSprite = _itemManager.AddItem(ItemManager.ItemNames.HP1, new Vector2(700 + i * 40, 60), heartScale);
+                    heartSprite = _itemManager.AddItem(ItemManager.ItemNames.HeartHalf, new Vector2(700 + i * 40, 60), heartScale);
                 }
                 else
                 {
-                    heartSprite = _itemManager.AddItem(ItemManager.ItemNames.HP0, new Vector2(700 + i * 40, 60), heartScale);
+                    heartSprite = _itemManager.AddItem(ItemManager.ItemNames.HeartEmpty, new Vector2(700 + i * 40, 60), heartScale);
                 }
 
-                heartSprite.Draw(_batch); 
+                heartSprite.Draw(_spriteBatch); 
             }
         }
     }

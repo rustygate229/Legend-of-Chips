@@ -8,10 +8,9 @@ namespace _3902_Project
         private ContentManager _content;
         private Song song;
 
-        public BackgroundMusic(ContentManager content)
-        {
-            _content = content;
-        }
+        public BackgroundMusic() { }
+
+        public void LoadAll(ContentManager content) { _content = content; }
 
         public void LoadSongs()
         {

@@ -53,11 +53,6 @@ namespace _3902_Project
             return currentSprite;
         }
 
-        public void LoadAllTextures(ContentManager content)
-        {
-            _factory.LoadAllTextures(content);
-        }
-
         public void UnloadAllTextures(ContentManager content)
         {
             _factory.UnloadAllTextures(content);
@@ -78,12 +73,6 @@ namespace _3902_Project
 
 
         /// <summary>
-        /// Remove/Unload all Projectile Sprites
-        /// </summary>
-        public void UnloadAllBlocks() { _runningProjectiles = new List<ISprite>(); }
-
-
-        /// <summary>
         /// Draw all blocks in the List
         /// </summary>
         public void Draw()
@@ -94,7 +83,7 @@ namespace _3902_Project
             }
         }
 
-        public void UpdateProjectiles(GameTime gameTime)
+        public void Update()
         {
             foreach (var projectile in _runningProjectiles)
             {

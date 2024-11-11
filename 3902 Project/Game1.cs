@@ -11,18 +11,17 @@ namespace _3902_Project
         private SpriteBatch _spriteBatch;
 
         // Game objects and managers
-        internal LinkPlayer Player { get; private set; }  // Player object
-        internal BlockManager BlockManager { get; private set; }  // Block manager
-        internal ItemManager ItemManager { get; private set; }  // Item manager
-        internal EnemyManager EnemyManager { get; private set; } //Enemy manager
-        public ProjectileManager ProjectileManager { get; set; }   //Projectile manager
-        internal CharacterStateManager CharacterStateManager { get; private set; }  //Character manager
-        internal EnvironmentFactory EnvironmentFactory { get; private set; }
-        internal BackgroundMusic BackgroundMusic { get; set; }
-        internal Menu Menu { get; set; }
+        internal LinkManager LinkManager = new();
+        internal BlockManager BlockManager = new();
+        internal ItemManager ItemManager = new();
+        internal EnemyManager EnemyManager = new();
+        internal ProjectileManager ProjectileManager = new();
+        internal CharacterStateManager CharacterStateManager = new();
+        internal EnvironmentFactory EnvironmentFactory = new();
+        internal BackgroundMusic BackgroundMusic = new();
+        internal Menu Menu = new();
 
         //private List<ICollisionBox> _EnemyCollisionBoxes;
-
 
 
         Texture2D whiteRectangle;
@@ -30,15 +29,17 @@ namespace _3902_Project
         //private List<ICollisionBox> _itemCollisionBoxes;
 
         // Input controller
-        private IController keyboardController;
-        private IController mouseController;
+        internal IController keyboardController;
+        internal IController mouseController;
         
 
         public Game1()
         {
-            _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferWidth = 1024;
-            _graphics.PreferredBackBufferHeight = 900;
+            _graphics = new(this)
+            {
+                PreferredBackBufferWidth = 256 * 4,
+                PreferredBackBufferHeight = (176 * 4) + ((176 * 4) * (1 / 4))  // (1024, 900)
+            };
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -52,49 +53,37 @@ namespace _3902_Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            
-
-            CharacterStateManager = new CharacterStateManager(6, this); //assume maximum HP = 6
-
-            // Initialize all managers
-            BackgroundMusic = new BackgroundMusic(Content);
-            ProjectileManager = new ProjectileManager(Content, _spriteBatch);
-            BlockManager = new BlockManager(Content, _spriteBatch);
-            ItemManager = new ItemManager(Content, _spriteBatch);
-            EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
-            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager, CharacterStateManager);
-            Menu = new Menu(Content, _spriteBatch, ItemManager, CharacterStateManager);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
             mouseController = new MouseInput(this);
 
-
-            // Block and Item Texture Loading
-            BlockManager.LoadAllTextures();
-            ItemManager.LoadAllTextures();
-            EnemyManager.LoadAllTextures();
-            ProjectileManager.LoadAllTextures(Content);
+            // Loading all Managers
+            BlockManager.LoadAll(_spriteBatch, Content);
+            ItemManager.LoadAll(_spriteBatch, Content);
+            ProjectileManager.LoadAll(_spriteBatch, Content);
+            EnemyManager.LoadAll(_spriteBatch, Content, ProjectileManager);
+            LinkManager.LoadAll(_spriteBatch, Content, ProjectileManager);
+            BackgroundMusic.LoadAll(Content);
             BackgroundMusic.LoadSongs();
-            Menu.LoadContent();
-
-
-            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, ProjectileManager, CharacterStateManager);
-
-            _EnvironmentFactory.loadLevel();
+            CharacterStateManager.LoadAll(this, 6);
+            Menu.LoadAll(_spriteBatch, Content, CharacterStateManager, ItemManager);
+            EnvironmentFactory.LoadAll(BlockManager, ItemManager, ProjectileManager, EnemyManager, LinkManager, CharacterStateManager);
+            EnvironmentFactory.loadLevel();
 
         }
 
         protected override void Update(GameTime gameTime)
         {
             CharacterStateManager.UpdateCooldown(gameTime);
-           
 
+            BlockManager.Update();
             ItemManager.Update();
-            ProjectileManager.UpdateProjectiles(gameTime); // Updated method call
-            EnemyManager.Update();
-            Player.Update();
-            EnvironmentFactory.Update(Player);
+            ProjectileManager.Update();
+            EnemyManager.Update(); 
+            LinkManager.Update();
+            EnvironmentFactory.Update();
+            
             
             // Update input controls
             keyboardController.Update();
@@ -106,21 +95,15 @@ namespace _3902_Project
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
-            _BlockManager.Draw();
-            _ItemManager.Draw();
-            _ProjectileManager.Draw();
-            _Link.Draw();
-            _EnemyManager.Draw();
+            
             BlockManager.Draw();
             ItemManager.Draw();
             ProjectileManager.Draw();
-            Player.Draw();
             EnemyManager.Draw();
+            LinkManager.Draw();
             Menu.Draw();
 
-            //DrawCollidables();
-
+            // DrawCollidables();
 
             base.Draw(gameTime);
         }

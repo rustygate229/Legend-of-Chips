@@ -39,7 +39,7 @@ namespace _3902_Project
                     return new SItem_Compass(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Flute:
                     return new SItem_Flute(_itemSpritesheet, printScale);
-                case ItemManager.ItemNames.FullHeart:
+                case ItemManager.ItemNames.AddLife:
                     return new SItem_AddLife(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Game:
                     return new SItem_Game(_itemSpritesheet, printScale);

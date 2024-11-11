@@ -15,15 +15,18 @@ namespace _3902_Project
 
         private Game1 _game;
 
-        private Dictionary<string, int> inventory;
+        private Dictionary<string, int> _inventory;
 
-        public CharacterStateManager(int maxHealth, Game1 game)
+        public CharacterStateManager()
+        {
+            _inventory = new Dictionary<string, int>();
+        }
 
+        public void LoadAll(Game1 game, int maxHealth)
         {
             _game = game;
             MaxHealth = maxHealth;
             Health = maxHealth;
-            inventory = new Dictionary<string, int>();
         }
 
         public void UpdateCooldown(GameTime gameTime)
@@ -63,29 +66,29 @@ namespace _3902_Project
 
         public void AddItem(string itemName)
         {
-            if (inventory.ContainsKey(itemName))
+            if (_inventory.ContainsKey(itemName))
             {
-                inventory[itemName]++;
+                _inventory[itemName]++;
             }
             else
             {
-                inventory[itemName] = 1;
+                _inventory[itemName] = 1;
             }
         }
 
         public void UseItem(string itemName)
         {
-            if (inventory.ContainsKey(itemName) && inventory[itemName] > 0)
+            if (_inventory.ContainsKey(itemName) && _inventory[itemName] > 0)
             {
                 if (itemName == "HealthPotion")
                 {
                     IncreaseHealth(2);
                 }
-                inventory[itemName]--;
+                _inventory[itemName]--;
 
-                if (inventory[itemName] == 0)
+                if (_inventory[itemName] == 0)
                 {
-                    inventory.Remove(itemName);
+                    _inventory.Remove(itemName);
                 }
             }
         }

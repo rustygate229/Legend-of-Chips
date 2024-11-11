@@ -13,7 +13,7 @@ namespace _3902_Project
         private EnemyManager _enemyManager;
         private CollisionHandlerManager _collisionHandlerManager;
         private ProjectileManager _projectileManager;
-        private LinkPlayer _link;
+        private LinkManager _linkManager;
         private CharacterStateManager _characterStateManager;
 
         private int _level;
@@ -35,18 +35,20 @@ namespace _3902_Project
         public List<List<ICollisionBox>> _collisionBoxes;
         
 
-        public EnvironmentFactory(BlockManager block, ItemManager item, LinkPlayer link, EnemyManager enemy, ProjectileManager projectileManager, CharacterStateManager characterStateManager)
+        public EnvironmentFactory() { }
+
+        public void LoadAll(BlockManager block, ItemManager item, ProjectileManager projectile, EnemyManager enemy, LinkManager link, CharacterStateManager characterState)
         {
             _blockManager = block;
             _itemManager = item;
+            _projectileManager = projectile;
             _enemyManager = enemy;
-            _link = link;
-            _projectileManager = projectileManager;
-            _characterStateManager = characterStateManager;
-            _collisionBoxes = new List<List<ICollisionBox>>(4);
+            _linkManager = link;
+            _characterStateManager = characterState;
 
             // Initialize Collision
-            _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item, projectileManager,characterStateManager);
+            _collisionBoxes = new List<List<ICollisionBox>>(4);
+            _collisionHandlerManager = new CollisionHandlerManager(link, enemy, item, projectile, characterState);
 
             _level = 1;
 
@@ -222,7 +224,7 @@ namespace _3902_Project
             if (_level > 1) { _level--; }
         }
 
-        public void Update(LinkManager player)
+        public void Update()
         {
             if (_prevLevel != -1 && _prevLevel != _level)
             {
