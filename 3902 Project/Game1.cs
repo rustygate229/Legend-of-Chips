@@ -78,7 +78,6 @@ namespace _3902_Project
 
             Menu.addWeaponToA(ItemManager.ItemNames.LongSword);
             Menu.addWeaponToB(ItemManager.ItemNames.Bomb);
-            Menu.addWeaponToA(ItemManager.ItemNames.Bow);
         }
 
         protected override void Update(GameTime gameTime)

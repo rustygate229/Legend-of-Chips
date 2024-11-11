@@ -19,10 +19,10 @@ namespace _3902_Project
         private Vector2 _keyPos = new Vector2(300, 80);
         private Vector2 _bombPos = new Vector2(300, 140);
         private Vector2 _boxAPos = new Vector2(480, 100);
-        private Vector2 _boxBPos = new Vector2(610, 100);
+        private Vector2 _boxNPos = new Vector2(610, 100);
 
         private ISprite spriteBoxA;
-        private ISprite spriteBoxB;
+        private ISprite spriteBoxN;
 
         private int _emeraldCount = 0;
         private int _keyCount = 0;
@@ -60,8 +60,8 @@ namespace _3902_Project
 
         public void addWeaponToB(ItemManager.ItemNames name)
         {
-            if (spriteBoxB != null) { _itemManager.RemoveMenuItem(spriteBoxB); }
-            spriteBoxB = _itemManager.AddMenuItem(name, _boxBPos, 4F);
+            if (spriteBoxN != null) { _itemManager.RemoveMenuItem(spriteBoxN); }
+            spriteBoxN = _itemManager.AddMenuItem(name, _boxNPos, 4F);
         }
 
         private void addStationary()
@@ -80,7 +80,7 @@ namespace _3902_Project
             _batch.DrawString(_font, "X" + _keyCount, new Vector2(350, 100), Color.White);
             _batch.DrawString(_font, "X" + _orbCount, new Vector2(350, 150), Color.White);
             _batch.DrawString(_font, "xA", new Vector2(480, 30), Color.White);
-            _batch.DrawString(_font, "xB", new Vector2(620, 30), Color.White);
+            _batch.DrawString(_font, "xN", new Vector2(620, 30), Color.White);
             _batch.End();
         }
     }
