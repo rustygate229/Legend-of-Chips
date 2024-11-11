@@ -31,7 +31,7 @@ namespace _3902_Project
         private int _keyCount = 0;
         private int _orbCount = 0;
 
-        public Menu(ContentManager content, SpriteBatch spriteBatch, ItemManager itemManager)
+        public Menu();
         public void LoadAll(SpriteBatch spriteBatch, ContentManager content, CharacterStateManager characterState, ItemManager item)
         {
             _spriteBatch = spriteBatch;

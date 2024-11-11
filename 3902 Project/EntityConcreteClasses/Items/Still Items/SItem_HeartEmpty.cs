@@ -6,7 +6,7 @@ namespace _3902_Project
     public class SItem_HeartEmpty : ISprite
     {
         // variables to change based on where your item is and what to print out
-        private Rectangle _spritePosition = new (16, 0 8, 8);
+        private Rectangle _spritePosition = new (16, 0, 8, 8);
 
         // create a Renderer object
         private Renderer _item;
