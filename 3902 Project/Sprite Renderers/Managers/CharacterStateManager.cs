@@ -10,13 +10,17 @@ namespace _3902_Project
         public int MaxHealth { get; private set; }
         public bool IsDead => Health <= 0;
 
-        private float _damageCooldownTime = 1.0f; 
+        private float _damageCooldownTime = 1.0f;
         private float _currentCooldownTime = 0.0f;
+
+        private Game1 _game;
 
         private Dictionary<string, int> inventory;
 
-        public CharacterStateManager(int maxHealth)
+        public CharacterStateManager(int maxHealth, Game1 game)
+
         {
+            _game = game;
             MaxHealth = maxHealth;
             Health = maxHealth;
             inventory = new Dictionary<string, int>();
@@ -98,8 +102,11 @@ namespace _3902_Project
 
         private void HandleDeath()
         {
-            Console.WriteLine("Character is dead.");
-            MySoundEffect.DiePlaySound();
+            if (IsDead)
+            {
+                _game.ResetGame();
+                MySoundEffect.DiePlaySound();
+            }
         }
     }
 }

@@ -54,16 +54,15 @@ namespace _3902_Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            CharacterStateManager = new CharacterStateManager(6); //assume maximum HP = 6
+            CharacterStateManager = new CharacterStateManager(6,this); //assume maximum HP = 6
             MySoundEffect = new MySoundEffect(Content);
             // Initialize all managers
             BackgroundMusic = new BackgroundMusic(Content);
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
-            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
             EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
-            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
+            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager,CharacterStateManager);
             Menu = new Menu(Content, _spriteBatch, ItemManager, CharacterStateManager);
 
             // Initialize keyboard input controller
