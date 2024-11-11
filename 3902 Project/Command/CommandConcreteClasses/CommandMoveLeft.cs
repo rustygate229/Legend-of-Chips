@@ -7,13 +7,13 @@ namespace _3902_Project
 
         public CommandMoveLeft(Game1 game)
         {
-            _link = game._Link;
+            _link = game.LinkManager;
         }
 
         public void Execute()
         {
             _link.SetLinkDirection(Renderer.DIRECTION.LEFT);
-            _link.SetLinkState(LinkManager.LinkActions.Moving);
+            _link.SetLinkSpriteState(LinkManager.LinkSprite.Moving);
         }
     }
 }

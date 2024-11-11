@@ -7,13 +7,13 @@ namespace _3902_Project
 
         public CommandMoveUp(Game1 game)
         {
-            _link = game._Link;
+            _link = game.LinkManager;
         }
 
         public void Execute()
         {
             _link.SetLinkDirection(Renderer.DIRECTION.UP);
-            _link.SetLinkState(LinkManager.LinkActions.Moving);
+            _link.SetLinkState(LinkManager.LinkSprite.Moving);
         }
     }
 }

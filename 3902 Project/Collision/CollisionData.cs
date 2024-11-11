@@ -25,7 +25,7 @@ namespace _3902_Project
                 ObjectA = b;
                 ObjectB = a;
             }
-            else if (b is BulletCollisionBox)
+            else if (b is EnemyProjCollisionBox)
             {
                 //bullet, OTHER (collision) (probably either an item or a block)
                 ObjectA = b;

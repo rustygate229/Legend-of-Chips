@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
 
 namespace _3902_Project
 {
@@ -88,9 +87,9 @@ namespace _3902_Project
         private void generateTranslations()
         {
             _csvTranslationsBlock.Add("-", BlockManager.BlockNames.Tile);
-            _csvTranslationsBlock.Add("b", BlockManager.BlockNames.Blue);
-            _csvTranslationsBlock.Add("p", BlockManager.BlockNames.Pyramid);
-            _csvTranslationsBlock.Add("s", BlockManager.BlockNames.Square);
+            _csvTranslationsBlock.Add("b", BlockManager.BlockNames.Water);
+            _csvTranslationsBlock.Add("p", BlockManager.BlockNames.Square);
+            _csvTranslationsBlock.Add("s", BlockManager.BlockNames.StatueDragon_LEFT);
             _csvTranslationsBlock.Add("d", BlockManager.BlockNames.Dirt);
 
             _csvTranslationsEnemy.Add("g", EnemyManager.EnemyNames.GreenSlime);
@@ -100,7 +99,7 @@ namespace _3902_Project
             _csvTranslationsItem.Add("fs", ItemManager.ItemNames.FlashingScripture);
             _csvTranslationsItem.Add("fl", ItemManager.ItemNames.FlashingLife);
             _csvTranslationsItem.Add("fp", ItemManager.ItemNames.FlashingPotion);
-            _csvTranslationsItem.Add("fh", ItemManager.ItemNames.FullHeart);
+            _csvTranslationsItem.Add("fh", ItemManager.ItemNames.AddLife);
             _csvTranslationsItem.Add("fa", ItemManager.ItemNames.FlashingArrow);
             _csvTranslationsItem.Add("bo", ItemManager.ItemNames.Bomb);
             _csvTranslationsItem.Add("nk", ItemManager.ItemNames.NormalKey);
@@ -159,7 +158,7 @@ namespace _3902_Project
                     ISprite currentEnemy;
 
                     if (_csvTranslationsEnemy.ContainsKey(enemyToPlace))
-                        currentEnemy = _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(STARTINGX + 128 + (j * 64), STARTINGY + 128 + (i * 64)), 4F, 2F, 50, 30);
+                        currentEnemy = _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(STARTINGX + 128 + (j * 64), STARTINGY + 128 + (i * 64)), 4F);
                 }
             }
         }
@@ -179,7 +178,7 @@ namespace _3902_Project
                     if (itemToPlace == "fs" || itemToPlace == "fl" || itemToPlace == "fp" || itemToPlace == "fa")
                     {
                         //flashing animated items
-                        currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(STARTINGX + 128 + (j * 64), STARTINGY + 128 + (i * 64)), 2F, 9);
+                        currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(STARTINGX + 128 + (j * 64), STARTINGY + 128 + (i * 64)), 2F);
                     }
                     else if (_csvTranslationsItem.ContainsKey(itemToPlace))
                     {
@@ -193,10 +192,7 @@ namespace _3902_Project
         public void loadCollisions()
         {
             _collisionBoxes.Clear();
-            List<ICollisionBox> linkCollision = new List<ICollisionBox>
-            {
-                _link.getCollisionBox()
-            };
+            List<ICollisionBox> linkCollision = new List<ICollisionBox>();
 
             _collisionBoxes.Add(linkCollision);
             _collisionBoxes.Add(_enemyManager.collisionBoxes);

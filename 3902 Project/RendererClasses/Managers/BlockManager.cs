@@ -45,8 +45,8 @@ namespace _3902_Project
             switch (name)
             {
                 case BlockNames.Square:
-                case BlockNames.Pyramid:
-                case BlockNames.Blue:
+                case BlockNames.StatueDragon_LEFT:
+                case BlockNames.Water:
                     return true;
                 default:
                     return false;

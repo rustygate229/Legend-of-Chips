@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace _3902_Project
 {
@@ -10,8 +11,10 @@ namespace _3902_Project
     {
         // create link names for finding them
         public enum LinkSprite { Standing, Moving, Throwing }
-        public enum LinkSprite { SwordAttack, SwordThrow }
-        private LinkSprite _currentLinkAction;
+        public enum LinkActions { SwordAttack, SwordThrow, None }
+
+        private LinkSprite _currentLinkSprite;
+        private LinkActions _currentLinkAction;
 
         // link dictionary/inventory
         private ISprite _currentLink;
@@ -35,26 +38,29 @@ namespace _3902_Project
             _spriteBatch = spriteBatch; 
             _factory.LoadAllTextures(content); 
             _manager = manager;
-            _currentLinkAction = LinkActions.Standing;
+            _currentLinkSprite = LinkSprite.Standing;
+            _currentLinkAction = LinkActions.None;
             _direction = Renderer.DIRECTION.UP;
-            _currentLink = _factory.CreateLink(_currentLinkAction, _direction, _printScale, _manager);
+            _currentLink = _factory.CreateLink(_currentLinkSprite, _direction, _printScale, _manager);
         }
 
 
-        public void SetLinkState(LinkActions currentAction) { _currentLinkAction = currentAction; ReplaceLink(currentAction); }
+        public void SetLinkSpriteState(LinkSprite currentSprite) { _currentLinkSprite = currentSprite; ReplaceLink(currentSprite); }
 
         public void SetLinkDirection(Renderer.DIRECTION direction) { _direction = direction;}
+        public Renderer.DIRECTION GetLinkDirection() { return _direction ;}
 
         public void SetLinkPosition(Vector2 position) { _position = position; _currentLink.SetPosition(position); }
 
-        public void ReplaceLink(LinkActions name) { 
-            _currentLinkAction = name; 
+        public void ReplaceLink(LinkSprite name) { 
+            _currentLinkSprite = name; 
             _currentLink = _factory.CreateLink(name, _direction, _printScale, _manager);
             _currentLink.SetPosition(_position);
         }
 
         public Vector2 GetLinkPosition() { return _position; }
-
+        
+        public LinkActions GetLinkActions() { return _currentLinkAction; }
 
         /// <summary>
         /// Updates the current link
@@ -64,7 +70,6 @@ namespace _3902_Project
             //Console.WriteLine("direction: " + _direction.ToString());
             
             _currentLink.Update();
-            
             _position = _currentLink.GetVectorPosition();
         }
 

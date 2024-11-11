@@ -13,7 +13,7 @@ namespace _3902_Project
 
         public CollisionHandlerManager(LinkManager link, EnemyManager enemyManager, ItemManager itemManager, ProjectileManager projectileManager, CharacterStateManager characterStateManager)
         {
-            EnemyCollisionHandler = new EnemyCollisionHandler(enemyManager);
+            EnemyCollisionHandler = new EnemyCollisionHandler(enemyManager, characterStateManager);
             LinkCollisionHandler = new LinkCollisionHandler(link, enemyManager, itemManager, characterStateManager);
             ItemCollisionHandler = new ItemCollisionHandler(link, itemManager);
             BlockCollisionHandler = new BlockCollisionHandler();

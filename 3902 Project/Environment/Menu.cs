@@ -13,8 +13,6 @@ namespace _3902_Project
         private CharacterStateManager _characterState;
         private SpriteFont _font;
 
-        private SpriteFont _font;
-
         private int level;
         private int maxLevel = 4;
 
@@ -31,7 +29,7 @@ namespace _3902_Project
         private int _keyCount = 0;
         private int _orbCount = 0;
 
-        public Menu();
+        public Menu() {}
         public void LoadAll(SpriteBatch spriteBatch, ContentManager content, CharacterStateManager characterState, ItemManager item)
         {
             _spriteBatch = spriteBatch;
@@ -111,15 +109,15 @@ namespace _3902_Project
 
                 heartSprite.Draw(_spriteBatch); 
             }
-            _batch.Begin();
-            _batch.DrawString(_font, "LEVEL - " + level, new Vector2(50, 30), Color.White);
-            _batch.DrawString(_font, "- LIFE -", new Vector2(750, 30), Color.Red);
-            _batch.DrawString(_font, "X" + _emeraldCount, new Vector2(350, 40), Color.White);
-            _batch.DrawString(_font, "X" + _keyCount, new Vector2(350, 100), Color.White);
-            _batch.DrawString(_font, "X" + _orbCount, new Vector2(350, 150), Color.White);
-            _batch.DrawString(_font, "xA", new Vector2(480, 30), Color.White);
-            _batch.DrawString(_font, "xN", new Vector2(620, 30), Color.White);
-            _batch.End();
+            _spriteBatch.Begin();
+            _spriteBatch.DrawString(_font, "LEVEL - " + level, new Vector2(50, 30), Color.White);
+            _spriteBatch.DrawString(_font, "- LIFE -", new Vector2(750, 30), Color.Red);
+            _spriteBatch.DrawString(_font, "X" + _emeraldCount, new Vector2(350, 40), Color.White);
+            _spriteBatch.DrawString(_font, "X" + _keyCount, new Vector2(350, 100), Color.White);
+            _spriteBatch.DrawString(_font, "X" + _orbCount, new Vector2(350, 150), Color.White);
+            _spriteBatch.DrawString(_font, "xA", new Vector2(480, 30), Color.White);
+            _spriteBatch.DrawString(_font, "xN", new Vector2(620, 30), Color.White);
+            _spriteBatch.End();
         }
     }
 }

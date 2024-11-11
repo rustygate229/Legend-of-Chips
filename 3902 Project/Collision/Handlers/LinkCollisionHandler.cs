@@ -19,24 +19,25 @@ public class LinkCollisionHandler
     
     private void HandleEnemyCollision(LinkCollisionBox objectA, EnemyCollisionBox objectB, CollisionType side)
     {
-        if (_link.getAttack() == ILinkStateMachine.ATTACK.MELEE)
+        if (_link.GetLinkActions() == LinkManager.LinkActions.SwordAttack)
         {
             // Link is attacking, deal damage to the enemy
             int dmg = objectA.Damage;
-            ILinkStateMachine.MOVEMENT move = _link.getState();
-            if ((move == ILinkStateMachine.MOVEMENT.SUP || move == ILinkStateMachine.MOVEMENT.MUP) && side == CollisionType.TOP)
+            Renderer.DIRECTION direction = _link.GetLinkDirection();
+
+            if ((direction == Renderer.DIRECTION.UP) && side == CollisionType.TOP)
             {
                 objectB.Health -= dmg;
             }
-            else if ((move == ILinkStateMachine.MOVEMENT.SDOWN || move == ILinkStateMachine.MOVEMENT.MDOWN) && side == CollisionType.BOTTOM)
+            else if ((direction == Renderer.DIRECTION.DOWN) && side == CollisionType.BOTTOM)
             {
                 objectB.Health -= dmg;
             }
-            else if ((move == ILinkStateMachine.MOVEMENT.SLEFT || move == ILinkStateMachine.MOVEMENT.MLEFT) && side == CollisionType.LEFT)
+            else if ((direction == Renderer.DIRECTION.LEFT) && side == CollisionType.LEFT)
             {
                 objectB.Health -= dmg;
             }
-            else if ((move == ILinkStateMachine.MOVEMENT.SRIGHT || move == ILinkStateMachine.MOVEMENT.MRIGHT) && side == CollisionType.RIGHT)
+            else if ((direction == Renderer.DIRECTION.RIGHT) && side == CollisionType.RIGHT)
             {
                 objectB.Health -= dmg;
             }
@@ -98,7 +99,7 @@ public class LinkCollisionHandler
         {
             var names = item.getItemInfo();
             Debug.Print("Picked up item " + names.name);
-            _link.AddItem(names.name, names.amount);
+            // TODO: Add item to Link Inventory
             _itemManager.RemoveItem(item);
         }
     }
