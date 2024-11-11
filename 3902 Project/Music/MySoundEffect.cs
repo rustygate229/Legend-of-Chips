@@ -9,7 +9,7 @@ namespace _3902_Project
     {
         private ContentManager _content;
         private static SoundEffect DieEffect;  // Link death sound effects
-        private static SoundEffect ItemEffect;        // Item pickup sound effects
+        private static SoundEffect ItemEffect;   // Item pickup sound effects
 
         public MySoundEffect(ContentManager content)
         {
