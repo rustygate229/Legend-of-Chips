@@ -71,6 +71,8 @@ namespace _3902_Project
             EnvironmentFactory.LoadAll(BlockManager, ItemManager, ProjectileManager, EnemyManager, LinkManager, CharacterStateManager);
             EnvironmentFactory.loadLevel();
 
+            Menu.addWeaponToA(ItemManager.ItemNames.LongSword);
+            Menu.addWeaponToB(ItemManager.ItemNames.Bomb);
         }
 
         protected override void Update(GameTime gameTime)

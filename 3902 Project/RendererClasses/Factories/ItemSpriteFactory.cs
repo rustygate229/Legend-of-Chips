@@ -37,6 +37,8 @@ namespace _3902_Project
                     return new SItem_Clock(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Compass:
                     return new SItem_Compass(_itemSpritesheet, printScale);
+                case ItemManager.ItemNames.Emerald:
+                    return new SItem_Emerald(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Flute:
                     return new SItem_Flute(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.AddLife:
@@ -47,6 +49,8 @@ namespace _3902_Project
                     return new SItem_Horn(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Ladder:
                     return new SItem_Ladder(_itemSpritesheet, printScale);
+                case ItemManager.ItemNames.LongSword:
+                    return new SItem_LongSword(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.MagicStaff:
                     return new SItem_MagicStaff(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Meat:

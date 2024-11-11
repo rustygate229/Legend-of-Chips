@@ -11,6 +11,7 @@ namespace _3902_Project
         public enum ItemNames
         {
             AddLife, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Ladder,
+            FullHeart, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Ladder, Emerald, LongSword,
             MagicStaff, Game, NormalKey, BossKey, Compass, FlashingLife, DepletingHeart, FlashingEmerald,
             FlashingPotion, FlashingScripture, FlashingSword, FlashingBanana, FlashingArrow,
             FlashingCandle, FlashingRing, FlashingTriForce, HeartEmpty, HeartHalf, HeartFull,
@@ -18,6 +19,8 @@ namespace _3902_Project
 
         // item dictionary/inventory
         private List<ISprite> _runningItems = new List<ISprite>();
+        private List<ISprite> _menuItems = new List<ISprite>();
+
         private Dictionary<ItemCollisionBox, ISprite> _itemCollisionDictionary = new Dictionary<ItemCollisionBox, ISprite>();
         List<ICollisionBox> collisionBoxes = new List<ICollisionBox>();
 
@@ -52,6 +55,43 @@ namespace _3902_Project
             return currentSprite;
         }
 
+        public ISprite AddMenuItem(ItemNames name, Vector2 placementPosition, float printScale)
+        {
+            ISprite currentSprite = _factory.CreateItem(name, printScale);
+
+            currentSprite.SetPosition(placementPosition);
+            _menuItems.Add(currentSprite);
+
+            return currentSprite;
+        }
+
+        public void RemoveMenuItem(ISprite spriteToRemove)
+        {
+            _menuItems.Remove(spriteToRemove);
+        }
+
+        /// <summary>
+        /// Add an item to the running item list
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="placementPosition"></param>
+        /// <param name="printScale"></param>
+        /// <param name="frames"></param>
+        public ISprite AddItem(ItemNames name, Vector2 placementPosition, float printScale, int frames)
+        {
+            ISprite currentSprite = _factory.CreateItem(name, printScale, frames);
+
+            currentSprite.SetPosition(placementPosition);
+            _runningItems.Add(currentSprite);
+
+            // Add item collision box for collision detection
+            var collisionBox = new ItemCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 20, 20), name, 1);
+            collisionBoxes.Add(collisionBox);
+            _itemCollisionDictionary[collisionBox] = currentSprite;
+
+            return currentSprite;
+        }
+
         // remove item after being collected
         public void RemoveItem(ItemCollisionBox item)
         {
@@ -75,6 +115,9 @@ namespace _3902_Project
             {
                 item.Draw(_spriteBatch);
             }
+
+            foreach (var item in _menuItems)
+            { item.Draw(_spriteBatch); }
         }
 
 
