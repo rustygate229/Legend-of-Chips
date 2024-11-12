@@ -81,7 +81,7 @@ namespace _3902_Project
 
             // update position
             _position += _updatePosition;
-
+            /*
             // set a new projectile
             if (_fireBallCounter == 10)
             {
@@ -92,6 +92,7 @@ namespace _3902_Project
             _fireBallCounter++;
             // reset projectile clock
             if (_fireBallCounter == _fireBallTotal) { _fireBallCounter = 0; _projectileManager.UnloadProjectile(_projectileFireBall); }
+            */
         }
 
 

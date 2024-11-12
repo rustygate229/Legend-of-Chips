@@ -145,6 +145,7 @@ namespace _3902_Project
 
                 if (collisionBox.Health <= 0)
                 {
+                    Console.WriteLine("enemy is dead called from enemy manager update");
                     EnemyIsDead(collisionBox);
                 }
                 else

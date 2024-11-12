@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace _3902_Project
 {
@@ -40,6 +41,7 @@ namespace _3902_Project
                 // Check if enemy is dead
                 if (enemy.Health <= 0)
                 {
+                    //Console.WriteLine("isDead called from proj collision handler");
                     enemy.IsCollidable = false;
                     _enemyManager.EnemyIsDead(enemy);
                 }

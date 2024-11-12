@@ -114,7 +114,7 @@ namespace _3902_Project
             _rendererList.CreateUpdateFrames();
 
             // set a new projectile
-            if (_blueArrowCounter == 0) 
+            /*if (_blueArrowCounter == 0) 
             {
                 _updatePosition = new(0, 0);
                 _projectileBlueArrow = _rendererList.CreateProjectile(_projectileManager, _blueArrow, _blueArrowTotal, _blueArrowSpeed, _blueArrowPrintScale, _blueArrowFrameRange); 
@@ -134,7 +134,7 @@ namespace _3902_Project
             _bombCounter++;
             // reset projectile clock
             if (_bombCounter == _bombTotal) { _bombCounter = 0; _projectileManager.UnloadProjectile(_projectileBomb); }
-
+            */
             // update position
             _position += _updatePosition;
         }

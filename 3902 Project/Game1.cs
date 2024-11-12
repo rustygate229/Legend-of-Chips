@@ -84,6 +84,9 @@ namespace _3902_Project
 
             EnvironmentFactory.loadLevel();
 
+            whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
+            whiteRectangle.SetData(new Color[] { Color.White });
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -114,7 +117,7 @@ namespace _3902_Project
             EnemyManager.Draw();
             Menu.Draw();
 
-            //DrawCollidables();
+            DrawCollidables();
 
 
             base.Draw(gameTime);
