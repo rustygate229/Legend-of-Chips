@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace _3902_Project
 {
@@ -77,10 +76,9 @@ namespace _3902_Project
             ProjectileManager.LoadAllTextures(Content);
             BackgroundMusic.LoadSongs();
             Menu.Load();
-            Menu.LoadContent();
             MySoundEffect.LoadSongs();
 
-            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager);
+            EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, ProjectileManager, CharacterStateManager);
             EnvironmentFactory.loadLevel();
 
             Menu.addWeaponToA(ItemManager.ItemNames.LongSword);

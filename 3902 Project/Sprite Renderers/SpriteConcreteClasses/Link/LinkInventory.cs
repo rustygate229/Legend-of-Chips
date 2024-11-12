@@ -23,10 +23,10 @@ public class LinkInventory
     {
         //numbers run from 1 to 5
         //logic for figuring out which numbers represent which values - hard coded for now
-        LINK_PROJECTILES temp = LINK_PROJECTILES.ARROW;
+        LINK_PROJECTILES temp = LINK_PROJECTILES.BLUE_ARROW;
         if (number == 1)
         {
-            temp = LINK_PROJECTILES.ARROW;
+            temp = LINK_PROJECTILES.BLUE_ARROW;
         }
         else if (number == 2)
         {

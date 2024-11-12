@@ -30,7 +30,7 @@ namespace _3902_Project
         private int _keyCount = 0;
         private int _orbCount = 0;
 
-        public Menu(ContentManager content, SpriteBatch spriteBatch, ItemManager itemManager)
+        public Menu(ContentManager content, SpriteBatch spriteBatch, ItemManager itemManager, CharacterStateManager characterState)
         {
             _content = content;
             _batch = spriteBatch;
