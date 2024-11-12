@@ -29,7 +29,11 @@ namespace _3902_Project
             ISprite currentSprite = _factory.CreateProjectile(name, direction, timer, speed, printScale, frameRanges);
             currentSprite.SetPosition(placementPosition);
             _runningProjectiles.Add(currentSprite);
-            _projectileCollisionBoxes.Add(new ProjectileCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 32, 32), 10, 1));
+
+            // Set the projectile's damage to 20
+            _projectileCollisionBoxes.Add(new ProjectileCollisionBox(
+                new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 32, 32), 10, 20)); // Damage is set to 20
+
             return currentSprite;
         }
 
@@ -38,7 +42,11 @@ namespace _3902_Project
             ISprite currentSprite = _factory.CreateProjectile(name, direction, timer, speed, printScale, frames);
             currentSprite.SetPosition(placementPosition);
             _runningProjectiles.Add(currentSprite);
-            _projectileCollisionBoxes.Add(new ProjectileCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 32, 32), 10, 1));
+
+            // Set the projectile's damage to 20
+            _projectileCollisionBoxes.Add(new ProjectileCollisionBox(
+                new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 32, 32), 10, 20)); // Damage is set to 20
+
             return currentSprite;
         }
 
@@ -56,7 +64,11 @@ namespace _3902_Project
         {
             int index = _runningProjectiles.IndexOf(sprite);
             _runningProjectiles.Remove(sprite);
-            //_projectileCollisionBoxes.RemoveAt(index);
+            // You may also want to remove the corresponding collision box
+            if (index >= 0 && index < _projectileCollisionBoxes.Count)
+            {
+                _projectileCollisionBoxes.RemoveAt(index);
+            }
         }
 
         public void UnloadAllProjectiles()
@@ -75,52 +87,44 @@ namespace _3902_Project
 
         public void UpdateProjectiles(GameTime gameTime)
         {
-            int i = 0;
-            foreach (ISprite projectile in _runningProjectiles)
+            for (int i = _runningProjectiles.Count - 1; i >= 0; i--)
             {
+                ISprite projectile = _runningProjectiles[i];
                 projectile.Update();
-            
+
                 var box = _projectileCollisionBoxes[i];
-                // Uncomment and update projectile's position as needed.
-                //box.Bounds = new Rectangle(projectile.get);
+
+                // Update collision box position based on projectile's position
+                Rectangle spriteRect = projectile.GetRectanglePosition();
+                box.Bounds = new Rectangle(spriteRect.X, spriteRect.Y, box.Bounds.Width, box.Bounds.Height);
 
                 if (IsOffScreen(box))
                 {
                     ProjectileIsDead(box);
                 }
-                i++;
             }
         }
-
-        /*public void UpdateCollisions(List<ICollisionBox> otherObjects)
-        {
-            var allObjects = new List<ICollisionBox>(_projectilesCollisions);
-            allObjects.AddRange(otherObjects);
-            List<CollisionData> collisions = CollisionDetector.DetectCollisions(new List<List<ICollisionBox>> { allObjects });
-
-            foreach (var collision in collisions)
-            {
-                if ((_projectilesCollisions.Contains(collision.ObjectA as ProjectileCollisionBox) && collision.ObjectA is ProjectileCollisionBox) ||
-                    (_projectilesCollisions.Contains(collision.ObjectB as ProjectileCollisionBox) && collision.ObjectB is ProjectileCollisionBox))
-                {
-                    _collisionHandler.HandleCollision(collision.ObjectA, collision.ObjectB, collision.CollisionSide, true);
-                }
-            }
-        }*/
 
         public void ProjectileIsDead(ICollisionBox projectile)
         {
             int index = _projectileCollisionBoxes.IndexOf(projectile);
-            _projectileCollisionBoxes.Remove(projectile);
-            _runningProjectiles.RemoveAt(index);
+            if (index >= 0)
+            {
+                _projectileCollisionBoxes.RemoveAt(index);
+                _runningProjectiles.RemoveAt(index);
+            }
         }
 
         private bool IsOffScreen(ICollisionBox projectile)
         {
             // Implement logic to check if the projectile is off-screen
-            // Example:
-            // return !gameViewport.Bounds.Contains(projectile.Bounds);
-            return false;
+            // For example, check if the projectile's bounds are outside the game's viewport
+            // Assuming the game viewport is defined, replace 'gameViewport' with the actual viewport variable
+            // return !gameViewport.Bounds.Intersects(projectile.Bounds);
+
+            // Placeholder implementation
+            Rectangle gameBounds = new Rectangle(0, 0, 800, 600); // Replace with actual game dimensions
+            return !gameBounds.Intersects(projectile.Bounds);
         }
 
         public List<ICollisionBox> GetCollisionBoxes()
