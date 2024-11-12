@@ -57,7 +57,7 @@ namespace _3902_Project
             // Set projectile damage
             int projectileDamage = 20; // Should match the projectile's damage in ProjectileManager
             // Set enemy health to require 5 hits to be defeated
-            int enemyHealth = projectileDamage * 5; // enemyHealth = 100
+            int enemyHealth = projectileDamage * 2; // enemyHealth = 100
 
             // Create the enemy collision box with the calculated health
             EnemyCollisionBox collision = new EnemyCollisionBox(currentSprite.GetRectanglePosition(), true, enemyHealth, 10);
