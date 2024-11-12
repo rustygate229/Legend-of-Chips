@@ -117,7 +117,7 @@ namespace _3902_Project
             EnemyManager.Draw();
             Menu.Draw();
 
-            DrawCollidables();
+            //DrawCollidables();
 
 
             base.Draw(gameTime);
