@@ -146,7 +146,7 @@ namespace _3902_Project
             }
 
             // Print Link's position for debugging purposes
-            Console.WriteLine($"Link Position: X = {x}, Y = {y}");
+            //Console.WriteLine($"Link Position: X = {x}, Y = {y}");
 
 
             if (!IsDamagedKeysPressed()) { StopDamage(); }

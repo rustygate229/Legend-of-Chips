@@ -112,7 +112,10 @@ namespace _3902_Project
         {
             int index = _projectileCollisionBoxes.IndexOf(projectile);
             _projectileCollisionBoxes.Remove(projectile);
-            _runningProjectiles.RemoveAt(index);
+            if (index < _runningProjectiles.Count)
+            {
+                _runningProjectiles.RemoveAt(index);
+            }
         }
 
         private bool IsOffScreen(ICollisionBox projectile)

@@ -145,6 +145,7 @@ namespace _3902_Project
 
                 if (collisionBox.Health <= 0)
                 {
+
                     EnemyIsDead(collisionBox);
                 }
                 else
