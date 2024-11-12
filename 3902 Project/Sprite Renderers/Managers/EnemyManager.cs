@@ -184,7 +184,7 @@ namespace _3902_Project
                         direction *= -1; // reverse direction
                         _enemyDirections[i] = direction;
 
-                        // Adjust the position to keep it within the boundaries
+                        // Adjust the po/.sition to keep it within the boundaries
                         CollisionBoxHelper.KeepInBounds(collisionBox, playAreaBoundary);
                         newPosition = new Vector2(collisionBox.Bounds.X, collisionBox.Bounds.Y);
                     }
