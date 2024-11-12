@@ -2,17 +2,17 @@
 
 namespace _3902_Project
 {
-    public class BulletCollisionBox : ICollisionBox
+    public class ProjectileCollisionBox : ICollisionBox
     {
         private Rectangle _bounds;
         private bool _collidable;
         private int _damage;
         private int _health;
 
-        public BulletCollisionBox(Rectangle bounds, int damage, int health)
+        public ProjectileCollisionBox(Rectangle bounds, int damage, int health)
         {
             _bounds = bounds;
-            _collidable = true; 
+            _collidable = true; // Projectiles are collidable by default
             _damage = damage;
             _health = health;
         }

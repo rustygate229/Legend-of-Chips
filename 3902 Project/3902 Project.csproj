@@ -27,6 +27,7 @@
     <None Remove="Sprite Renderers\Spawners\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Content\kill.mp3" />
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
   </ItemGroup>

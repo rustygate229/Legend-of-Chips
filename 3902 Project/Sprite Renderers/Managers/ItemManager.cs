@@ -13,7 +13,7 @@ namespace _3902_Project
             FullHeart, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Ladder, Emerald, LongSword,
             MagicStaff, Game, NormalKey, BossKey, Compass, FlashingLife, DepletingHeart, FlashingEmerald,
             FlashingPotion, FlashingScripture, FlashingSword, FlashingBanana, FlashingArrow,
-            FlashingCandle, FlashingRing, FlashingTriForce
+            FlashingCandle, FlashingRing, FlashingTriForce, HP0, HP1, HP2,
         }
 
         // item dictionary/inventory
@@ -108,6 +108,7 @@ namespace _3902_Project
                 _runningItems.Remove(spriteToRemove);
                 collisionBoxes.Remove(item);
                 _itemCollisionDictionary.Remove(item);
+                MySoundEffect.ItemPlaySound();
             }
         }
 

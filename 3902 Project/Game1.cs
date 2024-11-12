@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -15,12 +16,13 @@ namespace _3902_Project
         internal LinkPlayer Player { get; private set; }  // Player object
         internal BlockManager BlockManager { get; private set; }  // Block manager
         internal ItemManager ItemManager { get; private set; }  // Item manager
-        internal EnemyManager EnemyManager { get; private set; }
-        public ProjectileManager ProjectileManager { get;  set; }
+        internal EnemyManager EnemyManager { get; private set; } //Enemy manager
+        public ProjectileManager ProjectileManager { get; set; }   //Projectile manager
+        internal CharacterStateManager CharacterStateManager { get; private set; }  //Character manager
         internal EnvironmentFactory EnvironmentFactory { get; private set; }
         internal BackgroundMusic BackgroundMusic { get; set; }
         internal Menu Menu { get; set; }
-
+        internal MySoundEffect MySoundEffect { get; set;}
         //private List<ICollisionBox> _EnemyCollisionBoxes;
 
 
@@ -32,6 +34,7 @@ namespace _3902_Project
         // Input controller
         private IController keyboardController;
         private IController mouseController;
+        
 
         public Game1()
         {
@@ -51,19 +54,21 @@ namespace _3902_Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            CharacterStateManager = new CharacterStateManager(6,this); //assume maximum HP = 6
+            MySoundEffect = new MySoundEffect(Content);
             // Initialize all managers
             BackgroundMusic = new BackgroundMusic(Content);
+            ProjectileManager = new ProjectileManager(Content, _spriteBatch);
             BlockManager = new BlockManager(Content, _spriteBatch);
             ItemManager = new ItemManager(Content, _spriteBatch);
-            ProjectileManager = new ProjectileManager(Content, _spriteBatch);
             EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
-            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager);
-            Menu = new Menu(Content, _spriteBatch, ItemManager);
+            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager,CharacterStateManager);
+            Menu = new Menu(Content, _spriteBatch, ItemManager, CharacterStateManager);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
             mouseController = new MouseInput(this);
+
 
             // Block and Item Texture Loading
             BlockManager.LoadAllTextures();
@@ -72,6 +77,8 @@ namespace _3902_Project
             ProjectileManager.LoadAllTextures(Content);
             BackgroundMusic.LoadSongs();
             Menu.Load();
+            Menu.LoadContent();
+            MySoundEffect.LoadSongs();
 
             EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager);
             EnvironmentFactory.loadLevel();
@@ -82,11 +89,14 @@ namespace _3902_Project
 
         protected override void Update(GameTime gameTime)
         {
+            CharacterStateManager.UpdateCooldown(gameTime);
+
             ItemManager.Update();
-            ProjectileManager.Update();
+            ProjectileManager.UpdateProjectiles(gameTime); // Updated method call
             EnemyManager.Update();
             Player.Update();
             EnvironmentFactory.Update(Player);
+            
             // Update input controls
             keyboardController.Update();
             mouseController.Update();
@@ -110,6 +120,31 @@ namespace _3902_Project
 
             base.Draw(gameTime);
         }
+
+        public void DrawCollidables()
+        {
+            List<List<ICollisionBox>> collidables = EnvironmentFactory._collisionBoxes;
+            _spriteBatch.Begin();
+            Color color = Color.White;
+
+            for (int i = 0; i < collidables.Count; i++)
+            {
+                //if (i == 1) continue;
+                List<ICollisionBox> collisionBoxes = collidables[i];
+                foreach (ICollisionBox collisionBox in collisionBoxes)
+                {
+                    if (i == 0) color = Color.White;
+                    if (i == 1) color = Color.Red;
+                    if (i == 2) color = Color.Green;
+                    if (i == 3) color = Color.Blue;
+                    _spriteBatch.Draw(whiteRectangle, collisionBox.Bounds, color);
+                }
+
+            }
+            _spriteBatch.End();
+        }
+
+
         public void ResetGame() { Initialize(); }
     }
 }
