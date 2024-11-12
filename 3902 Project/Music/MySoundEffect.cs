@@ -48,7 +48,7 @@ namespace _3902_Project
             }
         }
 
-        // Play Link death soudn effects
+        // Play Enemy death soudn effects
         public static void EnemyPlaySound()
         {
             if (EnemyEffect != null)
