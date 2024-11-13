@@ -3,7 +3,7 @@ AUTHOR: HongxiangWang
 DATE: 11/12/24
 SPRINT NUMBER: 4
 .cs FILE NAME: MySoundEffect.cs
-CODE AUTHOR: Rolina
+CODE AUTHOR: JiaqingGuan
 TIME TAKEN: 15 minutes
 
 READABILITY:
