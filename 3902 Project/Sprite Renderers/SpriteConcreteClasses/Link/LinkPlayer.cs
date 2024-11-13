@@ -20,10 +20,10 @@ namespace _3902_Project
 
         // Link boundary area (x, y, width, height)
         private Rectangle playAreaBoundary = new Rectangle(125, 320, 780, 450);
-        private Rectangle doorBoundaries2 = new Rectangle(500, 300, 20, 23);  //up
-        private Rectangle doorBoundaries3 = new Rectangle(500, 730, 20, 23);   //down
-        private Rectangle doorBoundaries1 = new Rectangle(100, 530, 23, 18);  //left
-        private Rectangle doorBoundaries4 = new Rectangle(880, 530, 23, 18);    //right
+        private Rectangle doorBoundaries2 = new Rectangle(500, 300, 12, 12);  //up
+        private Rectangle doorBoundaries3 = new Rectangle(500, 750, 12, 12);   //down
+        private Rectangle doorBoundaries1 = new Rectangle(120, 550, 12, 12);  //left
+        private Rectangle doorBoundaries4 = new Rectangle(880, 550, 12, 12);    //right
 
 
 
@@ -163,6 +163,30 @@ namespace _3902_Project
         {
             return _linkStateMachine.getAttackState();
         }
+
+        //debug test
+        public void DrawPlayAreaBoundary(SpriteBatch spriteBatch, Texture2D whiteRectangle)
+        {
+            // 确保在绘制之前调用 Begin
+            spriteBatch.Begin();
+
+            // 绘制 playAreaBoundary 的四个边框
+            spriteBatch.Draw(whiteRectangle, new Rectangle(playAreaBoundary.Left, playAreaBoundary.Top, playAreaBoundary.Width, 2), Color.Red); // 上边框
+            spriteBatch.Draw(whiteRectangle, new Rectangle(playAreaBoundary.Left, playAreaBoundary.Bottom - 2, playAreaBoundary.Width, 2), Color.Red); // 下边框
+            spriteBatch.Draw(whiteRectangle, new Rectangle(playAreaBoundary.Left, playAreaBoundary.Top, 2, playAreaBoundary.Height), Color.Red); // 左边框
+            spriteBatch.Draw(whiteRectangle, new Rectangle(playAreaBoundary.Right - 2, playAreaBoundary.Top, 2, playAreaBoundary.Height), Color.Red); // 右边框
+
+            // 绘制门的边界区域
+            spriteBatch.Draw(whiteRectangle, doorBoundaries1, Color.Blue); // 左门边界
+            spriteBatch.Draw(whiteRectangle, doorBoundaries2, Color.Blue); // 上门边界
+            spriteBatch.Draw(whiteRectangle, doorBoundaries3, Color.Blue); // 下门边界
+            spriteBatch.Draw(whiteRectangle, doorBoundaries4, Color.Blue); // 右门边界
+
+            // 确保在绘制完成后调用 End
+            spriteBatch.End();
+        }
+
+
 
     }
 }

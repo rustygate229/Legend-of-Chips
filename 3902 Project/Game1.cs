@@ -12,6 +12,7 @@ namespace _3902_Project
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+
         // Game objects and managers
         internal LinkPlayer Player { get; private set; }  // Player object
         internal BlockManager BlockManager { get; private set; }  // Block manager
@@ -53,6 +54,9 @@ namespace _3902_Project
 
         protected override void LoadContent()
         {
+            whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
+            whiteRectangle.SetData(new[] { Color.White });
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             CharacterStateManager = new CharacterStateManager(6,this); //assume maximum HP = 6
             MySoundEffect = new MySoundEffect(Content);
@@ -117,11 +121,16 @@ namespace _3902_Project
             EnemyManager.Draw();
             Menu.Draw();
 
-            //DrawCollidables();
+
+            //debug test
+            DrawCollidables();
+            Player.DrawPlayAreaBoundary(_spriteBatch, whiteRectangle);
 
 
             base.Draw(gameTime);
         }
+       
+
 
         public void DrawCollidables()
         {
