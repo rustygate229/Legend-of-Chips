@@ -1,0 +1,22 @@
+# CODE REVIEW
+* AUTHOR: EVAN CSUHRAN
+* DATE: 11/12/24
+* SPRINT #4
+* FILE NAME: EnemyManager.cs
+* FILE AUTHOR: GARY ZHU
+* TIME TAKEN: ~ 10 minutes
+
+# READABILITY:
+* Could use a bit of more commenting, but is overall easy to follow.
+* Also, the formatting is consistent with other managers.
+* The section of resetting the direction based on collision is pretty messy.
+
+# CODE QUALITY:
+* The code quality is messy with how its doing the re-directing with Collision of enemies on each enemy sprite.
+* In terms of using and sending Collision boxes, could use a rework (I'm currently reworking/refactoring the collision)
+
+# FEELINGS ABOUT SPRINT:
+* Again, we all kinda got burnout. Then, we all were seperated for most of the sprint in terms of code/communication.
+* So, this turn-in was kinda just a big merge of many different approaches, for example, I was working on a Link Refactor, but last minute we decided 
+to just stick with the old Link setup, since everyone else was working on that version (to not have one person keepign everyone behind).
+* Overall, I think we kinda have a mess, but it's not entirely impossible to clean up (I'm making progress on the collision tho).

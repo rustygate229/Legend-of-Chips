@@ -1,0 +1,26 @@
+Legend of Chip - Sprint 4 Reflection
+
+What we accomplished: 
+
+	In the sprint 4 assignment, every group of members contributed to the assignment. We successfully achieved the required functionality of 
+	every part of the game. Links could collide with enemies and blocks, and links will get hurt when they are touched by the enemy and stop
+	walking when they meet the block. Also, the link could shoot four different projectiles to the enemy. 
+	We have a sword attack, bomb, blue arrow, and bullet. The enemy will die if they get enough hit by projectiles. Then, the link could pick up
+	the item, and the menu could illustrate the item they picked. Also, our game has a menu to illustrate which level they stay and an HP bar for the 
+	link. Also, we have the sound effect for the game when we attack the enemy and lose the state of links. Then, the background music is playing while 
+	the game was started. 
+
+	Before the project, we assigned different features to different members. Rolina and Gary focused on the collision interface design and link player 
+	collision and projectile collision with the enemy. HongXiang and Jiaqing focused on the character state and sound effects in the game.
+	Mayank and Evan focused on the menu uploading and uploaded the sprite to the environment. Then, each sub-group tested the code functionality
+	and used pull requests to merge each feature onto the master branch.  Finally, we merged everything into the final version of our project. 
+
+
+What we need to improve: 
+
+	Compared with the last sprint assignment, we faced the problem of every component being strongly correlated. This caused some issues, 
+	such as group members needing to wait for other people to finish their part. So it affects our group's working efficiency. Next time, 
+	we must figure out how everyone can start working simultaneously. Since this assignment meets up without break time, we could have 
+	done better on time management. It caused every group member to rush to work on the last day. So, we need to make a specific schedule about 
+	what to get down on a particular day.
+
