@@ -83,6 +83,9 @@ namespace _3902_Project
 
             Menu.addWeaponToA(ItemManager.ItemNames.LongSword);
             Menu.addWeaponToB(ItemManager.ItemNames.Bomb);
+            whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
+            whiteRectangle.SetData(new Color[] { Color.White });
+
         }
 
         protected override void Update(GameTime gameTime)

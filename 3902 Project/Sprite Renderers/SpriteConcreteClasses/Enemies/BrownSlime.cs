@@ -83,15 +83,16 @@ namespace _3902_Project
             _position += _updatePosition;
 
             // set a new projectile
-            if (_fireBallCounter == 10)
-            {
-                _updatePosition = new(0, 0);
-                _projectileFireBall = _projectileManager.CallProjectile(_fireBall, _position, _direction, _fireBallTotal, _fireBallSpeed, _fireBallPrintScale, _fireBallFrames);
-            }
-            // increase before assignment so that it runs again
-            _fireBallCounter++;
-            // reset projectile clock
-            if (_fireBallCounter == _fireBallTotal) { _fireBallCounter = 0; _projectileManager.UnloadProjectile(_projectileFireBall); }
+            /*  if (_fireBallCounter == 10)
+             // {
+                  _updatePosition = new(0, 0);
+                 _projectileFireBall = _projectileManager.CallProjectile(_fireBall, _position, _direction, _fireBallTotal, _fireBallSpeed, _fireBallPrintScale, _fireBallFrames);
+              }
+              // increase before assignment so that it runs again
+              _fireBallCounter++;
+              // reset projectile clock
+              if (_fireBallCounter == _fireBallTotal) { _fireBallCounter = 0; _projectileManager.UnloadProjectile(_projectileFireBall); }
+          }*/
         }
 
 

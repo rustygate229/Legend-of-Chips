@@ -2,22 +2,24 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using _3902_Project;
 using System;
+using _3902_Project;
 
 namespace _3902_Project
 {
     public class EnemyManager
     {
-        // create enemy names for finding them
+        // Enemy names for identification
         public enum EnemyNames { GreenSlime, BrownSlime, Darknut }
 
-        // enemy dictionary/inventory
+        // List of running enemies and their directions
         private List<ISprite> _runningEnemies = new List<ISprite>();
-        // enemy direction
-        private List<Vector2> _enemyDirections = new List<Vector2>(); 
+        private List<Vector2> _enemyDirections = new List<Vector2>();
 
-        // create variables for passing
+        // Collision boxes for enemies
+        public List<ICollisionBox> collisionBoxes { get; private set; }
+
+        // Managers and factories
         private EnemySpriteFactory _factory = EnemySpriteFactory.Instance;
         private ProjectileManager _manager;
         private ContentManager _contentManager;
@@ -25,10 +27,7 @@ namespace _3902_Project
         private Game1 _game;
         private Rectangle playAreaBoundary = new Rectangle(125, 320, 780, 450);
 
-        public List<ICollisionBox> collisionBoxes { get; private set; }
-        private int _currentEnemyIndex = 0;
-
-        // constructor
+        // Constructor
         public EnemyManager(Game1 game, SpriteBatch spriteBatch, ProjectileManager manager)
         {
             _manager = manager;
@@ -49,28 +48,25 @@ namespace _3902_Project
         /// <summary>
         /// Add an enemy to the running enemy list
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="placementPosition"></param>
         public ISprite AddEnemy(EnemyNames name, Vector2 placementPosition, float printScale, float spriteSpeed, int moveTotalTimerTotal, int frames)
         {
             ISprite currentSprite = _factory.CreateEnemy(name, printScale, spriteSpeed, moveTotalTimerTotal, frames);
-            //set position
+            // Set position
             currentSprite.SetPosition(placementPosition);
 
-
             // Set projectile damage
-            int projectileDamage = 20; // Adjust this value as needed
+            int projectileDamage = 20; // Should match the projectile's damage in ProjectileManager
             // Set enemy health to require 5 hits to be defeated
-            int enemyHealth = projectileDamage * 5;
+            int enemyHealth = projectileDamage * 2; // enemyHealth = 100
 
             // Create the enemy collision box with the calculated health
             EnemyCollisionBox collision = new EnemyCollisionBox(currentSprite.GetRectanglePosition(), true, enemyHealth, 10);
             collisionBoxes.Add(collision);
-          
+
             // Randomly initialize the direction
             Vector2 initialDirection;
             Random random = new Random();
-            int directionChoice = random.Next(4); //0-3 represents four directions
+            int directionChoice = random.Next(4); // 0-3 represents four directions
             switch (directionChoice)
             {
                 case 0:
@@ -87,7 +83,7 @@ namespace _3902_Project
                     break;
             }
 
-            // add enemy and direction
+            // Add enemy and direction
             _runningEnemies.Add(currentSprite);
             _enemyDirections.Add(initialDirection);
 
@@ -97,15 +93,14 @@ namespace _3902_Project
         /// <summary>
         /// Remove/Unload all Enemy Sprites
         /// </summary>
-        public void UnloadAllEnemies() 
-        { 
-            _runningEnemies.Clear(); 
-            collisionBoxes.Clear(); 
-           
+        public void UnloadAllEnemies()
+        {
+            _runningEnemies.Clear();
+            collisionBoxes.Clear();
         }
 
         /// <summary>
-        /// Draw all enemies in the List
+        /// Draw all enemies in the list
         /// </summary>
         public void Draw()
         {
@@ -168,7 +163,7 @@ namespace _3902_Project
                                 direction = new Vector2(0, 2); // move down
                                 break;
                             default:
-                                direction = new Vector2(0, -2); // move up 
+                                direction = new Vector2(0, -2); // move up
                                 break;
                         }
                         _enemyDirections[i] = direction;
@@ -184,7 +179,7 @@ namespace _3902_Project
                         direction *= -1; // reverse direction
                         _enemyDirections[i] = direction;
 
-                        // Adjust the position to keep it within the boundaries
+                        // Adjust the po/.sition to keep it within the boundaries
                         CollisionBoxHelper.KeepInBounds(collisionBox, playAreaBoundary);
                         newPosition = new Vector2(collisionBox.Bounds.X, collisionBox.Bounds.Y);
                     }
@@ -204,12 +199,9 @@ namespace _3902_Project
             {
                 // Remove collision box and enemy sprite
                 collisionBoxes.RemoveAt(index);
-                ISprite enemySprite = _runningEnemies[index];
                 _runningEnemies.RemoveAt(index);
-
-                
+                MySoundEffect.EnemyPlaySound();
             }
         }
     }
 }
-
