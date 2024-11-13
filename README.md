@@ -22,22 +22,20 @@
 1) Opens a CMD window when launching the game for some reason
 2) Collision
   * Link can get stuck in collision blocks, can't move up or down when on a collision when being pressed against it (corner cases)
+  * Enemies randomly kill themselves due to spawning projectiles within themselves
+  * Darknut's animation is flipped
 3) Link Stuff (gotta refactor Link)
   * Link moves faster moving diagonally than moving horizontally or vertically
   * Link can attack by spamming (apart of refactoring Link)
   * Link's attack animation is cut off prematurely when C is released (kind of in general)
   * Link forms a double when attacking and pressing 'e' (damaged state) at the same time
 
-# Some Tasks before Sprint 4 Work
+# Some Tasks before Sprint 5 Work
 * Implement:
-  - Add/implement more blocks/items/enemies and some levels
-      * create a boss enemy
-      * add more projectiles for enemy
-      * need to refactor enemy/link/projectile heavily
-  - Complete collision interactions (items, damage, etc.)
-      * loading levels needs a unload for collisions and a reload (refactor again)
-      * also need to work on having different collision reactions
-      * link sword seperate collision
+  - Room transiitons
+  - Map preview
+  - Start Menu
+  - Pause State
 * LOTS OF REFACTORING (getting correct sprite locations, commenting and much more)
 * In general, have a better form of seperating work and communication
 
