@@ -6,6 +6,9 @@ SPRINT NUMBER: 4
 .cs FILE AUTHOR: Mayank Karnati
 TIME TAKEN: 20 minutes
 
-Readability: This code is fairly readable since the individual methods are clearly named and defined. The Draw() method is a little unwieldy though, since there are multiple large if-statements in the Draw method for drawing different heart sprites on the menu screen. 
+Readability: This code is fairly readable since the individual methods are clearly named and defined. The Draw() method is a little unwieldy though, since there 
+are multiple large if-statements in the Draw method for drawing different heart sprites on the menu screen. 
 
-Code Quality: The code is good quality and easily maintainable since everything is generally clearly named and labelled. In addition, the global variables are private, ensuring that the values remain hidden from other classes that do not need the information. In addition, many methods are easily extendable by simply adding more menu items to the list, such as addStationary() being easily extended by adding more item names to the list. 
+Code Quality: The code is good quality and easily maintainable since everything is generally clearly named and labelled. In addition, the global 
+variables are private, ensuring that the values remain hidden from other classes that do not need the information. In addition, many methods are
+easily extendable by simply adding more menu items to the list, such as addStationary() being easily extended by adding more item names to the list. 
