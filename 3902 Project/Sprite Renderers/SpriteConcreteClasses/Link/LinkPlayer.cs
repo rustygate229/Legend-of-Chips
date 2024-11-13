@@ -20,10 +20,10 @@ namespace _3902_Project
 
         // Link boundary area (x, y, width, height)
         private Rectangle playAreaBoundary = new Rectangle(125, 320, 780, 450);
-        private Rectangle doorBoundaries2 = new Rectangle(500, 300, 12, 12);  //up
-        private Rectangle doorBoundaries3 = new Rectangle(500, 750, 12, 12);   //down
-        private Rectangle doorBoundaries1 = new Rectangle(120, 550, 12, 12);  //left
-        private Rectangle doorBoundaries4 = new Rectangle(880, 550, 12, 12);    //right
+        private Rectangle doorBoundaries2 = new Rectangle(510, 320, 2, 2);  //up
+        private Rectangle doorBoundaries3 = new Rectangle(510, 760, 2, 2);   //down
+        private Rectangle doorBoundaries1 = new Rectangle(120, 550, 2, 2);  //left
+        private Rectangle doorBoundaries4 = new Rectangle(883, 550, 2, 2);    //right
 
 
 
