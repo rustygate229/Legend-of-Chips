@@ -67,6 +67,12 @@
 /processorParam:TextureFormat=Color
 /build:Items Spritesheet.png
 
+#begin kill.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:kill.wav
+
 #begin life-lost-101soundboards.mp3
 /importer:Mp3Importer
 /processor:SongProcessor

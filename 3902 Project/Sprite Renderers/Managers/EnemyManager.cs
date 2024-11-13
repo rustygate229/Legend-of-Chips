@@ -200,6 +200,7 @@ namespace _3902_Project
                 // Remove collision box and enemy sprite
                 collisionBoxes.RemoveAt(index);
                 _runningEnemies.RemoveAt(index);
+                MySoundEffect.EnemyPlaySound();
             }
         }
     }
