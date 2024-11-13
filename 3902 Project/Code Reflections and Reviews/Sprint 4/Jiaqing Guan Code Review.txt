@@ -1,0 +1,19 @@
+READABILITY & CODE REVIEW 
+AUTHOR: Jiaqing Guan
+DATE: 11/12/24
+SPRINT NUMBER: 4
+.cs FILE NAME: CharacterStateManager.cs
+CODE AUTHOR: Hongxiang Wang
+TIME TAKEN: 25 minutes
+
+Readability: This part of code has high readability. The variables are named descriptively, 
+and the logic easy to understand. For example, ¡¯damageCooldownDuration¡¯ and ¡®damageCooldownTimer¡¯, 
+the intent of the code is expressed more intuitively. Besides, the reasonable use of blank lines makes the logic blocks more distinct, 
+and comments provide important explanatory information, making it easy for everyone to read and understand.
+
+Code Quality: This part of code shows good practices of modularity and reusability. 
+The responsibility for Link PH value and item inventory is clearly separated from the rest of the logic. 
+Decomposing the item effects and encapsulated properties of UseItem improves the flexibility of the code structure, 
+and allows the system to expand easily as game become complex.
+
+
