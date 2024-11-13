@@ -1,0 +1,27 @@
+READABILITY & CODE REVIEW
+AUTHOR: HongxiangWang
+DATE: 11/12/24
+SPRINT NUMBER: 4
+.cs FILE NAME: MySoundEffect.cs
+CODE AUTHOR: Rolina
+TIME TAKEN: 15 minutes
+
+READABILITY:
+
+The code is well-structured, and the use of static methods for playing sound effects makes the functionality accessible throughout the application. The method names like ItemPlaySound() and DiePlaySound() are descriptive and clearly convey their intended purpose. This enhances readability and helps quickly understand what each method does without diving into the details.
+
+The variable names, such as DieEffect and ItemEffect, are concise and meaningful, which makes the code easy to follow. The clear separation between loading and playing sounds contributes to a clean and organized structure, which is a strength of this code.
+
+CODE QUALITY:
+
+The use of static fields and methods is effective for ensuring the sound effects are available globally. However, this approach could limit future flexibility, especially if multiple instances of sound management are needed. Despite this limitation, the current implementation is sufficient for a single-instance scenario and keeps the code simple.
+
+A suggestion for improving code quality would be to add some exception handling to LoadSongs() to catch any errors during resource loading. Adding try-catch blocks around the _content.Load<SoundEffect>() calls would improve robustness, especially in case of missing or corrupted assets.
+
+Additionally, the class does a good job of including null checks before playing sounds, which prevents runtime errors. The code could further benefit from adding some logging to inform if a sound effect fails to load.
+
+FEELINGS ABOUT SPRINT:
+
+I feel positive about the progress of the code. The MySoundEffect class is functional and effectively fulfills its role within the current sprint. However, the use of static methods might need a second look if the project scales further. Introducing a non-static version of the class or converting it into a singleton pattern could increase flexibility and control over sound management.
+
+Overall, the class meets its requirements and integrates well with the current project structure. Moving forward, focusing on modularity and handling multiple sound effect instances could be beneficial to support more complex game scenes or sound layers.
