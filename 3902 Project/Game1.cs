@@ -59,15 +59,19 @@ namespace _3902_Project
             BackgroundMusic = new BackgroundMusic(Content);
             ProjectileManager = new ProjectileManager(Content, _spriteBatch);
             BlockManager = new BlockManager(Content, _spriteBatch);
-            ItemManager = new ItemManager(Content, _spriteBatch);
             EnemyManager = new EnemyManager(this, _spriteBatch, ProjectileManager);
-            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager,CharacterStateManager);
-            Menu = new Menu(Content, _spriteBatch, ItemManager, CharacterStateManager);
+            Menu = new Menu();
+            ItemManager = new ItemManager();
+            Player = new LinkPlayer(_spriteBatch, Content, ProjectileManager, CharacterStateManager);
 
             // Initialize keyboard input controller
             keyboardController = new KeyboardInput(this);  // Pass the Game1 instance to KeyboardInput
             mouseController = new MouseInput(this);
 
+
+            // Load Dependencies
+            Menu.LoadDependencies(Content, _spriteBatch, ItemManager, CharacterStateManager);
+            ItemManager.LoadDependencies(Content, _spriteBatch, Menu);
 
             // Block and Item Texture Loading
             BlockManager.LoadAllTextures();
@@ -81,8 +85,8 @@ namespace _3902_Project
             EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, ProjectileManager, CharacterStateManager);
             EnvironmentFactory.loadLevel();
 
-            Menu.addWeaponToA(ItemManager.ItemNames.LongSword);
-            Menu.addWeaponToB(ItemManager.ItemNames.Bomb);
+            Menu.addWeaponToZ(ItemManager.ItemNames.LongSword);
+            
             whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
             whiteRectangle.SetData(new Color[] { Color.White });
 

@@ -28,11 +28,16 @@ namespace _3902_Project
         private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
 
+        private Menu _menu;
+
         // constructor
-        public ItemManager(ContentManager contentManager, SpriteBatch spriteBatch)
+        public ItemManager() {}
+
+        public void LoadDependencies(ContentManager contentManager, SpriteBatch spriteBatch, Menu menu)
         {
             _contentManager = contentManager;
             _spriteBatch = spriteBatch;
+            _menu = menu;
         }
 
         // load all textures relating to blocks
@@ -100,6 +105,20 @@ namespace _3902_Project
             return currentSprite;
         }
 
+        private void updatingMenu(ItemCollisionBox itemToRemove)
+        {
+            ItemNames name = itemToRemove.getItemInfo().name;
+
+            switch (name)
+            {
+                case ItemNames.Emerald:
+                    _menu.incrementEmeralds(); break;
+                case ItemNames.NormalKey:
+                    _menu.incrementKeys(); break;
+                default: break;
+            }
+        }
+
         // remove item after being collected
         public void RemoveItem(ItemCollisionBox item)
         {
@@ -109,6 +128,8 @@ namespace _3902_Project
                 collisionBoxes.Remove(item);
                 _itemCollisionDictionary.Remove(item);
                 MySoundEffect.ItemPlaySound();
+
+                updatingMenu(item);
             }
         }
 

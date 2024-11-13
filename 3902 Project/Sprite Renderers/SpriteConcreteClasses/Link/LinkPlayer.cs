@@ -77,8 +77,6 @@ namespace _3902_Project
             return keyboard.IsKeyDown(Keys.E);
         }
 
-      
-
         public void Attack() { _linkStateMachine.setMelee(); }
         public void Throw() {
             _linkStateMachine.setThrow();

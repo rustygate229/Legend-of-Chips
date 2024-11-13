@@ -95,6 +95,7 @@ namespace _3902_Project
             _csvTranslationsEnemy.Add("b", EnemyManager.EnemyNames.BrownSlime);
             _csvTranslationsEnemy.Add("d", EnemyManager.EnemyNames.Darknut);
 
+            _csvTranslationsItem.Add("e", ItemManager.ItemNames.Emerald);
             _csvTranslationsItem.Add("fs", ItemManager.ItemNames.FlashingScripture);
             _csvTranslationsItem.Add("fl", ItemManager.ItemNames.FlashingLife);
             _csvTranslationsItem.Add("fp", ItemManager.ItemNames.FlashingPotion);

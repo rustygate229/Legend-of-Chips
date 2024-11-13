@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using _3902_Project;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 public class LinkInventory
@@ -14,8 +15,6 @@ public class LinkInventory
         InventoryDict.Add(LINK_PROJECTILES.BLUE_ARROW, 1000);
         InventoryDict.Add(LINK_PROJECTILES.BOMB, 1000);
         InventoryDict.Add(LINK_PROJECTILES.FIREBALL, 1000);
-
-
         //other variables to be instantiated here
     }
     //public LinkInventory(Dictionary<LINK_PROJECTILES, int> inventoryDict) { InventoryDict = inventoryDict; }
