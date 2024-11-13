@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _3902_Project
 {
-    public class LinkStandardStanding : ISprite
+    public class LinkStandardStanding : ILink
     {
         // variables for link in frame 1 of the moving link sprite animation
         private Rectangle _spriteDownPosition = new(0, 11, 16, 16);
@@ -60,5 +60,10 @@ namespace _3902_Project
         /// Draws the block in the given SpriteBatch
         /// </summary>
         public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch, true); }
+
+        /// <summary>
+        /// Draws the block in the given SpriteBatch
+        /// </summary>
+        public void Draw(SpriteBatch spriteBatch, Color tint) { _rendererList.CreateSpriteDraw(spriteBatch, true, tint); }
     }
 }

@@ -18,11 +18,10 @@ namespace _3902_Project
         /// </summary>
         /// <param name="spriteSheet">texture sheet where sprites are formed from</param>
         /// <param name="printScale">the print scale of the projectile: printScale * spriteDimensions</param>
-        public PSprite_SmallExplosion(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale)
+        public PSprite_SmallExplosion(Texture2D spriteSheet, float printScale)
         {
             // create renders of the small explosion projectile
             _explode = new (spriteSheet, _spriteExplode, printScale);
-            _explode.SetDirection(facingDirection);
         }
 
 

@@ -23,7 +23,7 @@ namespace _3902_Project
         public void UnloadAllTextures(ContentManager content) { _linkSpritesheet.Dispose(); }
 
         // create every type of link
-        public ISprite CreateLink(LinkManager.LinkSprite linkAction, Renderer.DIRECTION direction, float printScale, ProjectileManager manager)
+        public ILink CreateLink(LinkManager.LinkSprite linkAction, Renderer.DIRECTION direction, float printScale, ProjectileManager manager)
         {
             switch (linkAction)
             {

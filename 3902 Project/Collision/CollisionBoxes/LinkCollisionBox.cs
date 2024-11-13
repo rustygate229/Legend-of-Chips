@@ -5,19 +5,27 @@ namespace _3902_Project;
 
 public class LinkCollisionBox : ICollisionBox
 {
+    private ISprite _sprite;
     private Rectangle _bounds;
     private bool _collidable;
     private int _health;
-    public int _damage;
+    private int _damage;
 
-    public LinkCollisionBox(Rectangle bounds, bool isCollidable, int health, int damage)
+    public LinkCollisionBox(ISprite sprite, bool isCollidable)
     {
-        _bounds = bounds;
+        _sprite = sprite;
+        _bounds = _sprite.GetRectanglePosition();
         _collidable = isCollidable;
-        _health = health;
-        _damage = damage;
-        
+        _health = 1;
+        _damage = -1;
     }
+
+    public ISprite Sprite
+    {
+        get { return _sprite; }
+        set { _sprite = value; }
+    }
+
     public Rectangle Bounds
     {
         get { return _bounds; }

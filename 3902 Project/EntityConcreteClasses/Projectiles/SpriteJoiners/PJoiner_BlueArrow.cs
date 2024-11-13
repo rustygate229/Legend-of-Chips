@@ -5,14 +5,20 @@ using System.ComponentModel.Design;
 
 namespace _3902_Project
 {
-    public class PJoiner_BlueArrow : ISprite
+    public class PJoiner_BlueArrow
     {
         // variables to change based on where your sprite is and what to print out
-        private PSprite_BlueArrow _blueArrow;
-        private PSprite_SmallExplosion _smallExplosion;
+        private ISprite _blueArrow;
+        private ISprite _smallExplosion;
+        private int _smallExplosionCounter = 0;
+        private int _smallExplosionCounterTotal = 10;
 
-        public enum STATUS { BlueArrow, SmallExplosion }
+        public enum STATUS { BlueArrow, SmallExplosion, Removable }
         private STATUS _status;
+
+        private ICollisionBox _collisionBox;
+        private int _counter = 0;
+        private int _counterTotal = 200;
 
         /// <summary>
         /// constructor for the projectile sprite: <c>Bomb</c>
@@ -22,62 +28,40 @@ namespace _3902_Project
         /// direction the sprite spawn in. EXAMPLE: if facingDirection = DOWN, then the sprite will spawned in facing and moving downwards.
         /// </param>
         /// <param name="printScale">the print scale of the projectile: printScale * spriteDimensions</param>
-        public PJoiner_BlueArrow(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale)
+        public PJoiner_BlueArrow(ISprite blueArrow, ISprite smallExplosion)
         {
-            _blueArrow = new (spriteSheet, facingDirection, printScale);
-            _smallExplosion = new(spriteSheet, facingDirection, printScale);
+            _blueArrow = blueArrow;
+            _smallExplosion = smallExplosion;
         }
 
-
-        /// <summary>
-        /// Passes to the Renderer GetPosition method
-        /// </summary>
-        public Rectangle GetRectanglePosition()  
-        { 
-            if (_status == STATUS.BlueArrow) return _blueArrow.GetRectanglePosition();
-            else return _smallExplosion.GetRectanglePosition();
-        }
-
-
-        /// <summary>
-        /// Passes to the Renderer GetPosition method
-        /// </summary>
-        public Vector2 GetVectorPosition()
+        public ICollisionBox CollisionBox
         {
-            if (_status == STATUS.BlueArrow) return _blueArrow.GetVectorPosition();
-            else return _smallExplosion.GetVectorPosition();
+            get { return _collisionBox; }
+            set { _collisionBox = value; _collisionBox.Health = 1;  }
         }
 
-        /// <summary>
-        /// Passes to the Renderer SetPosition method
-        /// </summary>
-        public void SetPosition(Vector2 position)
-        {
-            if (_status == STATUS.BlueArrow) _blueArrow.SetPosition(position);
-            else _smallExplosion.SetPosition(position);
-        }
-
-        public void SetStatus(STATUS status) { _status = status; }
-
-
-        /// <summary>
-        /// Updates the block (movement, animation, etc.)
-        /// </summary>
         public void Update()
         {
-            if (_status == STATUS.BlueArrow) _blueArrow.Update();
-            else _smallExplosion.Update();
+            _counter++;
+            if (_collisionBox.Health == 1)
+                _status = STATUS.BlueArrow;
+            else if (_collisionBox.Health != 1)
+            {
+                _smallExplosionCounter++;
+                _status = STATUS.SmallExplosion;
+            }
+            else if (_counter == _counterTotal || _smallExplosionCounter == _smallExplosionCounterTotal)
+                _status = STATUS.Removable;
         }
 
-
-        /// <summary>
-        /// Draws the block in the given SpriteBatch
-        /// </summary>
-        /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch)
+        public ISprite CurrentSprite
         {
-            if (_status == STATUS.BlueArrow) _blueArrow.Draw(spriteBatch);
-            else _smallExplosion.Draw(spriteBatch);
+            get
+            {
+                if (_status == STATUS.BlueArrow) return _blueArrow;
+                else if (_status == STATUS.SmallExplosion) return _smallExplosion;
+                else return null;
+            }
         }
     }
 }

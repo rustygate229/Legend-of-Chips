@@ -20,8 +20,7 @@ namespace _3902_Project
         private List<ISprite> _runningItems = new List<ISprite>();
         private List<ISprite> _menuItems = new List<ISprite>();
 
-        private Dictionary<ItemCollisionBox, ISprite> _itemCollisionDictionary = new Dictionary<ItemCollisionBox, ISprite>();
-        List<ICollisionBox> collisionBoxes = new List<ICollisionBox>();
+        private List<ICollisionBox> _collisionBoxes = new List<ICollisionBox>();
 
         // create variables for passing
         private ItemSpriteFactory _factory = ItemSpriteFactory.Instance;
@@ -47,9 +46,7 @@ namespace _3902_Project
             _runningItems.Add(currentSprite);
 
             // Add item collision box for collision detection
-            var collisionBox = new ItemCollisionBox(currentSprite.GetRectanglePosition(), name, 1);
-            _itemCollisionDictionary[collisionBox] = currentSprite;
-            collisionBoxes.Add(collisionBox);
+            _collisionBoxes.Add(new ItemCollisionBox(currentSprite));
 
             return currentSprite;
         }
@@ -64,23 +61,21 @@ namespace _3902_Project
             return currentSprite;
         }
 
-        public void RemoveMenuItem(ISprite spriteToRemove)
+        public void UnloadMenuItem(ISprite spriteToRemove)
         {
             _menuItems.Remove(spriteToRemove);
         }
 
         // remove item after being collected
-        public void RemoveItem(ItemCollisionBox item)
+        public void UnloadItem(ICollisionBox item)
         {
-            if (_itemCollisionDictionary.TryGetValue(item, out ISprite spriteToRemove))
-            {
-                _runningItems.Remove(spriteToRemove);
-                collisionBoxes.Remove(item);
-                _itemCollisionDictionary.Remove(item);
-            }
+            _runningItems.Remove(item.Sprite);
+            _collisionBoxes.Remove(item);
         }
 
-        public void UnloadAllItems() { _runningItems.Clear(); _itemCollisionDictionary.Clear(); collisionBoxes.Clear(); }
+        public void UnloadAllMenuItems() { _menuItems.Clear(); }
+
+        public void UnloadAllItems() { _runningItems.Clear(); _collisionBoxes.Clear(); }
 
 
         /// <summary>
@@ -89,9 +84,7 @@ namespace _3902_Project
         public void Draw()
         {
             foreach (var item in _runningItems)
-            {
-                item.Draw(_spriteBatch);
-            }
+            { item.Draw(_spriteBatch); }
 
             foreach (var item in _menuItems)
             { item.Draw(_spriteBatch); }
@@ -104,15 +97,13 @@ namespace _3902_Project
         public void Update()
         {
             foreach (var item in _runningItems)
-            {
-                item.Update();
-            }
+            { item.Update(); }
         }
 
         // Method to get collision boxes for all items
         public List<ICollisionBox> GetCollisionBoxes()
         {
-            return collisionBoxes;
+            return _collisionBoxes;
         }
     }
 }

@@ -12,6 +12,8 @@ namespace _3902_Project
             Bomb, BlueArrow, FireBall
         }
 
+        public enum ProjectileType { LinkProj, EnemyProj }
+
         private List<ISprite> _runningProjectiles = new List<ISprite>();
         private List<ICollisionBox> _projectileCollisionBoxes = new List<ICollisionBox>();
         private ProjectileFactory _factory = ProjectileFactory.Instance;
@@ -49,8 +51,13 @@ namespace _3902_Project
             ISprite currentSprite = _factory.CreateProjectile(name, printScale);
             currentSprite.SetPosition(placementPosition);
             _runningProjectiles.Add(currentSprite);
-            _projectileCollisionBoxes.Add(new LinkProjCollisionBox(new Rectangle((int)placementPosition.X, (int)placementPosition.Y, 32, 32), 10, 1));
+            _projectileCollisionBoxes.Add(new LinkProjCollisionBox(currentSprite.GetRectanglePosition(), 10, 1));
             return currentSprite;
+        }
+
+        public ISprite CallProjectileJoinerSprite(ProjectileNames name)
+        {
+
         }
 
         public void UnloadAllTextures(ContentManager content)
@@ -96,22 +103,6 @@ namespace _3902_Project
                 // if (IsOffScreen(box)) { ProjectileIsDead(box); }
             }
         }
-
-        /*public void UpdateCollisions(List<ICollisionBox> otherObjects)
-        {
-            var allObjects = new List<ICollisionBox>(_projectilesCollisions);
-            allObjects.AddRange(otherObjects);
-            List<CollisionData> collisions = CollisionDetector.DetectCollisions(new List<List<ICollisionBox>> { allObjects });
-
-            foreach (var collision in collisions)
-            {
-                if ((_projectilesCollisions.Contains(collision.ObjectA as ProjectileCollisionBox) && collision.ObjectA is ProjectileCollisionBox) ||
-                    (_projectilesCollisions.Contains(collision.ObjectB as ProjectileCollisionBox) && collision.ObjectB is ProjectileCollisionBox))
-                {
-                    _collisionHandler.HandleCollision(collision.ObjectA, collision.ObjectB, collision.CollisionSide, true);
-                }
-            }
-        }*/
 
         public void ProjectileIsDead(ICollisionBox projectile)
         {

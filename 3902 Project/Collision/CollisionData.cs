@@ -9,6 +9,10 @@ namespace _3902_Project
         public ICollisionBox ObjectB { get; set; }
         public CollisionType CollisionSide { get; set; }
 
+        public enum CollisionType
+        {
+            BOTTOM, TOP, RIGHT, LEFT
+        }
 
         public CollisionData(ICollisionBox a, ICollisionBox b)
         {
@@ -55,10 +59,5 @@ namespace _3902_Project
         }
 
 
-    }
-
-    public enum CollisionType
-    {
-        NONE, LEFT, RIGHT, TOP, BOTTOM
     }
 }

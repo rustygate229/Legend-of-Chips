@@ -4,17 +4,25 @@ namespace _3902_Project
 {
     public class LinkProjCollisionBox : ICollisionBox
     {
+        private ISprite _sprite;
         private Rectangle _bounds;
         private bool _collidable;
         private int _damage;
         private int _health;
 
-        public LinkProjCollisionBox(Rectangle bounds, int damage, int health)
+        public LinkProjCollisionBox(ISprite sprite, int damage, int health)
         {
-            _bounds = bounds;
+            _sprite = sprite;
+            _bounds = _sprite.GetRectanglePosition();
             _collidable = true; // Projectiles are collidable by default
             _damage = damage;
             _health = health;
+        }
+
+        public ISprite Sprite
+        {
+            get { return _sprite; }
+            set { _sprite = value; }
         }
 
         public Rectangle Bounds

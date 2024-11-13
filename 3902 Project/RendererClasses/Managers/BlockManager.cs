@@ -20,7 +20,7 @@ namespace _3902_Project
         }
 
         // block dictionary/inventory
-        public List<ICollisionBox> collisionBoxes = new List<ICollisionBox>();
+        public List<ICollisionBox> _collisionBoxes = new List<ICollisionBox>();
 
         private List<ISprite> _runningBlocks = new List<ISprite>();
 
@@ -64,13 +64,7 @@ namespace _3902_Project
             ISprite currentSprite = _factory.CreateBlock(name, printScale);
             currentSprite.SetPosition(placementPosition);
             _runningBlocks.Add(currentSprite);
-
-            if (isCollidable(name))
-            {
-                //also check for correctness here
-                //check with evan later about how to get width and height of blocks
-                collisionBoxes.Add(new BlockCollisionBox(currentSprite.GetRectanglePosition(), true));
-            }
+            _collisionBoxes.Add(new BlockCollisionBox(currentSprite, isCollidable(name)));
             return currentSprite;
         }
 
@@ -87,7 +81,7 @@ namespace _3902_Project
             ISprite currentSprite = _factory.CreateBlock(name, printScale, speed);
             currentSprite.SetPosition(placementPosition);
             _runningBlocks.Add(currentSprite);
-            collisionBoxes.Add(new BlockCollisionBox(currentSprite.GetRectanglePosition(), true));
+            _collisionBoxes.Add(new BlockCollisionBox(currentSprite, isCollidable(name)));
             return currentSprite;
         }
 
@@ -97,20 +91,17 @@ namespace _3902_Project
         /// </summary>
         /// <param name="sprite"></param>
         /// this currently isn't going to work because not all sprites have associated collisionboxes
-        /*public void UnloadBlock(ISprite sprite)
+        public void UnloadBlock(ICollisionBox box)
         {
-            int i = _runningBlocks.IndexOf(sprite);
-            collisionBoxes.RemoveAt(i);
-            _runningBlocks.RemoveAt(i);
-
-
-        }*/
+            _runningBlocks.Remove(box.Sprite);
+            _collisionBoxes.Remove(box);
+        }
 
 
         /// <summary>
         /// Remove/Unload all Block Sprites
         /// </summary>
-        public void UnloadAllBlocks() { _runningBlocks.Clear(); collisionBoxes.Clear(); }
+        public void UnloadAllBlocks() { _runningBlocks.Clear(); _collisionBoxes.Clear(); }
 
 
         /// <summary>
@@ -119,9 +110,7 @@ namespace _3902_Project
         public void Draw()
         {
             foreach (var block in _runningBlocks)
-            {
-                block.Draw(_spriteBatch);
-            }
+            { block.Draw(_spriteBatch); }
         }
 
 
@@ -130,10 +119,8 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            foreach (var block in _runningBlocks)
-            {
-                block.Update();
-            }
+            foreach (var block in _collisionBoxes)
+            { block.Sprite.Update(); }
         }
     }
 }

@@ -2,9 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-public interface ISprite : IPosition
+public interface ILink : ISprite
 {
-    void Update();
-
-    void Draw(SpriteBatch spriteBatch);
+    void Draw(SpriteBatch spriteBatch, Color tint);
 }

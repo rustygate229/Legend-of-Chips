@@ -5,47 +5,58 @@ namespace _3902_Project;
 
 public class BlockCollisionBox : ICollisionBox
 {
+    private ISprite _sprite;
     private Rectangle _bounds;
     private bool _collidable;
     private int _health;
-    public int _damage;
+    private int _damage;
 
-    public BlockCollisionBox()
+    public BlockCollisionBox(ISprite sprite)
     {
         //default constructor creates a new rectangle at 0,0, with no concept of health and damage
         //and cannot be collided with
-        _bounds = new Rectangle();
+        _sprite = sprite;
+        _bounds = _sprite.GetRectanglePosition();
         _collidable = false;
         _health = -1;
         _damage = -1;
-
+        _sprite = sprite;
     }
 
-    public BlockCollisionBox(Rectangle bounds, bool isCollidable)
+    public BlockCollisionBox(ISprite sprite, bool isCollidable)
     {
-        _bounds = bounds;
+        _sprite = sprite;
+        _bounds = _sprite.GetRectanglePosition();
         _collidable = isCollidable;
         _health = -1;
         _damage = -1;
 
     }
 
-    public BlockCollisionBox(Rectangle bounds, bool isCollidable, int health, int damage)
+    public BlockCollisionBox(ISprite sprite, bool isCollidable, int health, int damage)
     {
-        _bounds = bounds;
+        _sprite = sprite;
+        _bounds = _sprite.GetRectanglePosition();
         _collidable = isCollidable;
         _health = health;
         _damage = damage;
 
     }
 
-    public BlockCollisionBox(Rectangle bounds, bool isCollidable, int health)
+    public BlockCollisionBox(ISprite sprite, bool isCollidable, int health)
     {
-        _bounds = bounds;
+        _sprite = sprite;
+        _bounds = _sprite.GetRectanglePosition();
         _collidable = isCollidable;
         _health = health;
         _damage = -1;
 
+    }
+
+    public ISprite Sprite
+    {
+        get { return _sprite; }
+        set { _sprite = value; }
     }
 
     public Rectangle Bounds

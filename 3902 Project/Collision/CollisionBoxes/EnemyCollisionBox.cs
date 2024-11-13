@@ -4,30 +4,38 @@ namespace _3902_Project;
 
 public class EnemyCollisionBox : ICollisionBox
 {
+    private ISprite _sprite;
     private Rectangle _bounds;
     private bool _collidable;
     private int _health;
-    public int _damage;
+    private int _damage;
 
-    public EnemyCollisionBox()
+    public EnemyCollisionBox(ISprite sprite)
     {
         //default constructor creates a new rectangle at 0,0, with no concept of health and damage
         //and cannot be collided with
-        _bounds = new Rectangle();
+        _sprite = sprite;
+        _bounds = _sprite.GetRectanglePosition();
         _collidable = false;
-        _health = 1;
-        _damage = 1;
-
+        _health = -1;
+        _damage = 0;
     }
 
-    public EnemyCollisionBox(Rectangle bounds, bool isCollidable, int health, int damage)
+    public EnemyCollisionBox(ISprite sprite, bool isCollidable)
     {
-        _bounds = bounds;
+        _sprite = sprite;
+        _bounds = _sprite.GetRectanglePosition();
         _collidable = isCollidable;
-        _health = health;
-        _damage = damage;
-
+        _health = -1;
+        _damage = 0;
     }
+
+    public ISprite Sprite
+    {
+        get { return _sprite; }
+        set { _sprite = value; }
+    }
+
     public Rectangle Bounds
     {
         get { return _bounds; }

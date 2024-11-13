@@ -3,7 +3,7 @@
     public interface ICollisionHandler
     {
         //PlayerCollisionHandler, EnemyCollisionHandler, BlockCollisionHandler, ItemCollisionHandler
-        void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable);
+        void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side);
     }
 }
 

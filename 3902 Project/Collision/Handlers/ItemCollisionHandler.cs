@@ -3,27 +3,18 @@ using System.Diagnostics;
 
 public class ItemCollisionHandler : ICollisionHandler
 {
-    private LinkManager _link;
-    private ItemManager _itemManager;
+    private ItemManager _item;
 
-    public ItemCollisionHandler(LinkManager link, ItemManager itemManager)
+    public ItemCollisionHandler() { }
+
+    public void LoadAll(ItemManager item)
     {
-        _link = link;
-        _itemManager = itemManager;
+        _item = item;
     }
 
-    public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool Is)
+    public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
     {
-        ItemCollisionBox item = objectA as ItemCollisionBox ?? objectB as ItemCollisionBox;
-        LinkCollisionBox player = objectA as LinkCollisionBox ?? objectB as LinkCollisionBox;
-
-        if (item != null && player != null)
-        {
-            // When player collected the item, despawn the item
-           
-            _itemManager.RemoveItem(item);
-            
-            //player state could be change in futher there
-        }
+        // just unload the item that got grabbed
+        _item.UnloadItem(objectA);
     }
 }

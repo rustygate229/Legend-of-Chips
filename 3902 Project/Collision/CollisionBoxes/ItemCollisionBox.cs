@@ -6,38 +6,25 @@ namespace _3902_Project
 {
     public class ItemCollisionBox : ICollisionBox
     {
+        private ISprite _sprite;
         private Rectangle _bounds;
         private bool _isCollidable;
         private int _health;
         private int _damage;
-        private ItemManager.ItemNames _itemName;
-        private int _itemCount;
 
-        public ItemCollisionBox(Rectangle bounds, ItemManager.ItemNames itemName, int amount)
+        public ItemCollisionBox(ISprite sprite)
         {
-            _bounds = bounds;
+            _sprite = sprite;
+            _bounds = _sprite.GetRectanglePosition();
             _isCollidable = true;
             _health = -1;
             _damage = 0;
-            _itemName = itemName;
-            _itemCount = amount;
         }
 
-        public ItemCollisionBox(Rectangle bounds, ItemManager.ItemNames itemName)
+        public ISprite Sprite
         {
-            _bounds = bounds;
-            _isCollidable = true;
-            _health = -1;
-            _damage = 0;
-            _itemName = itemName;
-            switch (itemName)
-            {
-                case ItemManager.ItemNames.FlashingArrow: _itemCount = 10; break;
-
-                case ItemManager.ItemNames.FlashingPotion: _itemCount = 2; break;
-
-                default: _itemCount = 1; break;
-            }
+            get { return _sprite; }
+            set { _sprite = value; }
         }
 
         public Rectangle Bounds
@@ -62,11 +49,6 @@ namespace _3902_Project
         {
             get { return _damage; }
             set { _damage = value; }
-        }
-
-
-        public (ItemManager.ItemNames name, int amount) getItemInfo() {
-            return (_itemName, _itemCount);
         }
     }
 }

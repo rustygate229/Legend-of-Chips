@@ -1,106 +1,83 @@
-﻿using _3902_Project;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Diagnostics;
 
-public class LinkCollisionHandler
+namespace _3902_Project
 {
-    private LinkManager _link;
-    private EnemyManager _enemyManager;
-    private ItemManager _itemManager;
-    private CharacterStateManager _characterState;
-
-    public LinkCollisionHandler(LinkManager link, EnemyManager enemyManager, ItemManager itemManager, CharacterStateManager characterState)
+    public class LinkCollisionHandler : ICollisionHandler
     {
-        _link = link;
-        _enemyManager = enemyManager;
-        _itemManager = itemManager;
-        _characterState = characterState;
-    }
+        private LinkManager _link;
 
-    
-    private void HandleEnemyCollision(LinkCollisionBox objectA, EnemyCollisionBox objectB, CollisionType side)
-    {
-        if (_link.GetLinkActions() == LinkManager.LinkActions.SwordAttack)
+        public LinkCollisionHandler() { }
+
+        public void LoadAll(LinkManager link)
         {
-            // Link is attacking, deal damage to the enemy
-            int dmg = objectA.Damage;
-            Renderer.DIRECTION direction = _link.GetLinkDirection();
+            _link = link;
+        }
 
-            if ((direction == Renderer.DIRECTION.UP) && side == CollisionType.TOP)
+        public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
+        {
+            bool isCollidable = objectA.IsCollidable && objectB.IsCollidable;
+            if (isCollidable && objectB is EnemyCollisionBox)
+                HandleEnemyCollision(objectA, objectB, side);
+            else if (isCollidable && objectB is EnemyProjCollisionBox)
+                HandleEnemyProjCollision(objectA, objectB, side);
+            else if (isCollidable && objectB is BlockCollisionBox)
+                HandleBlockCollision(objectA, objectB, side);
+            else if (isCollidable && objectB is ItemCollisionBox)
+                HandleItemCollision(objectA, objectB, side);
+        }
+
+
+        private void HandleEnemyCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
+        {
+            // if link is NOT in damage state, activate the state and remove health from link
+            if (_link.IsLinkDamaged == false)
             {
-                objectB.Health -= dmg;
-            }
-            else if ((direction == Renderer.DIRECTION.DOWN) && side == CollisionType.BOTTOM)
-            {
-                objectB.Health -= dmg;
-            }
-            else if ((direction == Renderer.DIRECTION.LEFT) && side == CollisionType.LEFT)
-            {
-                objectB.Health -= dmg;
-            }
-            else if ((direction == Renderer.DIRECTION.RIGHT) && side == CollisionType.RIGHT)
-            {
-                objectB.Health -= dmg;
+                objectA.Health -= objectB.Damage;
+                _link.IsLinkDamaged = true;
             }
         }
-        else
+
+        private void HandleEnemyProjCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            // Link is not attacking, take damage from enemy
-            if (_characterState.CanTakeDamage())
+            // if link is NOT in damage state, activate the state and remove health from link
+            if (_link.IsLinkDamaged == false)
             {
-                _characterState.DecreaseHealth(1); // reduces 1 HP/half a heart
-                Debug.WriteLine($"LinkPlayer took damage. Current Health: {_characterState.Health}");
-                _link.flipDamaged(); //update damage state
+                objectA.Health -= objectB.Damage;
+                _link.IsLinkDamaged = true;
             }
         }
-    }
 
-    
-    private void HandleBlockCollision(LinkCollisionBox objectA, BlockCollisionBox objectB, CollisionType side)
-    {
-        if (objectB.IsCollidable)
+
+        private void HandleBlockCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            // Handle player collision with block
-            Microsoft.Xna.Framework.Rectangle ABounds = objectA.Bounds;
-            Microsoft.Xna.Framework.Rectangle BBounds = objectB.Bounds;
-
-            switch (side)
+            if (objectB.IsCollidable)
             {
-                case CollisionType.LEFT:
-                    ABounds.X = BBounds.Right; // Move player to the right of the block
-                    break;
-                case CollisionType.RIGHT:
-                    ABounds.X = BBounds.Left - ABounds.Width; // Move player to the left of the block
-                    break;
-                case CollisionType.TOP:
-                    ABounds.Y = BBounds.Bottom; // Move player below the block
-                    break;
-                case CollisionType.BOTTOM:
-                    ABounds.Y = BBounds.Top - ABounds.Height; // Move player above the block
-                    break;
-                default:
-                    break;
+                // Handle player collision with block
+                Rectangle BoundsA = objectA.Bounds;
+                Rectangle BoundsB = objectB.Bounds;
+
+                switch (side)
+                {
+                    case CollisionData.CollisionType.BOTTOM:
+                        BoundsA.Y = BoundsB.Top - BoundsA.Height; break;    // Move player above the block
+                    case CollisionData.CollisionType.TOP:
+                        BoundsA.Y = BoundsB.Bottom; break;                  // Move player below the block
+                    case CollisionData.CollisionType.RIGHT:
+                        BoundsA.X = BoundsB.Left - BoundsA.Width; break;    // Move player to the left of the block
+                    case CollisionData.CollisionType.LEFT:
+                        BoundsA.X = BoundsB.Right; break;                   // Move player to the right of the block
+                    default: break;
+                }
+
+                objectA.Bounds = BoundsA;
             }
+        }
 
-            objectA.Bounds = ABounds;
-        }
-    }
-
-    public void HandleCollision(LinkCollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable)
-    {
-        if (isCollidable && objectB is EnemyCollisionBox enemyBox)
+        private void HandleItemCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            HandleEnemyCollision(objectA, enemyBox, side);
-        }
-        else if (objectB is BlockCollisionBox block)
-        {
-            HandleBlockCollision(objectA, block, side);
-        }
-        else if (objectB is ItemCollisionBox item && objectA is LinkCollisionBox)
-        {
-            var names = item.getItemInfo();
-            Debug.Print("Picked up item " + names.name);
-            // TODO: Add item to Link Inventory
-            _itemManager.RemoveItem(item);
+            // add the item to links inventory
         }
     }
 }

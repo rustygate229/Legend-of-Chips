@@ -17,6 +17,7 @@ namespace _3902_Project
 
         private int _level;
         private int _prevLevel = -1; // -1 is a stand in for a null value
+        private int _endLevel = 4;
 
         private Dictionary<string, BlockManager.BlockNames> _csvTranslationsBlock;
         private Dictionary<string, EnemyManager.EnemyNames> _csvTranslationsEnemy;
@@ -26,10 +27,7 @@ namespace _3902_Project
         private List<List<string>> _enemies;
         private List<List<string>> _items;
 
-        private int STARTINGX = 0;
-        private int STARTINGY = 200;
-
-        private int ENDING_LEVEL = 4;
+        private Vector2 _startingPosition = new (0, 200);
 
         public List<List<ICollisionBox>> _collisionBoxes;
         
@@ -124,11 +122,11 @@ namespace _3902_Project
             string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Levels/Level" + _level.ToString() + ".csv";
             _environment = ReadCsvFile(filepath);
 
-            _blockManager.AddBlock(BlockManager.BlockNames.Environment, new Vector2(STARTINGX, STARTINGY), 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN, new Vector2(STARTINGX + 448, STARTINGY), 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_UP, new Vector2(STARTINGX + 448, STARTINGY + 576), 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT, new Vector2(STARTINGX, STARTINGY + 288), 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT, new Vector2(STARTINGX + 1024 - 128, STARTINGY + 288), 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.Environment, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y), 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y), 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_UP, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y + 576), 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y + 288), 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT, new Vector2((int)_startingPosition.X + 1024 - 128, (int)_startingPosition.Y + 288), 4F);
 
             for (int i = 0; i < _environment.Count; i++)
             {
@@ -139,7 +137,7 @@ namespace _3902_Project
 
                     if (_csvTranslationsBlock.ContainsKey(blockToPlace))
                     {
-                        currentBlock = _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2(STARTINGX + 128 + (j * 64), STARTINGY + 128 + (i * 64)), 4F);
+                        currentBlock = _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2((int)_startingPosition.X + 128 + (j * 64), (int)_startingPosition.Y + 128 + (i * 64)), 4F);
                     }
                 }
             }
@@ -158,7 +156,7 @@ namespace _3902_Project
                     ISprite currentEnemy;
 
                     if (_csvTranslationsEnemy.ContainsKey(enemyToPlace))
-                        currentEnemy = _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2(STARTINGX + 128 + (j * 64), STARTINGY + 128 + (i * 64)), 4F);
+                        currentEnemy = _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2((int)_startingPosition.X + 128 + (j * 64), (int)_startingPosition.Y + 128 + (i * 64)), 4F);
                 }
             }
         }
@@ -178,11 +176,11 @@ namespace _3902_Project
                     if (itemToPlace == "fs" || itemToPlace == "fl" || itemToPlace == "fp" || itemToPlace == "fa")
                     {
                         //flashing animated items
-                        currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(STARTINGX + 128 + (j * 64), STARTINGY + 128 + (i * 64)), 2F);
+                        currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2((int)_startingPosition.X + 128 + (j * 64), (int)_startingPosition.Y + 128 + (i * 64)), 2F);
                     }
                     else if (_csvTranslationsItem.ContainsKey(itemToPlace))
                     {
-                        currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2(STARTINGX + 128 + (j * 64), STARTINGY + 128 + (i * 64)), 3F);
+                        currentItem = _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2((int)_startingPosition.X + 128 + (j * 64), (int)_startingPosition.Y + 128 + (i * 64)), 3F);
                     }
                 }
             }
@@ -214,7 +212,7 @@ namespace _3902_Project
 
         public void incrementLevel()
         {
-            if (_level < ENDING_LEVEL) { _level++; }
+            if (_level < _endLevel) { _level++; }
         }
 
         public void decrementLevel()

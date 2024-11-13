@@ -116,10 +116,6 @@ namespace _3902_Project
 
             return xIntersect * yIntersect;
         }
-
-
-
-
     }
 }
 

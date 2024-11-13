@@ -12,23 +12,16 @@ namespace _3902_Project
         // create enemy names for finding them
         public enum EnemyNames { GreenSlime, BrownSlime, Darknut }
 
-        // enemy dictionary/inventory
+        // list of enemies
         private List<ISprite> _runningEnemies = new List<ISprite>();
+        private List<ICollisionBox> _collisionBoxes = new List<ICollisionBox>();
 
         // create variables for passing
         private EnemySpriteFactory _factory = EnemySpriteFactory.Instance;
         private SpriteBatch _spriteBatch;
-        
-
-        public List <ICollisionBox> collisionBoxes { get; private set; }
-        private Game1 _game;
-        private int _currentEnemyIndex = 0;
 
         // constructor
-        public EnemyManager()
-        {
-            collisionBoxes = new List<ICollisionBox>();
-        }
+        public EnemyManager() { }
 
 
         // Load all of enemies necesities
@@ -47,24 +40,34 @@ namespace _3902_Project
         public ISprite AddEnemy(EnemyNames name, Vector2 placementPosition, float printScale)
         {
             ISprite currentSprite = _factory.CreateEnemy(name, printScale);
-
-            //hardcoded for now for demo purposes - assumes it is a brown slime CHANGE LATER PLEASE
-            ICollisionBox collision = new EnemyCollisionBox(currentSprite.GetRectanglePosition(), true, 100, 10);
-            collisionBoxes.Add(collision);
-
             currentSprite.SetPosition(placementPosition);
             _runningEnemies.Add(currentSprite);
+            EnemyCollisionBox box = new EnemyCollisionBox(currentSprite, true);
+            SetHealthDamage(box);
+            _collisionBoxes.Add(box);
 
             return currentSprite;
+        }
+
+        public void UnloadEnemy(EnemyCollisionBox enemy)
+        {
+            _runningEnemies.Remove(enemy.Sprite);
+            _collisionBoxes.Remove(enemy);
         }
 
         /// <summary>
         /// Remove/Unload all Enemy Sprites
         /// </summary>
-        public void UnloadAllEnemies() 
-        { 
-            _runningEnemies.Clear(); 
-            collisionBoxes.Clear(); 
+        public void UnloadAllEnemies()  { _runningEnemies.Clear(); _collisionBoxes.Clear(); }
+
+
+        public void Update()
+        {
+            foreach (var box in _collisionBoxes)
+            {
+                box.Sprite.Update();
+                box.Bounds = box.Sprite.GetRectanglePosition();
+            }
         }
 
         /// <summary>
@@ -73,52 +76,28 @@ namespace _3902_Project
         public void Draw()
         {
             foreach (var enemy in _runningEnemies)
-            {
-                enemy.Draw(_spriteBatch);
-            }
+            { enemy.Draw(_spriteBatch); }
         }
 
-        public void UpdateBounds(EnemyCollisionBox collisionBox)
+        public void SetHealthDamage(ICollisionBox box)
         {
-            int i = collisionBoxes.IndexOf(collisionBox);
-            if (i >= 0)
+            switch(box.Sprite)
             {
-                collisionBoxes[i].Bounds = collisionBox.Bounds;
-                _runningEnemies[i].SetPosition(new Vector2(collisionBox.Bounds.X, collisionBox.Bounds.Y));
+                case GreenSlime:
+                    box.Health = 10;
+                    box.Damage = 1;
+                    break;
+                case BrownSlime:
+                    box.Health = 10;
+                    box.Damage = 1;
+                    break;
+                case Darknut:
+                    box.Health = 10;
+                    box.Damage = 1;
+                    break;
+                default: break;
             }
         }
-
-        public void Update()
-        {
-            Random random = new Random();
-
-            foreach (var enemy in _runningEnemies)
-            {
-                enemy.Update();
-            }
-        }
-
-        
-        public void EnemyIsDead(EnemyCollisionBox enemyCollisionBox)
-        {
-            /*
-            int index = collisionBoxes.IndexOf(enemyCollisionBox);
-
-            if (index >= 0)
-            {
-                // Remove collision box and enemy sprite
-                collisionBoxes.RemoveAt(index);
-                ISprite enemySprite = _runningEnemies[index];
-                _runningEnemies.RemoveAt(index);
-
-                collisionBoxes[i].Bounds = enemy.GetRectanglePosition();
-                i++;
-
-            }
-            */
-        }
-
-        public void UpdateDirection(EnemyCollisionBox enemy, Vector2 temp) {}
     }
 }
 

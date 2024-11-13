@@ -1,67 +1,61 @@
 ﻿using _3902_Project;
 using Microsoft.Xna.Framework;
+using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 public class EnemyCollisionHandler
 {
-    EnemyManager _enemyManager;
-    CharacterStateManager _characterStateManager;
+    EnemyManager _enemy;
 
-    public EnemyCollisionHandler(EnemyManager enemyManager,CharacterStateManager characterStateManager)
+    public EnemyCollisionHandler() { }
+
+    public void LoadAll(EnemyManager enemy)
     {
-        _enemyManager = enemyManager;
-        _characterStateManager = characterStateManager;
-    }
-    public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable)
-    {
-        if (objectA is EnemyCollisionBox && objectB is BlockCollisionBox)
-        {
-            HandleEnemyBlockCollision((EnemyCollisionBox)objectA, (BlockCollisionBox)objectB, side);
-        }
-        else if (objectB is EnemyCollisionBox && objectA is BlockCollisionBox)
-        {
-            HandleEnemyBlockCollision((EnemyCollisionBox)objectB, (BlockCollisionBox)objectA, side);
-        }
-        else if (objectA is LinkCollisionBox linkPlayerA && objectB is EnemyProjCollisionBox bulletB)
-        {
-            linkPlayerA.Health = linkPlayerA.Health - bulletB.Damage;
-        }
-        else if (objectA is EnemyProjCollisionBox bulletA && objectB is LinkCollisionBox linkPlayerB)
-        {
-            linkPlayerB.Health = linkPlayerB.Health - bulletA.Damage;
-        }
+        _enemy = enemy;
     }
 
-    private void HandleEnemyBlockCollision(EnemyCollisionBox enemy, BlockCollisionBox block, CollisionType side)
+    public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
     {
-        if (!block.IsCollidable) return;
+        bool isCollidable = objectA.IsCollidable && objectB.IsCollidable;
+        if (isCollidable && objectB is BlockCollisionBox)
+            HandleBlockCollision(objectA, objectB, side);
+        else if (objectB is LinkProjCollisionBox)
+            HandleLinkProjCollision(objectA, objectB, side);
+    }
 
-        Microsoft.Xna.Framework.Rectangle ABounds = enemy.Bounds;
-        Microsoft.Xna.Framework.Rectangle BBounds = block.Bounds;
-
-        switch (side)
+    private void HandleBlockCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
+    {
+        if (objectB.IsCollidable)
         {
-            case CollisionType.LEFT:
-                ABounds.X = BBounds.Right; // Move player to the right of the block
-                _enemyManager.UpdateDirection(enemy, new Vector2(1, 0));
-                break;
-            case CollisionType.RIGHT:
-                ABounds.X = BBounds.Left - ABounds.Width; // Move player to the left of the block
-                _enemyManager.UpdateDirection(enemy, new Vector2(-1, 0));
-                break;
-            case CollisionType.TOP:
-                ABounds.Y = BBounds.Bottom; // Move player below the block
-                _enemyManager.UpdateDirection(enemy, new Vector2(0, 1));
-                break;
-            case CollisionType.BOTTOM:
-                ABounds.Y = BBounds.Top - ABounds.Height; // Move player above the block
-                _enemyManager.UpdateDirection(enemy, new Vector2(0, -1));
-                break;
-            default:
-                break;
-        }
+            // Handle player collision with block
+            Rectangle BoundsA = objectA.Bounds;
+            Rectangle BoundsB = objectB.Bounds;
 
-        _enemyManager.UpdateBounds(enemy);
+            switch (side)
+            {
+                case CollisionData.CollisionType.LEFT:
+                    BoundsA.X = BoundsB.Right; // Move enemy to the right of the block
+                    break;
+                case CollisionData.CollisionType.RIGHT:
+                    BoundsA.X = BoundsB.Left - BoundsA.Width; // Move enemy to the left of the block
+                    break;
+                case CollisionData.CollisionType.TOP:
+                    BoundsA.Y = BoundsB.Bottom; // Move enemy below the block
+                    break;
+                case CollisionData.CollisionType.BOTTOM:
+                    BoundsA.Y = BoundsB.Top - BoundsA.Height; // Move enemy above the block
+                    break;
+                default:
+                    break;
+            }
+
+            objectA.Bounds = BoundsA;
+        }
+    }
+
+    private void HandleLinkProjCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
+    {
+        objectA.Health -= objectB.Damage;
     }
 }

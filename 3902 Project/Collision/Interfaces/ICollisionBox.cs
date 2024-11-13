@@ -6,25 +6,15 @@ public interface ICollisionBox
     //GamePlayer, GameEnemy, GameItem, GameBlock implements ICollisionBox
     //Rectangle Bounds { get; set; }
 
-    Rectangle Bounds
-    {
-        get;
-        set;
+    ISprite Sprite {  get; set; }
 
-    }
+    Rectangle Bounds { get; set; }
 
-    bool IsCollidable
-    {
-        get;
-        set;
+    bool IsCollidable { get; set; }
 
-    }
+    int Health { get; set; }
 
-    int Health
-        { get; set; }
-
-    int Damage
-        { get; set; }
+    int Damage { get; set; }
     
     
     //void HandleCollisions(List<ICollisionBox> gameObjects);

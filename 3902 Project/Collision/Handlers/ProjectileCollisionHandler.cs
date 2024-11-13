@@ -4,68 +4,45 @@ namespace _3902_Project
 {
     public class ProjectileCollisionHandler : ICollisionHandler
     {
-        private ProjectileManager _projectileManager;
-        private EnemyManager _enemyManager;
+        private ProjectileManager _projectile;
 
-        public ProjectileCollisionHandler(ProjectileManager projectileManager, EnemyManager enemyManager)
+        public ProjectileCollisionHandler() { }
+
+        public void LoadAll(ProjectileManager projectile)
         {
-            _projectileManager = projectileManager;
-            _enemyManager = enemyManager;
+            _projectile = projectile;
         }
 
-        public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionType side, bool isCollidable)
+        public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            if (objectA is LinkProjCollisionBox projectileA)
+            if (objectA.IsCollidable && objectA is LinkProjCollisionBox)
+                HandleLinkProjectileCollision(objectA, objectB, side);
+            else if (objectA.IsCollidable && objectA is EnemyProjCollisionBox)
+                HandleEnemyProjectileCollision(objectA, objectA, side);
+        }
+
+        private void HandleLinkProjectileCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
+        {
+            if (objectB is BlockCollisionBox)
             {
-                HandleProjectileCollision(projectileA, objectB, side);
+
             }
-            else if (objectB is LinkProjCollisionBox projectileB)
+            else if (objectB is EnemyCollisionBox)
             {
-                HandleProjectileCollision(projectileB, objectA, side);
+
             }
         }
 
-        private void HandleProjectileCollision(LinkProjCollisionBox projectile, ICollisionBox otherObject, CollisionType side)
+        private void HandleEnemyProjectileCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            if (!projectile.IsCollidable || !otherObject.IsCollidable) return;
-
-            if (otherObject is EnemyCollisionBox enemy)
+            if (objectB is BlockCollisionBox)
             {
-                // Reduce enemy health
-                enemy.Health -= projectile.Damage;
 
-                // Reduce projectile health
-                projectile.Health = 0; // Destroy projectile upon impact
-
-                // Check if enemy is dead
-                if (enemy.Health <= 0)
-                {
-                    enemy.IsCollidable = false;
-                    _enemyManager.EnemyIsDead(enemy);
-                }
-
-                // Remove projectile if it's destroyed
-                if (projectile.Health <= 0)
-                {
-                    projectile.IsCollidable = false;
-                    _projectileManager.ProjectileIsDead(projectile);
-                }
             }
-            else if (otherObject is BlockCollisionBox block)
+            else if (objectB is LinkCollisionBox)
             {
-                if (block.IsCollidable)
-                {
-                    // Handle collision with block
-                    projectile.Health = 0;
 
-                    if (projectile.Health <= 0)
-                    {
-                        projectile.IsCollidable = false;
-                        _projectileManager.ProjectileIsDead(projectile);
-                    }
-                }
             }
-            // Additional collision handling can be added here
         }
     }
 }
