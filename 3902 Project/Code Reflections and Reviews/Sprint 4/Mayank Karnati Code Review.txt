@@ -1,0 +1,21 @@
+READABILITY & CODE REVIEW 
+AUTHOR: Mayank Karnati
+DATE: 11/12/24
+SPRINT NUMBER: 4
+.cs FILE NAME: LinkInventory.cs
+.cs FILE AUTHOR: Rolina Qu
+TIME TAKEN: 20 minutes
+
+Readability: 
+
+The LinkInventory class is generally easy to understand due to its clear naming and organized structure. The use of the LINK_PROJECTILES 
+enum makes the code intuitive, and comments help clarify some sections. However, there are areas for improvement: the constructor's hardcoded 
+values could use more context, and the translateNumbers method relies on rigid mappings that could be made more flexible with a dictionary. Breaking 
+down the canFireProjectiles method into smaller functions would also enhance readability.
+
+Code Quality: 
+
+The class effectively uses a dictionary for inventory management, with modular methods like canFireProjectiles and addProjectiles keeping 
+functionality focused. However, hardcoded values and redundant logic, such as repeated mappings in translateNumbers, could be simplified 
+with constants or more dynamic structures. Handling edge cases like inventory limits would further improve robustness, and a commented-out 
+constructor should either be removed or repurposed to avoid clutter.
