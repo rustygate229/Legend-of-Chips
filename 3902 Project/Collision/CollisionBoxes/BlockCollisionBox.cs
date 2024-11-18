@@ -18,39 +18,9 @@ public class BlockCollisionBox : ICollisionBox
         _sprite = sprite;
         _bounds = _sprite.GetRectanglePosition();
         _collidable = false;
-        _health = -1;
-        _damage = -1;
+        _health = 1;
+        _damage = 0;
         _sprite = sprite;
-    }
-
-    public BlockCollisionBox(ISprite sprite, bool isCollidable)
-    {
-        _sprite = sprite;
-        _bounds = _sprite.GetRectanglePosition();
-        _collidable = isCollidable;
-        _health = -1;
-        _damage = -1;
-
-    }
-
-    public BlockCollisionBox(ISprite sprite, bool isCollidable, int health, int damage)
-    {
-        _sprite = sprite;
-        _bounds = _sprite.GetRectanglePosition();
-        _collidable = isCollidable;
-        _health = health;
-        _damage = damage;
-
-    }
-
-    public BlockCollisionBox(ISprite sprite, bool isCollidable, int health)
-    {
-        _sprite = sprite;
-        _bounds = _sprite.GetRectanglePosition();
-        _collidable = isCollidable;
-        _health = health;
-        _damage = -1;
-
     }
 
     public ISprite Sprite

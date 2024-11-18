@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Diagnostics;
 
 namespace _3902_Project
 {
@@ -17,14 +15,13 @@ namespace _3902_Project
 
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            bool isCollidable = objectA.IsCollidable && objectB.IsCollidable;
-            if (isCollidable && objectB is EnemyCollisionBox)
+            if (objectB is EnemyCollisionBox)
                 HandleEnemyCollision(objectA, objectB, side);
-            else if (isCollidable && objectB is EnemyProjCollisionBox)
+            else if (objectB is EnemyProjCollisionBox)
                 HandleEnemyProjCollision(objectA, objectB, side);
-            else if (isCollidable && objectB is BlockCollisionBox)
+            else if (objectB is BlockCollisionBox)
                 HandleBlockCollision(objectA, objectB, side);
-            else if (isCollidable && objectB is ItemCollisionBox)
+            else if (objectB is ItemCollisionBox)
                 HandleItemCollision(objectA, objectB, side);
         }
 
@@ -52,32 +49,29 @@ namespace _3902_Project
 
         private void HandleBlockCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            if (objectB.IsCollidable)
+            // Handle player collision with block
+            Rectangle BoundsA = objectA.Bounds;
+            Rectangle BoundsB = objectB.Bounds;
+
+            switch (side)
             {
-                // Handle player collision with block
-                Rectangle BoundsA = objectA.Bounds;
-                Rectangle BoundsB = objectB.Bounds;
-
-                switch (side)
-                {
-                    case CollisionData.CollisionType.BOTTOM:
-                        BoundsA.Y = BoundsB.Top - BoundsA.Height; break;    // Move player above the block
-                    case CollisionData.CollisionType.TOP:
-                        BoundsA.Y = BoundsB.Bottom; break;                  // Move player below the block
-                    case CollisionData.CollisionType.RIGHT:
-                        BoundsA.X = BoundsB.Left - BoundsA.Width; break;    // Move player to the left of the block
-                    case CollisionData.CollisionType.LEFT:
-                        BoundsA.X = BoundsB.Right; break;                   // Move player to the right of the block
-                    default: break;
-                }
-
-                objectA.Bounds = BoundsA;
+                case CollisionData.CollisionType.BOTTOM:
+                    BoundsA.Y = BoundsB.Top - BoundsA.Height; break;    // Move player above the block
+                case CollisionData.CollisionType.TOP:
+                    BoundsA.Y = BoundsB.Bottom; break;                  // Move player below the block
+                case CollisionData.CollisionType.RIGHT:
+                    BoundsA.X = BoundsB.Left - BoundsA.Width; break;    // Move player to the left of the block
+                case CollisionData.CollisionType.LEFT:
+                    BoundsA.X = BoundsB.Right; break;                   // Move player to the right of the block
+                default: break;
             }
+
+            _link.SetLinkPosition(new (BoundsA.X, BoundsA.Y));
         }
 
         private void HandleItemCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            // add the item to links inventory
+            // add the item to links inventory/menu
         }
     }
 }

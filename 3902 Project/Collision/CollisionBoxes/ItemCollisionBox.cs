@@ -8,7 +8,7 @@ namespace _3902_Project
     {
         private ISprite _sprite;
         private Rectangle _bounds;
-        private bool _isCollidable;
+        private bool _collidable;
         private int _health;
         private int _damage;
 
@@ -16,8 +16,8 @@ namespace _3902_Project
         {
             _sprite = sprite;
             _bounds = _sprite.GetRectanglePosition();
-            _isCollidable = true;
-            _health = -1;
+            _collidable = false;
+            _health = 1;
             _damage = 0;
         }
 
@@ -35,8 +35,8 @@ namespace _3902_Project
 
         public bool IsCollidable
         {
-            get { return _isCollidable; }
-            set { _isCollidable = value; }
+            get { return _collidable; }
+            set { _collidable = value; }
         }
 
         public int Health

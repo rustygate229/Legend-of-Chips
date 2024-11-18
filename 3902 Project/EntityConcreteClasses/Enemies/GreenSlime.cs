@@ -63,8 +63,9 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            if (_moveCounter == 0) { _enemy.SetRandomMovement(); _direction = _enemy.GetDirection(); _updatePosition = _enemy.GetUpdatePosition(_positionSpeed); }
-            if (_moveCounter == 15) { _projectileManager.CallProjectile(ProjectileManager.ProjectileNames.FireBall, _enemy.GetPositionAhead(), _printScale); }
+            if (_moveCounter == 0) _enemy.SetRandomMovement(); _direction = _enemy.GetDirection(); _updatePosition = _enemy.GetUpdatePosition(_positionSpeed);
+            if (_moveCounter == 15)
+                _projectileManager.CallProjectile(ProjectileManager.ProjectileNames.FireBall, ProjectileManager.ProjectileType.EnemyProj, _enemy.GetPositionAhead(), _direction, _printScale);
             _moveCounter++;
             if (_moveCounter == _moveTotal) { _moveCounter = 0; }
 

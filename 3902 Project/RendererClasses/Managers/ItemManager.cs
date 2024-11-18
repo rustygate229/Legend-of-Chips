@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace _3902_Project
 {
-    public class ItemManager
+    public partial class ItemManager
     {
         // create item names for finding them
         public enum ItemNames
@@ -45,8 +45,10 @@ namespace _3902_Project
             currentSprite.SetPosition(placementPosition);
             _runningItems.Add(currentSprite);
 
-            // Add item collision box for collision detection
-            _collisionBoxes.Add(new ItemCollisionBox(currentSprite));
+            ItemCollisionBox box = new (currentSprite);
+            SetCollision(box);
+            SetHealthDamage(box);
+            _collisionBoxes.Add(box);
 
             return currentSprite;
         }
@@ -57,13 +59,8 @@ namespace _3902_Project
 
             currentSprite.SetPosition(placementPosition);
             _menuItems.Add(currentSprite);
-
+            
             return currentSprite;
-        }
-
-        public void UnloadMenuItem(ISprite spriteToRemove)
-        {
-            _menuItems.Remove(spriteToRemove);
         }
 
         // remove item after being collected
@@ -73,9 +70,14 @@ namespace _3902_Project
             _collisionBoxes.Remove(item);
         }
 
-        public void UnloadAllMenuItems() { _menuItems.Clear(); }
+        public void UnloadMenuItem(ISprite spriteToRemove)
+        {
+            _menuItems.Remove(spriteToRemove);
+        }
 
         public void UnloadAllItems() { _runningItems.Clear(); _collisionBoxes.Clear(); }
+
+        public void UnloadAllMenuItems() { _menuItems.Clear(); }
 
 
         /// <summary>
@@ -96,14 +98,18 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            foreach (var item in _runningItems)
-            { item.Update(); }
-        }
-
-        // Method to get collision boxes for all items
-        public List<ICollisionBox> GetCollisionBoxes()
-        {
-            return _collisionBoxes;
+            List<ICollisionBox> unloadList = new List<ICollisionBox>();
+            foreach (var item in _collisionBoxes)
+            {
+                item.Sprite.Update();
+                if (item.Health <= 0)
+                    unloadList.Add(item);
+            }
+            foreach (var item in unloadList)
+            {
+                if (_collisionBoxes.Contains(item))
+                    UnloadItem(item);
+            }
         }
     }
 }

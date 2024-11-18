@@ -6,21 +6,27 @@
 
         public BlockCollisionHandler() { }
 
-        public void LoadAll(BlockManager block)
-        {
-            _block = block;
-        }
+        public void LoadAll(BlockManager block) { _block = block; }
 
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            bool isCollidable = objectA.IsCollidable && objectB.IsCollidable;
-            if (isCollidable && objectB is LinkCollisionBox)
+            if (objectB is LinkCollisionBox)
                 HandleLinkCollision(objectA, objectB, side);
         }
 
         private void HandleLinkCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
             // add link moving the block logic
+            if (_block.IsMovable(objectA))
+            {
+
+            }
+            
+            // destroy block logic
+            if (_block.IsDestroyable(objectA))
+            {
+                objectA.Health -= objectB.Damage;
+            }
         }
     }
 }

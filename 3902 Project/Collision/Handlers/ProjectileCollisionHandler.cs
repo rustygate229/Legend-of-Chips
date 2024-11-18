@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace _3902_Project
 {
@@ -15,34 +16,32 @@ namespace _3902_Project
 
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            if (objectA.IsCollidable && objectA is LinkProjCollisionBox)
-                HandleLinkProjectileCollision(objectA, objectB, side);
-            else if (objectA.IsCollidable && objectA is EnemyProjCollisionBox)
-                HandleEnemyProjectileCollision(objectA, objectA, side);
+            // handle collision based on who threw the projectile
+            if (objectA is LinkProjCollisionBox && objectB is EnemyCollisionBox)
+                HandleLinkCollision(objectA, objectB, side);
+            else if (objectA is EnemyProjCollisionBox && objectB is LinkCollisionBox)
+                HandleEnemyCollision(objectA, objectA, side);
+            else if ((objectA is LinkProjCollisionBox && objectB is BlockCollisionBox) || (objectA is EnemyProjCollisionBox && objectB is BlockCollisionBox))
+                HandleBlockCollision(objectA, objectB, side);
+            else
+                throw new ArgumentException("Projectile Collision objects are not correct");
         }
 
-        private void HandleLinkProjectileCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
+        private void HandleLinkCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            if (objectB is BlockCollisionBox)
-            {
-
-            }
-            else if (objectB is EnemyCollisionBox)
-            {
-
-            }
+            if (_projectile.IsDamagable(objectA))
+                objectA.Health -= objectB.Damage;
         }
 
-        private void HandleEnemyProjectileCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
+        private void HandleEnemyCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            if (objectB is BlockCollisionBox)
-            {
+            if (_projectile.IsDamagable(objectA))
+                objectA.Health -= objectB.Damage;
+        }
 
-            }
-            else if (objectB is LinkCollisionBox)
-            {
-
-            }
+        public void HandleBlockCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
+        {
+            objectA.Health -= objectB.Damage;
         }
     }
 }

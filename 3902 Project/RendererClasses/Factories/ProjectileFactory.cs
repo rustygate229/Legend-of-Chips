@@ -11,12 +11,6 @@ namespace _3902_Project
 
         private static ProjectileFactory instance = new ProjectileFactory();
 
-        public enum ProjectileSpriteNames
-        {
-            BlueArrow, FireBall,
-            SmallExplosion, Bomb, BombCloud, BombFire
-        }
-
         public static ProjectileFactory Instance { get { return instance; } }
 
         private ProjectileFactory() { instance = this; }
@@ -35,14 +29,14 @@ namespace _3902_Project
 
 
         // create every type of projectile
-        public ISprite CreateProjectile(ProjectileSpriteNames projectileSpriteName, Renderer.DIRECTION direction, float printScale)
+        public IPJoiner CreateProjectile(ProjectileManager.ProjectileNames name, Renderer.DIRECTION direction, float printScale)
         {
-            switch (projectileSpriteName)
+            switch (name)
             {
-                case ProjectileSpriteNames.BlueArrow:
-                    return new PSprite_BlueArrow(_linkSpriteSheet, direction, printScale);
-                case ProjectileSpriteNames.FireBall:
-                    return new PJoiner_FireBall(_linkSpriteSheet, direction, printScale);
+                case ProjectileManager.ProjectileNames.BlueArrow:
+                    return new PJoiner_BlueArrow(_linkSpriteSheet, direction, printScale);
+                case ProjectileManager.ProjectileNames.FireBall:
+                    return new PJoiner_FireBall(_enemySpriteSheet, direction, printScale);
                 default: throw new ArgumentException("Invalid projectile name in factory");
             }
 
@@ -51,18 +45,12 @@ namespace _3902_Project
         }
 
         // create every type of projectile
-        public ISprite CreateProjectile(ProjectileSpriteNames projectileSpriteName, float printScale)
+        public IPJoiner CreateProjectile(ProjectileManager.ProjectileNames name, float printScale)
         {
-            switch (projectileSpriteName)
+            switch (name)
             {
-                case ProjectileSpriteNames.Bomb:
-                    return new PSprite_Bomb(_linkSpriteSheet, printScale);
-                case ProjectileSpriteNames.BombCloud:
-                    return new PSprite_BombCloud(_linkSpriteSheet, printScale);
-                case ProjectileSpriteNames.BombFire:
-                    return new PSprite_Fire(_linkSpriteSheet, printScale);
-                case ProjectileSpriteNames.SmallExplosion:
-                    return new PSprite_SmallExplosion(_linkSpriteSheet, printScale);
+                case ProjectileManager.ProjectileNames.Bomb:
+                    return new PJoiner_Bomb(_linkSpriteSheet, printScale);
                 default: throw new ArgumentException("Invalid projectile name in factory");
             }
 

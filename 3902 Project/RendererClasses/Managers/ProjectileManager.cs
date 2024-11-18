@@ -2,10 +2,11 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using static _3902_Project.Renderer;
 
 namespace _3902_Project
 {
-    public class ProjectileManager
+    public partial class ProjectileManager
     {
         public enum ProjectileNames
         {
@@ -14,8 +15,8 @@ namespace _3902_Project
 
         public enum ProjectileType { LinkProj, EnemyProj }
 
-        private List<ISprite> _runningProjectiles = new List<ISprite>();
-        private List<ICollisionBox> _projectileCollisionBoxes = new List<ICollisionBox>();
+        private List<IPJoiner> _runningProjectileJoiners = new List<IPJoiner>();
+        private List<ICollisionBox> _collisionBoxes = new List<ICollisionBox>();
         private ProjectileFactory _factory = ProjectileFactory.Instance;
         private SpriteBatch _spriteBatch;
 
@@ -31,13 +32,19 @@ namespace _3902_Project
         /// <param name="placementPosition"></param>
         /// <param name="direction"></param>
         /// <returns>the sprite added to the list</returns>
-        public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, Renderer.DIRECTION direction, float printScale)
+        public void CallProjectile(ProjectileNames name, ProjectileType type, Vector2 placementPosition, Renderer.DIRECTION direction, float printScale)
         {
-            ISprite currentSprite = _factory.CreateProjectile(name, direction, printScale);
-            currentSprite.SetPosition(placementPosition);
-            _runningProjectiles.Add(currentSprite);
-            _projectileCollisionBoxes.Add(new LinkProjCollisionBox(currentSprite.GetRectanglePosition(), 10, 1));
-            return currentSprite;
+            IPJoiner currentJoiner = _factory.CreateProjectile(name, direction, printScale);
+            currentJoiner.CurrentSprite.SetPosition(placementPosition);
+            _runningProjectileJoiners.Add(currentJoiner);
+
+            if (type.Equals(ProjectileType.LinkProj))
+                currentJoiner.CollisionBox = new LinkProjCollisionBox(currentJoiner.CurrentSprite);
+            else
+                currentJoiner.CollisionBox = new EnemyProjCollisionBox(currentJoiner.CurrentSprite);
+            SetCollidable(currentJoiner.CollisionBox);
+            SetDamageHealth(currentJoiner.CollisionBox);
+            _collisionBoxes.Add(currentJoiner.CollisionBox);
         }
 
         /// <summary>
@@ -46,18 +53,19 @@ namespace _3902_Project
         /// <param name="name"></param>
         /// <param name="placementPosition"></param>
         /// <returns>the sprite added to the list</returns>
-        public ISprite CallProjectile(ProjectileNames name, Vector2 placementPosition, float printScale)
+        public void CallProjectile(ProjectileNames name, ProjectileType type, Vector2 placementPosition, float printScale)
         {
-            ISprite currentSprite = _factory.CreateProjectile(name, printScale);
-            currentSprite.SetPosition(placementPosition);
-            _runningProjectiles.Add(currentSprite);
-            _projectileCollisionBoxes.Add(new LinkProjCollisionBox(currentSprite.GetRectanglePosition(), 10, 1));
-            return currentSprite;
-        }
+            IPJoiner currentJoiner = _factory.CreateProjectile(name, printScale);
+            currentJoiner.CurrentSprite.SetPosition(placementPosition);
+            _runningProjectileJoiners.Add(currentJoiner);
 
-        public ISprite CallProjectileJoinerSprite(ProjectileNames name)
-        {
-
+            if (type.Equals(ProjectileType.LinkProj))
+                currentJoiner.CollisionBox = new LinkProjCollisionBox(currentJoiner.CurrentSprite);
+            else
+                currentJoiner.CollisionBox = new EnemyProjCollisionBox(currentJoiner.CurrentSprite);
+            SetCollidable(currentJoiner.CollisionBox);
+            SetDamageHealth(currentJoiner.CollisionBox);
+            _collisionBoxes.Add(currentJoiner.CollisionBox);
         }
 
         public void UnloadAllTextures(ContentManager content)
@@ -65,17 +73,17 @@ namespace _3902_Project
             _factory.UnloadAllTextures(content);
         }
 
-        public void UnloadProjectile(ISprite sprite)
+        public void UnloadProjectileJoiner(IPJoiner joiner)
         {
-            int index = _runningProjectiles.IndexOf(sprite);
-            _runningProjectiles.Remove(sprite);
-            //_projectileCollisionBoxes.RemoveAt(index);
+            _runningProjectileJoiners.Remove(joiner);
+            _collisionBoxes.Remove(joiner.CollisionBox);
+            
         }
 
         public void UnloadAllProjectiles()
         {
-            _runningProjectiles.Clear();
-            _projectileCollisionBoxes.Clear();
+            _runningProjectileJoiners.Clear();
+            _collisionBoxes.Clear();
         }
 
 
@@ -84,44 +92,28 @@ namespace _3902_Project
         /// </summary>
         public void Draw()
         {
-            foreach (var projectile in _runningProjectiles)
+            foreach (var projectile in _runningProjectileJoiners)
             {
-                projectile.Draw(_spriteBatch);
+                projectile.CurrentSprite.Draw(_spriteBatch);
             }
         }
 
         public void Update()
         {
-            foreach (var projectile in _runningProjectiles)
+            List<IPJoiner> unloadList = new List<IPJoiner>();
+            foreach (var projectile in _runningProjectileJoiners)
             {
                 projectile.Update();
-            
-                var box = _projectileCollisionBoxes[_projectileCollisionBoxes.Capacity - 1];
-                // Uncomment and update projectile's position as needed.
-                // box.Bounds = new Rectangle(projectile.get);
-
-                // if (IsOffScreen(box)) { ProjectileIsDead(box); }
+                projectile.CurrentSprite.Update();
+                projectile.CollisionBox.Bounds = projectile.CurrentSprite.GetRectanglePosition();
+                if (projectile.RemovableFlip == true)
+                    unloadList.Add(projectile);
             }
-        }
-
-        public void ProjectileIsDead(ICollisionBox projectile)
-        {
-            int index = _projectileCollisionBoxes.IndexOf(projectile);
-            _projectileCollisionBoxes.Remove(projectile);
-            _runningProjectiles.RemoveAt(index);
-        }
-
-        private bool IsOffScreen(ICollisionBox projectile)
-        {
-            // Implement logic to check if the projectile is off-screen
-            // Example:
-            // return !gameViewport.Bounds.Contains(projectile.Bounds);
-            return false;
-        }
-
-        public List<ICollisionBox> GetCollisionBoxes()
-        {
-            return _projectileCollisionBoxes;
+            foreach (var projectile in unloadList)
+            {
+                if (_runningProjectileJoiners.Contains(projectile))
+                    UnloadProjectileJoiner(projectile);
+            }
         }
     }
 }

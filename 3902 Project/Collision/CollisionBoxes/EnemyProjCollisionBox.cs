@@ -10,13 +10,13 @@ namespace _3902_Project
         private int _damage;
         private int _health;
 
-        public EnemyProjCollisionBox(ISprite sprite, int damage, int health)
+        public EnemyProjCollisionBox(ISprite sprite)
         {
             _sprite = sprite;
             _bounds = _sprite.GetRectanglePosition();
-            _collidable = true; 
-            _damage = damage;
-            _health = health;
+            _collidable = false;
+            _health = 1;
+            _damage = 0;
         }
 
         public ISprite Sprite

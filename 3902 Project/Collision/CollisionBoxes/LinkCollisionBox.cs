@@ -11,13 +11,13 @@ public class LinkCollisionBox : ICollisionBox
     private int _health;
     private int _damage;
 
-    public LinkCollisionBox(ISprite sprite, bool isCollidable)
+    public LinkCollisionBox(ISprite sprite)
     {
         _sprite = sprite;
         _bounds = _sprite.GetRectanglePosition();
-        _collidable = isCollidable;
+        _collidable = false;
         _health = 1;
-        _damage = -1;
+        _damage = 0;
     }
 
     public ISprite Sprite

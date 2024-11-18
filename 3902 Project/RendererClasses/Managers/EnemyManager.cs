@@ -1,13 +1,11 @@
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using _3902_Project;
-using System;
 
 namespace _3902_Project
 {
-    public class EnemyManager
+    public partial class EnemyManager
     {
         // create enemy names for finding them
         public enum EnemyNames { GreenSlime, BrownSlime, Darknut }
@@ -37,19 +35,19 @@ namespace _3902_Project
         /// </summary>
         /// <param name="name"></param>
         /// <param name="placementPosition"></param>
-        public ISprite AddEnemy(EnemyNames name, Vector2 placementPosition, float printScale)
+        public void AddEnemy(EnemyNames name, Vector2 placementPosition, float printScale)
         {
             ISprite currentSprite = _factory.CreateEnemy(name, printScale);
             currentSprite.SetPosition(placementPosition);
             _runningEnemies.Add(currentSprite);
-            EnemyCollisionBox box = new EnemyCollisionBox(currentSprite, true);
+
+            EnemyCollisionBox box = new (currentSprite);
+            SetCollision(box);
             SetHealthDamage(box);
             _collisionBoxes.Add(box);
-
-            return currentSprite;
         }
 
-        public void UnloadEnemy(EnemyCollisionBox enemy)
+        public void UnloadEnemy(ICollisionBox enemy)
         {
             _runningEnemies.Remove(enemy.Sprite);
             _collisionBoxes.Remove(enemy);
@@ -63,10 +61,18 @@ namespace _3902_Project
 
         public void Update()
         {
-            foreach (var box in _collisionBoxes)
+            List<ICollisionBox> unloadList = new List<ICollisionBox>();
+            foreach (var enemy in _collisionBoxes)
             {
-                box.Sprite.Update();
-                box.Bounds = box.Sprite.GetRectanglePosition();
+                enemy.Sprite.Update();
+                enemy.Bounds = enemy.Sprite.GetRectanglePosition();
+                if (enemy.Health <= 0)
+                    unloadList.Add(enemy);
+            }
+            foreach (var enemy in unloadList)
+            {
+                if (_collisionBoxes.Contains(enemy))
+                    UnloadEnemy(enemy);
             }
         }
 
@@ -77,26 +83,6 @@ namespace _3902_Project
         {
             foreach (var enemy in _runningEnemies)
             { enemy.Draw(_spriteBatch); }
-        }
-
-        public void SetHealthDamage(ICollisionBox box)
-        {
-            switch(box.Sprite)
-            {
-                case GreenSlime:
-                    box.Health = 10;
-                    box.Damage = 1;
-                    break;
-                case BrownSlime:
-                    box.Health = 10;
-                    box.Damage = 1;
-                    break;
-                case Darknut:
-                    box.Health = 10;
-                    box.Damage = 1;
-                    break;
-                default: break;
-            }
         }
     }
 }

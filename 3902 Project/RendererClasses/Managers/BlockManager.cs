@@ -2,17 +2,17 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace _3902_Project
 {
-    public class BlockManager
+    public partial class BlockManager
     {
         // create block names for finding them
         public enum BlockNames
         {
             Environment, Dirt, Square, Tile, WhiteBrick, WhiteTile, Water,
             BombedDoor_DOWN, BombedDoor_UP, BombedDoor_RIGHT, BombedDoor_LEFT,
+            Invisible_DOWN, Invisible_UP, Invisible_RIGHT, Invisible_LEFT,
             DiamondHoleLockedDoor_DOWN, DiamondHoleLockedDoor_UP, DiamondHoleLockedDoor_RIGHT, DiamondHoleLockedDoor_LEFT,
             KeyHoleLockedDoor_DOWN, KeyHoleLockedDoor_UP, KeyHoleLockedDoor_RIGHT, KeyHoleLockedDoor_LEFT,
             OpenDoor_DOWN, OpenDoor_UP, OpenDoor_RIGHT, OpenDoor_LEFT, Wall_DOWN, Wall_UP, Wall_RIGHT, Wall_LEFT,
@@ -40,49 +40,22 @@ namespace _3902_Project
             _factory.LoadAllTextures(content);
         }
 
-        private bool isCollidable(BlockNames name)
-        {
-            switch (name)
-            {
-                case BlockNames.Square:
-                case BlockNames.StatueDragon_LEFT:
-                case BlockNames.Water:
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
         /// <summary>
         /// Add an block to the running block list
         /// </summary>
         /// <param name="name"></param>
         /// <param name="placementPosition"></param>
         /// <param name="printScale"></param>
-        public ISprite AddBlock(BlockNames name, Vector2 placementPosition, float printScale)
+        public void AddBlock(BlockNames name, Vector2 placementPosition, float printScale)
         {
             ISprite currentSprite = _factory.CreateBlock(name, printScale);
             currentSprite.SetPosition(placementPosition);
             _runningBlocks.Add(currentSprite);
-            _collisionBoxes.Add(new BlockCollisionBox(currentSprite, isCollidable(name)));
-            return currentSprite;
-        }
 
-        /// <summary>
-        /// Add an block to the running block list
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="placementPosition"></param>
-        /// <param name="printScale"></param>
-        /// <param name="direction"></param>
-        /// <param name="speed"></param>
-        public ISprite AddBlock(BlockNames name, Vector2 placementPosition, float printScale, float speed)
-        {
-            ISprite currentSprite = _factory.CreateBlock(name, printScale, speed);
-            currentSprite.SetPosition(placementPosition);
-            _runningBlocks.Add(currentSprite);
-            _collisionBoxes.Add(new BlockCollisionBox(currentSprite, isCollidable(name)));
-            return currentSprite;
+            BlockCollisionBox box = new (currentSprite);
+            SetHealthDamage(box);
+            SetCollision(box);
+            _collisionBoxes.Add(box);
         }
 
 
@@ -119,8 +92,19 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
+            List<ICollisionBox> unloadList = new List<ICollisionBox>();
             foreach (var block in _collisionBoxes)
-            { block.Sprite.Update(); }
+            { 
+                block.Sprite.Update(); 
+                // *NOTE* need to change, since once a block gets destroyed, we need to spawn a new one (Wall -> Bombed_Wall)
+                if (block.Health <= 0)
+                    unloadList.Add(block);
+            }
+            foreach (var block in unloadList) 
+            {
+                if (_collisionBoxes.Contains(block))
+                    UnloadBlock(block);
+            }
         }
     }
 }

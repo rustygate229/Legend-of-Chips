@@ -65,6 +65,15 @@ namespace _3902_Project
                 case BlockManager.BlockNames.StatueFish_LEFT:
                     return new FBlock_StatueFish(_blockSpritesheet, Renderer.DIRECTION.LEFT, printScale);
 
+                case BlockManager.BlockNames.Invisible_DOWN:
+                    return new FBlock_Invisible(_blockSpritesheet, Renderer.DIRECTION.DOWN, printScale);
+                case BlockManager.BlockNames.Invisible_UP:
+                    return new FBlock_Invisible(_blockSpritesheet, Renderer.DIRECTION.UP, printScale);
+                case BlockManager.BlockNames.Invisible_RIGHT:
+                    return new FBlock_Invisible(_blockSpritesheet, Renderer.DIRECTION.RIGHT, printScale);
+                case BlockManager.BlockNames.Invisible_LEFT:
+                    return new FBlock_Invisible(_blockSpritesheet, Renderer.DIRECTION.LEFT, printScale);
+
                 case BlockManager.BlockNames.BombedDoor_DOWN:
                     return new FBlock_BombedDoor(_blockSpritesheet, Renderer.DIRECTION.DOWN, printScale);
                 case BlockManager.BlockNames.BombedDoor_UP:
@@ -111,25 +120,6 @@ namespace _3902_Project
                     return new FBlock_Wall(_blockSpritesheet, Renderer.DIRECTION.LEFT, printScale);
                 default: throw new ArgumentException("Invalid block name");
             }
-        }
-
-        /// <summary>
-        /// CreateBlock that has speed also, mainly needed for MoveableBlocks
-        /// </summary>
-        /// <param name="blockName"></param>
-        /// <param name="direction"></param>
-        /// <param name="printScale"></param>
-        /// <param name="speed"></param>
-        /// <returns>the sprite it creates, used fro unloading</returns>
-        public ISprite CreateBlock(BlockManager.BlockNames blockName, float printScale, float speed)
-        {
-            switch (blockName)
-            {
-                default: throw new ArgumentException("invalid block name");
-            }
-
-            // More public IBlock returning methods follow
-            // ...
         }
     }
 }

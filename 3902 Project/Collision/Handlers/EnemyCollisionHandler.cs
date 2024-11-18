@@ -17,8 +17,7 @@ public class EnemyCollisionHandler
 
     public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
     {
-        bool isCollidable = objectA.IsCollidable && objectB.IsCollidable;
-        if (isCollidable && objectB is BlockCollisionBox)
+        if (objectB is BlockCollisionBox)
             HandleBlockCollision(objectA, objectB, side);
         else if (objectB is LinkProjCollisionBox)
             HandleLinkProjCollision(objectA, objectB, side);

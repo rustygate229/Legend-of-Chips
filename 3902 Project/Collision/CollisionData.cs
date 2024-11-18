@@ -14,8 +14,10 @@ namespace _3902_Project
             BOTTOM, TOP, RIGHT, LEFT
         }
 
+
         public CollisionData(ICollisionBox a, ICollisionBox b)
         {
+            /*
             if (b is LinkCollisionBox)
             {
                 //Debug.Print("b is link collision box, swapping args");
@@ -40,8 +42,10 @@ namespace _3902_Project
                 ObjectA = a;
                 ObjectB = b;
             }
-            CollisionSide = DetermineCollisionSide(ObjectA, ObjectB);
-
+            */
+            ObjectA = a;
+            ObjectB = b;
+            CollisionSide = DetermineCollisionSide(a, b);
         }
 
         private static CollisionType DetermineCollisionSide(ICollisionBox objectA, ICollisionBox objectB)

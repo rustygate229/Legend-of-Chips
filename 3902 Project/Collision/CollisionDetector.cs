@@ -7,12 +7,79 @@ namespace _3902_Project
 
     public class CollisionDetector
     {
+        public CollisionDetector() { }
+
         public static List<CollisionData> DetectCollisions(List<List<ICollisionBox>> gameObjects)
         {
-            List<CollisionData> collisions = new List<CollisionData>();
-            //broken into multiple segments - one is link and everything, one is enemy and block
-            ICollisionBox link = gameObjects[0][0];
+            /*
+             * DESCRIPTION: The way we sift through the collisions goes as follows:
+             * 
+             * Overall Mentality: We detect collisions in a hierarchy fashion. Meaning we base the collision importance on amount of interactions.
+             * For example, Link interacts with EVERYTHING, so he is priority on being first in interacting with everything below him.
+             * 
+             * Process:
+             * First, start with Link comparing his collision with all other gameObjects besides himself.
+             * Second, do the same for each enemy (ignoring whatever was above it - Link).
+             * Third, do the same for each block (ignoring Link and Enemy).
+             * Fourth, do the same for each projectile (ignoring Link, Enemy, Block).
+             * Lastly, we don't need to go through items since now nothing collides with them that hasn't been taken care of.
+             * 
+             * NOTE: look at CollisionHandlerManager for a description of handling these collisions
+             */
 
+            // broken into multiple segments
+            List<CollisionData> _collisionOccurances = new List<CollisionData>();
+
+            // go through and compare LINK to every gameObject and return collisions
+            ICollisionBox link = gameObjects[0][0];
+            for (int i = 1; i < gameObjects.Count; i++)
+            {
+                for (int j = 0; j < gameObjects[i].Count; j++)
+                {
+                    // check for 
+                    if ((link.IsCollidable && gameObjects[i][j].IsCollidable) && (link.Bounds.Intersects(gameObjects[i][j].Bounds)))
+                        _collisionOccurances.Add(new CollisionData(link, gameObjects[i][j]));
+                }
+            }
+
+            // go through and compare ENEMY to all remaining gameObjects and return collisions
+            int currentCounter = 0;
+            while (currentCounter < gameObjects[1].Count)
+            {
+                ICollisionBox enemy = gameObjects[1][currentCounter];
+                // start at 2 since we don't need to compare enemies to enemies & link took care of his enemies
+                for (int i = 2; i < gameObjects.Count; i++)
+                {
+                    for (int j = 0; j < gameObjects[i].Count; j++)
+                    {
+                        if ((link.IsCollidable && gameObjects[i][j].IsCollidable) && (enemy.Bounds.Intersects(gameObjects[i][j].Bounds)))
+                            _collisionOccurances.Add(new CollisionData(enemy, gameObjects[i][j]));
+                    }
+                }
+                currentCounter++;
+            }
+
+            // go through and compare BLOCK to all remaining gameObjects, mainly just deal damage to block from projectile,
+            // since items don't have logic with blocks - bomb projectiles blow up doors
+            currentCounter = 0;
+            while (currentCounter < gameObjects[2].Count)
+            {
+                ICollisionBox block = gameObjects[2][currentCounter];
+                // start at 2 since we don't need to compare enemies to enemies & link took care of his enemies
+                for (int i = 2; i < gameObjects.Count; i++)
+                {
+                    for (int j = 0; j < gameObjects[i].Count; j++)
+                    {
+                        if ((link.IsCollidable && gameObjects[i][j].IsCollidable) && (block.Bounds.Intersects(gameObjects[i][j].Bounds)))
+                            _collisionOccurances.Add(new CollisionData(block, gameObjects[i][j]));
+                    }
+                }
+                currentCounter++;
+            }
+
+            return _collisionOccurances;
+        }
+            /*
             for (int i = 1; i < gameObjects.Count; i++)
             {
                 if (i == 2)
@@ -100,6 +167,7 @@ namespace _3902_Project
             return collision;
 
         }
+        */
 
         private static float IntersectsPercentage(Rectangle source, Rectangle target)
         {

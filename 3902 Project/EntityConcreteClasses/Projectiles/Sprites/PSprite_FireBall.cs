@@ -15,7 +15,7 @@ namespace _3902_Project
         private Renderer _fireBall;
 
         // create timers, movement and speed variables
-        private int _frameRate = 30;
+        private int _frameRate = 15;
         private Vector2 _position;
         private Vector2 _updatePosition;
         private float _positionSpeed = 2f;

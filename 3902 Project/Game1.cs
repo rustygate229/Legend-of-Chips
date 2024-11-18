@@ -69,7 +69,7 @@ namespace _3902_Project
             CharacterStateManager.LoadAll(this, 6);
             Menu.LoadAll(_spriteBatch, Content, CharacterStateManager, ItemManager);
 
-            EnvironmentFactory.LoadAll(BlockManager, ItemManager, ProjectileManager, EnemyManager, LinkManager, CharacterStateManager);
+            EnvironmentFactory.LoadAll(LinkManager, EnemyManager, BlockManager, ItemManager, ProjectileManager);
             EnvironmentFactory.loadLevel();
 
             Menu.addWeaponToA(ItemManager.ItemNames.LongSword);

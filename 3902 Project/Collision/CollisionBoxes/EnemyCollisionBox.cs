@@ -17,16 +17,7 @@ public class EnemyCollisionBox : ICollisionBox
         _sprite = sprite;
         _bounds = _sprite.GetRectanglePosition();
         _collidable = false;
-        _health = -1;
-        _damage = 0;
-    }
-
-    public EnemyCollisionBox(ISprite sprite, bool isCollidable)
-    {
-        _sprite = sprite;
-        _bounds = _sprite.GetRectanglePosition();
-        _collidable = isCollidable;
-        _health = -1;
+        _health = 1;
         _damage = 0;
     }
 
@@ -41,6 +32,7 @@ public class EnemyCollisionBox : ICollisionBox
         get { return _bounds; }
         set { _bounds = value; }
     }
+
     public bool IsCollidable
     {
         get { return _collidable; }
@@ -58,5 +50,4 @@ public class EnemyCollisionBox : ICollisionBox
         get { return _damage; }
         set { _damage = value; }
     }
-
 }

@@ -54,13 +54,13 @@ namespace _3902_Project
 
         public void addWeaponToA(ItemManager.ItemNames name)
         {
-            if (spriteBoxA != null) { _itemManager.RemoveMenuItem(spriteBoxA);}
+            if (spriteBoxA != null) { _itemManager.UnloadMenuItem(spriteBoxA);}
             spriteBoxA = _itemManager.AddMenuItem(name, _boxAPos, 4F);
         }
 
         public void addWeaponToB(ItemManager.ItemNames name)
         {
-            if (spriteBoxN != null) { _itemManager.RemoveMenuItem(spriteBoxN); }
+            if (spriteBoxN != null) { _itemManager.UnloadMenuItem(spriteBoxN); }
             spriteBoxN = _itemManager.AddMenuItem(name, _boxNPos, 4F);
         }
 

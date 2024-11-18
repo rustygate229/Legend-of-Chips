@@ -1,60 +1,60 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 using System;
-using System.Threading;
 
 namespace _3902_Project
 {
-    public class PJoiner_FireBall : ISprite
+    public class PJoiner_FireBall : IPJoiner
     {
-        PSprite_FireBall _fireBall;
+        // variables to change based on where your sprite is and what to print out
+        private ISprite _fireBall;
+        private bool _removable;
+        private ISprite _currentSprite;
 
-        private Vector2 _position;
-        private Vector2 _updatePosition;
-        private float _positionSpeed = 2f;
+        private ICollisionBox _collisionBox;
+        private int _counter;
+        private int _counterTotal = 300;
 
         /// <summary>
-        /// constructor for the projectile sprite: <c>FireBall</c>
+        /// constructor for the projectile sprite: <c>Blue Arrow</c>
         /// </summary>
         /// <param name="spriteSheet">texture sheet where sprites are formed from</param>
-        /// <param name="facingDirection">
+        /// <param name="direction">
         /// direction the sprite spawn in. EXAMPLE: if facingDirection = DOWN, then the sprite will spawned in facing and moving downwards.
         /// </param>
         /// <param name="printScale">the print scale of the projectile: printScale * spriteDimensions</param>
-        public PJoiner_FireBall(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale)
+        public PJoiner_FireBall(Texture2D spriteSheet, Renderer.DIRECTION direction, float printScale)
         {
-            // create renders of the blue arrow projectile
-            _fireBall = new PSprite_FireBall(spriteSheet, facingDirection, printScale);
+            _fireBall = new PSprite_FireBall(spriteSheet, direction, printScale);
+            _counter = 0;
+            _currentSprite = _fireBall;
+            RemovableFlip = false;
         }
 
+        public ICollisionBox CollisionBox
+        {
+            get { return _collisionBox; }
+            set { _collisionBox = value; }
+        }
 
-        /// <summary>
-        /// Passes to the Renderer GetPosition method
-        /// </summary>
-        public Rectangle GetRectanglePosition() { return _fireBall.GetRectanglePosition(); }
+        public ISprite CurrentSprite
+        {
+            get { return _currentSprite; }
+            set { _currentSprite = _fireBall; }
+        }
 
-        /// <summary>
-        /// Passes to the Renderer GetPosition method
-        /// </summary>
-        public Vector2 GetVectorPosition() { return _fireBall.GetVectorPosition(); }
+        public bool RemovableFlip
+        {
+            get { return _removable; }
+            set { _removable = value; }
+        }
 
-        /// <summary>
-        /// Passes to the Renderer SetPosition method
-        /// </summary>
-        public void SetPosition(Vector2 position) { _position = position; _fireBall.SetPosition(position); }
-
-
-        /// <summary>
-        /// Updates the sprite (movement, animation, etc.)
-        /// </summary>
         public void Update()
-        { _fireBall.Update(); }
-
-
-        /// <summary>
-        /// Draws the sprite in the given SpriteBatch
-        /// </summary>
-        /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch) { _fireBall.Draw(spriteBatch); }
+        {
+            _counter++;
+            if (_collisionBox.Health == 1)
+                _currentSprite = _fireBall;
+            else if (_collisionBox.Health != 1 || _counter == _counterTotal)
+                RemovableFlip = false;
+        }
     }
 }
