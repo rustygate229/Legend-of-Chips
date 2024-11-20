@@ -23,14 +23,14 @@ namespace _3902_Project
         public void UnloadAllTextures(ContentManager content) { _linkSpritesheet.Dispose(); }
 
         // create every type of link
-        public ILink CreateLink(LinkManager.LinkSprite linkAction, Renderer.DIRECTION direction, float printScale, ProjectileManager manager)
+        public ISprite CreateLink(LinkManager.LinkSprite linkAction, bool shieldStatus, Renderer.DIRECTION direction, float printScale, ProjectileManager manager)
         {
             switch (linkAction)
             {
                 case LinkManager.LinkSprite.Standing:
-                    return new LinkStandardStanding(_linkSpritesheet, direction, printScale);
+                    return new LinkStanding(_linkSpritesheet, shieldStatus, direction, printScale);
                 case LinkManager.LinkSprite.Throwing:
-                    return new LinkActionStanding(_linkSpritesheet, direction, printScale);
+                    return new LinkAction(_linkSpritesheet, direction, printScale);
                 case LinkManager.LinkSprite.Moving:
                     return new LinkMoving(_linkSpritesheet, direction, printScale, manager);
                 default: throw new ArgumentException("invalid link name");

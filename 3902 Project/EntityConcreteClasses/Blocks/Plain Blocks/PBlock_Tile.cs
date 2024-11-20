@@ -6,10 +6,6 @@ namespace _3902_Project
 {
     public class PBlocks_Tile : ISprite
     {
-        // variables for constructor assignments
-        private Texture2D _spriteSheet;
-        private Vector2 _position;
-
         // variables to change based on where your block is and what to print out
         private Rectangle _spritePosition = new (984, 11, 16, 16);
 

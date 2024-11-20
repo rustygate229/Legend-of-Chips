@@ -67,10 +67,10 @@ namespace _3902_Project
                 _counter = _explosionCounter;
                 _currentSprite = _smallExplosion;
             }
-            else if ((CollisionBox.Health == 1) && (_counter == _counterTotal))
+            else if ((CollisionBox.Health == 1) && (_counter >= _counterTotal))
                 CollisionBox.Health--;
             else if (_counter == _counterTotal)
-                RemovableFlip = false;
+                RemovableFlip = true;
         }
     }
 }

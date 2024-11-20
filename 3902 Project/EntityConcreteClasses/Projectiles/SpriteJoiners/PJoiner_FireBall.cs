@@ -12,7 +12,7 @@ namespace _3902_Project
 
         private ICollisionBox _collisionBox;
         private int _counter;
-        private int _counterTotal = 300;
+        private int _counterTotal = 50;
 
         /// <summary>
         /// constructor for the projectile sprite: <c>Blue Arrow</c>
@@ -51,10 +51,12 @@ namespace _3902_Project
         public void Update()
         {
             _counter++;
-            if (_collisionBox.Health == 1)
+            if (_counter >= _counterTotal)
+                RemovableFlip = true;
+            else if (_collisionBox.Health != 1)
+                RemovableFlip = true;
+            else
                 _currentSprite = _fireBall;
-            else if (_collisionBox.Health != 1 || _counter == _counterTotal)
-                RemovableFlip = false;
         }
     }
 }

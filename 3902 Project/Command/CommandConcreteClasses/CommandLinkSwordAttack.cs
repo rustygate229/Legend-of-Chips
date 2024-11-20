@@ -12,7 +12,13 @@ namespace _3902_Project
 
         public void Execute()
         {
-            _link.SetLinkActionState(LinkManager.LinkActions.SwordAttack);
+            if (_link.CanFireProjectile())
+            {
+                if ((_link.GetLinkState() == LinkManager.LinkSprite.Standing) || (_link.GetLinkState() == LinkManager.LinkSprite.Throwing))
+                    _link.SetLinkSpriteState(LinkManager.LinkSprite.Throwing);
+                // the else is unneeded since if he is moving then we don't do anything, just animate the sword attack
+                _link.SwordAttack();
+            }
         }
     }
 }

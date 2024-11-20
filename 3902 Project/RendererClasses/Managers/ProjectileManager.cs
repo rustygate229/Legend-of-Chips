@@ -47,27 +47,6 @@ namespace _3902_Project
             _collisionBoxes.Add(currentJoiner.CollisionBox);
         }
 
-        /// <summary>
-        /// call the projectile for sprites with only frames, meaning that it is a projectile that is only one animation, and NO direction or NO frame/renderer switching
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="placementPosition"></param>
-        /// <returns>the sprite added to the list</returns>
-        public void CallProjectile(ProjectileNames name, ProjectileType type, Vector2 placementPosition, float printScale)
-        {
-            IPJoiner currentJoiner = _factory.CreateProjectile(name, printScale);
-            currentJoiner.CurrentSprite.SetPosition(placementPosition);
-            _runningProjectileJoiners.Add(currentJoiner);
-
-            if (type.Equals(ProjectileType.LinkProj))
-                currentJoiner.CollisionBox = new LinkProjCollisionBox(currentJoiner.CurrentSprite);
-            else
-                currentJoiner.CollisionBox = new EnemyProjCollisionBox(currentJoiner.CurrentSprite);
-            SetCollidable(currentJoiner.CollisionBox);
-            SetDamageHealth(currentJoiner.CollisionBox);
-            _collisionBoxes.Add(currentJoiner.CollisionBox);
-        }
-
         public void UnloadAllTextures(ContentManager content)
         {
             _factory.UnloadAllTextures(content);

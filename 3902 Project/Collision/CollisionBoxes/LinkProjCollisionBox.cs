@@ -10,8 +10,13 @@ namespace _3902_Project
         private int _damage;
         private int _health;
 
+        /// <summary>
+        /// Create a collision box for Link projectiles.
+        /// </summary>
+        /// <param name="sprite">the sprite that the box bases its bounds on</param>
         public LinkProjCollisionBox(ISprite sprite)
         {
+            // default values without being overwritten
             _sprite = sprite;
             _bounds = _sprite.GetRectanglePosition();
             _collidable = false;

@@ -25,6 +25,17 @@ namespace _3902_Project
         private Vector2 _positionOnWindow;
 
 
+        // constructor for helper/ISprite methods
+        public Renderer(ISprite sprite, Vector2 positionOnWindow, DIRECTION direction, float printScale)
+        {
+            _spritePosition = sprite.GetVectorPosition();
+            _spriteDimensions = new(sprite.GetRectanglePosition().Width / printScale, sprite.GetRectanglePosition().Height / printScale);
+            _spritePrintDimensions = new(sprite.GetRectanglePosition().Width, sprite.GetRectanglePosition().Height);
+            _direction = direction;
+            _positionOnWindow = positionOnWindow;
+        }
+
+
         /// <summary>
         /// constructor for getting information for rendering STILL sprites
         /// </summary>

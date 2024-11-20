@@ -26,7 +26,7 @@ namespace _3902_Project
         /// </summary>
         /// <param name="spriteSheet">texture sheet where sprites are formed from</param>
         /// <param name="printScale">the print scale of the projectile: printScale * spriteDimensions</param>
-        public PJoiner_Bomb(Texture2D spriteSheet, float printScale)
+        public PJoiner_Bomb(Texture2D spriteSheet, Renderer.DIRECTION direction, float printScale)
         {
             _bomb = new PSprite_Bomb(spriteSheet, printScale);
             _bombFire = new PSprite_Fire(spriteSheet, printScale);
@@ -45,17 +45,7 @@ namespace _3902_Project
         public ISprite CurrentSprite
         {
             get { return _currentSprite; }
-            set
-            {
-                if (value is PSprite_Bomb)
-                {
-                    _currentSprite = _bomb;
-                }
-                else if (value is PSprite_Fire)
-                    _currentSprite = _bombFire;
-                else
-                    _currentSprite = _bombCloud;
-            }
+            set { _currentSprite = value; }
         }
 
         public bool RemovableFlip
@@ -72,13 +62,16 @@ namespace _3902_Project
         {
             _counter++;
             if (_counter < _bombFireCounter)
-                _currentSprite = _bomb;
+                CurrentSprite = _bomb;
             else if (_counter < _bombCloudCounter)
-                _currentSprite = _bombFire;
+                CurrentSprite = _bombFire;
             else if (_counter < _counterTotal)
-                _currentSprite = _bombCloud;
-            else if (_counter == _counterTotal)
-                RemovableFlip = false;
+                CurrentSprite = _bombCloud;
+            else if (_counter >= _counterTotal - 1)
+            {
+                CurrentSprite = _bombCloud;
+                RemovableFlip = true;
+            }
             // uses the manager to set the clouds damage once it hits the state
             if (_counter == _bombCloudCounter)
                 man.SetDamageHealth(CollisionBox);

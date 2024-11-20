@@ -8,10 +8,11 @@ namespace _3902_Project
 
         public LinkCollisionHandler() { }
 
-        public void LoadAll(LinkManager link)
-        {
-            _link = link;
-        }
+        /// <summary>
+        /// Load everything that this handler needs
+        /// </summary>
+        /// <param name="link">manager for Link</param>
+        public void LoadAll(LinkManager link) { _link = link; }
 
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
@@ -32,7 +33,8 @@ namespace _3902_Project
             if (_link.IsLinkDamaged == false)
             {
                 objectA.Health -= objectB.Damage;
-                _link.IsLinkDamaged = true;
+                _link.flipDamaged();
+                _link.SetCollisionSide(side);
             }
         }
 
@@ -42,7 +44,8 @@ namespace _3902_Project
             if (_link.IsLinkDamaged == false)
             {
                 objectA.Health -= objectB.Damage;
-                _link.IsLinkDamaged = true;
+                _link.flipDamaged();
+                _link.SetCollisionSide(side);
             }
         }
 
@@ -71,7 +74,7 @@ namespace _3902_Project
 
         private void HandleItemCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            // add the item to links inventory/menu
+            _link.SetItem(objectB.Sprite);
         }
     }
 }

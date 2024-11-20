@@ -15,7 +15,7 @@ namespace _3902_Project
         private LinkActions _currentLinkAction;
 
         // link dictionary/inventory
-        private ILink _currentLink;
+        private ISprite _currentLink;
 
         // create variables for passing
         private LinkSpriteFactory _factory = LinkSpriteFactory.Instance;
@@ -27,6 +27,7 @@ namespace _3902_Project
         private Vector2 _position;
         private Renderer.DIRECTION _direction;
         private float _printScale = 4f;
+        private LinkInventory _inventory;
 
 
         // constructor
@@ -34,16 +35,19 @@ namespace _3902_Project
 
         // Load all link textures
         public void LoadAll(SpriteBatch spriteBatch, ContentManager content, ProjectileManager manager) {
+            // initialize inventory
+            _inventory = new();
             _spriteBatch = spriteBatch;
             _manager = manager;
             _factory.LoadAllTextures(content);
 
+            // all initial stuff
             _currentLinkSprite = LinkSprite.Standing;
             _currentLinkAction = LinkActions.None;
             _direction = Renderer.DIRECTION.DOWN;
             _linkDamagedState = false;
 
-            _currentLink = _factory.CreateLink(_currentLinkSprite, _direction, _printScale, _manager);
+            _currentLink = _factory.CreateLink(_currentLinkSprite, _inventory.LinkShield, _direction, _printScale, _manager);
             _collisionBox = new LinkCollisionBox(_currentLink);
             SetCollision(_collisionBox);
             // IMPORTANT: look at this methods comment for health transfering
@@ -72,7 +76,7 @@ namespace _3902_Project
 
         public void ReplaceLinkSprite(LinkSprite name) {
             _currentLinkSprite = name;
-            _currentLink = _factory.CreateLink(name, _direction, _printScale, _manager);
+            _currentLink = _factory.CreateLink(name, _inventory.LinkShield, _direction, _printScale, _manager);
             _currentLink.SetPosition(_position);
             _collisionBox.Bounds = _currentLink.GetRectanglePosition();
         }
@@ -85,8 +89,11 @@ namespace _3902_Project
             _currentLink.Update();
             _position = _currentLink.GetVectorPosition();
             _collisionBox.Bounds = _currentLink.GetRectanglePosition();
-            if (_linkDamagedState)
+            if (IsLinkDamaged)
+            {
                 _linkDamagedStateCounter++;
+                UpdateDamagedState();
+            }
         }
 
 
@@ -95,14 +102,32 @@ namespace _3902_Project
         /// </summary>
         public void Draw()
         {
-            if (!_linkDamagedState)
+            if (!IsLinkDamaged)
                 _currentLink.Draw(_spriteBatch);
             else
             {
-                if (_linkColorFlip)
-                    _currentLink.Draw(_spriteBatch, Color.Red);
-                else
-                    _currentLink.Draw(_spriteBatch, Color.AntiqueWhite);
+                // currently the sword attack doesn't tint, but I'm unsure if that should be the case
+                switch (_currentLinkSprite) {
+                    case LinkSprite.Moving:
+                        if (_linkColorFlip)
+                            (_currentLink as LinkMoving).Draw(_spriteBatch, Color.Red);
+                        else
+                            (_currentLink as LinkMoving).Draw(_spriteBatch, Color.AntiqueWhite);
+                        break;
+                    case LinkSprite.Standing:
+                        if (_linkColorFlip)
+                            (_currentLink as LinkStanding).Draw(_spriteBatch, Color.Red);
+                        else
+                            (_currentLink as LinkStanding).Draw(_spriteBatch, Color.AntiqueWhite);
+                        break;
+                    case LinkSprite.Throwing:
+                        if (_linkColorFlip)
+                            (_currentLink as LinkAction).Draw(_spriteBatch, Color.Red);
+                        else
+                            (_currentLink as LinkAction).Draw(_spriteBatch, Color.AntiqueWhite);
+                        break;
+                    default: break;
+                }
             }
         }
     }

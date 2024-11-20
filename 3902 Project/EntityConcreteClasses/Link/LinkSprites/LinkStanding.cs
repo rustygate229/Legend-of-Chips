@@ -3,29 +3,43 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _3902_Project
 {
-    public class LinkStandardStanding : ILink
+    public class LinkStanding : ISprite
     {
         // variables for link in frame 1 of the moving link sprite animation
-        private Rectangle _spriteDownPosition = new(0, 11, 16, 16);
-        private Rectangle _spriteUpPosition = new(69, 11, 16, 16);
-        private Rectangle _spriteRightLeftPosition = new(34, 11, 16, 16);
+        private Rectangle _spriteLittleShieldDownPosition = new(0, 11, 16, 16);
+        private Rectangle _spriteLittleShieldUpPosition = new(69, 11, 16, 16);
+        private Rectangle _spriteLittleShieldRightLeftPosition = new(34, 11, 16, 16);
+
+        // Big Shield link
+        private Rectangle _spriteBigShieldDownPosition = new(289, 11, 16, 16);
+        private Rectangle _spriteBigShieldUpPosition = new(305, 11, 16, 16);
+        private Rectangle _spriteBigShieldRightLeftPosition = new(34, 11, 16, 16);
 
         // create a Renderer object
         private RendererLists _rendererList;
-
-        private int _currentFrame;
-
+        private Renderer _linkDown;
+        private Renderer _linkUp;
+        private Renderer _linkRightLeft;
 
         /// <summary>
         /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
         /// </summary>
-        public LinkStandardStanding(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale)
+        public LinkStanding(Texture2D spriteSheet, bool shieldStatus, Renderer.DIRECTION facingDirection, float printScale)
         {
-            // create different facing block sprites for the renderer list
-            Renderer linkDown = new(spriteSheet, _spriteDownPosition, printScale);
-            Renderer linkUp = new(spriteSheet, _spriteUpPosition, printScale);
-            Renderer linkRightLeft = new(spriteSheet, _spriteRightLeftPosition, printScale);
-            Renderer[] rendererListSetArray = { linkDown, linkUp, linkRightLeft };
+            // if false = Little Shield, if true = Big Shield
+            if (!shieldStatus)
+            {
+                _linkDown = new(spriteSheet, _spriteLittleShieldDownPosition, printScale);
+                _linkUp = new(spriteSheet, _spriteLittleShieldUpPosition, printScale);
+                _linkRightLeft = new(spriteSheet, _spriteLittleShieldRightLeftPosition, printScale);
+            }
+            else
+            {
+                _linkDown = new(spriteSheet, _spriteBigShieldDownPosition, printScale);
+                _linkUp = new(spriteSheet, _spriteBigShieldUpPosition, printScale);
+                _linkRightLeft = new(spriteSheet, _spriteBigShieldRightLeftPosition, printScale);
+            }
+            Renderer[] rendererListSetArray = { _linkDown, _linkUp, _linkRightLeft };
             // create renderer list
             _rendererList = new RendererLists(rendererListSetArray, RendererLists.RendOrder.Size3RightLeft);
             _rendererList.CreateSetAnimationStatus(Renderer.STATUS.Still);

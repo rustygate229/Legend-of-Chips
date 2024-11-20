@@ -10,8 +10,19 @@ namespace _3902_Project
         private ItemCollisionHandler _itemCollisionHandler = new();
         private ProjectileCollisionHandler _projectileCollisionHandler = new();
 
+        /// <summary>
+        /// Constructor that creates the class, nothing more
+        /// </summary>
         public CollisionHandlerManager() { }
 
+        /// <summary>
+        /// Takes and then loads all managers for the collision handlers
+        /// </summary>
+        /// <param name="link">LinkManager</param>
+        /// <param name="enemy">EnemyManager</param>
+        /// <param name="block">BlockManager</param>
+        /// <param name="item">ItemManager</param>
+        /// <param name="projectile">ProjectileManager</param>
         public void LoadAll(LinkManager link, EnemyManager enemy, BlockManager block, ItemManager item, ProjectileManager projectile)
         {
             _linkCollisionHandler.LoadAll(link);
@@ -21,6 +32,10 @@ namespace _3902_Project
             _projectileCollisionHandler.LoadAll(projectile);
         }
 
+        /// <summary>
+        /// Handles the collisions given
+        /// </summary>
+        /// <param name="collisions">the List of CollisionData that we get current collisions from</param>
         public void HandleCollisions(List<CollisionData> collisions)
         {
             foreach (CollisionData collisionData in collisions)
@@ -29,9 +44,15 @@ namespace _3902_Project
             }
         }
 
+        /// <summary>
+        /// Actually sends/handles the current collision
+        /// </summary>
+        /// <param name="objectA">the first collision box</param>
+        /// <param name="objectB">the second collision box</param>
+        /// <param name="side">the side in which the collision occured</param>
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            // Handle collisions involving projectiles (highest priority given since projectile manager needs these)
+            // Handle collisions involving Link as ObjectA (highest priority)
             if (objectA is LinkCollisionBox)
             {
                 _linkCollisionHandler.HandleCollision(objectA, objectB, side);
@@ -45,7 +66,8 @@ namespace _3902_Project
                     _itemCollisionHandler.HandleCollision(objectB, objectA, side);
             }
 
-            else if (objectA is EnemyProjCollisionBox)
+            // Handle collisions involving enemy, but not Link (since Link is already done/will never be ObjectB at this point)
+            else if (objectA is EnemyCollisionBox)
             {
                 // change enemy based on collisions
                 _enemyCollisionHandler.HandleCollision(objectA, objectB, side);

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _3902_Project
 {
-    public class LinkActionStanding : ILink
+    public class LinkAction : ISprite
     {
         // variables for link in frame 1 of the moving link sprite animation
         private Rectangle _spriteDownPosition = new(107, 11, 16, 16);
@@ -19,7 +19,7 @@ namespace _3902_Project
         /// <summary>
         /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
         /// </summary>
-        public LinkActionStanding(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale)
+        public LinkAction(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale)
         {
             // create different facing block sprites for the renderer list
             Renderer linkDown = new(spriteSheet, _spriteDownPosition, printScale);

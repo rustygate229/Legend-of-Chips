@@ -17,7 +17,7 @@ namespace _3902_Project
         /// <param name="name">the name associated with the projectile, so it can run in the manager</param>
         /// <param name="type">
         /// <param name="printScale">sprite dimensions * printScale: the scale at which you increase/decrease the print dimensions of the sprite</param>
-        public void CreateProjectile(ProjectileManager manager, ProjectileManager.ProjectileNames name, ProjectileManager.ProjectileType type, float printScale)
+        public void CreateCallProjectile(ProjectileManager manager, ProjectileManager.ProjectileNames name, ProjectileManager.ProjectileType type, float printScale)
         {
             _manager = manager;
             _projName = name;

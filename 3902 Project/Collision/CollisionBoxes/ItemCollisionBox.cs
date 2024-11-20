@@ -12,8 +12,13 @@ namespace _3902_Project
         private int _health;
         private int _damage;
 
+        /// <summary>
+        /// Create a collision box for items.
+        /// </summary>
+        /// <param name="sprite">the sprite that the box bases its bounds on</param>
         public ItemCollisionBox(ISprite sprite)
         {
+            // default values without being overwritten
             _sprite = sprite;
             _bounds = _sprite.GetRectanglePosition();
             _collidable = false;

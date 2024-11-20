@@ -11,7 +11,7 @@ namespace _3902_Project
 
         public enum CollisionType
         {
-            BOTTOM, TOP, RIGHT, LEFT
+            NONE, BOTTOM, TOP, RIGHT, LEFT
         }
 
 
@@ -56,10 +56,12 @@ namespace _3902_Project
             {
                 return objectA.Bounds.Top < objectB.Bounds.Top ? CollisionType.BOTTOM : CollisionType.TOP;
             }
-            else
+            else if (intersection.Width < intersection.Height)
             {
                 return objectA.Bounds.Left < objectB.Bounds.Left ? CollisionType.RIGHT : CollisionType.LEFT;
             }
+            else
+                return CollisionType.NONE;
         }
 
 

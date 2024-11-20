@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.ComponentModel.Design;
 
 namespace _3902_Project
 {
@@ -9,10 +10,11 @@ namespace _3902_Project
 
         public ProjectileCollisionHandler() { }
 
-        public void LoadAll(ProjectileManager projectile)
-        {
-            _projectile = projectile;
-        }
+        /// <summary>
+        /// Load everything that this handler needs
+        /// </summary>
+        /// <param name="projectile">manager for projectiles</param>
+        public void LoadAll(ProjectileManager projectile) { _projectile = projectile; }
 
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
@@ -27,16 +29,18 @@ namespace _3902_Project
                 throw new ArgumentException("Projectile Collision objects are not correct");
         }
 
+        // NOTE: ALL DAMAGABLE PROJECTILES SHOULD HAVE 1 HEALTH
+
         private void HandleLinkCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
             if (_projectile.IsDamagable(objectA))
-                objectA.Health -= objectB.Damage;
+                objectA.Health -= 1;
         }
 
         private void HandleEnemyCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
             if (_projectile.IsDamagable(objectA))
-                objectA.Health -= objectB.Damage;
+                objectA.Health -= 1;
         }
 
         public void HandleBlockCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)

@@ -10,10 +10,13 @@ public class EnemyCollisionBox : ICollisionBox
     private int _health;
     private int _damage;
 
+    /// <summary>
+    /// Create a collision box for enemies.
+    /// </summary>
+    /// <param name="sprite">the sprite that the box bases its bounds on</param>
     public EnemyCollisionBox(ISprite sprite)
     {
-        //default constructor creates a new rectangle at 0,0, with no concept of health and damage
-        //and cannot be collided with
+        // default values without being overwritten
         _sprite = sprite;
         _bounds = _sprite.GetRectanglePosition();
         _collidable = false;

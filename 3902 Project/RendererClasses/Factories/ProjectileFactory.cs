@@ -37,20 +37,8 @@ namespace _3902_Project
                     return new PJoiner_BlueArrow(_linkSpriteSheet, direction, printScale);
                 case ProjectileManager.ProjectileNames.FireBall:
                     return new PJoiner_FireBall(_enemySpriteSheet, direction, printScale);
-                default: throw new ArgumentException("Invalid projectile name in factory");
-            }
-
-            // Add more enemy types as necessary by specifying their source rectangles and positions
-            // public ISprite OtherProjectile() { ... }
-        }
-
-        // create every type of projectile
-        public IPJoiner CreateProjectile(ProjectileManager.ProjectileNames name, float printScale)
-        {
-            switch (name)
-            {
                 case ProjectileManager.ProjectileNames.Bomb:
-                    return new PJoiner_Bomb(_linkSpriteSheet, printScale);
+                    return new PJoiner_Bomb(_linkSpriteSheet, direction, printScale);
                 default: throw new ArgumentException("Invalid projectile name in factory");
             }
 

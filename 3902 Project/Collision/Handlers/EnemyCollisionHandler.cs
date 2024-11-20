@@ -10,6 +10,10 @@ public class EnemyCollisionHandler
 
     public EnemyCollisionHandler() { }
 
+    /// <summary>
+    /// Load everything that this handler needs
+    /// </summary>
+    /// <param name="enemy">manager for enemies</param>
     public void LoadAll(EnemyManager enemy)
     {
         _enemy = enemy;
@@ -25,32 +29,24 @@ public class EnemyCollisionHandler
 
     private void HandleBlockCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
     {
-        if (objectB.IsCollidable)
+        // Handle player collision with block
+        Rectangle BoundsA = objectA.Bounds;
+        Rectangle BoundsB = objectB.Bounds;
+
+        switch (side)
         {
-            // Handle player collision with block
-            Rectangle BoundsA = objectA.Bounds;
-            Rectangle BoundsB = objectB.Bounds;
-
-            switch (side)
-            {
-                case CollisionData.CollisionType.LEFT:
-                    BoundsA.X = BoundsB.Right; // Move enemy to the right of the block
-                    break;
-                case CollisionData.CollisionType.RIGHT:
-                    BoundsA.X = BoundsB.Left - BoundsA.Width; // Move enemy to the left of the block
-                    break;
-                case CollisionData.CollisionType.TOP:
-                    BoundsA.Y = BoundsB.Bottom; // Move enemy below the block
-                    break;
-                case CollisionData.CollisionType.BOTTOM:
-                    BoundsA.Y = BoundsB.Top - BoundsA.Height; // Move enemy above the block
-                    break;
-                default:
-                    break;
-            }
-
-            objectA.Bounds = BoundsA;
+            case CollisionData.CollisionType.BOTTOM:
+                BoundsA.Y = BoundsB.Top - BoundsA.Height; break;    // Move player above the block
+            case CollisionData.CollisionType.TOP:
+                BoundsA.Y = BoundsB.Bottom; break;                  // Move player below the block
+            case CollisionData.CollisionType.RIGHT:
+                BoundsA.X = BoundsB.Left - BoundsA.Width; break;    // Move player to the left of the block
+            case CollisionData.CollisionType.LEFT:
+                BoundsA.X = BoundsB.Right; break;                   // Move player to the right of the block
+            default: break;
         }
+
+        objectA.Sprite.SetPosition(new(BoundsA.X, BoundsA.Y));
     }
 
     private void HandleLinkProjCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)

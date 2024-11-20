@@ -5,7 +5,7 @@ using System;
 
 namespace _3902_Project
 {
-    public class Menu
+    public class HUD
     {
         private ContentManager _content;
         private SpriteBatch _spriteBatch;
@@ -29,7 +29,7 @@ namespace _3902_Project
         private int _keyCount = 0;
         private int _orbCount = 0;
 
-        public Menu() {}
+        public HUD() {}
         public void LoadAll(SpriteBatch spriteBatch, ContentManager content, CharacterStateManager characterState, ItemManager item)
         {
             _spriteBatch = spriteBatch;

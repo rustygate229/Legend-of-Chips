@@ -19,7 +19,7 @@ namespace _3902_Project
         internal CharacterStateManager CharacterStateManager = new();
         internal EnvironmentFactory EnvironmentFactory = new();
         internal BackgroundMusic BackgroundMusic = new();
-        internal Menu Menu = new();
+        internal HUD Menu = new();
 
         //private List<ICollisionBox> _EnemyCollisionBoxes;
 

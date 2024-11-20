@@ -36,9 +36,14 @@ namespace _3902_Project
             {
                 for (int j = 0; j < gameObjects[i].Count; j++)
                 {
-                    // check for 
-                    if ((link.IsCollidable && gameObjects[i][j].IsCollidable) && (link.Bounds.Intersects(gameObjects[i][j].Bounds)))
-                        _collisionOccurances.Add(new CollisionData(link, gameObjects[i][j]));
+                    if (!(gameObjects[i][j] is LinkProjCollisionBox))
+                    {
+                        if (link.IsCollidable && gameObjects[i][j].IsCollidable)
+                        {
+                            if (link.Bounds.Intersects(gameObjects[i][j].Bounds))
+                                _collisionOccurances.Add(new CollisionData(link, gameObjects[i][j]));
+                        }
+                    }
                 }
             }
 
@@ -48,15 +53,25 @@ namespace _3902_Project
             {
                 ICollisionBox enemy = gameObjects[1][currentCounter];
                 // start at 2 since we don't need to compare enemies to enemies & link took care of his enemies
-                for (int i = 2; i < gameObjects.Count; i++)
+                for (int i = 1; i < gameObjects.Count; i++)
                 {
                     for (int j = 0; j < gameObjects[i].Count; j++)
                     {
-                        if ((link.IsCollidable && gameObjects[i][j].IsCollidable) && (enemy.Bounds.Intersects(gameObjects[i][j].Bounds)))
-                            _collisionOccurances.Add(new CollisionData(enemy, gameObjects[i][j]));
+                        // condition can be changed if we want enemies with enemies later
+                        if (!(gameObjects[i][j] is EnemyProjCollisionBox))
+                        {
+                            if (!(gameObjects[i][j] is EnemyCollisionBox))
+                            {
+                                if (enemy.IsCollidable && gameObjects[i][j].IsCollidable)
+                                {
+                                    if (enemy.Bounds.Intersects(gameObjects[i][j].Bounds))
+                                        _collisionOccurances.Add(new CollisionData(enemy, gameObjects[i][j]));
+                                }
+                            }
+                        }
                     }
+                    currentCounter++;
                 }
-                currentCounter++;
             }
 
             // go through and compare BLOCK to all remaining gameObjects, mainly just deal damage to block from projectile,
@@ -70,8 +85,43 @@ namespace _3902_Project
                 {
                     for (int j = 0; j < gameObjects[i].Count; j++)
                     {
-                        if ((link.IsCollidable && gameObjects[i][j].IsCollidable) && (block.Bounds.Intersects(gameObjects[i][j].Bounds)))
-                            _collisionOccurances.Add(new CollisionData(block, gameObjects[i][j]));
+                        // this check will have to be changed once implemented of moving blocks
+                        if (!(gameObjects[i][j] is BlockCollisionBox))
+                        {
+                            if (block.IsCollidable && gameObjects[i][j].IsCollidable)
+                            {
+                                if (block.Bounds.Intersects(gameObjects[i][j].Bounds))
+                                    _collisionOccurances.Add(new CollisionData(block, gameObjects[i][j]));
+                            }
+                        }
+                    }
+                }
+                currentCounter++;
+            }
+
+            // NOTE, THIS CURRENTLY DOES NOTHING SINCE WE DON'T, currently, WANT PROJECTILES COLLIDING WITH OTHER PROJECTILES
+            // go through and compare PROJECTILES to all remaining gameObjects and return collisions - just items, which they don't interact with
+            currentCounter = 0;
+            while (currentCounter < gameObjects[3].Count)
+            {
+                ICollisionBox projectiles = gameObjects[3][currentCounter];
+                // start at 2 since we don't need to compare enemies to enemies & link took care of his enemies
+                for (int i = 3; i < gameObjects.Count; i++)
+                {
+                    for (int j = 0; j < gameObjects[i].Count; j++)
+                    {
+                        // condition can be changed if we want enemies with enemies later
+                        if (!(projectiles is EnemyProjCollisionBox && gameObjects[i][j] is EnemyProjCollisionBox))
+                        {
+                            if (!(projectiles is LinkProjCollisionBox && gameObjects[i][j] is LinkProjCollisionBox))
+                            {
+                                if (projectiles.IsCollidable && gameObjects[i][j].IsCollidable)
+                                {
+                                    if (projectiles.Bounds.Intersects(gameObjects[i][j].Bounds))
+                                        _collisionOccurances.Add(new CollisionData(projectiles, gameObjects[i][j]));
+                                }
+                            }
+                        }
                     }
                 }
                 currentCounter++;

@@ -6,6 +6,10 @@
 
         public BlockCollisionHandler() { }
 
+        /// <summary>
+        /// Load everything that this handler needs
+        /// </summary>
+        /// <param name="block">manager for blocks</param>
         public void LoadAll(BlockManager block) { _block = block; }
 
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
