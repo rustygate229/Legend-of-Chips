@@ -43,6 +43,18 @@
 /processorParam:TextureFormat=Color
 /build:Dungeon_Enemies_Spritesheet_transparent.png
 
+#begin item-101soundboards.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:item-101soundboards.mp3
+
+#begin item-102soundboards.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:item-102soundboards.wav
+
 #begin Items Spritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -54,6 +66,24 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Items Spritesheet.png
+
+#begin kill.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:kill.wav
+
+#begin life-lost-101soundboards.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:life-lost-101soundboards.mp3
+
+#begin life-lost-102soundboards.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:life-lost-102soundboards.wav
 
 #begin Link Spritesheet transparent.png
 /importer:TextureImporter
