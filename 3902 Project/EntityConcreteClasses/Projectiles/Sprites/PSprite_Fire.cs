@@ -9,9 +9,10 @@ namespace _3902_Project
         // variables to change based on where your projectile is and what to print out
         private Rectangle _spriteFire = new (191, 185, 16, 16);
         private Vector2 _spriteRowAndColumn = new Vector2(1, 1);
-
         private int _fireFrames = 30;
+
         private Renderer _fire;
+        private bool _isCentered = true;
 
 
         /// <summary>
@@ -23,6 +24,7 @@ namespace _3902_Project
         {
             _fire = new (spriteSheet, _spriteFire, _spriteRowAndColumn, printScale, _fireFrames);
             _fire.SetAnimationStatus(Renderer.STATUS.SingleAnimated);
+            _fire.SetCentered(_isCentered);
         }
 
 
@@ -52,6 +54,6 @@ namespace _3902_Project
         /// Draws the projectile in the given SpriteBatch
         /// </summary>
         /// <param name="spriteBatch"
-        public void Draw(SpriteBatch spriteBatch) { _fire.Draw(spriteBatch, true); }
+        public void Draw(SpriteBatch spriteBatch) { _fire.Draw(spriteBatch); }
     }
 }

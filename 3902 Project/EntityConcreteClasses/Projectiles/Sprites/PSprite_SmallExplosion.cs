@@ -8,9 +8,12 @@ namespace _3902_Project
     {
         // variables to change based on where your sprite is and what to print out
         private Rectangle _spriteExplode = new (53, 189, 8, 8);
+        private Vector2 _spriteRowAndColumn = new (1, 1);
+        private int _frames = 6;
 
         // create Renderer objects
         private Renderer _explode;
+        private bool _isCentered = true;
 
 
         /// <summary>
@@ -21,7 +24,9 @@ namespace _3902_Project
         public PSprite_SmallExplosion(Texture2D spriteSheet, float printScale)
         {
             // create renders of the small explosion projectile
-            _explode = new (spriteSheet, _spriteExplode, printScale);
+            _explode = new (spriteSheet, _spriteExplode, _spriteRowAndColumn, printScale, _frames);
+            _explode.SetAnimationStatus(Renderer.STATUS.SingleAnimated);
+            _explode.SetCentered(_isCentered);
         }
 
 
@@ -44,13 +49,13 @@ namespace _3902_Project
         /// <summary>
         /// Updates the block (movement, animation, etc.)
         /// </summary>
-        public void Update() { }
+        public void Update() { _explode.UpdateFrames(); }
 
 
         /// <summary>
         /// Draws the block in the given SpriteBatch
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch) { _explode.Draw(spriteBatch, true); }
+        public void Draw(SpriteBatch spriteBatch) { _explode.Draw(spriteBatch); }
     }
 }

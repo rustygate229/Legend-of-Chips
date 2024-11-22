@@ -39,15 +39,21 @@ namespace _3902_Project
             }
         }
 
-        public Vector2 GetPositionAhead()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="scale">defaults to 0/No Scale if the range is not accurate: 0 <= scale <= 1</param>
+        /// <returns>the position</returns>
+        public Vector2 GetPositionAhead(float scale)
         {
             Rectangle dS = GetDestinationRectangle();
+            if (scale < 0 || scale > 1) { scale = 0; }
             switch (_direction)
             {
-                case DIRECTION.DOWN:    return new Vector2((int)dS.X, (int)dS.Y + (int)dS.Height);
-                case DIRECTION.UP:      return new Vector2((int)dS.X, (int)dS.Y - (int)dS.Height);
-                case DIRECTION.RIGHT:   return new Vector2((int)dS.X + (int)dS.Width, (int)dS.Y);
-                case DIRECTION.LEFT:    return new Vector2((int)dS.X - (int)dS.Width, (int)dS.Y);
+                case DIRECTION.DOWN:    return new Vector2((int)dS.X, (int)(dS.Y + (dS.Height * scale)));
+                case DIRECTION.UP:      return new Vector2((int)dS.X, (int)(dS.Y - (dS.Height * scale)));
+                case DIRECTION.RIGHT:   return new Vector2((int)(dS.X + (dS.Width * scale)), (int)dS.Y);
+                case DIRECTION.LEFT:    return new Vector2((int)(dS.X - (dS.Width * scale)), (int)dS.Y);
                 default: throw new ArgumentException("Invalid direction type in PositionAhead");
             }
         }

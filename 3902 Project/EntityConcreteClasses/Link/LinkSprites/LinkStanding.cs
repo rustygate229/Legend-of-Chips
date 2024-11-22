@@ -17,6 +17,7 @@ namespace _3902_Project
 
         // create a Renderer object
         private RendererLists _rendererList;
+        private bool _isCentered = true;
         private Renderer _linkDown;
         private Renderer _linkUp;
         private Renderer _linkRightLeft;
@@ -43,6 +44,7 @@ namespace _3902_Project
             // create renderer list
             _rendererList = new RendererLists(rendererListSetArray, RendererLists.RendOrder.Size3RightLeft);
             _rendererList.CreateSetAnimationStatus(Renderer.STATUS.Still);
+            _rendererList.SetCentered(_isCentered);
             // set correct direciton
             _rendererList.SetDirection(facingDirection);
         }
@@ -73,11 +75,11 @@ namespace _3902_Project
         /// <summary>
         /// Draws the block in the given SpriteBatch
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch, true); }
+        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch); }
 
         /// <summary>
         /// Draws the block in the given SpriteBatch
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch, Color tint) { _rendererList.CreateSpriteDraw(spriteBatch, true, tint); }
+        public void Draw(SpriteBatch spriteBatch, Color tint) { _rendererList.CreateSpriteDraw(spriteBatch, tint); }
     }
 }

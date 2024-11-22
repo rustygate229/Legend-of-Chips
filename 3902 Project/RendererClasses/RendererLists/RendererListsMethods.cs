@@ -13,15 +13,20 @@ namespace _3902_Project
             switch (_rendListType)
             {
                 case RendOrder.Size2:
+                case RendOrder.Size2DownUpFlip:
+                case RendOrder.Size2RightLeftFlip:
+                case RendOrder.Size2Flip:
                     _rendDownUp = _rendererList[0];
                     _rendRightLeft = _rendererList[1];
                     break;
                 case RendOrder.Size3DownUp:
+                case RendOrder.Size3DownUpFlip:
                     _rendDownUp = _rendererList[0];
                     _rendRight = _rendererList[1];
                     _rendLeft = _rendererList[2];
                     break;
                 case RendOrder.Size3RightLeft:
+                case RendOrder.Size3RightLeftFlip:
                     _rendDown = _rendererList[0];
                     _rendUp = _rendererList[1];
                     _rendRightLeft = _rendererList[2];
@@ -95,15 +100,20 @@ namespace _3902_Project
             switch (_rendListType)
             {
                 case RendOrder.Size2:
+                case RendOrder.Size2DownUpFlip:
+                case RendOrder.Size2RightLeftFlip:
+                case RendOrder.Size2Flip:
                     if (_direction == Renderer.DIRECTION.DOWN || _direction == Renderer.DIRECTION.UP)
                         return _rendDownUp.GetRectanglePosition();
                     else 
                         return _rendRightLeft.GetRectanglePosition();
                 case RendOrder.Size3DownUp:
+                case RendOrder.Size3DownUpFlip:
                     if (_direction == Renderer.DIRECTION.RIGHT) { return _rendRight.GetRectanglePosition(); }
                     else if (_direction == Renderer.DIRECTION.LEFT) { return _rendLeft.GetRectanglePosition(); }
                     else { return _rendDownUp.GetRectanglePosition(); }
                 case RendOrder.Size3RightLeft:
+                case RendOrder.Size3RightLeftFlip:
                     if (_direction == Renderer.DIRECTION.DOWN) { return _rendDown.GetRectanglePosition(); }
                     else if (_direction == Renderer.DIRECTION.UP) { return _rendUp.GetRectanglePosition(); }
                     else { return _rendRightLeft.GetRectanglePosition(); }
@@ -126,15 +136,20 @@ namespace _3902_Project
             switch (_rendListType)
             {
                 case RendOrder.Size2:
+                case RendOrder.Size2DownUpFlip:
+                case RendOrder.Size2RightLeftFlip:
+                case RendOrder.Size2Flip:
                     if (_direction == Renderer.DIRECTION.DOWN || _direction == Renderer.DIRECTION.UP)
                         return _rendDownUp.GetVectorPosition();
                     else
                         return _rendRightLeft.GetVectorPosition();
                 case RendOrder.Size3DownUp:
+                case RendOrder.Size3DownUpFlip:
                     if (_direction == Renderer.DIRECTION.RIGHT) { return _rendRight.GetVectorPosition(); }
                     else if (_direction == Renderer.DIRECTION.LEFT) { return _rendLeft.GetVectorPosition(); }
                     else { return _rendDownUp.GetVectorPosition(); }
                 case RendOrder.Size3RightLeft:
+                case RendOrder.Size3RightLeftFlip:
                     if (_direction == Renderer.DIRECTION.DOWN) { return _rendDown.GetVectorPosition(); }
                     else if (_direction == Renderer.DIRECTION.UP) { return _rendUp.GetVectorPosition(); }
                     else { return _rendRightLeft.GetVectorPosition(); }
@@ -160,15 +175,20 @@ namespace _3902_Project
             switch (_rendListType)
             {
                 case RendOrder.Size2:
+                case RendOrder.Size2DownUpFlip:
+                case RendOrder.Size2RightLeftFlip:
+                case RendOrder.Size2Flip:
                     _rendDownUp.SetPosition(position);
                     _rendRightLeft.SetPosition(position);
                     break;
                 case RendOrder.Size3DownUp:
+                case RendOrder.Size3DownUpFlip:
                     _rendDownUp.SetPosition(position);
                     _rendRight.SetPosition(position);
                     _rendLeft.SetPosition(position);
                     break;
                 case RendOrder.Size3RightLeft:
+                case RendOrder.Size3RightLeftFlip:
                     _rendDown.SetPosition(position);
                     _rendUp.SetPosition(position);
                     _rendRightLeft.SetPosition(position);
@@ -182,5 +202,9 @@ namespace _3902_Project
                 default: break;
             }
         }
+
+        private bool _isCentered;
+
+        public void SetCentered(bool isCentered) { _isCentered = isCentered; }
     }
 }

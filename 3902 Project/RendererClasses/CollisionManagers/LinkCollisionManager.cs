@@ -77,6 +77,21 @@ namespace _3902_Project
             else
                 return false;
         }
+        public float PositionAheadScale()
+        {
+            float scale = 0;
+            switch(CurrentProjectile)
+            {
+                case ProjectileManager.ProjectileNames.BlueArrow:
+                case ProjectileManager.ProjectileNames.Boomerang:
+                case ProjectileManager.ProjectileNames.Bomb:
+                case ProjectileManager.ProjectileNames.FireBall:
+                    scale = 0.5F;
+                    break;
+                default:  break;
+            }
+            return scale;
+        }
         public void FireProjectile()
         {
             // create a renderer helper for the GetPositionAhead method
@@ -84,7 +99,10 @@ namespace _3902_Project
             // added this so link fires in front of himself
             if (CanFireProjectile())
             {
-                _manager.CallProjectile(CurrentProjectile, ProjectileManager.ProjectileType.LinkProj, rendererHelper.GetPositionAhead(), _direction, _printScale);
+                _manager.CallProjectile(CurrentProjectile, ProjectileManager.ProjectileType.LinkProj, rendererHelper.GetPositionAhead(PositionAheadScale()), _direction, _printScale);
+                _inventory.RemoveItem(CurrentProjectile, 1);
+                Console.WriteLine("Current Projectile: " + CurrentProjectile.ToString());
+                Console.WriteLine("Amount of Projectile: " + _inventory.GetProjectileInventory().GetValueOrDefault(CurrentProjectile) + "\n");
             }
         }
 

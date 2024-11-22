@@ -25,5 +25,6 @@ public class ItemCollisionHandler : ICollisionHandler
     {
         // links collision box deals no damage, so it needs to be 1
         objectA.Health -= 1;
+        // call to environment to add deload check in csv
     }
 }

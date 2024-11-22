@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace _3902_Project
 {
@@ -24,7 +24,13 @@ namespace _3902_Project
         //private List<ICollisionBox> _EnemyCollisionBoxes;
 
 
-        Texture2D whiteRectangle;
+        Texture2D _outline;
+        private bool _drawCollidables = false;
+        public bool DoDrawCollisions
+        {
+            get { return _drawCollidables; }
+            set { _drawCollidables = value; }
+        }
         //private List<ICollisionBox> _blockCollisionBoxes;
         //private List<ICollisionBox> _itemCollisionBoxes;
 
@@ -68,6 +74,8 @@ namespace _3902_Project
             BackgroundMusic.LoadSongs();
             CharacterStateManager.LoadAll(this, 6);
             Menu.LoadAll(_spriteBatch, Content, CharacterStateManager, ItemManager);
+            // for the showing of collisions
+            _outline = Content.Load<Texture2D>("Dungeon_Block_and_Room_Spritesheet_transparent");
 
             EnvironmentFactory.LoadAll(LinkManager, EnemyManager, BlockManager, ItemManager, ProjectileManager);
             EnvironmentFactory.loadLevel();
@@ -105,30 +113,41 @@ namespace _3902_Project
             LinkManager.Draw();
             Menu.Draw();
 
-            // DrawCollidables();
+            // draw the collisions if the enters "C"
+            if (DoDrawCollisions)
+                DrawCollisions();
 
             base.Draw(gameTime);
         }
 
-        public void DrawCollidables()
+        public void DrawCollisions()
         {
-            List<List<ICollisionBox>> collidables = EnvironmentFactory._collisionBoxes;
-            _spriteBatch.Begin();
+            List<List<ICollisionBox>> collisions = EnvironmentFactory._collisionBoxes;
             Color color = Color.White;
+            int lineWidth = 4;
 
-            for (int i = 0; i < collidables.Count; i++)
+            _spriteBatch.Begin();
+            for (int i = 0; i < collisions.Count; i++)
             {
                 //if (i == 1) continue;
-                List<ICollisionBox> collisionBoxes = collidables[i];
+                List<ICollisionBox> collisionBoxes = collisions[i];
                 foreach (ICollisionBox collisionBox in collisionBoxes)
                 {
+                    Rectangle bounds = collisionBox.Bounds;
                     if (i == 0) color = Color.White;
                     if (i == 1) color = Color.Red;
                     if (i == 2) color = Color.Green;
                     if (i == 3) color = Color.Blue;
-                    _spriteBatch.Draw(whiteRectangle, collisionBox.Bounds, color);
+                    Rectangle outlineTop =      new (bounds.X, bounds.Y, bounds.Width, lineWidth);
+                    Rectangle outlineLeft =     new (bounds.X, bounds.Y, lineWidth, bounds.Height);
+                    Rectangle outlineBottom =   new (bounds.X, bounds.Y + (bounds.Height - lineWidth), bounds.Width, lineWidth);
+                    Rectangle outlineRight =    new (bounds.X + (bounds.Width - lineWidth), bounds.Y, lineWidth, bounds.Height);
+                    Rectangle rectangleSource = new (235, 1213, 8, 8);
+                    _spriteBatch.Draw(_outline, outlineTop, rectangleSource, color);
+                    _spriteBatch.Draw(_outline, outlineBottom, rectangleSource, color);
+                    _spriteBatch.Draw(_outline, outlineRight, rectangleSource, color);
+                    _spriteBatch.Draw(_outline, outlineLeft, rectangleSource, color);
                 }
-
             }
             _spriteBatch.End();
         }

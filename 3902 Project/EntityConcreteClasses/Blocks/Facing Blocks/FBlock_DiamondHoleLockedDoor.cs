@@ -14,7 +14,7 @@ namespace _3902_Project
 
         // create a Renderer object
         private RendererLists _rendererList;
-
+        private bool _isCentered = false;
 
         /// <summary>
         /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
@@ -30,6 +30,7 @@ namespace _3902_Project
             // create renderer list
             _rendererList = new RendererLists(rendererListSetArray, RendererLists.RendOrder.Size4);
             _rendererList.CreateSetAnimationStatus(Renderer.STATUS.Still);
+            _rendererList.SetCentered(_isCentered);
             // set correct direciton
             _rendererList.SetDirection(facingDirection);
         }
@@ -61,6 +62,6 @@ namespace _3902_Project
         /// <summary>
         /// Draws the block in the given SpriteBatch
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch, false); }
+        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch); }
     }
 }

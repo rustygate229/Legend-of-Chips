@@ -11,6 +11,7 @@ namespace _3902_Project
 
         // create Renderer objects
         private Renderer _bomb;
+        private bool _isCentered = true;
 
 
         /// <summary>
@@ -23,6 +24,7 @@ namespace _3902_Project
             // create renders of the bomb projectile
             _bomb = new (spriteSheet, _spriteBomb, printScale);
             _bomb.SetAnimationStatus(Renderer.STATUS.Still);
+            _bomb.SetCentered(_isCentered);
         }
 
 
@@ -52,6 +54,6 @@ namespace _3902_Project
         /// Draws the projectile in the given SpriteBatch
         /// </summary>
         /// <param name="spriteBatch"
-        public void Draw(SpriteBatch spriteBatch) { _bomb.Draw(spriteBatch, true); }
+        public void Draw(SpriteBatch spriteBatch) { _bomb.Draw(spriteBatch); }
     }
 }

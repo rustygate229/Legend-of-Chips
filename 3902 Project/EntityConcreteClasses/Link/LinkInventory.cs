@@ -8,7 +8,8 @@ namespace _3902_Project
 {
     public class LinkInventory
     {
-        private Dictionary<ProjectileManager.ProjectileNames, int> _projectileInventory = new Dictionary<ProjectileManager.ProjectileNames, int>();
+        // our dictionary inventory
+        private Dictionary<ProjectileManager.ProjectileNames, int> _projectileInventory = new();
 
         // links current sword type
         public enum LinkSwordType { WOOD, IRON, MASTER, STAFF }
@@ -30,11 +31,13 @@ namespace _3902_Project
             _projectileInventory.Add(ProjectileManager.ProjectileNames.FireBall, amount);
             _projectileInventory.Add(ProjectileManager.ProjectileNames.BlueArrow, amount);
             _projectileInventory.Add(ProjectileManager.ProjectileNames.Bomb, amount);
+            _projectileInventory.Add(ProjectileManager.ProjectileNames.Boomerang, amount);
         }
 
         public void AddItem(ProjectileManager.ProjectileNames name, int amount)
         {
             int newAmount = _projectileInventory.GetValueOrDefault(name) + amount;
+            _projectileInventory.Remove(name);
             _projectileInventory.Add(name, newAmount);
         }
 
@@ -42,6 +45,7 @@ namespace _3902_Project
         {
             int newAmount = _projectileInventory.GetValueOrDefault(name) - amount;
             if (newAmount < 0) { newAmount = 0; }
+            _projectileInventory.Remove(name);
             _projectileInventory.Add(name, newAmount);
         }
 

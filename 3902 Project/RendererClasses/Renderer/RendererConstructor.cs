@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 
 namespace _3902_Project
 {
@@ -13,6 +14,7 @@ namespace _3902_Project
         public enum DIRECTION { DOWN, UP, RIGHT, LEFT }
         private DIRECTION _direction;
 
+        private bool _isCentered = false;
 
         // NON-ANIMATED SPRITE
 
@@ -23,6 +25,7 @@ namespace _3902_Project
         private Vector2 _spriteDimensions;
         private Vector2 _spritePrintDimensions;
         private Vector2 _positionOnWindow;
+        private float _printScale;
 
 
         // constructor for helper/ISprite methods
@@ -33,6 +36,7 @@ namespace _3902_Project
             _spritePrintDimensions = new(sprite.GetRectanglePosition().Width, sprite.GetRectanglePosition().Height);
             _direction = direction;
             _positionOnWindow = positionOnWindow;
+            _printScale = printScale;
         }
 
 
@@ -49,10 +53,11 @@ namespace _3902_Project
             // set animated state and import spritesheet
             _spriteSheet = spriteSheet;
 
-            // set all positions
+            // set sprite
             _spritePosition = new (spritePositionAndDimension.X, spritePositionAndDimension.Y);
-            _spriteDimensions = new(spritePositionAndDimension.Width, spritePositionAndDimension.Height);
-            _spritePrintDimensions = new(spritePositionAndDimension.Width * printScale, spritePositionAndDimension.Height * printScale);
+            _spriteDimensions = new (spritePositionAndDimension.Width, spritePositionAndDimension.Height);
+            _spritePrintDimensions = new (spritePositionAndDimension.Width * printScale, spritePositionAndDimension.Height * printScale);
+            _printScale = printScale;
         }
 
 
@@ -102,69 +107,41 @@ namespace _3902_Project
                     (spritePositionAndDimension.Width / _rowsAndColumns.Y) * printScale, 
                     (spritePositionAndDimension.Height / _rowsAndColumns.X) * printScale
                     );
+            _printScale = printScale;
         }
 
 
-        /// <summary>
-        /// sets up frame variables and their values for UpdateFrames()
-        /// </summary>
-        public void SetUpFrames()
-        {
-            // rows/columns stuff for sprite animation - if statement needed for Single Animation
-            if ((int)_rowsAndColumns.X * (int)_rowsAndColumns.Y == 1) _totalFrames = 2;
-            else _totalFrames = (int)_rowsAndColumns.X * (int)_rowsAndColumns.Y;
-            // safety measure for if someone enters a value below the available frames: sets it too lowest value = _totalFrames
-            if (_frameRate < _totalFrames) _frameRate = _totalFrames;
-
-
-            // get the total amount of sprite shifts in animation
-            _frameTotalSpriteShift = 0;
-            while (_framesPerSprite < _frameRate)
-            {
-                _frameTotalSpriteShift++;
-                _framesPerSprite += _frameRate / _totalFrames;
-                if (_framesPerSprite > _frameRate)
-                    _frameTotalSpriteShift--;
-            }
-
-            // if the framerate is not a clean division, fix it by shuffling down the value by the modulo
-            if (_frameRate % _frameTotalSpriteShift != 0)
-                _frameRate -= (_frameRate % _frameTotalSpriteShift);
-
-            // reset frame rate variables
-            _framesCounter = 0;
-            _framesPerSprite = _frameRate / _totalFrames;
-            _reversedFrame = (_frameTotalSpriteShift - 1);
-        }
-
+        private List<Rectangle> _spriteListPositions;
 
         /// <summary>
-        /// count/reset frames and sprite levels (levels meaning at what stage of animation)
+        /// constructor for getting information for rendering SEPERATED ANIMATED sprites
         /// </summary>
-        public void UpdateFrames()
+        /// <param name="spriteSheet"></param>
+        /// <param name="rowAndColumn"></param>
+        /// <param name="frameRate"></param>
+        public Renderer(Texture2D spriteSheet, List<Rectangle> spritePositionAndDimensions, Vector2 rowAndColumn, float printScale, int frameRate)
         {
-            // if crea
-            if (_status != STATUS.Still)
+            // set animated state and import spritesheet
+            _spriteSheet = spriteSheet;
+
+            // call framerate manager
+            _rowsAndColumns = rowAndColumn;
+            _frameRate = frameRate;
+            _currentFrame = 0;
+            SetUpFrames();
+
+            // go through each source rectangle and add them to our list after creating print dimensions
+            foreach (var sourceRectangle in spritePositionAndDimensions)
             {
-                // logic for creating a framerate
-                if (_framesCounter < _framesPerSprite)
-                {
-                    _framesCounter++;
-                }
-                else if (_framesCounter == _frameRate)
-                {
-                    _currentFrame = 0;
-                    _reversedFrame = (_frameTotalSpriteShift - 1);
-                    _framesCounter = 0;
-                    _framesPerSprite = _frameRate / _totalFrames;
-                }
-                else
-                {
-                    if (_isReversed) { _previousFrame = _reversedFrame; _reversedFrame--; }
-                    else if (!_isReversed) { _previousFrame = _currentFrame; _currentFrame++; }
-                    _framesPerSprite += _frameRate / _totalFrames;
-                }
+                Rectangle newSourceRectangle = sourceRectangle;
+                newSourceRectangle.Width = (int)((sourceRectangle.Width / _rowsAndColumns.Y) * printScale);
+                newSourceRectangle.Height = (int)((sourceRectangle.Height / _rowsAndColumns.X) * printScale);
+                _spriteListPositions.Add(newSourceRectangle);
             }
+            _spritePosition = new           (_spriteListPositions[0].X, _spriteListPositions[0].Y);
+            _spriteDimensions = new         (spritePositionAndDimensions[0].Width, spritePositionAndDimensions[0].Height);
+            _spritePrintDimensions = new    (_spriteListPositions[0].Width, _spriteListPositions[0].Height);
+            _printScale = printScale;
         }
     }
 }

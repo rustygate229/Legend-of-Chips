@@ -13,6 +13,7 @@ namespace _3902_Project
 
         // create Renderer objects
         private Renderer _fireBall;
+        private bool _isCentered = true;
 
         // create timers, movement and speed variables
         private int _frameRate = 15;
@@ -33,11 +34,11 @@ namespace _3902_Project
         {
             // create renders of the blue arrow projectile
             _fireBall = new (spriteSheet, _spriteFireBall, _spriteRowsAndColumns, printScale, _frameRate);
+            _fireBall.SetCentered(_isCentered);
             _fireBall.SetAnimationStatus(Renderer.STATUS.RowAndColumnAnimated);
             _fireBall.SetDirection(facingDirection);
             // only need to update position once
             _updatePosition = _fireBall.GetUpdatePosition(_positionSpeed);
-
         }
 
 
@@ -77,6 +78,6 @@ namespace _3902_Project
         /// Draws the sprite in the given SpriteBatch
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch) { _fireBall.Draw(spriteBatch, true); }
+        public void Draw(SpriteBatch spriteBatch) { _fireBall.Draw(spriteBatch); }
     }
 }

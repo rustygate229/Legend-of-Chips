@@ -11,6 +11,7 @@ namespace _3902_Project
 
         // create a Renderer object
         private Renderer _block;
+        private bool _isCentered = false;
 
 
         /// <summary>
@@ -21,6 +22,7 @@ namespace _3902_Project
             // create different facing block sprites for the renderer list
             _block = new(spriteSheet, _spritePosition, printScale);
             _block.SetAnimationStatus(Renderer.STATUS.Still);
+            _block.SetCentered(_isCentered);
         }
 
 
@@ -50,6 +52,6 @@ namespace _3902_Project
         /// <summary>
         /// Draws the block in the given SpriteBatch
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch) { _block.Draw(spriteBatch, false); }
+        public void Draw(SpriteBatch spriteBatch) { _block.Draw(spriteBatch); }
     }
 }

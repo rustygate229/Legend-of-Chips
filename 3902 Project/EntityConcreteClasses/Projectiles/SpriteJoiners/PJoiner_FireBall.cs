@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace _3902_Project
@@ -9,10 +10,11 @@ namespace _3902_Project
         private ISprite _fireBall;
         private bool _removable;
         private ISprite _currentSprite;
+        private Vector2 _position;
 
         private ICollisionBox _collisionBox;
         private int _counter;
-        private int _counterTotal = 50;
+        private int _counterTotal = 300;
 
         /// <summary>
         /// constructor for the projectile sprite: <c>Blue Arrow</c>
@@ -42,6 +44,12 @@ namespace _3902_Project
             set { _currentSprite = _fireBall; }
         }
 
+        public Vector2 Position
+        {
+            get { return _position; }
+            set { _position = value; }
+        }
+
         public bool RemovableFlip
         {
             get { return _removable; }
@@ -56,7 +64,10 @@ namespace _3902_Project
             else if (_collisionBox.Health != 1)
                 RemovableFlip = true;
             else
-                _currentSprite = _fireBall;
+                CurrentSprite = _fireBall;
+
+            CurrentSprite.Update();
+            Position = CurrentSprite.GetVectorPosition();
         }
     }
 }

@@ -10,6 +10,7 @@ namespace _3902_Project
 
         // create a Renderer object
         private Renderer _item;
+        private bool _isCentered = true;
 
 
         /// <summary>
@@ -21,6 +22,7 @@ namespace _3902_Project
         {
             _item = new(spriteSheet, _spritePosition, printScale);
             _item.SetAnimationStatus(Renderer.STATUS.Still);
+            _item.SetCentered(_isCentered);
         }
 
         /// <summary>
@@ -52,6 +54,6 @@ namespace _3902_Project
         /// draw the sprite via Renderer method
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch) { _item.Draw(spriteBatch, true); }
+        public void Draw(SpriteBatch spriteBatch) { _item.Draw(spriteBatch); }
     }
 }

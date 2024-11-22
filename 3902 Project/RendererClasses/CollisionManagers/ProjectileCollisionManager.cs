@@ -26,6 +26,7 @@ namespace _3902_Project
                 case PSprite_BlueArrow:     box.Health = 1; box.Damage = 3; break;
                 case PSprite_FireBall:      box.Health = 1; box.Damage = 1; break;
                 case PSprite_BombCloud:     box.Health = 1; box.Damage = 3; break;
+                case PSprite_Boomerang:     box.Health = 1; box.Damage = 2; break;
                 default:                    box.Health = 1; box.Damage = 0; break;
             }
         }
@@ -37,6 +38,7 @@ namespace _3902_Project
                 case PSprite_BlueArrow:
                 case PSprite_FireBall:
                 case PSprite_BombCloud:
+                case PSprite_Boomerang:
                     box.IsCollidable = true;
                     break;
                 case PSprite_SmallExplosion:
@@ -48,6 +50,16 @@ namespace _3902_Project
                 default:
                     box.IsCollidable = false;
                     break;
+            }
+        }
+
+        public void SetDamageSwitches(ICollisionBox box)
+        {
+            switch (box.Sprite)
+            {
+                case PSprite_BombCloud:
+                    SetDamageHealth(box); break;
+                default: break;
             }
         }
     }

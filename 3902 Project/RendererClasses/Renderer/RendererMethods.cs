@@ -86,20 +86,39 @@ namespace _3902_Project
             return new Rectangle((width * column) + (int)_spritePosition.X, (height * row) + (int)_spritePosition.Y, width, height);
         }
 
+        public Rectangle GetSourceRectangle_Seperated()
+        {
+            return _spriteListPositions[_currentFrame];
+        }
+
         /// <summary>
         /// get the destinationRectangle of your current sprite
         /// </summary>
-        public Rectangle GetDestinationRectangle() { return new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y); }
+        public Rectangle GetDestinationRectangle() { return GetRectanglePosition(); }
 
         /// <summary>
         /// gets current position of sprite in a Rectangle of position and dimensions on screen
         /// </summary>
-        public Rectangle GetRectanglePosition() { return new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y); }
+        public Rectangle GetRectanglePosition()
+        {
+            if (_isCentered)
+            {
+                return new Rectangle(
+                (int)_positionOnWindow.X + ((_tileSize - (int)_spritePrintDimensions.X) / 2),
+                (int)_positionOnWindow.Y + ((_tileSize - (int)_spritePrintDimensions.Y) / 2),
+                (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y
+                );
+            }
+            else
+                return new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y);
+        }
+
+        public void SetCentered(bool isCentered) { _isCentered = isCentered; }
 
         /// <summary>
         /// gets current position of sprite in a Vector2 of position on screen
         /// </summary>
-        public Vector2 GetVectorPosition() { return new Vector2((int)_positionOnWindow.X, (int)_positionOnWindow.Y); }
+        public Vector2 GetVectorPosition() {  return new Vector2((int)_positionOnWindow.X, (int)_positionOnWindow.Y);  }
 
         /// <summary>
         /// sets current position of sprite

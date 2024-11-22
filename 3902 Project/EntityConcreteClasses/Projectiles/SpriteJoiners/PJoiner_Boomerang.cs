@@ -3,35 +3,35 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _3902_Project
 {
-    public class PJoiner_Bomb : IPJoiner
+    public class PJoiner_Boomerang : IPJoiner
     {
         // variables to change based on where your sprite is and what to print out
-        private ISprite _bomb;
-        private ISprite _bombFire;
-        private ISprite _bombCloud;
+        private ISprite _boomerang;
+        private ISprite _smallExplosion;
         private bool _removable;
         private ISprite _currentSprite;
         private Vector2 _position;
 
         private ICollisionBox _collisionBox;
-        private int _counter = 0;
-        private int _bombCounter = 0;
-        private int _bombFireCounter = 80;
-        private int _bombCloudCounter = 100;
-        private int _counterTotal = 130;
+        private int _counter;
+        private int _boomerangCounter = 0;
+        private int _explosionCounter = 280;
+        private int _counterTotal = 300;
 
         /// <summary>
         /// constructor for the projectile sprite: <c>Blue Arrow</c>
         /// </summary>
         /// <param name="spriteSheet">texture sheet where sprites are formed from</param>
+        /// <param name="direction">
+        /// direction the sprite spawn in. EXAMPLE: if facingDirection = DOWN, then the sprite will spawned in facing and moving downwards.
+        /// </param>
         /// <param name="printScale">the print scale of the projectile: printScale * spriteDimensions</param>
-        public PJoiner_Bomb(Texture2D spriteSheet, Renderer.DIRECTION direction, float printScale)
+        public PJoiner_Boomerang(Texture2D spriteSheet, Renderer.DIRECTION direction, float printScale)
         {
-            _bomb = new PSprite_Bomb(spriteSheet, printScale);
-            _bombFire = new PSprite_Fire(spriteSheet, printScale);
-            _bombCloud = new PSprite_BombCloud(spriteSheet, printScale);
-            _counter = 0;
-            _currentSprite = _bomb;
+            _boomerang = new PSprite_Boomerang(spriteSheet, direction, printScale);
+            _smallExplosion = new PSprite_SmallExplosion(spriteSheet, printScale);
+            _counter = _boomerangCounter;
+            _currentSprite = _boomerang;
             RemovableFlip = false;
         }
 
@@ -41,8 +41,8 @@ namespace _3902_Project
             set { _collisionBox = value; }
         }
 
-        public ISprite CurrentSprite
-        {
+        public ISprite CurrentSprite 
+        { 
             get { return _currentSprite; }
             set { _currentSprite = value; }
         }
@@ -59,24 +59,24 @@ namespace _3902_Project
             set { _removable = value; }
         }
 
-
         public void Update()
         {
             _counter++;
-
+            
             if (_counter >= _counterTotal)
                 RemovableFlip = true;
 
-            if (_counter < _bombFireCounter)
-                CurrentSprite = _bomb;
-            else if (_counter < _bombCloudCounter)
-                CurrentSprite = _bombFire;
+            if (_counter < _explosionCounter && CollisionBox.Health == 1)
+                CurrentSprite = _boomerang;
             else
-                CurrentSprite = _bombCloud;
+            {
+                CurrentSprite = _smallExplosion;
+                CurrentSprite.SetPosition(Position);
+                if (!(_counter >= _explosionCounter))
+                    _counter = _explosionCounter;
+            }
 
             CurrentSprite.Update();
-            // since we don't want bombs to move, make it always the same Position
-            CurrentSprite.SetPosition(Position);
             Position = CurrentSprite.GetVectorPosition();
         }
     }

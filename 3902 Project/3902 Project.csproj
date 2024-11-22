@@ -16,12 +16,15 @@
     <Compile Remove="Collision\Interfaces\IGameObject.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Collision Logic\**" />
     <Compile Remove="GamePlay\**" />
     <Compile Remove="Old Code - Could be Useful\**" />
     <Compile Remove="RendererClasses\Spawners\**" />
+    <EmbeddedResource Remove="Collision Logic\**" />
     <EmbeddedResource Remove="GamePlay\**" />
     <EmbeddedResource Remove="Old Code - Could be Useful\**" />
     <EmbeddedResource Remove="RendererClasses\Spawners\**" />
+    <None Remove="Collision Logic\**" />
     <None Remove="GamePlay\**" />
     <None Remove="Old Code - Could be Useful\**" />
     <None Remove="RendererClasses\Spawners\**" />
@@ -46,7 +49,6 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Collision Logic\" />
     <Folder Include="obj\Debug\net6.0\refint\" />
     <Folder Include="obj\Debug\net6.0\ref\" />
   </ItemGroup>

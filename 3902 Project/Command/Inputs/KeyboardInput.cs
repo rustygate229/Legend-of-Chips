@@ -50,6 +50,11 @@ namespace _3902_Project
             keysToCommands.Add(Keys.D1, new CommandLinkSetInventory(game, 1));
             keysToCommands.Add(Keys.D2, new CommandLinkSetInventory(game, 2));
             keysToCommands.Add(Keys.D3, new CommandLinkSetInventory(game, 3));
+            keysToCommands.Add(Keys.D4, new CommandLinkSetInventory(game, 4));
+            keysToCommands.Add(Keys.D5, new CommandLinkSetInventory(game, 5));
+
+            // DEBUG TOOLS
+            keysToCommands.Add(Keys.C, new CommandDrawCollidables(game));
 
         }
 

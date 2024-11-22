@@ -17,14 +17,13 @@ namespace _3902_Project
 
         // create a Renderer object
         private RendererLists _rendererList;
-        private ProjectileManager _manager;
+        private bool _isCentered = true;
 
         /// <summary>
         /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
         /// </summary>
         public LinkMoving(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale, ProjectileManager manager)
         {
-            _manager = manager;
             // create different facing block sprites for the renderer list
             Renderer linkDown = new(spriteSheet, _spriteDownPosition, _spriteRowAndColumn, printScale, _framerate);
             Renderer linkUp = new(spriteSheet, _spriteUpPosition, _spriteRowAndColumn, printScale, _framerate);
@@ -33,6 +32,7 @@ namespace _3902_Project
             // create renderer list
             _rendererList = new RendererLists(rendererListSetArray, RendererLists.RendOrder.Size3RightLeft);
             _rendererList.CreateSetAnimationStatus(Renderer.STATUS.RowAndColumnAnimated);
+            _rendererList.SetCentered(_isCentered);
             // set correct direciton
             _rendererList.SetDirection(facingDirection);
         }
@@ -70,11 +70,11 @@ namespace _3902_Project
         /// <summary>
         /// Draws the block in the given SpriteBatch
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch, false); }
+        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch); }
 
         /// <summary>
         /// Draws the block in the given SpriteBatch
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch, Color tint) { _rendererList.CreateSpriteDraw(spriteBatch, true, tint); }
+        public void Draw(SpriteBatch spriteBatch, Color tint) { _rendererList.CreateSpriteDraw(spriteBatch, tint); }
     }
 }

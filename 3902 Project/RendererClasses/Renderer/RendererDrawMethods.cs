@@ -6,25 +6,27 @@ namespace _3902_Project
 {
     public partial class Renderer
     {
-        private bool _isCentered = false;
         private int _tileSize = 64;
         public enum DrawFlips { None, Vertical, Horizontal, Both }
 
-        public void Draw(SpriteBatch spriteBatch, bool isCentered)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            _isCentered = isCentered;
-            DrawNoneFlipped(spriteBatch);
+            // draw the current sprite
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            spriteBatch.Draw(_spriteSheet, GetDestinationRectangle(), GetSourceRectangle(), Color.White);
+            spriteBatch.End();
         }
 
-        public void Draw(SpriteBatch spriteBatch, bool isCentered, Color tint)
+        public void Draw(SpriteBatch spriteBatch, Color tint)
         {
-            _isCentered = isCentered;
-            DrawNoneFlipped(spriteBatch, tint);
+            // draw the current sprite
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            spriteBatch.Draw(_spriteSheet, GetDestinationRectangle(), GetSourceRectangle(), Color.White);
+            spriteBatch.End();
         }
 
-        public void Draw(SpriteBatch spriteBatch, bool isCentered, DrawFlips flipStatus) 
+        public void Draw(SpriteBatch spriteBatch, DrawFlips flipStatus) 
         { 
-            _isCentered = isCentered; 
             switch (flipStatus)
             {
                 case DrawFlips.None: DrawNoneFlipped(spriteBatch); break;
@@ -35,9 +37,8 @@ namespace _3902_Project
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, bool isCentered, DrawFlips flipStatus, Color tint)
+        public void Draw(SpriteBatch spriteBatch, DrawFlips flipStatus, Color tint)
         {
-            _isCentered = isCentered;
             switch (flipStatus)
             {
                 case DrawFlips.None: DrawNoneFlipped(spriteBatch, tint); break;
@@ -54,55 +55,12 @@ namespace _3902_Project
         /// draw the sprite at the top left of the set position
         /// </summary>
         /// <param name="spriteBatch">the spritebatch where everything is drawn in</param>
-        private void Draw(SpriteBatch spriteBatch)
-        {
-            Rectangle destinationRectangle = new Rectangle(
-                (int)_positionOnWindow.X + ((_tileSize - (int)_spritePrintDimensions.X) / 2),
-                (int)_positionOnWindow.Y + ((_tileSize - (int)_spritePrintDimensions.Y) / 2),
-                (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y);
-
-            // draw the current sprite
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            if (!_isCentered)       spriteBatch.Draw(_spriteSheet, GetDestinationRectangle(), GetSourceRectangle(), Color.White);
-            else if (_isCentered)   spriteBatch.Draw(_spriteSheet, destinationRectangle, GetSourceRectangle(), Color.White);
-            spriteBatch.End();
-        }
-
-        /// <summary>
-        /// draw the sprite at the top left of the set position
-        /// </summary>
-        /// <param name="spriteBatch">the spritebatch where everything is drawn in</param>
-        /// <param name="tint">change the coloring of the sprite</param>
-        private void Draw(SpriteBatch spriteBatch, Color tint)
-        {
-            Rectangle destinationRectangle = new Rectangle(
-                (int)_positionOnWindow.X + ((_tileSize - (int)_spritePrintDimensions.X) / 2),
-                (int)_positionOnWindow.Y + ((_tileSize - (int)_spritePrintDimensions.Y) / 2),
-                (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y);
-
-            // draw the current sprite
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            if (!_isCentered)       spriteBatch.Draw(_spriteSheet, GetDestinationRectangle(), GetSourceRectangle(), tint);
-            else if (_isCentered)   spriteBatch.Draw(_spriteSheet, destinationRectangle, GetSourceRectangle(), tint);
-            spriteBatch.End();
-        }
-
-        /// <summary>
-        /// draw the sprite at the top left of the set position
-        /// </summary>
-        /// <param name="spriteBatch">the spritebatch where everything is drawn in</param>
         /// <param name="sourceRectangle">the sourceRectangle of the sprite</param>
         private void Draw(SpriteBatch spriteBatch, Rectangle sourceRectangle)
         {
-            Rectangle destinationRectangle = new Rectangle(
-                (int)_positionOnWindow.X + ((_tileSize - (int)_spritePrintDimensions.X) / 2),
-                (int)_positionOnWindow.Y + ((_tileSize - (int)_spritePrintDimensions.Y) / 2),
-                (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y);
-
             // draw the current sprite
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            if (!_isCentered)       spriteBatch.Draw(_spriteSheet, GetDestinationRectangle(), sourceRectangle, Color.White);
-            else if (_isCentered)   spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White);
+            spriteBatch.Draw(_spriteSheet, GetDestinationRectangle(), sourceRectangle, Color.White);
             spriteBatch.End();
         }
 
@@ -114,15 +72,9 @@ namespace _3902_Project
         /// <param name="tint">change the coloring of the sprite</param>
         private void Draw(SpriteBatch spriteBatch, Rectangle sourceRectangle, Color tint)
         {
-            Rectangle destinationRectangle = new Rectangle(
-                (int)_positionOnWindow.X + ((_tileSize - (int)_spritePrintDimensions.X) / 2),
-                (int)_positionOnWindow.Y + ((_tileSize - (int)_spritePrintDimensions.Y) / 2),
-                (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y);
-
             // draw the current sprite
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            if (!_isCentered)       spriteBatch.Draw(_spriteSheet, GetDestinationRectangle(), sourceRectangle, tint);
-            else if (_isCentered)   spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, tint);
+            spriteBatch.Draw(_spriteSheet, GetDestinationRectangle(), sourceRectangle, tint);
             spriteBatch.End();
         }
 

@@ -26,6 +26,7 @@ namespace _3902_Project
 
         // create enemy renderer
         private Renderer _enemy;
+        private bool _isCentered = true;
 
 
         /// <summary>
@@ -38,6 +39,7 @@ namespace _3902_Project
             _projectileManager = manager;
             _enemy = new(spriteSheet, _spritePosition, _rowAndColumns, printScale, frames);
             _enemy.SetAnimationStatus(Renderer.STATUS.RowAndColumnAnimated);
+            _enemy.SetCentered(_isCentered);
         }
 
 
@@ -65,7 +67,7 @@ namespace _3902_Project
         {
             if (_moveCounter == 0) _enemy.SetRandomMovement(); _direction = _enemy.GetDirection(); _updatePosition = _enemy.GetUpdatePosition(_positionSpeed);
             if (_moveCounter == 15) 
-                _projectileManager.CallProjectile(ProjectileManager.ProjectileNames.FireBall, ProjectileManager.ProjectileType.EnemyProj, _enemy.GetPositionAhead(), _direction, _printScale);
+                _projectileManager.CallProjectile(ProjectileManager.ProjectileNames.FireBall, ProjectileManager.ProjectileType.EnemyProj, _enemy.GetPositionAhead(0.5F), _direction, _printScale);
             _moveCounter++;
             if (_moveCounter == _moveTotal) { _moveCounter = 0; }
 
@@ -80,6 +82,6 @@ namespace _3902_Project
         /// Draws the enemy in the given SpriteBatch
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch) { _enemy.Draw(spriteBatch, false); }
+        public void Draw(SpriteBatch spriteBatch) { _enemy.Draw(spriteBatch); }
     }
 }

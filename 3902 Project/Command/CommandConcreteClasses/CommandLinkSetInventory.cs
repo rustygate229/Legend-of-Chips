@@ -15,14 +15,17 @@ namespace _3902_Project
         public void Execute()
         {
             switch (_key) {
-                case 0: // Throw Sword - FIREBALL PLACEHOLDER
-                    _link.CurrentProjectile = ProjectileManager.ProjectileNames.FireBall; break;
                 case 1: // Bomb
                     _link.CurrentProjectile = ProjectileManager.ProjectileNames.Bomb; break;
                 case 2: // Arrow
                     _link.CurrentProjectile = ProjectileManager.ProjectileNames.BlueArrow; break;
                 case 3: // Boomerang - FIREBALL PLACEHOLDER
+                    _link.CurrentProjectile = ProjectileManager.ProjectileNames.Boomerang; break;
+                case 4: // ?? - FIREBALL PLACEHOLDER
                     _link.CurrentProjectile = ProjectileManager.ProjectileNames.FireBall; break;
+                case 5: // ??? - FIREBALL PLACEHOLDER
+                    _link.CurrentProjectile = ProjectileManager.ProjectileNames.FireBall; break;
+                default: break;
             }
         }
     }

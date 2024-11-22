@@ -39,6 +39,8 @@ namespace _3902_Project
                     return new PJoiner_FireBall(_enemySpriteSheet, direction, printScale);
                 case ProjectileManager.ProjectileNames.Bomb:
                     return new PJoiner_Bomb(_linkSpriteSheet, direction, printScale);
+                case ProjectileManager.ProjectileNames.Boomerang:
+                    return new PJoiner_Boomerang(_linkSpriteSheet, direction, printScale);
                 default: throw new ArgumentException("Invalid projectile name in factory");
             }
 

@@ -12,6 +12,7 @@ namespace _3902_Project
 
         // create a Renderer object
         private Renderer _item;
+        private bool _isCentered = true;
 
         /// <summary>
         /// construct the sprite, pass in spritesheet, print dimension scale and amount of frames
@@ -22,6 +23,7 @@ namespace _3902_Project
         {
             _item = new (spriteSheet, _spritePosition, _spriteRowAndColumn, printScale, _frames);
             _item.SetAnimationStatus(Renderer.STATUS.RowAndColumnAnimated);
+            _item.SetCentered(_isCentered);
         }
 
         /// <summary>
@@ -53,6 +55,6 @@ namespace _3902_Project
         /// draw the sprite via Renderer method
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch) { _item.Draw(spriteBatch, true); }
+        public void Draw(SpriteBatch spriteBatch) { _item.Draw(spriteBatch); }
     }
 }

@@ -11,6 +11,7 @@ namespace _3902_Project
         private Rectangle _spriteRightLeftArrow = new (36, 190, 16, 5);
 
         private RendererLists _rendererList;
+        private bool _isCentered = true;
 
         // create timers, movement and speed variables
         private Vector2 _position;
@@ -34,6 +35,7 @@ namespace _3902_Project
             _rendererList = new RendererLists(_rendererListArray, RendererLists.RendOrder.Size2DownUpFlip);
             _rendererList.CreateSetAnimationStatus(Renderer.STATUS.Still);
             _rendererList.SetDirection(facingDirection);
+            _rendererList.SetCentered(_isCentered);
             // only need to update position once
             _updatePosition = _rendererList.CreateGetUpdatePosition(_positionSpeed);
         }
@@ -73,6 +75,6 @@ namespace _3902_Project
         /// Draws the block in the given SpriteBatch
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch, true); }
+        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch); }
     }
 }

@@ -10,7 +10,7 @@ namespace _3902_Project
     {
         public enum ProjectileNames
         {
-            Bomb, BlueArrow, FireBall
+            Bomb, BlueArrow, FireBall, Boomerang
         }
 
         public enum ProjectileType { LinkProj, EnemyProj }
@@ -35,7 +35,8 @@ namespace _3902_Project
         public void CallProjectile(ProjectileNames name, ProjectileType type, Vector2 placementPosition, Renderer.DIRECTION direction, float printScale)
         {
             IPJoiner currentJoiner = _factory.CreateProjectile(name, direction, printScale);
-            currentJoiner.CurrentSprite.SetPosition(placementPosition);
+            currentJoiner.Position = placementPosition;
+            currentJoiner.CurrentSprite.SetPosition(currentJoiner.Position);
             _runningProjectileJoiners.Add(currentJoiner);
 
             if (type.Equals(ProjectileType.LinkProj))
@@ -54,9 +55,8 @@ namespace _3902_Project
 
         public void UnloadProjectileJoiner(IPJoiner joiner)
         {
-            _runningProjectileJoiners.Remove(joiner);
             _collisionBoxes.Remove(joiner.CollisionBox);
-            
+            _runningProjectileJoiners.Remove(joiner);
         }
 
         public void UnloadAllProjectiles()
@@ -83,9 +83,9 @@ namespace _3902_Project
             foreach (var projectile in _runningProjectileJoiners)
             {
                 projectile.Update();
-                projectile.CurrentSprite.Update();
                 projectile.CollisionBox.Bounds = projectile.CurrentSprite.GetRectanglePosition();
-                if (projectile.RemovableFlip == true)
+                SetDamageSwitches(projectile.CollisionBox);
+                if (projectile.RemovableFlip is true)
                     unloadList.Add(projectile);
             }
             foreach (var projectile in unloadList)

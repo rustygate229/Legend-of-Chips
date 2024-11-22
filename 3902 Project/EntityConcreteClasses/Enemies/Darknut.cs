@@ -17,6 +17,7 @@ namespace _3902_Project
         private Vector2 _spriteRightLeftRowAndColumns = new (1, 2);
 
         private RendererLists _rendererList;
+        private bool _isCentered = true;
 
         // variables for moving the enemy
         private Vector2 _position;
@@ -45,6 +46,7 @@ namespace _3902_Project
             rendererListArray[2].SetAnimationStatus(Renderer.STATUS.RowAndColumnAnimated);
             // create and assign what type of renderer list it is, and if it is centered
             _rendererList = new RendererLists(rendererListArray, RendererLists.RendOrder.Size3RightLeft);
+            _rendererList.SetCentered(_isCentered);
         }
 
 
@@ -84,6 +86,6 @@ namespace _3902_Project
         /// Draws the enemy in the given SpriteBatch
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch, true); }
+        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch); }
     }
 }

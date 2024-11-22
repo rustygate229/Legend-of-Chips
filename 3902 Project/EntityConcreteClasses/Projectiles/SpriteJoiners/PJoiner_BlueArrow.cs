@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace _3902_Project
 {
@@ -9,11 +10,12 @@ namespace _3902_Project
         private ISprite _smallExplosion;
         private bool _removable;
         private ISprite _currentSprite;
+        private Vector2 _position;
 
         private ICollisionBox _collisionBox;
         private int _counter;
         private int _arrowCounter = 0;
-        private int _explosionCounter = 290;
+        private int _explosionCounter = 280;
         private int _counterTotal = 300;
 
         /// <summary>
@@ -42,13 +44,13 @@ namespace _3902_Project
         public ISprite CurrentSprite 
         { 
             get { return _currentSprite; }
-            set
-            {
-                if (value is PSprite_BlueArrow)
-                    _currentSprite = _blueArrow;
-                else
-                    _currentSprite = _smallExplosion;
-            }
+            set { _currentSprite = value; }
+        }
+
+        public Vector2 Position
+        {
+            get { return _position; }
+            set { _position = value; }
         }
 
         public bool RemovableFlip
@@ -60,17 +62,22 @@ namespace _3902_Project
         public void Update()
         {
             _counter++;
-            if (_collisionBox.Health == 1)
-                _currentSprite = _blueArrow;
-            else if (_collisionBox.Health != 1)
-            {
-                _counter = _explosionCounter;
-                _currentSprite = _smallExplosion;
-            }
-            else if ((CollisionBox.Health == 1) && (_counter >= _counterTotal))
-                CollisionBox.Health--;
-            else if (_counter == _counterTotal)
+            
+            if (_counter >= _counterTotal)
                 RemovableFlip = true;
+
+            if (_counter < _explosionCounter && CollisionBox.Health == 1)
+                CurrentSprite = _blueArrow;
+            else
+            {
+                CurrentSprite = _smallExplosion;
+                CurrentSprite.SetPosition(Position);
+                if (!(_counter >= _explosionCounter))
+                    _counter = _explosionCounter;
+            }
+
+            CurrentSprite.Update();
+            Position = CurrentSprite.GetVectorPosition();
         }
     }
 }

@@ -7,16 +7,12 @@ namespace _3902_Project
 {
     public partial class RendererLists
     {
-        private bool _isCentered;
-
         /// <summary>
         /// Draws the specific current sprite based on other methods
         /// </summary>
         /// <param name="spriteBatch">the spritebatch where we draw all sprites</param>
-        /// <param name="isCentered">true: centered, false: top left start</param>
-        public void CreateSpriteDraw(SpriteBatch spriteBatch, bool isCentered)
+        public void CreateSpriteDraw(SpriteBatch spriteBatch)
         {
-            _isCentered = isCentered;
             switch(_rendListType)
             {
                 case RendOrder.Size2:
@@ -45,10 +41,10 @@ namespace _3902_Project
         {
             switch (_direction)
             {
-                case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, _isCentered, Renderer.DrawFlips.Vertical); break;
-                case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch, _isCentered, Renderer.DrawFlips.Horizontal); break;
+                case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, Renderer.DrawFlips.Vertical); break;
+                case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch, Renderer.DrawFlips.Horizontal); break;
                 default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
             }
         }
@@ -57,10 +53,10 @@ namespace _3902_Project
         {
             switch (_direction)
             {
-                case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch, _isCentered, Renderer.DrawFlips.Vertical); break;
-                case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch, _isCentered, Renderer.DrawFlips.Horizontal); break;
+                case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch, Renderer.DrawFlips.Vertical); break;
+                case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch, Renderer.DrawFlips.Horizontal); break;
                 default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
             }
         }
@@ -69,10 +65,10 @@ namespace _3902_Project
         {
             switch (_direction)
             {
-                case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, _isCentered, Renderer.DrawFlips.Vertical); break;
-                case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch, _isCentered, Renderer.DrawFlips.Horizontal); break;
-                case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch, _isCentered); break;
+                case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, Renderer.DrawFlips.Vertical); break;
+                case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch, Renderer.DrawFlips.Horizontal); break;
+                case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch); break;
                 default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
             }
         }
@@ -81,10 +77,10 @@ namespace _3902_Project
         {
             switch (_direction)
             {
-                case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch, _isCentered, Renderer.DrawFlips.Vertical); break;
-                case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch, _isCentered, Renderer.DrawFlips.Horizontal); break;
-                case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch, _isCentered); break;
+                case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch, Renderer.DrawFlips.Vertical); break;
+                case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch, Renderer.DrawFlips.Horizontal); break;
+                case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch); break;
                 default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
             }
         }
@@ -93,10 +89,10 @@ namespace _3902_Project
         {
             switch (_direction)
             {
-                case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, _isCentered, Renderer.DrawFlips.Vertical); break;
-                case Renderer.DIRECTION.RIGHT: _rendRight.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.LEFT: _rendLeft.Draw(spriteBatch, _isCentered); break;
+                case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, Renderer.DrawFlips.Vertical); break;
+                case Renderer.DIRECTION.RIGHT: _rendRight.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.LEFT: _rendLeft.Draw(spriteBatch); break;
                 default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
             }
         }
@@ -105,10 +101,10 @@ namespace _3902_Project
         {
             switch (_direction)
             {
-                case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch, _isCentered, Renderer.DrawFlips.Vertical); break;
-                case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.RIGHT: _rendRight.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.LEFT: _rendLeft.Draw(spriteBatch, _isCentered); break;
+                case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch, Renderer.DrawFlips.Vertical); break;
+                case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.RIGHT: _rendRight.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.LEFT: _rendLeft.Draw(spriteBatch); break;
                 default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
             }
         }
@@ -118,10 +114,10 @@ namespace _3902_Project
         {
             switch (_direction)
             {
-                case Renderer.DIRECTION.DOWN: _rendDown.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.UP: _rendUp.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch, _isCentered, Renderer.DrawFlips.Horizontal); break;
+                case Renderer.DIRECTION.DOWN: _rendDown.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.UP: _rendUp.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch, Renderer.DrawFlips.Horizontal); break;
                 default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
             }
         }
@@ -130,10 +126,10 @@ namespace _3902_Project
         {
             switch (_direction)
             {
-                case Renderer.DIRECTION.DOWN: _rendDown.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.UP: _rendUp.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch, _isCentered, Renderer.DrawFlips.Horizontal); break;
-                case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch, _isCentered); break;
+                case Renderer.DIRECTION.DOWN: _rendDown.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.UP: _rendUp.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch, Renderer.DrawFlips.Horizontal); break;
+                case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch); break;
                 default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
             }
         }
@@ -143,10 +139,10 @@ namespace _3902_Project
         {
             switch (_direction)
             {
-                case Renderer.DIRECTION.DOWN: _rendDown.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.UP: _rendUp.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.RIGHT: _rendRight.Draw(spriteBatch, _isCentered); break;
-                case Renderer.DIRECTION.LEFT: _rendLeft.Draw(spriteBatch, _isCentered); break;
+                case Renderer.DIRECTION.DOWN: _rendDown.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.UP: _rendUp.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.RIGHT: _rendRight.Draw(spriteBatch); break;
+                case Renderer.DIRECTION.LEFT: _rendLeft.Draw(spriteBatch); break;
                 default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDraw");
             }
         }
