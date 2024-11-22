@@ -1,0 +1,11 @@
+READABILITY & CODE REVIEW 
+AUTHOR: Rolina Qu
+DATE: 10/21/24
+SPRINT NUMBER: 3
+.cs FILE NAME: KeyboardInput.cs
+.cs FILE AUTHOR: Mayank Karnati
+TIME TAKEN: 20 minutes
+
+Readability: 
+
+Code Quality: 
