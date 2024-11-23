@@ -4,10 +4,10 @@ using System;
 
 namespace _3902_Project
 {
-    public class FBlock_Invisible : ISprite
+    public class SBlock_Invisible : ISprite
     {
         // variables to change based on where your block is and what to print out
-        private Rectangle _spritePosition = new (1018, 11, 16, 16);
+        private Rectangle _spritePosition = new (1000, 1000, 16, 16);
 
         // create a Renderer object
         private Renderer _block;
@@ -17,14 +17,14 @@ namespace _3902_Project
         /// <summary>
         /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
         /// </summary>
-        public FBlock_Invisible(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale)
+        public SBlock_Invisible(Texture2D spriteSheet, Rectangle destinationRectangle, float printScale)
         {
             // create different facing block sprites for the renderer list
             _block = new(spriteSheet, _spritePosition, printScale);
             _block.SetAnimationStatus(Renderer.STATUS.Still);
             _block.SetCentered(_isCentered);
             // set correct direciton
-            _block.SetDirection(facingDirection);
+            _block.SetDestinationRectangle(destinationRectangle);
         }
 
 

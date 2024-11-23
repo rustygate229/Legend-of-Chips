@@ -38,6 +38,7 @@ namespace _3902_Project
                 case STATUS.SingleAnimated: return GetSourceRectangle_SingleAnimated();
                 case STATUS.RowAndColumnAnimated: return GetSourceRectangle_RowAndColumnAnimated();
                 case STATUS.ReverseRowAndColumnAnimated: return GetSourceRectangle_ReversedRowAndColumnAnimated();
+                case STATUS.SeperatedAnimated: return GetSourceRectangle_Seperated();
                 default: throw new ArgumentException("Invalid STATUS for GetSourceRectangle() in Renderer");
             }
         }
@@ -101,16 +102,32 @@ namespace _3902_Project
         /// </summary>
         public Rectangle GetRectanglePosition()
         {
-            if (_isCentered)
+            if (!_isNewDR)
             {
-                return new Rectangle(
-                (int)_positionOnWindow.X + ((_tileSize - (int)_spritePrintDimensions.X) / 2),
-                (int)_positionOnWindow.Y + ((_tileSize - (int)_spritePrintDimensions.Y) / 2),
-                (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y
-                );
+                if (_isCentered)
+                {
+                    return new Rectangle(
+                    (int)_positionOnWindow.X + ((_tileSize - (int)_spritePrintDimensions.X) / 2),
+                    (int)_positionOnWindow.Y + ((_tileSize - (int)_spritePrintDimensions.Y) / 2),
+                    (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y
+                    );
+                }
+                else
+                    return new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y);
             }
             else
-                return new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y);
+            {
+                if (_isCentered)
+                {
+                    return new Rectangle(
+                    (int)_destinationRectangle.X + (int)((_tileSize - _destinationRectangle.Width) / 2),
+                    (int)_destinationRectangle.Y + (int)((_tileSize - _destinationRectangle.Height) / 2),
+                    (int)_destinationRectangle.Width, (int)_destinationRectangle.Height
+                    );
+                }
+                else
+                    return _destinationRectangle;
+            }
         }
 
         public void SetCentered(bool isCentered) { _isCentered = isCentered; }
@@ -139,5 +156,7 @@ namespace _3902_Project
         public void SetDirection(int direction) { _direction = (DIRECTION)direction; }
 
         public DIRECTION GetDirection() { return _direction; }
+
+        public void SetDestinationRectangle(Rectangle newDestinationRectangle) { _isNewDR = true; _destinationRectangle = newDestinationRectangle; }
     }
 }

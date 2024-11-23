@@ -15,6 +15,7 @@ namespace _3902_Project
         private DIRECTION _direction;
 
         private bool _isCentered = false;
+        private bool _isNewDR = false;
 
         // NON-ANIMATED SPRITE
 
@@ -24,6 +25,7 @@ namespace _3902_Project
         private Vector2 _spritePosition;
         private Vector2 _spriteDimensions;
         private Vector2 _spritePrintDimensions;
+        private Rectangle _destinationRectangle = new (0, 0, 0, 0);
         private Vector2 _positionOnWindow;
         private float _printScale;
 
