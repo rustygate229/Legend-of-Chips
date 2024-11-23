@@ -99,6 +99,9 @@ namespace _3902_Project
             keyboardController.Update();
             mouseController.Update();
 
+            if (LinkManager._collisionBox.Health <= 0)
+                ResetGame();
+
             base.Update(gameTime);
         }
 
@@ -124,7 +127,7 @@ namespace _3902_Project
         {
             List<List<ICollisionBox>> collisions = EnvironmentFactory._collisionBoxes;
             Color color = Color.White;
-            int lineWidth = 4;
+            int lineWidth = 3;
 
             _spriteBatch.Begin();
             for (int i = 0; i < collisions.Count; i++)
@@ -153,6 +156,11 @@ namespace _3902_Project
         }
 
 
-        public void ResetGame() { Initialize(); }
+        public void ResetGame() 
+        {
+            // need to have a sequence play out first, but that will need a transition
+            MySoundEffect.DiePlaySound();
+            Initialize();
+        }
     }
 }

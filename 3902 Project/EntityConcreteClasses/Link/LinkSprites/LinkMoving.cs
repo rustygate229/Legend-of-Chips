@@ -4,7 +4,7 @@ using System;
 
 namespace _3902_Project
 {
-    public class LinkMoving : ISprite
+    public class LinkMoving : IFlashing
     {
         // variables for link in frame 1 of the moving link sprite animation
         private Rectangle _spriteDownPosition = new(0, 11, 32, 16);

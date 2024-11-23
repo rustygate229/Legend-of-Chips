@@ -195,6 +195,7 @@ namespace _3902_Project
 
         public void loadLevel()
         {
+            _linkManager.SetLinkPosition(new Vector2(_startingPosition.X + 140, _startingPosition.Y + 310));
             loadBlocks();
             loadEnemies();
             loadItems();
