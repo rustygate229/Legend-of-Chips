@@ -37,7 +37,7 @@ namespace _3902_Project
                 case PBlock_Square:
                 case FBlock_StatueDragon:
                 case PBlock_Water:
-                case FBlock_Invisible:
+                case SBlock_Invisible:
                 case FBlock_DiamondHoleLockedDoor:
                 case FBlock_KeyHoleLockedDoor:
                 case FBlock_Wall:
