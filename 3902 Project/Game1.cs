@@ -144,6 +144,7 @@ namespace _3902_Project
                     if (i == 1) color = Color.Red;
                     if (i == 2) color = Color.Green;
                     if (i == 3) color = Color.Blue;
+                    if (i == 4) color = Color.Yellow;
                     Rectangle outlineTop =      new (bounds.X, bounds.Y, bounds.Width, lineWidth);
                     Rectangle outlineLeft =     new (bounds.X, bounds.Y, lineWidth, bounds.Height);
                     Rectangle outlineBottom =   new (bounds.X, bounds.Y + (bounds.Height - lineWidth), bounds.Width, lineWidth);

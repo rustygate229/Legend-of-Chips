@@ -10,9 +10,8 @@ namespace _3902_Project
         // create block names for finding them
         public enum BlockNames
         {
-            Environment, Dirt, Square, Tile, WhiteBrick, WhiteTile, Water,
+            Environment, Dirt, Square, Tile, WhiteBrick, WhiteTile, Water, Invisible,
             BombedDoor_DOWN, BombedDoor_UP, BombedDoor_RIGHT, BombedDoor_LEFT,
-            Invisible_DOWN, Invisible_UP, Invisible_RIGHT, Invisible_LEFT,
             DiamondHoleLockedDoor_DOWN, DiamondHoleLockedDoor_UP, DiamondHoleLockedDoor_RIGHT, DiamondHoleLockedDoor_LEFT,
             KeyHoleLockedDoor_DOWN, KeyHoleLockedDoor_UP, KeyHoleLockedDoor_RIGHT, KeyHoleLockedDoor_LEFT,
             OpenDoor_DOWN, OpenDoor_UP, OpenDoor_RIGHT, OpenDoor_LEFT, Wall_DOWN, Wall_UP, Wall_RIGHT, Wall_LEFT,
@@ -53,6 +52,24 @@ namespace _3902_Project
             _runningBlocks.Add(currentSprite);
 
             BlockCollisionBox box = new (currentSprite);
+            SetHealthDamage(box);
+            SetCollision(box);
+            _collisionBoxes.Add(box);
+        }
+
+        /// <summary>
+        /// Add an block to the running block list
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="placementPosition"></param>
+        /// <param name="printScale"></param>
+        public void AddBlock(BlockNames name, Rectangle destinationRectangle, float printScale)
+        {
+            ISprite currentSprite = _factory.CreateBlock(name, destinationRectangle, printScale);
+            currentSprite.SetPosition(new Vector2(destinationRectangle.X, destinationRectangle.Y));
+            _runningBlocks.Add(currentSprite);
+
+            BlockCollisionBox box = new(currentSprite);
             SetHealthDamage(box);
             SetCollision(box);
             _collisionBoxes.Add(box);
