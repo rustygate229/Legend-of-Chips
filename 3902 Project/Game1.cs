@@ -2,6 +2,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
 
 namespace _3902_Project
 {
@@ -19,6 +21,7 @@ namespace _3902_Project
         internal CharacterStateManager CharacterStateManager = new();
         internal EnvironmentFactory EnvironmentFactory = new();
         internal BackgroundMusic BackgroundMusic = new();
+        internal MySoundEffect MySoundEffect = new();
         internal HUD Menu = new();
 
         //private List<ICollisionBox> _EnemyCollisionBoxes;
@@ -71,7 +74,7 @@ namespace _3902_Project
             EnemyManager.LoadAll(_spriteBatch, Content, ProjectileManager);
             LinkManager.LoadAll(_spriteBatch, Content, ProjectileManager);
             BackgroundMusic.LoadAll(Content);
-            BackgroundMusic.LoadSongs();
+            MySoundEffect.LoadAll(Content);
             CharacterStateManager.LoadAll(this, 6);
             Menu.LoadAll(_spriteBatch, Content, CharacterStateManager, ItemManager);
             // for the showing of collisions

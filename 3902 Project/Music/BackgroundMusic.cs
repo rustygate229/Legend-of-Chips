@@ -10,7 +10,7 @@ namespace _3902_Project
 
         public BackgroundMusic() { }
 
-        public void LoadAll(ContentManager content) { _content = content; }
+        public void LoadAll(ContentManager content) { _content = content; LoadSongs(); }
 
         public void LoadSongs()
         {

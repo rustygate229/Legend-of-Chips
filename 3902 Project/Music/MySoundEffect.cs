@@ -12,10 +12,9 @@ namespace _3902_Project
         private static SoundEffect ItemEffect;   // Item pickup sound effects
         private static SoundEffect EnemyEffect;   // Enemy death sound effects
 
-        public MySoundEffect(ContentManager content)
-        {
-            _content = content;
-        }
+        public MySoundEffect() { }
+
+        public void LoadAll(ContentManager content) { _content = content; LoadSongs(); }
 
 
         public void LoadSongs()
