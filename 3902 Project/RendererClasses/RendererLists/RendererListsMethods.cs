@@ -203,8 +203,37 @@ namespace _3902_Project
             }
         }
 
-        private bool _isCentered;
-
-        public void SetCentered(bool isCentered) { _isCentered = isCentered; }
+        public void SetCentered(bool isCentered)
+        {
+            switch (_rendListType)
+            {
+                case RendOrder.Size2:
+                case RendOrder.Size2DownUpFlip:
+                case RendOrder.Size2RightLeftFlip:
+                case RendOrder.Size2Flip:
+                    _rendDownUp.SetCentered(isCentered);
+                    _rendRightLeft.SetCentered(isCentered);
+                    break;
+                case RendOrder.Size3DownUp:
+                case RendOrder.Size3DownUpFlip:
+                    _rendDownUp.SetCentered(isCentered);
+                    _rendRight.SetCentered(isCentered);
+                    _rendLeft.SetCentered(isCentered);
+                    break;
+                case RendOrder.Size3RightLeft:
+                case RendOrder.Size3RightLeftFlip:
+                    _rendDown.SetCentered(isCentered);
+                    _rendUp.SetCentered(isCentered);
+                    _rendRightLeft.SetCentered(isCentered);
+                    break;
+                case RendOrder.Size4:
+                    _rendDown.SetCentered(isCentered);
+                    _rendUp.SetCentered(isCentered);
+                    _rendRight.SetCentered(isCentered);
+                    _rendLeft.SetCentered(isCentered);
+                    break;
+                default: break;
+            }
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace _3902_Project
         {
             // draw the current sprite
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            spriteBatch.Draw(_spriteSheet, GetDestinationRectangle(), GetSourceRectangle(), Color.White);
+            spriteBatch.Draw(_spriteSheet, GetDestinationRectangle(), GetSourceRectangle(), tint);
             spriteBatch.End();
         }
 

@@ -94,6 +94,11 @@ namespace _3902_Project
                 _linkDamagedStateCounter++;
                 UpdateDamagedState();
             }
+
+            if (_collisionBox.Health <= 0)
+            {
+
+            }
         }
 
 
@@ -107,27 +112,10 @@ namespace _3902_Project
             else
             {
                 // currently the sword attack doesn't tint, but I'm unsure if that should be the case
-                switch (_currentLinkSprite) {
-                    case LinkSprite.Moving:
-                        if (_linkColorFlip)
-                            (_currentLink as LinkMoving).Draw(_spriteBatch, Color.Red);
-                        else
-                            (_currentLink as LinkMoving).Draw(_spriteBatch, Color.AntiqueWhite);
-                        break;
-                    case LinkSprite.Standing:
-                        if (_linkColorFlip)
-                            (_currentLink as LinkStanding).Draw(_spriteBatch, Color.Red);
-                        else
-                            (_currentLink as LinkStanding).Draw(_spriteBatch, Color.AntiqueWhite);
-                        break;
-                    case LinkSprite.Throwing:
-                        if (_linkColorFlip)
-                            (_currentLink as LinkAction).Draw(_spriteBatch, Color.Red);
-                        else
-                            (_currentLink as LinkAction).Draw(_spriteBatch, Color.AntiqueWhite);
-                        break;
-                    default: break;
-                }
+                if (_linkColorFlip)
+                    (_currentLink as IFlashing).Draw(_spriteBatch, Color.Red);
+                else
+                    (_currentLink as IFlashing).Draw(_spriteBatch, Color.AntiqueWhite);
             }
         }
     }
