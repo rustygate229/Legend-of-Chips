@@ -116,6 +116,18 @@
 /processorParam:TextureFormat=Color
 /build:Miscellaneous_Spritesheet_transparent.png
 
+#begin NES - The Legend of Zelda - Bosses.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:NES - The Legend of Zelda - Bosses.png
+
 #begin Overworld Spritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
