@@ -6,7 +6,7 @@ namespace _3902_Project
     {
         public List<ICollisionBox> GetCollisionBoxes() { return _collisionBoxes; }
 
-        public List<IPJoiner> GetJoinerSprites() { return _runningProjectileJoiners; }
+        public List<IJoiner> GetJoinerSprites() { return _runningProjectileJoiners; }
 
         public bool IsDamagable(ICollisionBox box)
         {
@@ -14,6 +14,7 @@ namespace _3902_Project
             {
                 // *NOTE* also implement bomb being moved away from a block collision when placed
                 case PSprite_BombCloud:
+                case PSprite_WoodSword:
                     return false;
                 default: return box.IsCollidable;
             }
@@ -27,6 +28,7 @@ namespace _3902_Project
                 case PSprite_FireBall:      box.Health = 1; box.Damage = 1; break;
                 case PSprite_BombCloud:     box.Health = 1; box.Damage = 3; break;
                 case PSprite_Boomerang:     box.Health = 1; box.Damage = 2; break;
+                case PSprite_WoodSword:     box.Health = 1; box.Damage = 1; break;
                 default:                    box.Health = 1; box.Damage = 0; break;
             }
         }
@@ -39,6 +41,7 @@ namespace _3902_Project
                 case PSprite_FireBall:
                 case PSprite_BombCloud:
                 case PSprite_Boomerang:
+                case PSprite_WoodSword:
                     box.IsCollidable = true;
                     break;
                 case PSprite_SmallExplosion:

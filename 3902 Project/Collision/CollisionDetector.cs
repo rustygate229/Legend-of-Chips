@@ -70,8 +70,8 @@ namespace _3902_Project
                             }
                         }
                     }
-                    currentCounter++;
                 }
+                currentCounter++;
             }
 
             // go through and compare BLOCK to all remaining gameObjects, mainly just deal damage to block from projectile,

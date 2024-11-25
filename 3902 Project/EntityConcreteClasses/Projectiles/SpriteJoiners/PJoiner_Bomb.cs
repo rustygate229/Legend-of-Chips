@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _3902_Project
 {
-    public class PJoiner_Bomb : IPJoiner
+    public class PJoiner_Bomb : IJoiner
     {
         // variables to change based on where your sprite is and what to print out
         private ISprite _bomb;

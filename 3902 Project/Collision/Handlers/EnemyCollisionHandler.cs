@@ -52,5 +52,6 @@ public class EnemyCollisionHandler
     private void HandleLinkProjCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
     {
         objectA.Health -= objectB.Damage;
+        Console.WriteLine("EnemyCollisionhandler: LinkProj hit, current health of enemy: " + objectA.Health);
     }
 }

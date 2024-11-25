@@ -29,7 +29,7 @@ namespace _3902_Project
 
 
         // create every type of projectile
-        public IPJoiner CreateProjectile(ProjectileManager.ProjectileNames name, Renderer.DIRECTION direction, float printScale)
+        public IJoiner CreateProjectile(ProjectileManager.ProjectileNames name, Renderer.DIRECTION direction, float printScale)
         {
             switch (name)
             {
@@ -41,6 +41,8 @@ namespace _3902_Project
                     return new PJoiner_Bomb(_linkSpriteSheet, direction, printScale);
                 case ProjectileManager.ProjectileNames.Boomerang:
                     return new PJoiner_Boomerang(_linkSpriteSheet, direction, printScale);
+                case ProjectileManager.ProjectileNames.WoodSwordAttack:
+                    return new PJoiner_WoodSword(name, _linkSpriteSheet, direction, printScale);
                 default: throw new ArgumentException("Invalid projectile name in factory");
             }
 

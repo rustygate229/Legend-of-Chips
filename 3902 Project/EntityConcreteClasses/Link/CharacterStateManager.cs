@@ -4,110 +4,58 @@ using System.Collections.Generic;
 
 namespace _3902_Project
 {
-    public class CharacterStateManager
+    public partial class LinkManager
     {
-        public int Health { get; private set; }
-        public int MaxHealth { get; private set; }
-        public bool IsDead => Health <= 0;
+        // IMPORTANT: THIS HEALTH NEEDS TO MATCH THE MATH FOR THE IN GAME HUD HEALTH BAR - added the health as a parameter for just passing it
+        public void SetHealthDamage(ICollisionBox box, int health) { box.Health = 10; box.Damage = 0; }
 
-        private float _damageCooldownTime = 1.0f; 
-        private float _currentCooldownTime = 0.0f;
+        private CollisionData.CollisionType _collisionDetectedSide;
+        public void SetCollisionSide(CollisionData.CollisionType side) { _collisionDetectedSide = side; }
 
-        private Game1 _game;
+        private int _linkDamagedStateCounter = 0;
+        private int _linkDamagedStateCounterTotal = 50;
+        private bool _linkDamagedState { get; set; }
+        private bool _linkColorFlip = false;
+        public bool IsLinkDamaged { get { return _linkDamagedState; } set { _linkDamagedState = value; } }
 
-        private Dictionary<string, int> _inventory;
+        public void flipDamaged() { _linkDamagedState = !_linkDamagedState; }
 
-        public CharacterStateManager()
+        public void UpdateDamagedState()
         {
-            _inventory = new Dictionary<string, int>();
-        }
-
-        public void LoadAll(Game1 game, int maxHealth)
-        {
-            _game = game;
-            MaxHealth = maxHealth;
-            Health = maxHealth;
-        }
-
-        public void UpdateCooldown(GameTime gameTime)
-        {
-            if (_currentCooldownTime > 0)
+            if (_linkDamagedStateCounter >= _linkDamagedStateCounterTotal)
             {
-                _currentCooldownTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            }
-        }
-
-        public bool CanTakeDamage()
-        {
-            return _currentCooldownTime <= 0;
-        }
-
-        public void DecreaseHealth(int amount)
-        {
-            if (CanTakeDamage())
-            {
-                Health -= amount;
-                _currentCooldownTime = _damageCooldownTime;
-
-                if (Health < 0) Health = 0;
-
-                if (IsDead)
-                {
-                    HandleDeath();
-                }
-            }
-        }
-
-        public void IncreaseHealth(int amount)
-        {
-            Health += amount;
-            if (Health > MaxHealth) Health = MaxHealth;
-        }
-
-        public void AddItem(string itemName)
-        {
-            if (_inventory.ContainsKey(itemName))
-            {
-                _inventory[itemName]++;
+                IsLinkDamaged = false;
+                _linkDamagedStateCounter = 0;
             }
             else
             {
-                _inventory[itemName] = 1;
-            }
-        }
-
-        public void UseItem(string itemName)
-        {
-            if (_inventory.ContainsKey(itemName) && _inventory[itemName] > 0)
-            {
-                if (itemName == "HealthPotion")
+                _linkColorFlip = !_linkColorFlip;
+                // send link backwards for 7 frames once damaged at 10 positions a frame
+                if (_linkDamagedStateCounter < 10)
                 {
-                    IncreaseHealth(2);
-                }
-                _inventory[itemName]--;
-
-                if (_inventory[itemName] == 0)
-                {
-                    _inventory.Remove(itemName);
+                    float positionSpeed = 7;
+                    Vector2 updatePosition = new(0, 0);
+                    switch (_collisionDetectedSide)
+                    {
+                        case CollisionData.CollisionType.BOTTOM: updatePosition = new(0, -(Math.Abs(positionSpeed))); break;
+                        case CollisionData.CollisionType.TOP: updatePosition = new(0, Math.Abs(positionSpeed)); break;
+                        case CollisionData.CollisionType.RIGHT: updatePosition = new(-(Math.Abs(positionSpeed)), 0); break;
+                        case CollisionData.CollisionType.LEFT: updatePosition = new(Math.Abs(positionSpeed), 0); break;
+                        default: break;
+                    }
+                    SetLinkPosition(_position + updatePosition);
                 }
             }
         }
 
-        public int GetFullHearts()
+        public void SetItem(ISprite item)
         {
-            return Health / 2; // Each heart represents 2 HP
-        }
-
-        public bool HasHalfHeart()
-        {
-            return Health % 2 != 0; // If the remainder is not 0, it means there is half a heart
-        }
-
-        private void HandleDeath()
-        {
-            if (IsDead)
+            switch (item)
             {
-                _game.ResetGame();
+                // gave 10 for testing purpose
+                case AItem_FArrow: _inventory.AddItem(ProjectileManager.ProjectileNames.BlueArrow, 10); break;
+                case AItem_FLife: MaxHealth += 2; break;
+                default: break;
             }
         }
     }

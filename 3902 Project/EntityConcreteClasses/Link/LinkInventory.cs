@@ -18,13 +18,14 @@ namespace _3902_Project
 
         // if link got shield upgrade
         private bool _linkShieldSmall;
+
         public bool LinkShield { get { return _linkShieldSmall; } set { _linkShieldSmall = value; } }
 
         public LinkInventory()
         {
             CurrentLinkSword = LinkSwordType.WOOD;
             // initialize link shield to be small
-            LinkShield = true;
+            LinkShield = false;
 
             // initializing some amounts for testing
             int amount = 10;

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace _3902_Project
 {
@@ -10,7 +9,7 @@ namespace _3902_Project
         private ContentManager _content;
         private SpriteBatch _spriteBatch;
         private ItemManager _itemManager;
-        private CharacterStateManager _characterState;
+        private LinkManager _linkManager;
         private SpriteFont _font;
 
         private int level;
@@ -30,13 +29,12 @@ namespace _3902_Project
         private int _orbCount = 0;
 
         public HUD() {}
-        public void LoadAll(SpriteBatch spriteBatch, ContentManager content, CharacterStateManager characterState, ItemManager item)
+        public void LoadAll(SpriteBatch spriteBatch, ContentManager content, LinkManager link, ItemManager item)
         {
             _spriteBatch = spriteBatch;
             _content = content;
-            _characterState = characterState ?? throw new ArgumentNullException(nameof(characterState));
             _itemManager = item;
-
+            _linkManager = link;
             level = 1;
 
             _font = _content.Load<SpriteFont>("Menu");
@@ -84,9 +82,9 @@ namespace _3902_Project
             _spriteBatch.End();
 
             // Draw a heart shape based on the character's HP
-            int fullHearts = _characterState.GetFullHearts();
-            bool hasHalfHeart = _characterState.HasHalfHeart();
-            int maxHearts = _characterState.MaxHealth / 2;
+            int fullHearts = _linkManager.CollisionBox.Health / 2;
+            bool hasHalfHeart = _linkManager.CollisionBox.Health != 0;
+            int maxHearts = _linkManager.MaxHealth / 2;
 
             float heartScale = 4F; // Scaling ratio for heart
 

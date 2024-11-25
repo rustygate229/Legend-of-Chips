@@ -4,7 +4,7 @@ using System;
 
 namespace _3902_Project
 {
-    public class PJoiner_FireBall : IPJoiner
+    public class PJoiner_FireBall : IJoiner
     {
         // variables to change based on where your sprite is and what to print out
         private ISprite _fireBall;

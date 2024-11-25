@@ -35,13 +35,13 @@ namespace _3902_Project
                 if (key == "rc" && !previousMouseButtons.Contains("rc"))
                 {
                     _game.EnvironmentFactory.incrementLevel();
-                    _game.Menu.incrementLevel();
+                    _game.HUD.incrementLevel();
                 }
 
                 else if (key == "lc" && !previousMouseButtons.Contains("lc"))
                 {
                     _game.EnvironmentFactory.decrementLevel();
-                    _game.Menu.decrementLevel();
+                    _game.HUD.decrementLevel();
                 }
             }
 

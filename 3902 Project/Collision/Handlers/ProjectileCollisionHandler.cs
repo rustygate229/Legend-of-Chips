@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.ComponentModel.Design;
+﻿using System;
 
 namespace _3902_Project
 {

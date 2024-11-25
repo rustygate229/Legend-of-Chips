@@ -2,7 +2,7 @@
 using _3902_Project;
 using Microsoft.Xna.Framework;
 
-public interface IPJoiner
+public interface IJoiner
 {
     public ICollisionBox CollisionBox { get; set; }
 

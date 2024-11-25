@@ -18,11 +18,10 @@ namespace _3902_Project
         internal ItemManager ItemManager = new();
         internal EnemyManager EnemyManager = new();
         internal ProjectileManager ProjectileManager = new();
-        internal CharacterStateManager CharacterStateManager = new();
         internal EnvironmentFactory EnvironmentFactory = new();
         internal BackgroundMusic BackgroundMusic = new();
         internal MySoundEffect MySoundEffect = new();
-        internal HUD Menu = new();
+        internal HUD HUD = new();
 
         //private List<ICollisionBox> _EnemyCollisionBoxes;
 
@@ -56,8 +55,18 @@ namespace _3902_Project
         protected override void Initialize()
         {
             // Initialize the game objects and input system
-            base.Initialize();
-        }
+            base.Initialize();// Game objects and managers
+            LinkManager = new();
+            BlockManager = new();
+            ItemManager = new();
+            EnemyManager = new();
+            ProjectileManager = new();
+            EnvironmentFactory = new();
+            BackgroundMusic = new();
+            MySoundEffect = new();
+            HUD = new();
+            LoadContent();
+    }
 
         protected override void LoadContent()
         {
@@ -75,22 +84,19 @@ namespace _3902_Project
             LinkManager.LoadAll(_spriteBatch, Content, ProjectileManager);
             BackgroundMusic.LoadAll(Content);
             MySoundEffect.LoadAll(Content);
-            CharacterStateManager.LoadAll(this, 6);
-            Menu.LoadAll(_spriteBatch, Content, CharacterStateManager, ItemManager);
+            HUD.LoadAll(_spriteBatch, Content, LinkManager, ItemManager);
             // for the showing of collisions
             _outline = Content.Load<Texture2D>("Dungeon_Block_and_Room_Spritesheet_transparent");
 
             EnvironmentFactory.LoadAll(LinkManager, EnemyManager, BlockManager, ItemManager, ProjectileManager);
             EnvironmentFactory.loadLevel();
 
-            Menu.addWeaponToA(ItemManager.ItemNames.LongSword);
-            Menu.addWeaponToB(ItemManager.ItemNames.Bomb);
+            HUD.addWeaponToA(ItemManager.ItemNames.LongSword);
+            HUD.addWeaponToB(ItemManager.ItemNames.Bomb);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            CharacterStateManager.UpdateCooldown(gameTime);
-
             BlockManager.Update();
             ItemManager.Update();
             ProjectileManager.Update();
@@ -117,7 +123,7 @@ namespace _3902_Project
             ProjectileManager.Draw();
             EnemyManager.Draw();
             LinkManager.Draw();
-            Menu.Draw();
+            HUD.Draw();
 
             // draw the collisions if the enters "C"
             if (DoDrawCollisions)

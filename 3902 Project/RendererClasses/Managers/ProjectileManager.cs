@@ -10,12 +10,13 @@ namespace _3902_Project
     {
         public enum ProjectileNames
         {
-            Bomb, BlueArrow, FireBall, Boomerang
+            Bomb, BlueArrow, FireBall, Boomerang,
+            WoodSwordAttack
         }
 
         public enum ProjectileType { LinkProj, EnemyProj }
 
-        private List<IPJoiner> _runningProjectileJoiners = new List<IPJoiner>();
+        private List<IJoiner> _runningProjectileJoiners = new List<IJoiner>();
         private List<ICollisionBox> _collisionBoxes = new List<ICollisionBox>();
         private ProjectileFactory _factory = ProjectileFactory.Instance;
         private SpriteBatch _spriteBatch;
@@ -34,7 +35,7 @@ namespace _3902_Project
         /// <returns>the sprite added to the list</returns>
         public void CallProjectile(ProjectileNames name, ProjectileType type, Vector2 placementPosition, Renderer.DIRECTION direction, float printScale)
         {
-            IPJoiner currentJoiner = _factory.CreateProjectile(name, direction, printScale);
+            IJoiner currentJoiner = _factory.CreateProjectile(name, direction, printScale);
             currentJoiner.Position = placementPosition;
             currentJoiner.CurrentSprite.SetPosition(currentJoiner.Position);
             _runningProjectileJoiners.Add(currentJoiner);
@@ -53,7 +54,7 @@ namespace _3902_Project
             _factory.UnloadAllTextures(content);
         }
 
-        public void UnloadProjectileJoiner(IPJoiner joiner)
+        public void UnloadProjectileJoiner(IJoiner joiner)
         {
             _collisionBoxes.Remove(joiner.CollisionBox);
             _runningProjectileJoiners.Remove(joiner);
@@ -79,7 +80,7 @@ namespace _3902_Project
 
         public void Update()
         {
-            List<IPJoiner> unloadList = new List<IPJoiner>();
+            List<IJoiner> unloadList = new List<IJoiner>();
             foreach (var projectile in _runningProjectileJoiners)
             {
                 projectile.Update();

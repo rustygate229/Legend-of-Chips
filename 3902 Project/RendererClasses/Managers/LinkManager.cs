@@ -13,6 +13,7 @@ namespace _3902_Project
 
         private LinkSprite _currentLinkSprite;
         private LinkActions _currentLinkAction;
+        private int _linkThrowingDecrement = 5;
 
         // link dictionary/inventory
         private ISprite _currentLink;
@@ -23,7 +24,7 @@ namespace _3902_Project
         private SpriteBatch _spriteBatch;
 
         // Links global variables
-        public LinkCollisionBox _collisionBox;
+        public ICollisionBox _collisionBox;
         private Vector2 _position;
         private Renderer.DIRECTION _direction;
         private float _printScale = 4f;
@@ -46,12 +47,13 @@ namespace _3902_Project
             _currentLinkAction = LinkActions.None;
             _direction = Renderer.DIRECTION.DOWN;
             _linkDamagedState = false;
+            _inventory.CurrentLinkSword = LinkInventory.LinkSwordType.WOOD;
 
             _currentLink = _factory.CreateLink(_currentLinkSprite, _inventory.LinkShield, _direction, _printScale, _manager);
             _collisionBox = new LinkCollisionBox(_currentLink);
             SetCollision(_collisionBox);
             // IMPORTANT: look at this methods comment for health transfering
-            SetHealthDamage(_collisionBox, 10);
+            SetHealthDamage(_collisionBox, _maxHealth);
         }
 
 
@@ -95,10 +97,21 @@ namespace _3902_Project
                 UpdateDamagedState();
             }
 
-            if (_collisionBox.Health <= 0)
-            {
+            if ((_swordDamageDecrementTotal >= 0) && (_swordDamageDecrementTotal < 10))
+                _swordDamageDecrementTotal--;
+            else if (_swordDamageDecrementTotal != 10)
+                _swordDamageDecrementTotal = 10;
 
+            if (_currentLinkSprite == LinkSprite.Throwing)
+            {
+                _linkThrowingDecrement--;
+                if (_linkThrowingDecrement < 0)
+                {
+                    _linkThrowingDecrement = 5;
+                    _currentLinkSprite = LinkSprite.Standing;
+                }
             }
+
         }
 
 

@@ -158,5 +158,17 @@ namespace _3902_Project
         public DIRECTION GetDirection() { return _direction; }
 
         public void SetDestinationRectangle(Rectangle newDestinationRectangle) { _isNewDR = true; _destinationRectangle = newDestinationRectangle; }
+
+        public DIRECTION GetOppositeDirection() 
+        { 
+            switch (_direction)
+            {
+                case DIRECTION.DOWN: return DIRECTION.UP;
+                case DIRECTION.UP: return DIRECTION .DOWN;
+                case DIRECTION.RIGHT: return DIRECTION .LEFT;
+                case DIRECTION.LEFT: return DIRECTION .RIGHT;
+                default: throw new ArgumentException("That direction does not exist; in RendererMethods");
+            }
+        }
     }
 }

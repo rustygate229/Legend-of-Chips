@@ -12,7 +12,7 @@ namespace _3902_Project
 
         public void Execute()
         {
-            if (_link.CanFireProjectile())
+            if (_link.CanSwordAttack())
             {
                 if ((_link.GetLinkState() == LinkManager.LinkSprite.Standing) || (_link.GetLinkState() == LinkManager.LinkSprite.Throwing))
                     _link.SetLinkSpriteState(LinkManager.LinkSprite.Throwing);

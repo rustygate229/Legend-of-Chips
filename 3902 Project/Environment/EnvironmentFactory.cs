@@ -13,7 +13,6 @@ namespace _3902_Project
         private CollisionHandlerManager _collisionHandlerManager = new ();
         private ProjectileManager _projectileManager;
         private LinkManager _linkManager;
-        private CharacterStateManager _characterStateManager;
 
         private int _level;
         private int _prevLevel = -1; // -1 is a stand in for a null value
