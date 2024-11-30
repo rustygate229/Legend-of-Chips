@@ -6,20 +6,16 @@ namespace _3902_Project
     public partial class RendererLists
     {
         private float _scale;
-
-        /// <param name="positionSpeed">the speed at which the update position is set to</param>
-        /// <returns>returns the updated position direction of the current renderer in the list</returns>
-        public Vector2 CreateGetPositionAhead(float scale) { _printScale = scale; return GetPositionAhead(); }
-
-        private Vector2 GetPositionAhead()
+        public Vector2 GetPositionAhead(float scale)
         {
+            _scale = scale;
             // set the directions
             switch (_direction)
             {
-                case Renderer.DIRECTION.DOWN: return SetDownPositionAhead();         // DOWN Direction
-                case Renderer.DIRECTION.UP: return SetUpPositionAhead();             // UP Direciton
-                case Renderer.DIRECTION.RIGHT: return SetRightPositionAhead();       // RIGHT Direciton
-                case Renderer.DIRECTION.LEFT: return SetLeftPositionAhead();         // LEFT Direciton
+                case Renderer.DIRECTION.DOWN:       return SetDownPositionAhead();
+                case Renderer.DIRECTION.UP:         return SetUpPositionAhead();
+                case Renderer.DIRECTION.RIGHT:      return SetRightPositionAhead();
+                case Renderer.DIRECTION.LEFT:       return SetLeftPositionAhead();
                 default: throw new ArgumentException("Invalid direction type for CreateGetPositionAhead");
             }
         }

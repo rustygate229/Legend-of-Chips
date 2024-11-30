@@ -13,34 +13,65 @@ namespace _3902_Project
         /// Draws the specific current sprite based on other methods
         /// </summary>
         /// <param name="spriteBatch">the spritebatch where we draw all sprites</param>
-        public void CreateSpriteDraw(SpriteBatch spriteBatch, Color tint)
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            _tint = Color.White;
+            switch (_rendListType)
+            {
+                case RendOrder.Size2:
+                    DrawSize2(spriteBatch); break;
+                case RendOrder.Size2DownUpFlip:
+                    DrawSize2DownUpFlip(spriteBatch); break;
+                case RendOrder.Size2RightLeftFlip:
+                    DrawSize2RightLeftFlip(spriteBatch); break;
+                case RendOrder.Size2Flip:
+                    DrawSize2Flip(spriteBatch); break;
+                case RendOrder.Size3DownUp:
+                    DrawSize3DownUp(spriteBatch); break;
+                case RendOrder.Size3DownUpFlip:
+                    DrawSize3DownUpFlip(spriteBatch); break;
+                case RendOrder.Size3RightLeft:
+                    DrawSize3RightLeft(spriteBatch); break;
+                case RendOrder.Size3RightLeftFlip:
+                    DrawSize3RightLeftFlip(spriteBatch); break;
+                case RendOrder.Size4:
+                    DrawSize4(spriteBatch); break;
+                default: throw new ArgumentException("Invalid drawing direction for Draw");
+            }
+        }
+
+        /// <summary>
+        /// Draws the specific current sprite based on other methods
+        /// </summary>
+        /// <param name="spriteBatch">the spritebatch where we draw all sprites</param>
+        public void Draw(SpriteBatch spriteBatch, Color tint)
         {
             _tint = tint;
             switch (_rendListType)
             {
                 case RendOrder.Size2:
-                    CreateSpriteDrawTintSize2(spriteBatch); break;
+                    DrawSize2(spriteBatch); break;
                 case RendOrder.Size2DownUpFlip:
-                    CreateSpriteDrawTintSize2DownUpFlip(spriteBatch); break;
+                    DrawSize2DownUpFlip(spriteBatch); break;
                 case RendOrder.Size2RightLeftFlip:
-                    CreateSpriteDrawTintSize2RightLeftFlip(spriteBatch); break;
+                    DrawSize2RightLeftFlip(spriteBatch); break;
                 case RendOrder.Size2Flip:
-                    CreateSpriteDrawTintSize2Flip(spriteBatch); break;
+                    DrawSize2Flip(spriteBatch); break;
                 case RendOrder.Size3DownUp:
-                    CreateSpriteDrawTintSize3DownUp(spriteBatch); break;
+                    DrawSize3DownUp(spriteBatch); break;
                 case RendOrder.Size3DownUpFlip:
-                    CreateSpriteDrawTintSize3DownUpFlip(spriteBatch); break;
+                    DrawSize3DownUpFlip(spriteBatch); break;
                 case RendOrder.Size3RightLeft:
-                    CreateSpriteDrawTintSize3RightLeft(spriteBatch); break;
+                    DrawSize3RightLeft(spriteBatch); break;
                 case RendOrder.Size3RightLeftFlip:
-                    CreateSpriteDrawTintSize3RightLeftFlip(spriteBatch); break;
+                    DrawSize3RightLeftFlip(spriteBatch); break;
                 case RendOrder.Size4:
-                    CreateSpriteDrawTintSize4(spriteBatch); break;
-                default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDrawTint");
+                    DrawSize4(spriteBatch); break;
+                default: throw new ArgumentException("Invalid drawing direction for Draw");
             }
         }
 
-        private void CreateSpriteDrawTintSize2(SpriteBatch spriteBatch)
+        private void DrawSize2(SpriteBatch spriteBatch)
         {
             switch (_direction)
             {
@@ -48,11 +79,11 @@ namespace _3902_Project
                 case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, Renderer.DrawFlips.Vertical, _tint); break;
                 case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch, Renderer.DrawFlips.Horizontal, _tint); break;
-                default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDrawTint");
+                default: throw new ArgumentException("Invalid drawing direction for Draw");
             }
         }
 
-        private void CreateSpriteDrawTintSize2DownUpFlip(SpriteBatch spriteBatch)
+        private void DrawSize2DownUpFlip(SpriteBatch spriteBatch)
         {
             switch (_direction)
             {
@@ -60,11 +91,11 @@ namespace _3902_Project
                 case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch, Renderer.DrawFlips.Horizontal, _tint); break;
-                default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDrawTint");
+                default: throw new ArgumentException("Invalid drawing direction for Draw");
             }
         }
 
-        private void CreateSpriteDrawTintSize2RightLeftFlip(SpriteBatch spriteBatch)
+        private void DrawSize2RightLeftFlip(SpriteBatch spriteBatch)
         {
             switch (_direction)
             {
@@ -72,11 +103,11 @@ namespace _3902_Project
                 case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, Renderer.DrawFlips.Vertical, _tint); break;
                 case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch, Renderer.DrawFlips.Horizontal, _tint); break;
                 case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch, _tint); break;
-                default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDrawTint");
+                default: throw new ArgumentException("Invalid drawing direction for Draw");
             }
         }
 
-        private void CreateSpriteDrawTintSize2Flip(SpriteBatch spriteBatch)
+        private void DrawSize2Flip(SpriteBatch spriteBatch)
         {
             switch (_direction)
             {
@@ -84,11 +115,11 @@ namespace _3902_Project
                 case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch, Renderer.DrawFlips.Horizontal, _tint); break;
                 case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch, _tint); break;
-                default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDrawTint");
+                default: throw new ArgumentException("Invalid drawing direction for Draw");
             }
         }
 
-        private void CreateSpriteDrawTintSize3DownUp(SpriteBatch spriteBatch)
+        private void DrawSize3DownUp(SpriteBatch spriteBatch)
         {
             switch (_direction)
             {
@@ -96,11 +127,11 @@ namespace _3902_Project
                 case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, Renderer.DrawFlips.Vertical, _tint); break;
                 case Renderer.DIRECTION.RIGHT: _rendRight.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.LEFT: _rendLeft.Draw(spriteBatch, _tint); break;
-                default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDrawTint");
+                default: throw new ArgumentException("Invalid drawing direction for Draw");
             }
         }
 
-        private void CreateSpriteDrawTintSize3DownUpFlip(SpriteBatch spriteBatch)
+        private void DrawSize3DownUpFlip(SpriteBatch spriteBatch)
         {
             switch (_direction)
             {
@@ -108,12 +139,12 @@ namespace _3902_Project
                 case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.RIGHT: _rendRight.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.LEFT: _rendLeft.Draw(spriteBatch, _tint); break;
-                default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDrawTint");
+                default: throw new ArgumentException("Invalid drawing direction for Draw");
             }
         }
 
 
-        private void CreateSpriteDrawTintSize3RightLeft(SpriteBatch spriteBatch)
+        private void DrawSize3RightLeft(SpriteBatch spriteBatch)
         {
             switch (_direction)
             {
@@ -121,11 +152,11 @@ namespace _3902_Project
                 case Renderer.DIRECTION.UP: _rendUp.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch, Renderer.DrawFlips.Horizontal, _tint); break;
-                default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDrawTint");
+                default: throw new ArgumentException("Invalid drawing direction for Draw");
             }
         }
 
-        private void CreateSpriteDrawTintSize3RightLeftFlip(SpriteBatch spriteBatch)
+        private void DrawSize3RightLeftFlip(SpriteBatch spriteBatch)
         {
             switch (_direction)
             {
@@ -133,12 +164,12 @@ namespace _3902_Project
                 case Renderer.DIRECTION.UP: _rendUp.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.RIGHT: _rendRightLeft.Draw(spriteBatch, Renderer.DrawFlips.Horizontal, _tint); break;
                 case Renderer.DIRECTION.LEFT: _rendRightLeft.Draw(spriteBatch, _tint); break;
-                default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDrawTint");
+                default: throw new ArgumentException("Invalid drawing direction for Draw");
             }
         }
 
 
-        private void CreateSpriteDrawTintSize4(SpriteBatch spriteBatch)
+        private void DrawSize4(SpriteBatch spriteBatch)
         {
             switch (_direction)
             {
@@ -146,7 +177,7 @@ namespace _3902_Project
                 case Renderer.DIRECTION.UP: _rendUp.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.RIGHT: _rendRight.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.LEFT: _rendLeft.Draw(spriteBatch, _tint); break;
-                default: throw new ArgumentException("Invalid drawing direction for CreateSpriteDrawTint");
+                default: throw new ArgumentException("Invalid drawing direction for Draw");
             }
         }
     }

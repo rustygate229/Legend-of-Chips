@@ -25,29 +25,31 @@ namespace _3902_Project
         {
             // create renders of the small explosion projectile
             _explode = new (spriteSheet, _spriteExplode, _spriteRowAndColumn, printScale, _frames);
-            _explode.SetAnimationStatus(Renderer.STATUS.SingleAnimated);
-            _explode.SetCentered(_isCentered);
+            _explode.AnimatedStatus = Renderer.STATUS.SingleAnimated;
+            _explode.IsCentered = _isCentered;
+        }
+
+        /// <summary>
+        /// Get/Set method for sprites destinitaion Rectangle
+        /// </summary>
+        public Rectangle DestinationRectangle
+        {
+            get { return _explode.DestinationRectangle; }
+            set { _explode.DestinationRectangle = value; }
+        }
+
+        /// <summary>
+        /// Get/Set method for sprites position on window
+        /// </summary>
+        public Vector2 PositionOnWindow
+        {
+            get { return _explode.PositionOnWindow; }
+            set { _explode.PositionOnWindow = value; }
         }
 
 
         /// <summary>
-        /// Passes to the Renderer GetPosition method
-        /// </summary>
-        public Rectangle GetRectanglePosition() { return _explode.GetRectanglePosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer GetPosition method
-        /// </summary>
-        public Vector2 GetVectorPosition() { return _explode.GetVectorPosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer SetPosition method
-        /// </summary>
-        public void SetPosition(Vector2 position) { _explode.SetPosition(position); }
-
-
-        /// <summary>
-        /// Updates the block (movement, animation, etc.)
+        /// Updates the projectile (movement, animation, etc.)
         /// </summary>
         public void Update() { _explode.UpdateFrames(); }
 

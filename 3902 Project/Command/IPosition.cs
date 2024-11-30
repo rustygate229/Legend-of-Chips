@@ -3,9 +3,7 @@ using Microsoft.Xna.Framework;
 
 public interface IPosition
 {
-    Rectangle GetRectanglePosition();
+    public Rectangle DestinationRectangle { get; set; }
 
-    Vector2 GetVectorPosition();
-
-    void SetPosition(Vector2 position);
+    public Vector2 PositionOnWindow { get; set; }
 }

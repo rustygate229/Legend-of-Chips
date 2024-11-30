@@ -21,28 +21,28 @@ namespace _3902_Project
         {
             // create different facing block sprites for the renderer list
             _block = new(spriteSheet, _spritePosition, printScale);
-            _block.SetAnimationStatus(Renderer.STATUS.Still);
-            _block.SetCentered(_isCentered);
+            _block.IsCentered = _isCentered;
             // set correct direciton
-            _block.SetDirection(facingDirection);
+            _block.Direction = facingDirection;
         }
 
+        /// <summary>
+        /// Get/Set method for sprites destinitaion Rectangle
+        /// </summary>
+        public Rectangle DestinationRectangle
+        {
+            get { return _block.DestinationRectangle; }
+            set { _block.DestinationRectangle = value; }
+        }
 
         /// <summary>
-        /// Passes to the Renderer GetPosition method
+        /// Get/Set method for sprites position on window
         /// </summary>
-        public Rectangle GetRectanglePosition() { return _block.GetRectanglePosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer GetPosition method
-        /// </summary>
-        public Vector2 GetVectorPosition() { return _block.GetVectorPosition(); }
-
-
-        /// <summary>
-        /// Passes to the Renderer SetPosition method
-        /// </summary>
-        public void SetPosition(Vector2 position) { _block.SetPosition(position); }
+        public Vector2 PositionOnWindow
+        {
+            get { return _block.PositionOnWindow; }
+            set { _block.PositionOnWindow = value; }
+        }
 
 
         /// <summary>

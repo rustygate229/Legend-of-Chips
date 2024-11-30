@@ -33,7 +33,7 @@ namespace _3902_Project
             if (_link.IsLinkDamaged == false)
             {
                 objectA.Health -= objectB.Damage;
-                _link.flipDamaged();
+                _link.SetDamaged(50, objectA.Sprite as IFlashing, side);
                 _link.SetCollisionSide(side);
             }
         }
@@ -44,7 +44,7 @@ namespace _3902_Project
             if (_link.IsLinkDamaged == false)
             {
                 objectA.Health -= objectB.Damage;
-                _link.flipDamaged();
+                _link.SetDamaged(50, objectA.Sprite as IFlashing, side);
                 _link.SetCollisionSide(side);
             }
         }

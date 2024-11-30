@@ -23,25 +23,26 @@ namespace _3902_Project
         {
             // create renders of the bomb projectile
             _bomb = new (spriteSheet, _spriteBomb, printScale);
-            _bomb.SetAnimationStatus(Renderer.STATUS.Still);
-            _bomb.SetCentered(_isCentered);
+            _bomb.IsCentered = _isCentered;
         }
 
+        /// <summary>
+        /// Get/Set method for sprites destinitaion Rectangle
+        /// </summary>
+        public Rectangle DestinationRectangle
+        {
+            get { return _bomb.DestinationRectangle; }
+            set { _bomb.DestinationRectangle = value; }
+        }
 
         /// <summary>
-        /// Passes to the Renderer GetPosition method
+        /// Get/Set method for sprites position on window
         /// </summary>
-        public Rectangle GetRectanglePosition() { return _bomb.GetRectanglePosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer GetPosition method
-        /// </summary>
-        public Vector2 GetVectorPosition() { return _bomb.GetVectorPosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer SetPosition method
-        /// </summary>
-        public void SetPosition(Vector2 position) { _bomb.SetPosition(position); }
+        public Vector2 PositionOnWindow
+        {
+            get { return _bomb.PositionOnWindow; }
+            set { _bomb.PositionOnWindow = value; }
+        }
 
 
         /// <summary>

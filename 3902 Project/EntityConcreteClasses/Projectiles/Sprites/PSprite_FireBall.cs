@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.Threading;
+using static _3902_Project.Renderer;
 
 namespace _3902_Project
 {
@@ -34,43 +35,37 @@ namespace _3902_Project
         {
             // create renders of the blue arrow projectile
             _fireBall = new (spriteSheet, _spriteFireBall, _spriteRowsAndColumns, printScale, _frameRate);
-            _fireBall.SetCentered(_isCentered);
-            _fireBall.SetAnimationStatus(Renderer.STATUS.RowAndColumnAnimated);
-            _fireBall.SetDirection(facingDirection);
-            // only need to update position once
-            _updatePosition = _fireBall.GetUpdatePosition(_positionSpeed);
+            _fireBall.IsCentered = _isCentered;
+            // set correct direciton
+            _fireBall.Direction = facingDirection;
+        }
+
+        /// <summary>
+        /// Get/Set method for sprites destinitaion Rectangle
+        /// </summary>
+        public Rectangle DestinationRectangle
+        {
+            get { return _fireBall.DestinationRectangle; }
+            set { _fireBall.DestinationRectangle = value; }
+        }
+
+        /// <summary>
+        /// Get/Set method for sprites position on window
+        /// </summary>
+        public Vector2 PositionOnWindow
+        {
+            get { return _fireBall.PositionOnWindow; }
+            set { _fireBall.PositionOnWindow = value; }
         }
 
 
         /// <summary>
-        /// Passes to the Renderer GetPosition method
-        /// </summary>
-        public Rectangle GetRectanglePosition() { return _fireBall.GetRectanglePosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer GetPosition method
-        /// </summary>
-        public Vector2 GetVectorPosition() { return _fireBall.GetVectorPosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer SetPosition method
-        /// </summary>
-        public void SetPosition(Vector2 position) { _position = position; _fireBall.SetPosition(position); }
-
-
-        /// <summary>
-        /// Updates the sprite (movement, animation, etc.)
+        /// Updates the block (movement, animation, etc.)
         /// </summary>
         public void Update()
         {
-            // set positions at every update
-            _fireBall.SetPosition(_position);
-
-            // update position and movement counter
-            _position += _updatePosition;
-
-            // update the animation frames
-            _fireBall.UpdateFrames();
+            Vector2 updatePosition = _fireBall.GetUpdatePosition(_positionSpeed);
+            _fireBall.PositionOnWindow = _fireBall.PositionOnWindow + updatePosition;
         }
 
 

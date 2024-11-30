@@ -22,25 +22,26 @@ namespace _3902_Project
         public PSprite_BombCloud(Texture2D spriteSheet, float printScale)
         {
             _bombCloud = new (spriteSheet, _spriteBombCloud, _spriteRowAndColumn, printScale, _bombCloudFrames);
-            _bombCloud.SetAnimationStatus(Renderer.STATUS.RowAndColumnAnimated);
-            _bombCloud.SetCentered(_isCentered);
+            _bombCloud.IsCentered = _isCentered;
         }
 
+        /// <summary>
+        /// Get/Set method for sprites destinitaion Rectangle
+        /// </summary>
+        public Rectangle DestinationRectangle
+        {
+            get { return _bombCloud.DestinationRectangle; }
+            set { _bombCloud.DestinationRectangle = value; }
+        }
 
         /// <summary>
-        /// Passes to the Renderer GetPosition method
+        /// Get/Set method for sprites position on window
         /// </summary>
-        public Rectangle GetRectanglePosition() { return _bombCloud.GetRectanglePosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer GetPosition method
-        /// </summary>
-        public Vector2 GetVectorPosition() { return _bombCloud.GetVectorPosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer SetPosition method
-        /// </summary>
-        public void SetPosition(Vector2 position) { _bombCloud.SetPosition(position); }
+        public Vector2 PositionOnWindow
+        {
+            get { return _bombCloud.PositionOnWindow; }
+            set { _bombCloud.PositionOnWindow = value; }
+        }
 
 
         /// <summary>

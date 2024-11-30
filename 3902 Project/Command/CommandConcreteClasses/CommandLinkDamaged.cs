@@ -12,7 +12,7 @@ namespace _3902_Project
 
         public void Execute()
         {
-            _link.flipDamaged();
+            _link.IsLinkDamaged = true;
         }
     }
 }

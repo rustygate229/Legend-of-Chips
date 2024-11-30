@@ -20,8 +20,6 @@ namespace _3902_Project
         private bool _isCentered = true;
 
         // variables for moving the enemy
-        private Vector2 _position;
-        private Vector2 _updatePosition;
         private int _moveCounter;
         private int _moveTotal = 100;
         private int _frameRate = 12;
@@ -41,30 +39,31 @@ namespace _3902_Project
                 new (spriteSheet, _spriteUpPosition, _spriteUpRowAndColumns, printScale, _frameRate),
                 new (spriteSheet, _spriteRightLeftPosition, _spriteRightLeftRowAndColumns, printScale, _frameRate)
             };
-            rendererListArray[0].SetAnimationStatus(Renderer.STATUS.RowAndColumnAnimated);
-            rendererListArray[1].SetAnimationStatus(Renderer.STATUS.SingleAnimated);
-            rendererListArray[2].SetAnimationStatus(Renderer.STATUS.RowAndColumnAnimated);
+            rendererListArray[0].AnimatedStatus = Renderer.STATUS.RowAndColumnAnimated;
+            rendererListArray[1].AnimatedStatus = Renderer.STATUS.SingleAnimated;
+            rendererListArray[2].AnimatedStatus = Renderer.STATUS.RowAndColumnAnimated;
             // create and assign what type of renderer list it is, and if it is centered
             _rendererList = new RendererLists(rendererListArray, RendererLists.RendOrder.Size3RightLeft);
-            _rendererList.SetCentered(_isCentered);
+            _rendererList.IsCentered = _isCentered;
         }
 
+        /// <summary>
+        /// Get/Set method for sprites destinitaion Rectangle
+        /// </summary>
+        public Rectangle DestinationRectangle
+        {
+            get { return _rendererList.DestinationRectangle; }
+            set { _rendererList.DestinationRectangle = value; }
+        }
 
         /// <summary>
-        /// Passes to the Renderer GetPosition method
+        /// Get/Set method for sprites position on window
         /// </summary>
-        public Rectangle GetRectanglePosition() { return _rendererList.GetOneRectanglePosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer GetPosition method
-        /// </summary>
-        public Vector2 GetVectorPosition() { return _rendererList.GetVectorPosition(); }
-
-
-        /// <summary>
-        /// Passes to the Renderer SetPosition method
-        /// </summary>
-        public void SetPosition(Vector2 position) { _position = position; _rendererList.SetPositions(position); }
+        public Vector2 PositionOnWindow
+        {
+            get { return _rendererList.PositionOnWindow; }
+            set { _rendererList.PositionOnWindow = value; }
+        }
 
 
         /// <summary>
@@ -72,20 +71,26 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            if (_moveCounter == 0) { _rendererList.CreateSetRandomDirection(); _updatePosition = _rendererList.CreateGetUpdatePosition(_positionSpeed); }
+            if (_moveCounter == 0) _rendererList.SetRandomDirection(); Vector2 updatePosition = _rendererList.GetUpdatePosition(_positionSpeed);
             _moveCounter++;
             if (_moveCounter == _moveTotal) { _moveCounter = 0; }
 
             // update position and animation
-            _position += _updatePosition;
-            _rendererList.SetPositions(_position);
-            _rendererList.CreateUpdateFrames();
+            _rendererList.PositionOnWindow = PositionOnWindow + updatePosition;
+            _rendererList.UpdateFrames();
         }
 
         /// <summary>
         /// Draws the enemy in the given SpriteBatch
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch); }
+        public void Draw(SpriteBatch spriteBatch) { _rendererList.Draw(spriteBatch); }
+
+        /// <summary>
+        /// Draws the enemy in the given SpriteBatch
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="tint"></param>
+        public void Draw(SpriteBatch spriteBatch, Color tint) { _rendererList.Draw(spriteBatch, tint); }
     }
 }

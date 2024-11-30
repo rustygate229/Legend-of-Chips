@@ -8,38 +8,54 @@ namespace _3902_Project
     public partial class Renderer
     {
         // animation status
-        public enum STATUS { Still, SingleAnimated, RowAndColumnAnimated, ReverseRowAndColumnAnimated, SeperatedAnimated };
+        public enum STATUS { Still, SingleAnimated, RowAndColumnAnimated, ReverseRowAndColumnAnimated, SeparatedAnimated };
         private STATUS _status;
+        public STATUS AnimatedStatus { get { return _status; } set { _status = value; } }
 
         public enum DIRECTION { DOWN, UP, RIGHT, LEFT }
         private DIRECTION _direction;
+        public DIRECTION Direction { get { return _direction; } set { _direction = value; } }
 
         private bool _isCentered = false;
-        private bool _isNewDR = false;
+        public bool IsCentered { get { return _isCentered; } set { _isCentered = value; } }
 
         // NON-ANIMATED SPRITE
 
 
         // create variables
         private Texture2D _spriteSheet;
-        private Vector2 _spritePosition;
-        private Vector2 _spriteDimensions;
-        private Vector2 _spritePrintDimensions;
-        private Rectangle _destinationRectangle = new (0, 0, 0, 0);
-        private Vector2 _positionOnWindow;
-        private float _printScale;
+        private Rectangle _sourceRectangle;
+        private Rectangle SourceRectangle { get { return _sourceRectangle; } set { _sourceRectangle = value; } }
 
-
-        // constructor for helper/ISprite methods
-        public Renderer(ISprite sprite, Vector2 positionOnWindow, DIRECTION direction, float printScale)
+        private Rectangle _destinationRectangle;
+        /// <summary>
+        /// gets current position of sprite in a Rectangle of position and dimensions on screen
+        /// </summary>
+        public Rectangle DestinationRectangle
         {
-            _spritePosition = sprite.GetVectorPosition();
-            _spriteDimensions = new(sprite.GetRectanglePosition().Width / printScale, sprite.GetRectanglePosition().Height / printScale);
-            _spritePrintDimensions = new(sprite.GetRectanglePosition().Width, sprite.GetRectanglePosition().Height);
-            _direction = direction;
-            _positionOnWindow = positionOnWindow;
-            _printScale = printScale;
+            get
+            {
+                if (_isCentered)
+                {
+                    return new Rectangle(
+                        _destinationRectangle.X + ((_tileSize - _destinationRectangle.Width) / 2),
+                        _destinationRectangle.Y + ((_tileSize - _destinationRectangle.Height) / 2),
+                        _destinationRectangle.Width, _destinationRectangle.Height
+                    );
+                }
+                else
+                    return _destinationRectangle;
+            }
+            set { _destinationRectangle = value; }
         }
+
+        public Vector2 PositionOnWindow
+        {
+            get { return new(DestinationRectangle.X, DestinationRectangle.Y); }
+            set { _destinationRectangle.X = (int)value.X; _destinationRectangle.Y = (int)value.Y; }
+        }
+
+        private float _printScale;
 
 
         /// <summary>
@@ -50,15 +66,15 @@ namespace _3902_Project
         /// <param name="spritePosition"></param>
         /// <param name="spriteDimension"></param>
         /// <param name="spritePrintDimension"></param>
-        public Renderer(Texture2D spriteSheet, Rectangle spritePositionAndDimension, float printScale)
+        public Renderer(Texture2D spriteSheet, Rectangle sourceRectangle, float printScale)
         {
             // set animated state and import spritesheet
             _spriteSheet = spriteSheet;
+            AnimatedStatus = STATUS.Still;
 
             // set sprite
-            _spritePosition = new (spritePositionAndDimension.X, spritePositionAndDimension.Y);
-            _spriteDimensions = new (spritePositionAndDimension.Width, spritePositionAndDimension.Height);
-            _spritePrintDimensions = new (spritePositionAndDimension.Width * printScale, spritePositionAndDimension.Height * printScale);
+            SourceRectangle = new (sourceRectangle.X, sourceRectangle.Y, sourceRectangle.Width, sourceRectangle.Height);
+            DestinationRectangle = new (0, 0, (int)(sourceRectangle.Width * printScale), (int)(sourceRectangle.Height * printScale));
             _printScale = printScale;
         }
 
@@ -89,10 +105,11 @@ namespace _3902_Project
         /// <param name="spriteSheet"></param>
         /// <param name="rowAndColumn"></param>
         /// <param name="frameRate"></param>
-        public Renderer(Texture2D spriteSheet, Rectangle spritePositionAndDimension, Vector2 rowAndColumn, float printScale, int frameRate)
+        public Renderer(Texture2D spriteSheet, Rectangle sourceRectangle, Vector2 rowAndColumn, float printScale, int frameRate)
         {
             // set animated state and import spritesheet
             _spriteSheet = spriteSheet;
+            AnimatedStatus = STATUS.RowAndColumnAnimated;
 
             // call framerate manager
             _rowsAndColumns = rowAndColumn;
@@ -101,19 +118,19 @@ namespace _3902_Project
             SetUpFrames();
 
             // sprite positioning
-            _spritePosition = new(spritePositionAndDimension.X, spritePositionAndDimension.Y);
-            _spriteDimensions = new(spritePositionAndDimension.Width, spritePositionAndDimension.Height);
+            SourceRectangle = new(sourceRectangle.X, sourceRectangle.Y, sourceRectangle.Width, sourceRectangle.Height);
             // needed since dimensions are in terms of the whole row/column
-            _spritePrintDimensions = 
-                new(
-                    (spritePositionAndDimension.Width / _rowsAndColumns.Y) * printScale, 
-                    (spritePositionAndDimension.Height / _rowsAndColumns.X) * printScale
+            DestinationRectangle = new(
+                    0, 0,
+                    (int)((sourceRectangle.Width / _rowsAndColumns.Y) * printScale), 
+                    (int)((sourceRectangle.Height / _rowsAndColumns.X) * printScale)
                     );
             _printScale = printScale;
         }
 
 
-        private List<Rectangle> _spriteListPositions;
+        private List<Rectangle> _sourceRectangleList;
+        private List<Rectangle> _destinationRectangleList;
 
         /// <summary>
         /// constructor for getting information for rendering SEPERATED ANIMATED sprites
@@ -121,10 +138,11 @@ namespace _3902_Project
         /// <param name="spriteSheet"></param>
         /// <param name="rowAndColumn"></param>
         /// <param name="frameRate"></param>
-        public Renderer(Texture2D spriteSheet, List<Rectangle> spritePositionAndDimensions, Vector2 rowAndColumn, float printScale, int frameRate)
+        public Renderer(Texture2D spriteSheet, List<Rectangle> sourceRectangles, Vector2 rowAndColumn, float printScale, int frameRate)
         {
             // set animated state and import spritesheet
             _spriteSheet = spriteSheet;
+            AnimatedStatus = STATUS.SeparatedAnimated;
 
             // call framerate manager
             _rowsAndColumns = rowAndColumn;
@@ -133,16 +151,17 @@ namespace _3902_Project
             SetUpFrames();
 
             // go through each source rectangle and add them to our list after creating print dimensions
-            foreach (var sourceRectangle in spritePositionAndDimensions)
+            foreach (var sourceRectangle in _sourceRectangleList)
             {
-                Rectangle newSourceRectangle = sourceRectangle;
-                newSourceRectangle.Width = (int)((sourceRectangle.Width / _rowsAndColumns.Y) * printScale);
-                newSourceRectangle.Height = (int)((sourceRectangle.Height / _rowsAndColumns.X) * printScale);
-                _spriteListPositions.Add(newSourceRectangle);
+                Rectangle destinationRectangle = new(
+                    0, 0,
+                    (int)((sourceRectangle.Width / _rowsAndColumns.Y) * printScale),
+                    (int)((sourceRectangle.Height / _rowsAndColumns.X) * printScale)
+                    );
+                _destinationRectangleList.Add(destinationRectangle);
             }
-            _spritePosition = new           (_spriteListPositions[0].X, _spriteListPositions[0].Y);
-            _spriteDimensions = new         (spritePositionAndDimensions[0].Width, spritePositionAndDimensions[0].Height);
-            _spritePrintDimensions = new    (_spriteListPositions[0].Width, _spriteListPositions[0].Height);
+            SourceRectangle = new           (_sourceRectangleList[0].X, _sourceRectangleList[0].Y, _sourceRectangleList[0].Width, _sourceRectangleList[0].Height);
+            DestinationRectangle = new      (0, 0, _destinationRectangleList[0].Width, _destinationRectangleList[0].Height);
             _printScale = printScale;
         }
     }

@@ -13,7 +13,7 @@ namespace _3902_Project
         {
             // draw the current sprite
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            spriteBatch.Draw(_spriteSheet, GetDestinationRectangle(), GetSourceRectangle(), Color.White);
+            spriteBatch.Draw(_spriteSheet, DestinationRectangle, GetSourceRectangle(), Color.White);
             spriteBatch.End();
         }
 
@@ -21,7 +21,7 @@ namespace _3902_Project
         {
             // draw the current sprite
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            spriteBatch.Draw(_spriteSheet, GetDestinationRectangle(), GetSourceRectangle(), tint);
+            spriteBatch.Draw(_spriteSheet, DestinationRectangle, GetSourceRectangle(), tint);
             spriteBatch.End();
         }
 
@@ -60,7 +60,7 @@ namespace _3902_Project
         {
             // draw the current sprite
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            spriteBatch.Draw(_spriteSheet, GetDestinationRectangle(), sourceRectangle, Color.White);
+            spriteBatch.Draw(_spriteSheet, DestinationRectangle, sourceRectangle, Color.White);
             spriteBatch.End();
         }
 
@@ -74,7 +74,7 @@ namespace _3902_Project
         {
             // draw the current sprite
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            spriteBatch.Draw(_spriteSheet, GetDestinationRectangle(), sourceRectangle, tint);
+            spriteBatch.Draw(_spriteSheet, DestinationRectangle, sourceRectangle, tint);
             spriteBatch.End();
         }
 

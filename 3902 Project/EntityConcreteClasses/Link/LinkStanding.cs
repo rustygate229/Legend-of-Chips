@@ -43,27 +43,28 @@ namespace _3902_Project
             Renderer[] rendererListSetArray = { _linkDown, _linkUp, _linkRightLeft };
             // create renderer list
             _rendererList = new RendererLists(rendererListSetArray, RendererLists.RendOrder.Size3RightLeft);
-            _rendererList.CreateSetAnimationStatus(Renderer.STATUS.Still);
-            _rendererList.SetCentered(_isCentered);
+            _rendererList.IsCentered = _isCentered;
             // set correct direciton
-            _rendererList.SetDirection(facingDirection);
+            _rendererList.Direction = facingDirection;
         }
 
+        /// <summary>
+        /// Get/Set method for sprites destinitaion Rectangle
+        /// </summary>
+        public Rectangle DestinationRectangle
+        {
+            get { return _rendererList.DestinationRectangle; }
+            set { _rendererList.DestinationRectangle = value; }
+        }
 
         /// <summary>
-        /// Passes to the Renderer GetPosition method
+        /// Get/Set method for sprites position on window
         /// </summary>
-        public Rectangle GetRectanglePosition() { return _rendererList.GetOneRectanglePosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer GetPosition method
-        /// </summary>
-        public Vector2 GetVectorPosition() { return _rendererList.GetVectorPosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer SetPosition method
-        /// </summary>
-        public void SetPosition(Vector2 position) { _rendererList.SetPositions(position); }
+        public Vector2 PositionOnWindow
+        {
+            get { return _rendererList.PositionOnWindow; }
+            set { _rendererList.PositionOnWindow = value; }
+        }
 
 
         /// <summary>
@@ -75,11 +76,11 @@ namespace _3902_Project
         /// <summary>
         /// Draws the block in the given SpriteBatch
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch); }
+        public void Draw(SpriteBatch spriteBatch) { _rendererList.Draw(spriteBatch); }
 
         /// <summary>
         /// Draws the block in the given SpriteBatch
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch, Color tint) { _rendererList.CreateSpriteDraw(spriteBatch, tint); }
+        public void Draw(SpriteBatch spriteBatch, Color tint) { _rendererList.Draw(spriteBatch, tint); }
     }
 }

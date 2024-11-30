@@ -20,11 +20,7 @@ namespace _3902_Project
             set { _collisionBox = value; }
         }
 
-        private int _maxHealth = 10;
-        public int MaxHealth { get { return _maxHealth; } set { _maxHealth = value; } }
-
         public void SetCollision(ICollisionBox box) { box.IsCollidable = true; }
-
 
         // ALSO, could add a counter in CanFireProjectile() if needed
         private ProjectileManager.ProjectileNames _currentProjectile;

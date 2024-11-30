@@ -11,9 +11,7 @@ namespace _3902_Project
         private int _frames = 30;
 
         // create timers, movement and speed variables
-        private Vector2 _position;
-        private Vector2 _updatePosition;
-        private float _positionSpeed = 2f;
+        private float _positionSpeed = 4f;
 
         private Renderer _boomerang;
         private bool _isCentered = true;
@@ -27,41 +25,37 @@ namespace _3902_Project
         public PSprite_Boomerang(Texture2D spriteSheet, Renderer.DIRECTION direction, float printScale)
         {
             _boomerang = new (spriteSheet, _spriteBoomerang, _spriteRowAndColumn, printScale, _frames);
-            _boomerang.SetAnimationStatus(Renderer.STATUS.ReverseRowAndColumnAnimated);
-            _boomerang.SetDirection(direction);
-            _boomerang.SetCentered(_isCentered);
-            _updatePosition = _boomerang.GetUpdatePosition(_positionSpeed);
+            _boomerang.IsCentered = _isCentered;
+            // set correct direciton
+            _boomerang.Direction = direction;
+        }
+
+        /// <summary>
+        /// Get/Set method for sprites destinitaion Rectangle
+        /// </summary>
+        public Rectangle DestinationRectangle
+        {
+            get { return _boomerang.DestinationRectangle; }
+            set { _boomerang.DestinationRectangle = value; }
+        }
+
+        /// <summary>
+        /// Get/Set method for sprites position on window
+        /// </summary>
+        public Vector2 PositionOnWindow
+        {
+            get { return _boomerang.PositionOnWindow; }
+            set { _boomerang.PositionOnWindow = value; }
         }
 
 
         /// <summary>
-        /// Passes to the Renderer GetPosition method
+        /// Updates the block (movement, animation, etc.)
         /// </summary>
-        public Rectangle GetRectanglePosition() { return _boomerang.GetRectanglePosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer GetPosition method
-        /// </summary>
-        public Vector2 GetVectorPosition() { return _boomerang.GetVectorPosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer SetPosition method
-        /// </summary>
-        public void SetPosition(Vector2 position) { _position = position; _boomerang.SetPosition(position); }
-
-
-        /// <summary>
-        /// Updates the projectile (movement, animation, etc.)
-        /// </summary>
-        public void Update() 
+        public void Update()
         {
-            _boomerang.UpdateFrames();
-
-            // set positions at every update
-            _boomerang.SetPosition(_position);
-
-            // update position and movement counter
-            _position += _updatePosition;
+            Vector2 updatePosition = _boomerang.GetUpdatePosition(_positionSpeed);
+            _boomerang.PositionOnWindow = _boomerang.PositionOnWindow + updatePosition;
         }
 
 

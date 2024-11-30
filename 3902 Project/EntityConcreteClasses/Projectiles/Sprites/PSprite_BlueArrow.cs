@@ -13,10 +13,8 @@ namespace _3902_Project
         private RendererLists _rendererList;
         private bool _isCentered = true;
 
-        // create timers, movement and speed variables
-        private Vector2 _position;
-        private Vector2 _updatePosition;
-        private float _positionSpeed = 2f;
+        // create speed variable
+        private float _positionSpeed = 4f;
 
         /// <summary>
         /// constructor for the projectile sprite: <c>Bomb</c>
@@ -33,29 +31,28 @@ namespace _3902_Project
             Renderer rightLeftArrow = new (spriteSheet, _spriteRightLeftArrow, printScale);
             Renderer[] _rendererListArray = { upDownArrow, rightLeftArrow };
             _rendererList = new RendererLists(_rendererListArray, RendererLists.RendOrder.Size2DownUpFlip);
-            _rendererList.CreateSetAnimationStatus(Renderer.STATUS.Still);
-            _rendererList.SetDirection(facingDirection);
-            _rendererList.SetCentered(_isCentered);
-            // only need to update position once
-            _updatePosition = _rendererList.CreateGetUpdatePosition(_positionSpeed);
+            _rendererList.IsCentered = _isCentered;
+            // set correct direciton
+            _rendererList.Direction = facingDirection;
         }
 
+        /// <summary>
+        /// Get/Set method for sprites destinitaion Rectangle
+        /// </summary>
+        public Rectangle DestinationRectangle
+        {
+            get { return _rendererList.DestinationRectangle; }
+            set { _rendererList.DestinationRectangle = value; }
+        }
 
         /// <summary>
-        /// Passes to the Renderer GetPosition method
+        /// Get/Set method for sprites position on window
         /// </summary>
-        public Rectangle GetRectanglePosition() { return _rendererList.GetOneRectanglePosition(); }
-
-
-        /// <summary>
-        /// Passes to the Renderer GetPosition method
-        /// </summary>
-        public Vector2 GetVectorPosition() { return _rendererList.GetVectorPosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer SetPosition method
-        /// </summary>
-        public void SetPosition(Vector2 position) { _position = position; _rendererList.SetPositions(position); }
+        public Vector2 PositionOnWindow
+        {
+            get { return _rendererList.PositionOnWindow; }
+            set { _rendererList.PositionOnWindow = value; }
+        }
 
 
         /// <summary>
@@ -63,11 +60,8 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            // set positions at every update
-            _rendererList.SetPositions(_position);
-
-            // update position and movement counter
-            _position += _updatePosition;
+            Vector2 updatePosition = _rendererList.GetUpdatePosition(_positionSpeed);
+            _rendererList.PositionOnWindow = _rendererList.PositionOnWindow + updatePosition;
         }
 
 
@@ -75,6 +69,6 @@ namespace _3902_Project
         /// Draws the block in the given SpriteBatch
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch); }
+        public void Draw(SpriteBatch spriteBatch) { _rendererList.Draw(spriteBatch); }
     }
 }

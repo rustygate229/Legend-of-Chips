@@ -15,8 +15,7 @@ namespace _3902_Project
         /// <returns>returns updated position that was randomly chosen</returns>
         public void SetRandomMovement()
         {
-            int randomValue = _random.Next(4);
-            SetDirection(randomValue);
+            Direction = (DIRECTION)_random.Next(4);
         }
 
         /// <summary>
@@ -29,7 +28,7 @@ namespace _3902_Project
         {
             //Console.WriteLine("renderer helper methods: " + _direction.ToString());
             // movement variables
-            switch (_direction)
+            switch (Direction)
             {
                 case DIRECTION.DOWN:    return new Vector2(0, Math.Abs(positionSpeed));
                 case DIRECTION.UP:      return new Vector2(0, -(Math.Abs(positionSpeed)));
@@ -46,12 +45,12 @@ namespace _3902_Project
         /// <returns>the position</returns>
         public Vector2 GetPositionAhead(float scale)
         {
-            Rectangle dS = GetDestinationRectangle();
+            Rectangle dS = DestinationRectangle;
             if (scale < 0 || scale > 1) { scale = 0; }
             switch (_direction)
             {
-                case DIRECTION.DOWN:    return new Vector2((int)dS.X, (int)(dS.Y + (dS.Height * scale)));
-                case DIRECTION.UP:      return new Vector2((int)dS.X, (int)(dS.Y - (dS.Height * scale)));
+                case DIRECTION.DOWN:    return new Vector2(dS.X, (int)(dS.Y + (dS.Height * scale)));
+                case DIRECTION.UP:      return new Vector2(dS.X, (int)(dS.Y - (dS.Height * scale)));
                 case DIRECTION.RIGHT:   return new Vector2((int)(dS.X + (dS.Width * scale)), (int)dS.Y);
                 case DIRECTION.LEFT:    return new Vector2((int)(dS.X - (dS.Width * scale)), (int)dS.Y);
                 default: throw new ArgumentException("Invalid direction type in PositionAhead");

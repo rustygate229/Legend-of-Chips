@@ -21,27 +21,26 @@ namespace _3902_Project
         public StillItemTemplate(Texture2D spriteSheet, float printScale)
         {
             _item = new(spriteSheet, _spritePosition, printScale);
-            _item.SetAnimationStatus(Renderer.STATUS.Still);
-            _item.SetCentered(_isCentered);
+            _item.IsCentered = _isCentered;
         }
 
         /// <summary>
-        /// Get position from sprites renderer position
+        /// Get/Set method for sprites destinitaion Rectangle
         /// </summary>
-        /// <returns>the position of the sprite in Rectangle</returns>
-        public Rectangle GetRectanglePosition() { return _item.GetRectanglePosition(); }
+        public Rectangle DestinationRectangle
+        {
+            get { return _item.DestinationRectangle; }
+            set { _item.DestinationRectangle = value; }
+        }
 
         /// <summary>
-        /// Get position from sprites renderer position
+        /// Get/Set method for sprites position on window
         /// </summary>
-        /// <returns>the position of the sprite in Rectangle</returns>
-        public Vector2 GetVectorPosition() { return _item.GetVectorPosition(); }
-
-        /// <summary>
-        /// Set position in the this method and in the sprites renderer
-        /// </summary>
-        /// <param name="position"></param>
-        public void SetPosition(Vector2 position) { _item.SetPosition(position); }
+        public Vector2 PositionOnWindow
+        {
+            get { return _item.PositionOnWindow; }
+            set { _item.PositionOnWindow = value; }
+        }
 
 
         /// <summary>

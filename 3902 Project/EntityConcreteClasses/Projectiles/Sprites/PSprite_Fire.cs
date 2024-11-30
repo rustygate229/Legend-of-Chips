@@ -23,25 +23,26 @@ namespace _3902_Project
         public PSprite_Fire(Texture2D spriteSheet, float printScale)
         {
             _fire = new (spriteSheet, _spriteFire, _spriteRowAndColumn, printScale, _fireFrames);
-            _fire.SetAnimationStatus(Renderer.STATUS.SingleAnimated);
-            _fire.SetCentered(_isCentered);
+            _fire.IsCentered = _isCentered;
         }
 
+        /// <summary>
+        /// Get/Set method for sprites destinitaion Rectangle
+        /// </summary>
+        public Rectangle DestinationRectangle
+        {
+            get { return _fire.DestinationRectangle; }
+            set { _fire.DestinationRectangle = value; }
+        }
 
         /// <summary>
-        /// Passes to the Renderer GetPosition method
+        /// Get/Set method for sprites position on window
         /// </summary>
-        public Rectangle GetRectanglePosition() { return _fire.GetRectanglePosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer GetPosition method
-        /// </summary>
-        public Vector2 GetVectorPosition() { return _fire.GetVectorPosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer SetPosition method
-        /// </summary>
-        public void SetPosition(Vector2 position) { _fire.SetPosition(position); }
+        public Vector2 PositionOnWindow
+        {
+            get { return _fire.PositionOnWindow; }
+            set { _fire.PositionOnWindow = value; }
+        }
 
 
         /// <summary>

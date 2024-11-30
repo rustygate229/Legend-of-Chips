@@ -13,6 +13,7 @@ namespace _3902_Project
 
         private Vector2 _spriteRowAndColumn = new(1, 2);
         private int _framerate = 12;
+        private float _positionSpeed = 2f;
 
 
         // create a Renderer object
@@ -31,50 +32,48 @@ namespace _3902_Project
             Renderer[] rendererListSetArray = { linkDown, linkUp, linkRightLeft };
             // create renderer list
             _rendererList = new RendererLists(rendererListSetArray, RendererLists.RendOrder.Size3RightLeft);
-            _rendererList.CreateSetAnimationStatus(Renderer.STATUS.RowAndColumnAnimated);
-            _rendererList.SetCentered(_isCentered);
+            _rendererList.IsCentered = _isCentered;
             // set correct direciton
-            _rendererList.SetDirection(facingDirection);
+            _rendererList.Direction = facingDirection;
         }
 
         /// <summary>
-        /// Passes to the Renderer GetRectanglePosition method
+        /// Get/Set method for sprites destinitaion Rectangle
         /// </summary>
-        public Rectangle GetRectanglePosition() { return _rendererList.GetOneRectanglePosition(); }
+        public Rectangle DestinationRectangle
+        {
+            get { return _rendererList.DestinationRectangle; }
+            set { _rendererList.DestinationRectangle = value; }
+        }
 
         /// <summary>
-        /// Passes to the Renderer GetPosition method
+        /// Get/Set method for sprites position on window
         /// </summary>
-        public Vector2 GetVectorPosition() { return _rendererList.GetVectorPosition(); }
-
-        /// <summary>
-        /// Passes to the Renderer SetPosition method
-        /// </summary>
-        public void SetPosition(Vector2 position) { _rendererList.SetPositions(position); }
+        public Vector2 PositionOnWindow
+        {
+            get { return _rendererList.PositionOnWindow; }
+            set { _rendererList.PositionOnWindow = value; }
+        }
 
 
         /// <summary>
         /// Updates the block (movement, animation, etc.)
         /// </summary>
         public void Update() {
-            float positionSpeed = 4f;
-            Vector2 updatePosition = _rendererList.CreateGetUpdatePosition(positionSpeed);
-            //Console.WriteLine("renderer direction: " + _rendererList.GetDirection().ToString());
-            //Console.WriteLine("updatePosition: " +  updatePosition);
-            Vector2 currentPosition = _rendererList.GetVectorPosition() + updatePosition;
-            _rendererList.SetPositions(currentPosition);
-            _rendererList.CreateUpdateFrames(); 
+            Vector2 updatePosition = _rendererList.GetUpdatePosition(_positionSpeed);
+            _rendererList.PositionOnWindow = _rendererList.PositionOnWindow + updatePosition;
+            _rendererList.UpdateFrames(); 
         }
 
 
         /// <summary>
         /// Draws the block in the given SpriteBatch
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch) { _rendererList.CreateSpriteDraw(spriteBatch); }
+        public void Draw(SpriteBatch spriteBatch) { _rendererList.Draw(spriteBatch); }
 
         /// <summary>
         /// Draws the block in the given SpriteBatch
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch, Color tint) { _rendererList.CreateSpriteDraw(spriteBatch, tint); }
+        public void Draw(SpriteBatch spriteBatch, Color tint) { _rendererList.Draw(spriteBatch, tint); }
     }
 }

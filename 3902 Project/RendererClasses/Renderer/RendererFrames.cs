@@ -63,10 +63,10 @@ namespace _3902_Project
                     else if (!_isReversed)  { _previousFrame = _currentFrame; _currentFrame++; }
                     _framesPerSprite += _frameRate / _totalFrames;
                 }
-                if (_status == STATUS.SeperatedAnimated)
+                if (_status == STATUS.SeparatedAnimated)
                 {
-                    _spritePosition =           new(_spriteListPositions[_currentFrame].X, _spriteListPositions[_currentFrame].Y);
-                    _spritePrintDimensions =    new(_spriteListPositions[_currentFrame].Width, _spriteListPositions[_currentFrame].Height);
+                    SourceRectangle = _sourceRectangleList[_currentFrame];
+                    DestinationRectangle = _destinationRectangleList[_currentFrame];
                 }
             }
         }

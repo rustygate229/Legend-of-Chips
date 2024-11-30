@@ -6,7 +6,6 @@ namespace _3902_Project
 {
     public partial class Renderer
     {
-        public void SetAnimationStatus(STATUS status) { _status = status; }
 
         /// <summary>
         /// draws a sourceRectangle in an int array based on what status of animation was selected
@@ -38,30 +37,34 @@ namespace _3902_Project
                 case STATUS.SingleAnimated: return GetSourceRectangle_SingleAnimated();
                 case STATUS.RowAndColumnAnimated: return GetSourceRectangle_RowAndColumnAnimated();
                 case STATUS.ReverseRowAndColumnAnimated: return GetSourceRectangle_ReversedRowAndColumnAnimated();
-                case STATUS.SeperatedAnimated: return GetSourceRectangle_Seperated();
+                case STATUS.SeparatedAnimated: return GetSourceRectangle_Separated();
                 default: throw new ArgumentException("Invalid STATUS for GetSourceRectangle() in Renderer");
             }
         }
 
         private Rectangle GetSourceRectangle_Still()
         {
-            return new Rectangle((int)_spritePosition.X, (int)_spritePosition.Y, (int)_spriteDimensions.X, (int)_spriteDimensions.Y);
+            return SourceRectangle;
         }
 
         private Rectangle GetSourceRectangle_SingleAnimated()
         {
-            if (_currentFrame == 0) return new Rectangle((int)_spritePosition.X, (int)_spritePosition.Y, (int)_spriteDimensions.X, (int)_spriteDimensions.Y);
-            else return new Rectangle((int)_spritePosition.X + (int)_spriteDimensions.X, (int)_spritePosition.Y, -(int)_spriteDimensions.X, (int)_spriteDimensions.Y);
+            if (_currentFrame == 0) return SourceRectangle;
+            else return new Rectangle(SourceRectangle.X + SourceRectangle.Width, SourceRectangle.Y, -SourceRectangle.Width, SourceRectangle.Height);
         }
 
         private Rectangle GetSourceRectangle_RowAndColumnAnimated()
         {
             int width, height, row, column;
-            width = (int)_spriteDimensions.X / (int)_rowsAndColumns.Y;      // sprites x dimension / column
-            height = (int)_spriteDimensions.Y / (int)_rowsAndColumns.X;     // sprites y dimension / row
+            width = SourceRectangle.Width / (int)_rowsAndColumns.Y;         // sprites x dimension / column
+            height = SourceRectangle.Height / (int)_rowsAndColumns.X;       // sprites y dimension / row
             row = _currentFrame / (int)_rowsAndColumns.Y;                   // current frame / column
             column = _currentFrame % (int)_rowsAndColumns.Y;                // current frame % column
-            return new Rectangle((width * column) + (int)_spritePosition.X, (height * row) + (int)_spritePosition.Y, width, height);
+            return new (
+                (width * column) + SourceRectangle.X, 
+                (height * row) + SourceRectangle.Y, 
+                width, height
+            );
         }
 
         private Rectangle GetSourceRectangle_ReversedRowAndColumnAnimated()
@@ -70,8 +73,8 @@ namespace _3902_Project
             if (_previousFrame == (_frameTotalSpriteShift - 1) && _currentFrame == 0)           _isReversed = true;
             else if (_previousFrame == 0 && _reversedFrame == (_frameTotalSpriteShift - 1))     _isReversed = false;
 
-            width = (int)_spriteDimensions.X / (int)_rowsAndColumns.Y;      // sprites x dimension / column
-            height = (int)_spriteDimensions.Y / (int)_rowsAndColumns.X;     // sprites y dimension / row
+            width = SourceRectangle.Width / (int)_rowsAndColumns.Y;         // sprites x dimension / column
+            height = SourceRectangle.Height / (int)_rowsAndColumns.X;       // sprites y dimension / row
 
             if (!_isReversed)
             {
@@ -84,80 +87,14 @@ namespace _3902_Project
                 column = _reversedFrame % (int)_rowsAndColumns.Y;                // current frame % column
             }
             // then get the sourceRectangle based on the choice
-            return new Rectangle((width * column) + (int)_spritePosition.X, (height * row) + (int)_spritePosition.Y, width, height);
+            return new (
+                (width * column) + SourceRectangle.X, 
+                (height * row) + SourceRectangle.Y, 
+                width, height
+            );
         }
 
-        public Rectangle GetSourceRectangle_Seperated()
-        {
-            return _spriteListPositions[_currentFrame];
-        }
-
-        /// <summary>
-        /// get the destinationRectangle of your current sprite
-        /// </summary>
-        public Rectangle GetDestinationRectangle() { return GetRectanglePosition(); }
-
-        /// <summary>
-        /// gets current position of sprite in a Rectangle of position and dimensions on screen
-        /// </summary>
-        public Rectangle GetRectanglePosition()
-        {
-            if (!_isNewDR)
-            {
-                if (_isCentered)
-                {
-                    return new Rectangle(
-                    (int)_positionOnWindow.X + ((_tileSize - (int)_spritePrintDimensions.X) / 2),
-                    (int)_positionOnWindow.Y + ((_tileSize - (int)_spritePrintDimensions.Y) / 2),
-                    (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y
-                    );
-                }
-                else
-                    return new Rectangle((int)_positionOnWindow.X, (int)_positionOnWindow.Y, (int)_spritePrintDimensions.X, (int)_spritePrintDimensions.Y);
-            }
-            else
-            {
-                if (_isCentered)
-                {
-                    return new Rectangle(
-                    (int)_destinationRectangle.X + (int)((_tileSize - _destinationRectangle.Width) / 2),
-                    (int)_destinationRectangle.Y + (int)((_tileSize - _destinationRectangle.Height) / 2),
-                    (int)_destinationRectangle.Width, (int)_destinationRectangle.Height
-                    );
-                }
-                else
-                    return _destinationRectangle;
-            }
-        }
-
-        public void SetCentered(bool isCentered) { _isCentered = isCentered; }
-
-        /// <summary>
-        /// gets current position of sprite in a Vector2 of position on screen
-        /// </summary>
-        public Vector2 GetVectorPosition() {  return new Vector2((int)_positionOnWindow.X, (int)_positionOnWindow.Y);  }
-
-        /// <summary>
-        /// sets current position of sprite
-        /// </summary>
-        /// <param name="position"></param>
-        public void SetPosition(Vector2 position) { _positionOnWindow = position; }
-
-        /// <summary>
-        /// set the direction of the current "this" sprite
-        /// </summary>
-        /// <param name="direction">the direction in which you want to move</param>
-        public void SetDirection(DIRECTION direction) { _direction = direction; }
-
-        /// <summary>
-        /// set the direction of the current "this" sprite
-        /// </summary>
-        /// <param name="direction">the direction in which you want to move</param>
-        public void SetDirection(int direction) { _direction = (DIRECTION)direction; }
-
-        public DIRECTION GetDirection() { return _direction; }
-
-        public void SetDestinationRectangle(Rectangle newDestinationRectangle) { _isNewDR = true; _destinationRectangle = newDestinationRectangle; }
+        private Rectangle GetSourceRectangle_Separated() { return _sourceRectangleList[_currentFrame]; }
 
         public DIRECTION GetOppositeDirection() 
         { 
