@@ -10,8 +10,8 @@ namespace _3902_Project
         // create item names for finding them
         public enum ItemNames
         {
-            AddLife, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Ladder, Emerald, LongSword,
-            MagicStaff, Game, NormalKey, BossKey, Compass, FlashingLife, DepletingHeart, FlashingEmerald,
+            AddLife, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Orb, Ladder, Emerald, Keys, WoodSword,
+            BlueArrow, MagicStaff, Game, NormalKey, BossKey, Compass, FlashingLife, DepletingHeart, FlashingEmerald,
             FlashingPotion, FlashingScripture, FlashingSword, FlashingBanana, FlashingArrow,
             FlashingCandle, FlashingRing, FlashingTriForce, HeartEmpty, HeartHalf, HeartFull,
         }
@@ -42,7 +42,7 @@ namespace _3902_Project
         public ISprite AddItem(ItemNames name, Vector2 placementPosition, float printScale)
         {
             ISprite currentSprite = _factory.CreateItem(name, printScale);
-            currentSprite.SetPosition(placementPosition);
+            currentSprite.PositionOnWindow = placementPosition;
             _runningItems.Add(currentSprite);
 
             ItemCollisionBox box = new (currentSprite);
@@ -57,7 +57,7 @@ namespace _3902_Project
         {
             ISprite currentSprite = _factory.CreateItem(name, printScale);
 
-            currentSprite.SetPosition(placementPosition);
+            currentSprite.PositionOnWindow = placementPosition;
             _menuItems.Add(currentSprite);
             
             return currentSprite;

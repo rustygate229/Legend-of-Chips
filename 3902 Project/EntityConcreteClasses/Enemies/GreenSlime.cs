@@ -4,7 +4,7 @@ using System;
 
 namespace _3902_Project
 {
-    public class GreenSlime : ISprite
+    public class GreenSlime : IColor
     {
         // variables to change based on where your block is and what to print out
         private Rectangle _spritePosition = new(78, 28, 32, 16);

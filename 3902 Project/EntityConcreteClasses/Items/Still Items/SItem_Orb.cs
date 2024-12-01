@@ -3,14 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _3902_Project
 {
-    public class SItem_Emerald : ISprite
+    public class SItem_Orb : ISprite
     {
         // variables to change based on where your item is and what to print out
-        private Rectangle _spritePosition = new(72, 0, 8, 16);
+        private Rectangle _spritePosition = new (1, 67, 8, 8);
 
         // create a Renderer object
         private Renderer _item;
-        private bool _isCentered = true;
+        private bool _isCentered = false;
 
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace _3902_Project
         /// </summary>
         /// <param name="spriteSheet"></param>
         /// <param name="printScale"></param>
-        public SItem_Emerald(Texture2D spriteSheet, float printScale)
+        public SItem_Orb(Texture2D spriteSheet, float printScale)
         {
             _item = new(spriteSheet, _spritePosition, printScale);
             _item.IsCentered = _isCentered;

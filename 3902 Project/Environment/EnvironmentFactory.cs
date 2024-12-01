@@ -184,8 +184,7 @@ namespace _3902_Project
             _collisionBoxes.Clear();
 
             // add the collision boxes IN ORDER (VERY IMPORTANT)
-            List<ICollisionBox> linkCollision = new List<ICollisionBox>();
-            linkCollision.Add(_linkManager._collisionBox);
+            List<ICollisionBox> linkCollision = new() { _linkManager.CollisionBox };
 
             _collisionBoxes.Add(linkCollision);
             _collisionBoxes.Add(_enemyManager.GetCollisionBoxes());
@@ -196,7 +195,7 @@ namespace _3902_Project
 
         public void loadLevel()
         {
-            _linkManager.SetLinkPosition(new Vector2(_startingPosition.X + 140, _startingPosition.Y + 310));
+            // _linkManager.LinkPositionOnWindow = new (_startingPosition.X + 140, _startingPosition.Y + 310);
             loadBlocks();
             loadEnemies();
             loadItems();

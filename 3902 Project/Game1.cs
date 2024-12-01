@@ -18,6 +18,7 @@ namespace _3902_Project
         internal ItemManager ItemManager = new();
         internal EnemyManager EnemyManager = new();
         internal ProjectileManager ProjectileManager = new();
+        internal MiscManager MiscManager = new();
         internal EnvironmentFactory EnvironmentFactory = new();
         internal BackgroundMusic BackgroundMusic = new();
         internal MySoundEffect MySoundEffect = new();
@@ -61,6 +62,7 @@ namespace _3902_Project
             ItemManager = new();
             EnemyManager = new();
             ProjectileManager = new();
+            MiscManager = new();
             EnvironmentFactory = new();
             BackgroundMusic = new();
             MySoundEffect = new();
@@ -82,17 +84,15 @@ namespace _3902_Project
             ProjectileManager.LoadAll(_spriteBatch, Content);
             EnemyManager.LoadAll(_spriteBatch, Content, ProjectileManager);
             LinkManager.LoadAll(_spriteBatch, Content, ProjectileManager);
+            MiscManager.LoadAll(_spriteBatch, Content);
             BackgroundMusic.LoadAll(Content);
             MySoundEffect.LoadAll(Content);
-            HUD.LoadAll(_spriteBatch, Content, LinkManager, ItemManager);
+            HUD.LoadAll(_spriteBatch, Content, LinkManager, ItemManager, MiscManager);
             // for the showing of collisions
             _outline = Content.Load<Texture2D>("Dungeon_Block_and_Room_Spritesheet_transparent");
 
             EnvironmentFactory.LoadAll(LinkManager, EnemyManager, BlockManager, ItemManager, ProjectileManager);
             EnvironmentFactory.loadLevel();
-
-            HUD.addWeaponToA(ItemManager.ItemNames.LongSword);
-            HUD.addWeaponToB(ItemManager.ItemNames.Bomb);
         }
 
         protected override void Update(GameTime gameTime)
@@ -102,13 +102,14 @@ namespace _3902_Project
             ProjectileManager.Update();
             EnemyManager.Update(); 
             LinkManager.Update();
+            MiscManager.Update();
             EnvironmentFactory.Update();
 
             // Update input controls
             keyboardController.Update();
             mouseController.Update();
 
-            if (LinkManager._collisionBox.Health <= 0)
+            if (LinkManager.CollisionBox.Health <= 0)
                 ResetGame();
 
             base.Update(gameTime);
@@ -124,6 +125,7 @@ namespace _3902_Project
             EnemyManager.Draw();
             LinkManager.Draw();
             HUD.Draw();
+            MiscManager.Draw();
 
             // draw the collisions if the enters "C"
             if (DoDrawCollisions)

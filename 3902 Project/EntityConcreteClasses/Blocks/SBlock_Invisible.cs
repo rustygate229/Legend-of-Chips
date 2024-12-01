@@ -17,12 +17,11 @@ namespace _3902_Project
         /// <summary>
         /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
         /// </summary>
-        public SBlock_Invisible(Texture2D spriteSheet, Rectangle destinationRectangle, float printScale)
+        public SBlock_Invisible(Texture2D spriteSheet, float printScale)
         {
             // create different facing block sprites for the renderer list
             _block = new(spriteSheet, _spritePosition, printScale);
             _block.IsCentered = _isCentered;
-            DestinationRectangle = destinationRectangle;
         }
 
         /// <summary>

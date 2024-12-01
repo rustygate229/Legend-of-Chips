@@ -28,6 +28,7 @@ namespace _3902_Project
         private Rectangle SourceRectangle { get { return _sourceRectangle; } set { _sourceRectangle = value; } }
 
         private Rectangle _destinationRectangle;
+        private int _tileSize = 64;
         /// <summary>
         /// gets current position of sprite in a Rectangle of position and dimensions on screen
         /// </summary>
@@ -38,21 +39,42 @@ namespace _3902_Project
                 if (_isCentered)
                 {
                     return new Rectangle(
-                        _destinationRectangle.X + ((_tileSize - _destinationRectangle.Width) / 2),
-                        _destinationRectangle.Y + ((_tileSize - _destinationRectangle.Height) / 2),
+                        (int)_positionOnWindow.X + ((_tileSize - _destinationRectangle.Width) / 2),
+                        (int)_positionOnWindow.Y + ((_tileSize - _destinationRectangle.Height) / 2),
                         _destinationRectangle.Width, _destinationRectangle.Height
                     );
                 }
                 else
-                    return _destinationRectangle;
+                {
+                    return new Rectangle(
+                        (int)_positionOnWindow.X, (int)_positionOnWindow.Y,
+                        _destinationRectangle.Width, _destinationRectangle.Height
+                    );
+                }
             }
             set { _destinationRectangle = value; }
         }
 
+        private Vector2 _positionOnWindow;
         public Vector2 PositionOnWindow
         {
-            get { return new(DestinationRectangle.X, DestinationRectangle.Y); }
-            set { _destinationRectangle.X = (int)value.X; _destinationRectangle.Y = (int)value.Y; }
+            get { return _positionOnWindow; }
+            set {
+                if (AnimatedStatus is STATUS.SeparatedAnimated)
+                {
+                    List<Tuple<Rectangle, Rectangle>> tempTupleList = new();
+                    foreach (var tuple in _sAndDRectList)
+                    {
+                        Rectangle tempDestRect = tuple.Item2;
+                        tempDestRect.X = (int)value.X;
+                        tempDestRect.Y = (int)value.Y;
+                        Tuple<Rectangle, Rectangle> tempTuple = new(tuple.Item1, tempDestRect);
+                        tempTupleList.Add(tempTuple);
+                    }
+                    _sAndDRectList = tempTupleList;
+                }
+                else _positionOnWindow = value;
+            }
         }
 
         private float _printScale;
@@ -129,8 +151,7 @@ namespace _3902_Project
         }
 
 
-        private List<Rectangle> _sourceRectangleList;
-        private List<Rectangle> _destinationRectangleList;
+        private List<Tuple<Rectangle, Rectangle>> _sAndDRectList = new ();
 
         /// <summary>
         /// constructor for getting information for rendering SEPERATED ANIMATED sprites
@@ -150,18 +171,20 @@ namespace _3902_Project
             _currentFrame = 0;
             SetUpFrames();
 
+            _sAndDRectList.Clear();
             // go through each source rectangle and add them to our list after creating print dimensions
-            foreach (var sourceRectangle in _sourceRectangleList)
+            foreach (var sourceRectangle in sourceRectangles)
             {
                 Rectangle destinationRectangle = new(
                     0, 0,
                     (int)((sourceRectangle.Width / _rowsAndColumns.Y) * printScale),
                     (int)((sourceRectangle.Height / _rowsAndColumns.X) * printScale)
                     );
-                _destinationRectangleList.Add(destinationRectangle);
+                Tuple<Rectangle, Rectangle> newListAddon = new Tuple<Rectangle, Rectangle> (sourceRectangle, destinationRectangle);
+                _sAndDRectList.Add(newListAddon);
             }
-            SourceRectangle = new           (_sourceRectangleList[0].X, _sourceRectangleList[0].Y, _sourceRectangleList[0].Width, _sourceRectangleList[0].Height);
-            DestinationRectangle = new      (0, 0, _destinationRectangleList[0].Width, _destinationRectangleList[0].Height);
+            SourceRectangle = new           (_sAndDRectList[0].Item1.X, _sAndDRectList[0].Item1.Y, _sAndDRectList[0].Item1.Width, _sAndDRectList[0].Item1.Height);
+            DestinationRectangle = new      (0, 0, _sAndDRectList[0].Item2.Width, _sAndDRectList[0].Item2.Height);
             _printScale = printScale;
         }
     }

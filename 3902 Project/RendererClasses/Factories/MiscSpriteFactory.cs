@@ -9,7 +9,7 @@ namespace _3902_Project
     public class MiscSpriteFactory
     {
         // block spritesheet
-        private Texture2D _miscSpritesheet;
+        private Texture2D _letterSpriteSheet;
 
         // create a new instance of BlockSpriteFactory
         private static MiscSpriteFactory instance = new MiscSpriteFactory();
@@ -24,7 +24,7 @@ namespace _3902_Project
         // load all textures/spritesheet
         public void LoadAllTextures(ContentManager content)
         {
-            _miscSpritesheet = content.Load<Texture2D>("Dungeon_Block_and_Room_Spritesheet_transparent");
+            _letterSpriteSheet = content.Load<Texture2D>("Dungeon_Block_and_Room_Spritesheet_transparent");
         }
 
 
@@ -34,33 +34,9 @@ namespace _3902_Project
         /// <param name="blockName"></param>
         /// <param name="printScale"></param>
         /// <returns>the sprite it creates, used fro unloading</returns>
-        public ISprite CreateBlock(ThingNames thingName, float printScale)
+        public ISprite CreateLetter(string name, float printScale, Color tint)
         {
-            switch (thingName)
-            {
-                case ThingNames.Number0White:
-                    return new Number0White(_miscSpritesheet, printScale);
-                default: throw new ArgumentException("Invalid block name");
-            }
-        }
-
-        /// <summary>
-        /// CreateBlock that has speed also, mainly needed for MoveableBlocks
-        /// </summary>
-        /// <param name="blockName"></param>
-        /// <param name="direction"></param>
-        /// <param name="printScale"></param>
-        /// <param name="speed"></param>
-        /// <returns>the sprite it creates, used fro unloading</returns>
-        public ISprite CreateBlock(MiscManager.ThingNames thingName, Renderer.DIRECTION direction, float printScale, float speed)
-        {
-            switch (thingName)
-            {
-                default: throw new ArgumentException("invalid block name");
-            }
-
-            // More public IBlock returning methods follow
-            // ...
+            return new Alphabet(_letterSpriteSheet, name, printScale, tint);
         }
     }
 }

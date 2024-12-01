@@ -10,7 +10,6 @@ namespace _3902_Project
         private ISprite _smallExplosion;
         private bool _removable;
         private ISprite _currentSprite;
-        private Vector2 _position;
 
         private ICollisionBox _collisionBox;
         private int _counter;
@@ -44,13 +43,19 @@ namespace _3902_Project
         public ISprite CurrentSprite 
         { 
             get { return _currentSprite; }
-            set { _currentSprite = value; }
+            set { Vector2 oldPosition = _currentSprite.PositionOnWindow; _currentSprite = value; _currentSprite.PositionOnWindow = oldPosition; }
         }
 
-        public Vector2 Position
+        public Vector2 PositionOnWindow
         {
-            get { return _position; }
-            set { _position = value; }
+            get { return CurrentSprite.PositionOnWindow; }
+            set { CurrentSprite.PositionOnWindow = value; }
+        }
+
+        public Rectangle DestinationRectangle
+        {
+            get { return CurrentSprite.DestinationRectangle; }
+            set { CurrentSprite.DestinationRectangle = value; }
         }
 
         public bool RemovableFlip
@@ -62,22 +67,18 @@ namespace _3902_Project
         public void Update()
         {
             _counter++;
-            
+
             if (_counter >= _counterTotal)
                 RemovableFlip = true;
 
-            if (_counter < _explosionCounter && CollisionBox.Health == 1)
-                CurrentSprite = _boomerang;
-            else
+            if (_counter >= _explosionCounter || CollisionBox.Health != 1)
             {
                 CurrentSprite = _smallExplosion;
-                CurrentSprite.SetPosition(Position);
                 if (!(_counter >= _explosionCounter))
                     _counter = _explosionCounter;
             }
 
             CurrentSprite.Update();
-            Position = CurrentSprite.GetVectorPosition();
         }
     }
 }

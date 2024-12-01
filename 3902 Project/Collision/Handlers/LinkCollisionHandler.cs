@@ -33,7 +33,7 @@ namespace _3902_Project
             if (_link.IsLinkDamaged == false)
             {
                 objectA.Health -= objectB.Damage;
-                _link.SetDamaged(50, objectA.Sprite as IFlashing, side);
+                _link.SetDamaged(50, side);
                 _link.SetCollisionSide(side);
             }
         }
@@ -44,7 +44,7 @@ namespace _3902_Project
             if (_link.IsLinkDamaged == false)
             {
                 objectA.Health -= objectB.Damage;
-                _link.SetDamaged(50, objectA.Sprite as IFlashing, side);
+                _link.SetDamaged(50, side);
                 _link.SetCollisionSide(side);
             }
         }
@@ -69,7 +69,7 @@ namespace _3902_Project
                 default: break;
             }
 
-            _link.SetLinkPosition(new (BoundsA.X, BoundsA.Y));
+            _link.LinkPositionOnWindow = new (BoundsA.X, BoundsA.Y);
         }
 
         private void HandleItemCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)

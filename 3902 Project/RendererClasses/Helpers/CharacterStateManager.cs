@@ -19,11 +19,13 @@ namespace _3902_Project
         private bool _isLinkDamaged = false;
         public bool IsLinkDamaged { get { return _damageHelper.IsDamaged; } set { _damageHelper.IsDamaged = value; } }
 
-        public void SetDamaged(int counter, IFlashing sprite, CollisionData.CollisionType side)
+        public void SetDamaged(int counter, CollisionData.CollisionType side)
         {
-            _damageHelper.SetDamageHelper(counter, sprite, side);
-            _damageHelper.Position = _position;
             IsLinkDamaged = true;
+            _damageHelper.SendBackwards = true;
+            _damageHelper.CounterTotal = counter;
+            _damageHelper.CollisionSide = side;
+            _damageHelper.CurrentSprite = CurrentLink;
         }
 
         public void SetItem(ISprite item)

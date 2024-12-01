@@ -12,8 +12,8 @@ namespace _3902_Project
 
         public void Execute()
         {
-            _link.SetLinkDirection(Renderer.DIRECTION.RIGHT);
-            _link.SetLinkSpriteState(LinkManager.LinkSprite.Moving);
+            _link.LinkDirection = Renderer.DIRECTION.RIGHT;
+            _link.ReplaceLinkSprite(LinkManager.LinkSprite.Moving);
         }
     }
 }

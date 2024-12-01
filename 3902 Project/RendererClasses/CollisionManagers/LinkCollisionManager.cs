@@ -38,12 +38,12 @@ namespace _3902_Project
             float scale = 0;
             switch(CurrentProjectile)
             {
-                case ProjectileManager.ProjectileNames.BlueArrow:
                 case ProjectileManager.ProjectileNames.Boomerang:
+                    scale = 1F; break;
+                case ProjectileManager.ProjectileNames.BlueArrow:
                 case ProjectileManager.ProjectileNames.Bomb:
                 case ProjectileManager.ProjectileNames.FireBall:
-                    scale = 0.5F;
-                    break;
+                    scale = 0.5F; break;
                 default:  break;
             }
             return scale;
@@ -51,14 +51,15 @@ namespace _3902_Project
         public void FireProjectile()
         {
             // create a renderer helper for the GetPositionAhead method
-            Renderer rendererHelper = new Renderer(_currentLink, GetLinkPosition(), _direction, _printScale);
+            MovementHelper helper = new(LinkDirection);
             // added this so link fires in front of himself
             if (CanFireProjectile())
             {
-                _manager.CallProjectile(CurrentProjectile, ProjectileManager.ProjectileType.LinkProj, rendererHelper.GetPositionAhead(PositionAheadScale()), _direction, _printScale);
+                _manager.CallProjectile(
+                    CurrentProjectile, _linkProjectile, 
+                    helper.GetPositionAhead(PositionAheadScale(), LinkDestinationRectangle), _direction, _printScale
+                );
                 _inventory.RemoveItem(CurrentProjectile, 1);
-                Console.WriteLine("Current Projectile: " + CurrentProjectile.ToString());
-                Console.WriteLine("Amount of Projectile: " + _inventory.GetProjectileInventory().GetValueOrDefault(CurrentProjectile) + "\n");
             }
         }
 
@@ -71,7 +72,7 @@ namespace _3902_Project
         public void SwordAttack()
         {
             // create a renderer helper for the GetPositionAhead method
-            Renderer rendererHelper = new Renderer(_currentLink, GetLinkPosition(), _direction, _printScale);
+            MovementHelper helper = new (LinkDirection);
             // based on what link current sword is and if Link can attack
             if (CanSwordAttack())
             {
@@ -79,7 +80,10 @@ namespace _3902_Project
                 switch (_inventory.CurrentLinkSword)
                 {
                     case LinkInventory.LinkSwordType.WOOD:
-                        _manager.CallProjectile(ProjectileManager.ProjectileNames.WoodSwordAttack, _linkProjectile, rendererHelper.GetPositionAhead(0.3F), _direction, _printScale);
+                        _manager.CallProjectile(
+                            ProjectileManager.ProjectileNames.WoodSwordAttack, _linkProjectile, 
+                            helper.GetPositionAhead(0.3F, LinkDestinationRectangle), _direction, _printScale
+                        );
                         break;
                     default: break;
                 }

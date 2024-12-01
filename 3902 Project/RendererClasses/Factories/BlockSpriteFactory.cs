@@ -109,16 +109,8 @@ namespace _3902_Project
                     return new FBlock_Wall(_blockSpritesheet, Renderer.DIRECTION.RIGHT, printScale);
                 case BlockManager.BlockNames.Wall_LEFT:
                     return new FBlock_Wall(_blockSpritesheet, Renderer.DIRECTION.LEFT, printScale);
-                default: throw new ArgumentException("Invalid block name");
-            }
-        }
-
-        public ISprite CreateBlock(BlockManager.BlockNames blockName, Rectangle destinationRectangle, float printScale)
-        {
-            switch (blockName)
-            {
                 case BlockManager.BlockNames.Invisible:
-                    return new SBlock_Invisible(_blockSpritesheet, destinationRectangle, printScale);
+                    return new SBlock_Invisible(_blockSpritesheet, printScale);
                 default: throw new ArgumentException("Invalid block name");
             }
         }

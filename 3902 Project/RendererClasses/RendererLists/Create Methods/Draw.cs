@@ -73,7 +73,7 @@ namespace _3902_Project
 
         private void DrawSize2(SpriteBatch spriteBatch)
         {
-            switch (_direction)
+            switch (Direction)
             {
                 case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, Renderer.DrawFlips.Vertical, _tint); break;
@@ -85,7 +85,7 @@ namespace _3902_Project
 
         private void DrawSize2DownUpFlip(SpriteBatch spriteBatch)
         {
-            switch (_direction)
+            switch (Direction)
             {
                 case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch, Renderer.DrawFlips.Vertical, _tint); break;
                 case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, _tint); break;
@@ -97,7 +97,7 @@ namespace _3902_Project
 
         private void DrawSize2RightLeftFlip(SpriteBatch spriteBatch)
         {
-            switch (_direction)
+            switch (Direction)
             {
                 case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, Renderer.DrawFlips.Vertical, _tint); break;
@@ -109,7 +109,7 @@ namespace _3902_Project
 
         private void DrawSize2Flip(SpriteBatch spriteBatch)
         {
-            switch (_direction)
+            switch (Direction)
             {
                 case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch, Renderer.DrawFlips.Vertical, _tint); break;
                 case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, _tint); break;
@@ -121,7 +121,7 @@ namespace _3902_Project
 
         private void DrawSize3DownUp(SpriteBatch spriteBatch)
         {
-            switch (_direction)
+            switch (Direction)
             {
                 case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, Renderer.DrawFlips.Vertical, _tint); break;
@@ -133,7 +133,7 @@ namespace _3902_Project
 
         private void DrawSize3DownUpFlip(SpriteBatch spriteBatch)
         {
-            switch (_direction)
+            switch (Direction)
             {
                 case Renderer.DIRECTION.DOWN: _rendDownUp.Draw(spriteBatch, Renderer.DrawFlips.Vertical, _tint); break;
                 case Renderer.DIRECTION.UP: _rendDownUp.Draw(spriteBatch, _tint); break;
@@ -146,7 +146,7 @@ namespace _3902_Project
 
         private void DrawSize3RightLeft(SpriteBatch spriteBatch)
         {
-            switch (_direction)
+            switch (Direction)
             {
                 case Renderer.DIRECTION.DOWN: _rendDown.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.UP: _rendUp.Draw(spriteBatch, _tint); break;
@@ -158,7 +158,7 @@ namespace _3902_Project
 
         private void DrawSize3RightLeftFlip(SpriteBatch spriteBatch)
         {
-            switch (_direction)
+            switch (Direction)
             {
                 case Renderer.DIRECTION.DOWN: _rendDown.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.UP: _rendUp.Draw(spriteBatch, _tint); break;
@@ -171,7 +171,7 @@ namespace _3902_Project
 
         private void DrawSize4(SpriteBatch spriteBatch)
         {
-            switch (_direction)
+            switch (Direction)
             {
                 case Renderer.DIRECTION.DOWN: _rendDown.Draw(spriteBatch, _tint); break;
                 case Renderer.DIRECTION.UP: _rendUp.Draw(spriteBatch, _tint); break;

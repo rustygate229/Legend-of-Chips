@@ -8,49 +8,34 @@ namespace _3902_Project
 {
     public class MiscManager
     {
-        // create block names for finding them
-        public enum ThingNames
-        {
-            Number0White, Number1White, Number2White, Number3White, Number4White, Number5White, Number6White, Number7White, Number8White, Number9White,
-            LetterAWhite, LetterBWhite, LetterCWhite, LetterDWhite, LetterEWhite, LetterFWhite, LetterGWhite, LetterHWhite, LetterIWhite,
-            LetterJWhite, LetterKWhite, LetterMWhite, LetterNWhite, LetterOWhite, LetterPWhite, LetterQWhite, LetterRWhite, LetterSWhite,
-            LetterTWhite, LetterUWhite, LetterVWhite, LetterWWhite, LetterXWhite, LetterYWhite, LetterZWhite
-        }
-
-        private List<ISprite> _runningBlocks = new List<ISprite>();
+        private List<ISprite> _runningLetters = new List<ISprite>();
 
         // create variables for passing
         private MiscSpriteFactory _factory = MiscSpriteFactory.Instance;
-        private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
 
 
         // constructor
-        public MiscManager(ContentManager contentManager, SpriteBatch spriteBatch)
+        public MiscManager() { }
+
+        public void LoadAll(SpriteBatch spriteBatch, ContentManager content)
         {
-            _contentManager = contentManager;
+            _factory.LoadAllTextures(content);
             _spriteBatch = spriteBatch;
         }
 
 
-        // load all textures relating to items
-        public void LoadAllTextures()
-        {
-            // loading sprite sheet
-            _factory.LoadAllTextures(_contentManager);
-        }
-
         /// <summary>
-        /// Add an block to the running block list
+        /// Add an letter to the running letter list
         /// </summary>
         /// <param name="name"></param>
         /// <param name="placementPosition"></param>
         /// <param name="printScale"></param>
-        public ISprite AddThing(ThingNames name, Vector2 placementPosition, float printScale)
+        public ISprite CallAlphabet(string name, float printScale, Color tint, Vector2 placementPosition)
         {
-            ISprite currentSprite = _factory.CreateBlock(name, printScale);
-            currentSprite.SetPosition(placementPosition);
-            _runningBlocks.Add(currentSprite);
+            ISprite currentSprite = _factory.CreateLetter(name.ToLower(), printScale, tint);
+            currentSprite.PositionOnWindow = placementPosition;
+            _runningLetters.Add(currentSprite);
 
             return currentSprite;
         }
@@ -58,29 +43,31 @@ namespace _3902_Project
         /// <summary>
         /// Remove/Unload all Block Sprites
         /// </summary>
-        public void UnloadAllThings() { _runningBlocks.Clear(); }
+        public void UnloadAllLetters() { _runningLetters.Clear(); }
+
+        public void UnloadLetter(ISprite name) { _runningLetters.Remove(name); }
 
 
         /// <summary>
-        /// Draw all blocks in the List
+        /// Draw all letters in the List
         /// </summary>
         public void Draw()
         {
-            foreach (var block in _runningBlocks)
+            foreach (var letter in _runningLetters)
             {
-                block.Draw(_spriteBatch);
+                letter.Draw(_spriteBatch);
             }
         }
 
 
         /// <summary>
-        /// Update all blocks in the List
+        /// Update all letters in the List
         /// </summary>
         public void Update()
         {
-            foreach (var block in _runningBlocks)
+            foreach (var letter in _runningLetters)
             {
-                block.Update();
+                letter.Update();
             }
         }
     }

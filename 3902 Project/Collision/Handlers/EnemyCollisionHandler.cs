@@ -46,12 +46,19 @@ public class EnemyCollisionHandler
             default: break;
         }
 
-        objectA.Sprite.SetPosition(new(BoundsA.X, BoundsA.Y));
+        objectA.Sprite.PositionOnWindow = new(BoundsA.X, BoundsA.Y);
     }
 
     private void HandleLinkProjCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
     {
-        objectA.Health -= objectB.Damage;
-        Console.WriteLine("EnemyCollisionhandler: LinkProj hit, current health of enemy: " + objectA.Health);
+        if (!_enemy.IsDamagable(objectA.Sprite))
+        {
+            switch (objectA.Sprite)
+            {
+                default: _enemy.SetDamageHelper(50, false, side, objectA.Sprite); break;
+            }
+            objectA.Health -= objectB.Damage;
+            Console.WriteLine("EnemyCollisionhandler: LinkProj hit, current health of enemy: " + objectA.Health);
+        }
     }
 }

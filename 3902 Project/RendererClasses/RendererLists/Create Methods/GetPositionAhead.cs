@@ -10,7 +10,7 @@ namespace _3902_Project
         {
             _scale = scale;
             // set the directions
-            switch (_direction)
+            switch (Direction)
             {
                 case Renderer.DIRECTION.DOWN:       return SetDownPositionAhead();
                 case Renderer.DIRECTION.UP:         return SetUpPositionAhead();

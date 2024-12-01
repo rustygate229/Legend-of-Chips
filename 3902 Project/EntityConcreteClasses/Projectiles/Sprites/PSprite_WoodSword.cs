@@ -18,6 +18,7 @@ namespace _3902_Project
 
         // create timers, movement and speed variables
         private float _positionSpeed = 10f;
+        private Vector2 _updatePosition;
         private int _counter = 0;
         private int _counterTotal;
 
@@ -38,6 +39,8 @@ namespace _3902_Project
             _rendererList.IsCentered = _isCentered;
             // set correct direciton
             _rendererList.Direction = direction;
+            // only want it set once
+            _updatePosition = _rendererList.GetUpdatePosition(_positionSpeed);
         }
 
         /// <summary>
@@ -64,18 +67,11 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            Vector2 updatePosition = _rendererList.GetUpdatePosition(_positionSpeed);
-            _rendererList.PositionOnWindow = _rendererList.PositionOnWindow + updatePosition;
-
-            // set positions at every update
-            _rendererList.SetPositions(_position);
-
-            // update position and movement counter
             _counter++;
             if (_counter < (_counterTotal / 2))
-                _position += _updatePosition;
+                _rendererList.PositionOnWindow += _updatePosition;
             else
-                _position -= _updatePosition;
+                _rendererList.PositionOnWindow -= _updatePosition;
         }
 
 

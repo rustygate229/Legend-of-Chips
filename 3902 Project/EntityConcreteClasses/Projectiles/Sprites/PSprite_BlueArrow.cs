@@ -15,6 +15,7 @@ namespace _3902_Project
 
         // create speed variable
         private float _positionSpeed = 4f;
+        private Vector2 _updatePosition;
 
         /// <summary>
         /// constructor for the projectile sprite: <c>Bomb</c>
@@ -34,6 +35,8 @@ namespace _3902_Project
             _rendererList.IsCentered = _isCentered;
             // set correct direciton
             _rendererList.Direction = facingDirection;
+            // only want it set once
+            _updatePosition = _rendererList.GetUpdatePosition(_positionSpeed);
         }
 
         /// <summary>
@@ -60,8 +63,8 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            Vector2 updatePosition = _rendererList.GetUpdatePosition(_positionSpeed);
-            _rendererList.PositionOnWindow = _rendererList.PositionOnWindow + updatePosition;
+            Vector2 newPosition = _rendererList.PositionOnWindow + _updatePosition;
+            _rendererList.PositionOnWindow = newPosition;
         }
 
 

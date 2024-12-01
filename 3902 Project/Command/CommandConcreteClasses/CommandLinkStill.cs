@@ -12,7 +12,7 @@ namespace _3902_Project
 
         public void Execute()
         {
-            _link.SetLinkSpriteState(LinkManager.LinkSprite.Standing);
+            _link.ReplaceLinkSprite(LinkManager.LinkSprite.Standing);
         }
     }
 }

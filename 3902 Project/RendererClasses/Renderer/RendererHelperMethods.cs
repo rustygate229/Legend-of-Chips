@@ -6,8 +6,6 @@ namespace _3902_Project
 {
     public partial class Renderer
     {
-        private Random _random = new Random();
-
         /// <summary>
         /// the updated position increasing in a RANDOM direction by given positionSpeed
         /// </summary>
@@ -15,7 +13,8 @@ namespace _3902_Project
         /// <returns>returns updated position that was randomly chosen</returns>
         public void SetRandomMovement()
         {
-            Direction = (DIRECTION)_random.Next(4);
+            MovementHelper helper = new(_direction);
+            Direction = helper.GetRandomMovement();
         }
 
         /// <summary>
@@ -26,35 +25,16 @@ namespace _3902_Project
         /// <returns>the updated position to be added to position</returns>
         public Vector2 GetUpdatePosition(float positionSpeed)
         {
-            //Console.WriteLine("renderer helper methods: " + _direction.ToString());
-            // movement variables
-            switch (Direction)
-            {
-                case DIRECTION.DOWN:    return new Vector2(0, Math.Abs(positionSpeed));
-                case DIRECTION.UP:      return new Vector2(0, -(Math.Abs(positionSpeed)));
-                case DIRECTION.RIGHT:   return new Vector2(Math.Abs(positionSpeed), 0);
-                case DIRECTION.LEFT:    return new Vector2(-(Math.Abs(positionSpeed)), 0);
-                default: throw new ArgumentException("Invalid direction type for updatePosition");
-            }
+            MovementHelper helper = new(_direction);
+            return helper.GetUpdatePosition(positionSpeed);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="scale">defaults to 0/No Scale if the range is not accurate: 0 <= scale <= 1</param>
-        /// <returns>the position</returns>
+        /// <returns>the position ahead of the sprite</returns>
         public Vector2 GetPositionAhead(float scale)
         {
-            Rectangle dS = DestinationRectangle;
-            if (scale < 0 || scale > 1) { scale = 0; }
-            switch (_direction)
-            {
-                case DIRECTION.DOWN:    return new Vector2(dS.X, (int)(dS.Y + (dS.Height * scale)));
-                case DIRECTION.UP:      return new Vector2(dS.X, (int)(dS.Y - (dS.Height * scale)));
-                case DIRECTION.RIGHT:   return new Vector2((int)(dS.X + (dS.Width * scale)), (int)dS.Y);
-                case DIRECTION.LEFT:    return new Vector2((int)(dS.X - (dS.Width * scale)), (int)dS.Y);
-                default: throw new ArgumentException("Invalid direction type in PositionAhead");
-            }
+            MovementHelper helper = new(_direction);
+            return helper.GetPositionAhead(scale, DestinationRectangle);
         }
     }
 }

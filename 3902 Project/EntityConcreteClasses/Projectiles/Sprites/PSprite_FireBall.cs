@@ -18,7 +18,6 @@ namespace _3902_Project
 
         // create timers, movement and speed variables
         private int _frameRate = 15;
-        private Vector2 _position;
         private Vector2 _updatePosition;
         private float _positionSpeed = 2f;
 
@@ -38,6 +37,8 @@ namespace _3902_Project
             _fireBall.IsCentered = _isCentered;
             // set correct direciton
             _fireBall.Direction = facingDirection;
+            // only want it set once
+            _updatePosition = _fireBall.GetUpdatePosition(_positionSpeed);
         }
 
         /// <summary>
@@ -64,8 +65,8 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            Vector2 updatePosition = _fireBall.GetUpdatePosition(_positionSpeed);
-            _fireBall.PositionOnWindow = _fireBall.PositionOnWindow + updatePosition;
+            Vector2 newPosition = _fireBall.PositionOnWindow + _updatePosition;
+            _fireBall.PositionOnWindow = newPosition;
         }
 
 

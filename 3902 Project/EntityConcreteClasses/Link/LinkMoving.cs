@@ -4,7 +4,7 @@ using System;
 
 namespace _3902_Project
 {
-    public class LinkMoving : IFlashing
+    public class LinkMoving : IColor
     {
         // variables for link in frame 1 of the moving link sprite animation
         private Rectangle _spriteDownPosition = new(0, 11, 32, 16);
@@ -14,6 +14,7 @@ namespace _3902_Project
         private Vector2 _spriteRowAndColumn = new(1, 2);
         private int _framerate = 12;
         private float _positionSpeed = 2f;
+        private Vector2 _updatePosition;
 
 
         // create a Renderer object
@@ -35,6 +36,8 @@ namespace _3902_Project
             _rendererList.IsCentered = _isCentered;
             // set correct direciton
             _rendererList.Direction = facingDirection;
+            // set only once update position
+            _updatePosition = _rendererList.GetUpdatePosition(_positionSpeed);
         }
 
         /// <summary>
@@ -60,8 +63,7 @@ namespace _3902_Project
         /// Updates the block (movement, animation, etc.)
         /// </summary>
         public void Update() {
-            Vector2 updatePosition = _rendererList.GetUpdatePosition(_positionSpeed);
-            _rendererList.PositionOnWindow = _rendererList.PositionOnWindow + updatePosition;
+            _rendererList.PositionOnWindow = _rendererList.PositionOnWindow + _updatePosition;
             _rendererList.UpdateFrames(); 
         }
 

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _3902_Project
 {
-    public class LinkStanding : IFlashing
+    public class LinkStanding : IColor
     {
         // variables for link in frame 1 of the moving link sprite animation
         private Rectangle _spriteLittleShieldDownPosition = new(0, 11, 16, 16);

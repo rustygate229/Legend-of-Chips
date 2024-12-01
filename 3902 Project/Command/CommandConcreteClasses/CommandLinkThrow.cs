@@ -14,8 +14,8 @@ namespace _3902_Project
         {
             if (_link.CanFireProjectile())
             {
-                if ((_link.GetLinkState() == LinkManager.LinkSprite.Standing) || (_link.GetLinkState() == LinkManager.LinkSprite.Throwing))
-                    _link.SetLinkSpriteState(LinkManager.LinkSprite.Throwing);
+                if ((_link.CurrentLinkSprite is LinkManager.LinkSprite.Standing) || (_link.CurrentLinkSprite is LinkManager.LinkSprite.Throwing))
+                    _link.ReplaceLinkSprite(LinkManager.LinkSprite.Throwing);
                 _link.FireProjectile();
             }
         }

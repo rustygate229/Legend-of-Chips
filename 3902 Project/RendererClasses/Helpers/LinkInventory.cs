@@ -21,6 +21,14 @@ namespace _3902_Project
 
         public bool LinkShield { get { return _linkShieldSmall; } set { _linkShieldSmall = value; } }
 
+        private int _linkEmeraldAmount = 13;
+        private int _linkNormalKeyAmount = 100;
+        private int _linkProjectileAmount = 3;
+        public int EmeraldAmount { get { return _linkEmeraldAmount; } set { _linkEmeraldAmount = value; } }
+        public int KeyAmount { get { return _linkNormalKeyAmount; } set { _linkNormalKeyAmount = value; } }
+        public int ProjectileAmount { get { return _linkProjectileAmount; } set { _linkProjectileAmount = value; } }
+
+
         public LinkInventory()
         {
             CurrentLinkSword = LinkSwordType.WOOD;

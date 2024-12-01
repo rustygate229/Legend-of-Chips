@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-public interface IFlashing : ISprite
+public interface IColor : ISprite
 {
     void Draw(SpriteBatch spriteBatch, Color tint);
 }

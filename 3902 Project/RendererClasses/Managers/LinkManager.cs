@@ -12,9 +12,9 @@ namespace _3902_Project
         public enum LinkActions { SwordAttack, SwordThrow, None }
 
         private LinkSprite _currentLinkSprite;
-        private LinkSprite CurrentLinkSprite { get { return _currentLinkSprite; } set { _currentLinkSprite = value; } }
+        public LinkSprite CurrentLinkSprite { get { return _currentLinkSprite; } set { _currentLinkSprite = value; } }
         private LinkActions _currentLinkAction;
-        private LinkActions CurrentLinkAction { get { return _currentLinkAction; } set { _currentLinkAction = value; } };
+        public LinkActions CurrentLinkAction { get { return _currentLinkAction; } set { _currentLinkAction = value; } }
         private int _linkThrowingDecrement = 5;
 
         // link dictionary/inventory
@@ -28,14 +28,14 @@ namespace _3902_Project
         private SpriteBatch _spriteBatch;
 
         // Links global variables
-        public ICollisionBox _collisionBox;
+        private ICollisionBox _collisionBox;
         public ICollisionBox LinkCollisionBox { get { return _collisionBox; } set { _collisionBox = value; } }
 
         private Renderer.DIRECTION _direction;
         public Renderer.DIRECTION LinkDirection { get { return _direction; } set { _direction = value; } }
 
-        public Vector2 LinkPosition { get { return CurrentLink.GetVectorPosition() } set { CurrentLink.SetPosition(value); } }
-        public Rectangle LinkPosition { get { return CurrentLink.GetRectanglePosition() } set { CurrentLink.SetPosition(value); } }
+        public Vector2 LinkPositionOnWindow { get { return CurrentLink.PositionOnWindow; } set { CurrentLink.PositionOnWindow = value; } }
+        public Rectangle LinkDestinationRectangle { get { return CurrentLink.DestinationRectangle; } set { CurrentLink.DestinationRectangle = value; } }
 
         private float _printScale = 4f;
 
@@ -52,6 +52,7 @@ namespace _3902_Project
             _factory.LoadAllTextures(content);
 
             // all initial stuff
+            
             CurrentLinkSprite = LinkSprite.Standing;
             CurrentLinkAction = LinkActions.None;
             LinkDirection = Renderer.DIRECTION.DOWN;
@@ -59,21 +60,22 @@ namespace _3902_Project
             _inventory.CurrentLinkSword = LinkInventory.LinkSwordType.WOOD;
 
             CurrentLink = _factory.CreateLink(CurrentLinkSprite, _inventory.LinkShield, _direction, _printScale, _manager);
+            LinkPositionOnWindow = new(140, 200 + 310);
             CollisionBox = new LinkCollisionBox(CurrentLink);
             SetCollision(CollisionBox);
             // IMPORTANT: look at this methods comment for health transfering
             SetHealthDamage(CollisionBox, _maxHealth);
         }
 
-        public Rectangle GetLinkRectanglePosition() { return CurrentLink.GetRectanglePosition(); }
-
-
         public void ReplaceLinkSprite(LinkSprite name) {
             CurrentLinkSprite = name;
+            Vector2 oldPosition = CurrentLink.PositionOnWindow;
             CurrentLink = _factory.CreateLink(name, _inventory.LinkShield, _direction, _printScale, _manager);
-            CurrentLink.SetPosition(_position);
-            _collisionBox.Bounds = CurrentLink.GetRectanglePosition();
+            CurrentLink.PositionOnWindow = oldPosition;
+            CollisionBox.Bounds = CurrentLink.DestinationRectangle;
         }
+
+        public LinkInventory GetLinkInventory() { return _inventory; }
 
         /// <summary>
         /// Updates the current link
@@ -81,15 +83,12 @@ namespace _3902_Project
         public void Update()
         {
             CurrentLink.Update();
-            _position = CurrentLink.GetVectorPosition();
-            _collisionBox.Bounds = CurrentLink.GetRectanglePosition();
+            CollisionBox.Bounds = CurrentLink.DestinationRectangle;
 
             if (IsLinkDamaged)
             {
-                _damageHelper.Sprite = (IFlashing)CurrentLink;
-                _damageHelper.Position = CurrentLink.GetVectorPosition;
+                _damageHelper.CurrentSprite = CurrentLink;
                 _damageHelper.UpdateDamagedState();
-                SetLinkPosition(_damageHelper.Position);
             }
 
             if ((_swordDamageDecrementTotal >= 0) && (_swordDamageDecrementTotal < 10))

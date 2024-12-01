@@ -9,6 +9,8 @@ namespace _3902_Project
     {
         // item sprite sheet
         private Texture2D _itemSpritesheet;
+        private Texture2D _blockSpriteSheet;
+        private Texture2D _hudSpriteSheet;
 
         // create a new instance of ItemSpriteFactory
         private static ItemSpriteFactory instance = new ItemSpriteFactory();
@@ -19,7 +21,12 @@ namespace _3902_Project
         private ItemSpriteFactory() { instance = this; }
 
         // load all textures/spritesheet
-        public void LoadAllTextures(ContentManager content) { _itemSpritesheet = content.Load<Texture2D>("Items Spritesheet"); }
+        public void LoadAllTextures(ContentManager content) 
+        { 
+            _itemSpritesheet = content.Load<Texture2D>("Items Spritesheet");
+            _blockSpriteSheet = content.Load<Texture2D>("Dungeon_Block_and_Room_Spritesheet_transparent");
+            _hudSpriteSheet = content.Load<Texture2D>("Hud and Pause Screen");
+        }
 
 
         // create every type of item
@@ -38,7 +45,9 @@ namespace _3902_Project
                 case ItemManager.ItemNames.Compass:
                     return new SItem_Compass(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Emerald:
-                    return new SItem_Emerald(_itemSpritesheet, printScale);
+                    return new SItem_Emeralds(_hudSpriteSheet, printScale);
+                case ItemManager.ItemNames.Keys:
+                    return new SItem_Keys(_hudSpriteSheet, printScale);
                 case ItemManager.ItemNames.Flute:
                     return new SItem_Flute(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.AddLife:
@@ -49,14 +58,18 @@ namespace _3902_Project
                     return new SItem_Horn(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Ladder:
                     return new SItem_Ladder(_itemSpritesheet, printScale);
-                case ItemManager.ItemNames.LongSword:
-                    return new SItem_LongSword(_itemSpritesheet, printScale);
+                case ItemManager.ItemNames.WoodSword:
+                    return new SItem_WoodSword(_itemSpritesheet, printScale);
+                case ItemManager.ItemNames.BlueArrow:
+                    return new SItem_BlueArrow(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.MagicStaff:
                     return new SItem_MagicStaff(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Meat:
                     return new SItem_Meat(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.NormalKey:
                     return new SItem_NormalKey(_itemSpritesheet, printScale);
+                case ItemManager.ItemNames.Orb:
+                    return new SItem_Orb(_blockSpriteSheet, printScale);
                 case ItemManager.ItemNames.Shield:
                     return new SItem_Shield(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Sword:

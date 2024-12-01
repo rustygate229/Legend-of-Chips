@@ -48,7 +48,7 @@ namespace _3902_Project
         public void AddBlock(BlockNames name, Vector2 placementPosition, float printScale)
         {
             ISprite currentSprite = _factory.CreateBlock(name, printScale);
-            currentSprite.SetPosition(placementPosition);
+            currentSprite.PositionOnWindow = placementPosition;
             _runningBlocks.Add(currentSprite);
 
             BlockCollisionBox box = new (currentSprite);
@@ -65,8 +65,8 @@ namespace _3902_Project
         /// <param name="printScale"></param>
         public void AddBlock(BlockNames name, Rectangle destinationRectangle, float printScale)
         {
-            ISprite currentSprite = _factory.CreateBlock(name, destinationRectangle, printScale);
-            currentSprite.SetPosition(new Vector2(destinationRectangle.X, destinationRectangle.Y));
+            ISprite currentSprite = _factory.CreateBlock(name, printScale);
+            currentSprite.DestinationRectangle = destinationRectangle;
             _runningBlocks.Add(currentSprite);
 
             BlockCollisionBox box = new(currentSprite);

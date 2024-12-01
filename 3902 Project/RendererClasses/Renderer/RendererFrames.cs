@@ -65,8 +65,8 @@ namespace _3902_Project
                 }
                 if (_status == STATUS.SeparatedAnimated)
                 {
-                    SourceRectangle = _sourceRectangleList[_currentFrame];
-                    DestinationRectangle = _destinationRectangleList[_currentFrame];
+                    SourceRectangle = _sAndDRectList[_currentFrame].Item1;
+                    DestinationRectangle = _sAndDRectList[_currentFrame].Item2;
                 }
             }
         }

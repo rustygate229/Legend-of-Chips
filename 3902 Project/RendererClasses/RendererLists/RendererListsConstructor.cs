@@ -12,52 +12,6 @@ namespace _3902_Project
         private RendOrder _rendListType;
         public RendOrder RendListType { get { return _rendListType; } set { _rendListType = value; } }
 
-        private Renderer.DIRECTION _direction;
-        /// <summary>
-        /// get and set the direction to 
-        /// </summary>
-        public Renderer.DIRECTION Direction {
-            get { return _direction; }
-            set
-            {
-                _direction = value;
-                switch (_rendListType)
-                {
-                    case RendOrder.Size2:
-                    case RendOrder.Size2DownUpFlip:
-                    case RendOrder.Size2Flip:
-                    case RendOrder.Size2RightLeftFlip:
-                        _rendDownUp.Direction = _direction;
-                        _rendRightLeft.Direction = _direction;
-                        break;
-
-                    case RendOrder.Size3DownUp:
-                    case RendOrder.Size3DownUpFlip:
-                        _rendDown.Direction = _direction;
-                        _rendUp.Direction = _direction;
-                        _rendRightLeft.Direction = _direction;
-                        break;
-
-
-                    case RendOrder.Size3RightLeft:
-                    case RendOrder.Size3RightLeftFlip:
-                        _rendRightLeft.Direction = _direction;
-                        _rendDown.Direction = _direction;
-                        _rendUp.Direction = _direction;
-                        break;
-
-                    case RendOrder.Size4:
-                        _rendRight.Direction = _direction;
-                        _rendLeft.Direction = _direction;
-                        _rendUp.Direction = _direction;
-                        _rendDown.Direction = _direction;
-                        break;
-
-                    default: break;
-                }
-            }
-        }
-
         // case 1: Size2
         private Renderer _rendDownUp;
         private Renderer _rendRightLeft;

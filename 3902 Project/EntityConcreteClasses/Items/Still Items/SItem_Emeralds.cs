@@ -3,14 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _3902_Project
 {
-    public class SItem_LongSword : ISprite
+    public class SItem_Emeralds : ISprite
     {
         // variables to change based on where your item is and what to print out
-        private Rectangle _spritePosition = new(104, 0, 8, 16);
+        private Rectangle _spritePosition = new(346, 27, 8, 8);
 
         // create a Renderer object
         private Renderer _item;
-        private bool _isCentered = true;
+        private bool _isCentered = false;
 
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace _3902_Project
         /// </summary>
         /// <param name="spriteSheet"></param>
         /// <param name="printScale"></param>
-        public SItem_LongSword(Texture2D spriteSheet, float printScale)
+        public SItem_Emeralds(Texture2D spriteSheet, float printScale)
         {
             _item = new(spriteSheet, _spritePosition, printScale);
             _item.IsCentered = _isCentered;
@@ -46,7 +46,7 @@ namespace _3902_Project
         /// <summary>
         /// update the sprite via Renderer method
         /// </summary>
-        public void Update() { _item.UpdateFrames(); }
+        public void Update() {  }
 
 
         /// <summary>

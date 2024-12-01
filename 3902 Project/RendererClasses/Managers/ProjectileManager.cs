@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using static _3902_Project.Renderer;
 
 namespace _3902_Project
 {
@@ -36,8 +35,7 @@ namespace _3902_Project
         public void CallProjectile(ProjectileNames name, ProjectileType type, Vector2 placementPosition, Renderer.DIRECTION direction, float printScale)
         {
             IJoiner currentJoiner = _factory.CreateProjectile(name, direction, printScale);
-            currentJoiner.Position = placementPosition;
-            currentJoiner.CurrentSprite.SetPosition(currentJoiner.Position);
+            currentJoiner.PositionOnWindow = placementPosition;
             _runningProjectileJoiners.Add(currentJoiner);
 
             if (type.Equals(ProjectileType.LinkProj))
@@ -84,7 +82,7 @@ namespace _3902_Project
             foreach (var projectile in _runningProjectileJoiners)
             {
                 projectile.Update();
-                projectile.CollisionBox.Bounds = projectile.CurrentSprite.GetRectanglePosition();
+                projectile.CollisionBox.Bounds = projectile.CurrentSprite.DestinationRectangle;
                 SetDamageSwitches(projectile.CollisionBox);
                 if (projectile.RemovableFlip is true)
                     unloadList.Add(projectile);

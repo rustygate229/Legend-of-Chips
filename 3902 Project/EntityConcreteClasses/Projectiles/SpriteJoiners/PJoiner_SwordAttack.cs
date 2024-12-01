@@ -9,7 +9,6 @@ namespace _3902_Project
         private ISprite _woodSword;
         private bool _removable;
         private ISprite _currentSprite;
-        private Vector2 _position;
         private ProjectileManager.ProjectileNames _currentSword;
 
         private ICollisionBox _collisionBox;
@@ -42,13 +41,19 @@ namespace _3902_Project
         public ISprite CurrentSprite 
         { 
             get { return _currentSprite; }
-            set { _currentSprite = value; }
+            set { Vector2 oldPosition = _currentSprite.PositionOnWindow; _currentSprite = value; _currentSprite.PositionOnWindow = oldPosition; }
         }
 
-        public Vector2 Position
+        public Vector2 PositionOnWindow
         {
-            get { return _position; }
-            set { _position = value; }
+            get { return CurrentSprite.PositionOnWindow; }
+            set { CurrentSprite.PositionOnWindow = value; }
+        }
+
+        public Rectangle DestinationRectangle
+        {
+            get { return CurrentSprite.DestinationRectangle; }
+            set { CurrentSprite.DestinationRectangle = value; }
         }
 
         public bool RemovableFlip
@@ -65,7 +70,6 @@ namespace _3902_Project
                 RemovableFlip = true;
 
             CurrentSprite.Update();
-            Position = CurrentSprite.GetVectorPosition();
         }
     }
 }

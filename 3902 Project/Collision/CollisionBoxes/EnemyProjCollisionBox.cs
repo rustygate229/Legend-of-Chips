@@ -18,7 +18,7 @@ namespace _3902_Project
         {
             // default values without being overwritten
             _sprite = sprite;
-            _bounds = _sprite.GetRectanglePosition();
+            _bounds = _sprite.DestinationRectangle;
             _collidable = false;
             _health = 1;
             _damage = 0;

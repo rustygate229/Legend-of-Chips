@@ -14,8 +14,8 @@ namespace _3902_Project
         {
             if (_link.CanSwordAttack())
             {
-                if ((_link.GetLinkState() == LinkManager.LinkSprite.Standing) || (_link.GetLinkState() == LinkManager.LinkSprite.Throwing))
-                    _link.SetLinkSpriteState(LinkManager.LinkSprite.Throwing);
+                if ((_link.CurrentLinkSprite is LinkManager.LinkSprite.Standing) || (_link.CurrentLinkSprite is LinkManager.LinkSprite.Throwing))
+                    _link.ReplaceLinkSprite(LinkManager.LinkSprite.Throwing);
                 // the else is unneeded since if he is moving then we don't do anything, just animate the sword attack
                 _link.SwordAttack();
             }

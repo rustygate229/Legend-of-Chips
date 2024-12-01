@@ -94,7 +94,11 @@ namespace _3902_Project
             );
         }
 
-        private Rectangle GetSourceRectangle_Separated() { return _sourceRectangleList[_currentFrame]; }
+        private Rectangle GetSourceRectangle_Separated() 
+        {
+            DestinationRectangle = _sAndDRectList[_currentFrame].Item2;
+            return _sAndDRectList[_currentFrame].Item1;
+        }
 
         public DIRECTION GetOppositeDirection() 
         { 

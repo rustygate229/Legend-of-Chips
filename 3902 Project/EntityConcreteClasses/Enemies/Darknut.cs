@@ -4,7 +4,7 @@ using System;
 
 namespace _3902_Project
 {
-    public class Darknut : ISprite
+    public class Darknut : IColor
     {
         // variables to change based on where your block is and what to print out
         private Rectangle _spriteDownPosition = new (1, 90, 32, 16);

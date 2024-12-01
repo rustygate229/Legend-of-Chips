@@ -6,25 +6,36 @@ namespace _3902_Project
 {
     public partial class Renderer
     {
-        private int _tileSize = 64;
         public enum DrawFlips { None, Vertical, Horizontal, Both }
 
+        /// <summary>
+        /// draw the current sprite
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            // draw the current sprite
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             spriteBatch.Draw(_spriteSheet, DestinationRectangle, GetSourceRectangle(), Color.White);
             spriteBatch.End();
         }
 
+        /// <summary>
+        /// draw the current sprite with a tint
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="tint"></param>
         public void Draw(SpriteBatch spriteBatch, Color tint)
         {
-            // draw the current sprite
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             spriteBatch.Draw(_spriteSheet, DestinationRectangle, GetSourceRectangle(), tint);
             spriteBatch.End();
         }
 
+        /// <summary>
+        /// draw the current sprite with a needed flip
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="flipStatus"></param>
         public void Draw(SpriteBatch spriteBatch, DrawFlips flipStatus) 
         { 
             switch (flipStatus)
@@ -37,6 +48,12 @@ namespace _3902_Project
             }
         }
 
+        /// <summary>
+        /// draw the current sprite with a needed flip and a tint
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="flipStatus"></param>
+        /// <param name="tint"></param>
         public void Draw(SpriteBatch spriteBatch, DrawFlips flipStatus, Color tint)
         {
             switch (flipStatus)
@@ -52,7 +69,7 @@ namespace _3902_Project
 // --------------------------------------------------------------------------------------------------------------------- //
 
         /// <summary>
-        /// draw the sprite at the top left of the set position
+        /// draw the sprite using a sourceRectangle
         /// </summary>
         /// <param name="spriteBatch">the spritebatch where everything is drawn in</param>
         /// <param name="sourceRectangle">the sourceRectangle of the sprite</param>
@@ -65,7 +82,7 @@ namespace _3902_Project
         }
 
         /// <summary>
-        /// draw the sprite at the top left of the set position
+        /// draw the sprite using a sourceRectangle and tint
         /// </summary>
         /// <param name="spriteBatch">the spritebatch where everything is drawn in</param>
         /// <param name="sourceRectangle">the sourceRectangle of the sprite</param>
@@ -81,7 +98,7 @@ namespace _3902_Project
 // --------------------------------------------------------------------------------------------------------------------- //
 
         /// <summary>
-        /// draws the sprite flipped vertically from it's normal settings (the sprites opposite along the vertical plane)
+        /// draws the basic sprite
         /// </summary>
         /// <param name="spriteBatch">the spriteBatch where this is drawn in</param>
         private void DrawNoneFlipped(SpriteBatch spriteBatch)
@@ -91,7 +108,7 @@ namespace _3902_Project
         }
 
         /// <summary>
-        /// draws the sprite flipped vertically from it's normal settings (the sprites opposite along the vertical plane)
+        /// draws the basic sprite with a tint
         /// </summary>
         /// <param name="spriteBatch">the spriteBatch where this is drawn in</param>
         private void DrawNoneFlipped(SpriteBatch spriteBatch, Color tint)
@@ -109,7 +126,7 @@ namespace _3902_Project
         private void DrawVerticallyFlipped(SpriteBatch spriteBatch)
         {
             int[] sR = GetSourceRectangleArray();
-            Rectangle sourceRectangle = new Rectangle(sR[0], sR[1] + sR[3], sR[2], -sR[3]);
+            Rectangle sourceRectangle = new (sR[0], sR[1] + sR[3], sR[2], -sR[3]);
 
             // draw the current sprite
             Draw(spriteBatch, sourceRectangle);
@@ -122,7 +139,7 @@ namespace _3902_Project
         private void DrawVerticallyFlipped(SpriteBatch spriteBatch, Color tint)
         {
             int[] sR = GetSourceRectangleArray();
-            Rectangle sourceRectangle = new Rectangle(sR[0], sR[1] + sR[3], sR[2], -sR[3]);
+            Rectangle sourceRectangle = new (sR[0], sR[1] + sR[3], sR[2], -sR[3]);
 
             // draw the current sprite
             Draw(spriteBatch, sourceRectangle, tint);
@@ -137,7 +154,7 @@ namespace _3902_Project
         private void DrawHorizontallyFlipped(SpriteBatch spriteBatch)
         {
             int[] sR = GetSourceRectangleArray();
-            Rectangle sourceRectangle = new Rectangle(sR[0] + sR[2], sR[1], -sR[2], sR[3]);
+            Rectangle sourceRectangle = new (sR[0] + sR[2], sR[1], -sR[2], sR[3]);
 
             // draw the current sprite
             Draw(spriteBatch, sourceRectangle);
@@ -150,7 +167,7 @@ namespace _3902_Project
         private void DrawHorizontallyFlipped(SpriteBatch spriteBatch, Color tint)
         {
             int[] sR = GetSourceRectangleArray();
-            Rectangle sourceRectangle = new Rectangle(sR[0] + sR[2], sR[1], -sR[2], sR[3]);
+            Rectangle sourceRectangle = new (sR[0] + sR[2], sR[1], -sR[2], sR[3]);
 
             // draw the current sprite
             Draw(spriteBatch, sourceRectangle, tint);
@@ -165,7 +182,7 @@ namespace _3902_Project
         private void DrawBothFlipped(SpriteBatch spriteBatch)
         {
             int[] sR = GetSourceRectangleArray();
-            Rectangle sourceRectangle = new Rectangle(sR[0] + sR[2], sR[1] + sR[3], -sR[2], -sR[3]);
+            Rectangle sourceRectangle = new (sR[0] + sR[2], sR[1] + sR[3], -sR[2], -sR[3]);
 
             // draw the current sprite
             Draw(spriteBatch, sourceRectangle);
@@ -178,7 +195,7 @@ namespace _3902_Project
         private void DrawBothFlipped(SpriteBatch spriteBatch, Color tint)
         {
             int[] sR = GetSourceRectangleArray();
-            Rectangle sourceRectangle = new Rectangle(sR[0] + sR[2], sR[1] + sR[3], -sR[2], -sR[3]);
+            Rectangle sourceRectangle = new (sR[0] + sR[2], sR[1] + sR[3], -sR[2], -sR[3]);
 
             // draw the current sprite
             Draw(spriteBatch, sourceRectangle, tint);

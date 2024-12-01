@@ -1,7 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 
 namespace _3902_Project
 {
@@ -11,8 +13,9 @@ namespace _3902_Project
         public enum EnemyNames { GreenSlime, BrownSlime, Darknut }
 
         // list of enemies
-        private List<ISprite> _runningEnemies = new List<ISprite>();
-        private List<ICollisionBox> _collisionBoxes = new List<ICollisionBox>();
+        private List<Tuple<ISprite, DamageHelper>> _runningEnemies = new();
+        public List<Tuple<ISprite, DamageHelper>> RunningEnemies { get { return _runningEnemies; } }
+        private List<ICollisionBox> _collisionBoxes = new();
 
         // create variables for passing
         private EnemySpriteFactory _factory = EnemySpriteFactory.Instance;
@@ -38,8 +41,11 @@ namespace _3902_Project
         public void AddEnemy(EnemyNames name, Vector2 placementPosition, float printScale)
         {
             ISprite currentSprite = _factory.CreateEnemy(name, printScale);
-            currentSprite.SetPosition(placementPosition);
-            _runningEnemies.Add(currentSprite);
+            currentSprite.PositionOnWindow = placementPosition;
+            DamageHelper helper = new DamageHelper();
+            helper.CurrentSprite = currentSprite;
+            Tuple<ISprite, DamageHelper> newEnemy = new (currentSprite, helper);
+            _runningEnemies.Add(newEnemy);
 
             EnemyCollisionBox box = new (currentSprite);
             SetCollision(box);
@@ -47,9 +53,44 @@ namespace _3902_Project
             _collisionBoxes.Add(box);
         }
 
+        public void SetDamageHelper(int counter, bool sendBackwards, CollisionData.CollisionType side, ISprite currentSprite)
+        {
+            foreach (var tuple in _runningEnemies)
+            {
+                if (tuple.Item1.Equals(currentSprite))
+                {
+                    tuple.Item2.IsDamaged = true;
+                    tuple.Item2.SendBackwards = sendBackwards;
+                    tuple.Item2.CounterTotal = counter;
+                    tuple.Item2.CollisionSide = side;
+                }
+            }
+        }
+
+        public bool IsDamagable(ISprite sprite)
+        {
+            foreach (var tuple in _runningEnemies)
+            {
+                if (tuple.Item1.Equals(sprite))
+                {
+                    if (tuple.Item2.IsDamaged)
+                        return true;
+                    else
+                        return false;
+                }
+            }
+            return false;
+        }
+
         public void UnloadEnemy(ICollisionBox enemy)
         {
-            _runningEnemies.Remove(enemy.Sprite);
+            Tuple<ISprite, DamageHelper> tempTuple = new(null, null);
+            foreach (var tuple in _runningEnemies)
+            {
+                if (tuple.Item1 == enemy.Sprite)
+                    tempTuple = tuple;
+            }
+            _runningEnemies.Remove(tempTuple);
             _collisionBoxes.Remove(enemy);
         }
 
@@ -62,17 +103,32 @@ namespace _3902_Project
         public void Update()
         {
             List<ICollisionBox> unloadList = new List<ICollisionBox>();
-            foreach (var enemy in _collisionBoxes)
+            foreach (var enemyBox in _collisionBoxes)
             {
-                enemy.Sprite.Update();
-                enemy.Bounds = enemy.Sprite.GetRectanglePosition();
-                if (enemy.Health <= 0)
-                    unloadList.Add(enemy);
+                foreach (var tuple in _runningEnemies)
+                {
+                    // might be a better way of finding the two connected, but this was easiest
+                    if (enemyBox.Sprite.Equals(tuple.Item1))
+                    {
+                        // tuple.Item1 and enemyBox.Sprite are the same reference
+                        tuple.Item1.Update();
+                        enemyBox.Bounds = enemyBox.Sprite.DestinationRectangle;
+
+                        if (IsDamagable(tuple.Item1))
+                        {
+                            tuple.Item2.UpdateDamagedState();
+                        }
+
+                        if (enemyBox.Health <= 0)
+                        {
+                            unloadList.Add(enemyBox);
+                        }
+                    }
+                }
             }
-            foreach (var enemy in unloadList)
+            foreach (var enemyBox in unloadList)
             {
-                if (_collisionBoxes.Contains(enemy))
-                    UnloadEnemy(enemy);
+                UnloadEnemy(enemyBox);
             }
         }
 
@@ -81,8 +137,13 @@ namespace _3902_Project
         /// </summary>
         public void Draw()
         {
-            foreach (var enemy in _runningEnemies)
-            { enemy.Draw(_spriteBatch); }
+            foreach (var tuple in _runningEnemies)
+            {
+                if (tuple.Item2.IsDamaged)
+                    tuple.Item2.Draw(_spriteBatch);
+                else
+                    tuple.Item1.Draw(_spriteBatch);
+            }
         }
     }
 }
