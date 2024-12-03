@@ -25,12 +25,13 @@ namespace _3902_Project
         // create variables for passing
         private ItemSpriteFactory _factory = ItemSpriteFactory.Instance;
         private SpriteBatch _spriteBatch;
+        private EnvironmentFactory _environmentFactory;
 
         // constructor
         public ItemManager() { }
 
         // load all textures relating to blocks
-        public void LoadAll(SpriteBatch spriteBatch, ContentManager content) { _spriteBatch = spriteBatch; _factory.LoadAllTextures(content); }
+        public void LoadAll(SpriteBatch spriteBatch, ContentManager content) { _spriteBatch = spriteBatch; _factory.LoadAllTextures(content);}
 
 
         /// <summary>

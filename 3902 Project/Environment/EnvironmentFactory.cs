@@ -1,10 +1,11 @@
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace _3902_Project
 {
-    class EnvironmentFactory
+    public class EnvironmentFactory
     {
         private BlockManager _blockManager;
         private ItemManager _itemManager;
@@ -42,7 +43,7 @@ namespace _3902_Project
 
             // Initialize Collision
             _collisionBoxes = new List<List<ICollisionBox>>();
-            _collisionHandlerManager.LoadAll(link, enemy, block, item, projectile);
+            _collisionHandlerManager.LoadAll(link, enemy, block, item, projectile, this);
 
             _level = 1;
 
@@ -51,15 +52,6 @@ namespace _3902_Project
             _csvTranslationsItem = new Dictionary<string, ItemManager.ItemNames>();
             generateTranslations();
         }
-
-        /*public EnvironmentFactory(BlockManager blockManager, ItemManager itemManager, LinkPlayer player, EnemyManager enemyManager, ProjectileManager projectileManager)
-        {
-            this.blockManager = blockManager;
-            this.itemManager = itemManager;
-            this.player = player;
-            this.enemyManager = enemyManager;
-            this.projectileManager = projectileManager;
-        }*/
 
         // Read CSV files
         private List<List<string>> ReadCsvFile(string filePath)
@@ -114,16 +106,57 @@ namespace _3902_Project
             return _level;
         }
 
+        private void loadDoors(List<string> doors)
+        {
+            // Top door
+            switch (doors[0])
+            {
+                case "c":
+                    _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_UP, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y + 576), 4F); break;
+                case "o":
+                    _blockManager.AddBlock(BlockManager.BlockNames.OpenDoor_UP, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y + 576), 4F); break;
+                default: break;
+            }
+
+            // Down door
+            switch (doors[1])
+            {
+                case "c":
+                    _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y), 4F); break;
+                case "o":
+                    _blockManager.AddBlock(BlockManager.BlockNames.OpenDoor_DOWN, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y), 4F); break;
+                default: break;
+            }
+
+            // Left door
+            switch (doors[2])
+            {
+                case "c":
+                    _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT, new Vector2((int)_startingPosition.X + 1024 - 128, (int)_startingPosition.Y + 288), 4F);  break;
+                case "o":
+                    _blockManager.AddBlock(BlockManager.BlockNames.OpenDoor_LEFT, new Vector2((int)_startingPosition.X + 1024 - 128, (int)_startingPosition.Y + 288), 4F); break;
+                default: break;
+            }
+
+            // Right door
+            switch (doors[3])
+            {
+                case "c":
+                    _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y + 288), 4F); break;
+                case "o":
+                    _blockManager.AddBlock(BlockManager.BlockNames.OpenDoor_RIGHT, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y + 288), 4F); break;
+                default: break;
+            }
+        }
+
         private void loadBlocks()
         {
             string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Levels/Level" + _level.ToString() + ".csv";
             _environment = ReadCsvFile(filepath);
 
             _blockManager.AddBlock(BlockManager.BlockNames.Environment, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y), 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y), 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_UP, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y + 576), 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y + 288), 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT, new Vector2((int)_startingPosition.X + 1024 - 128, (int)_startingPosition.Y + 288), 4F);
+
+
             Rectangle TopRight =    new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 128);
             Rectangle TopLeft =     new((int)(_startingPosition.X), (int)(_startingPosition.Y), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X), 128); //
             Rectangle BottomRight = new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 128); 
@@ -132,6 +165,7 @@ namespace _3902_Project
             Rectangle RightTop =    new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 128);
             Rectangle LeftBottom =  new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 128);
             Rectangle LeftTop =     new((int)(_startingPosition.X), (int)(_startingPosition.Y), (int)(_startingPosition.Y + 448) - (int)(_startingPosition.Y), 128);
+
             _blockManager.AddBlock(BlockManager.BlockNames.Invisible, TopRight, 4F);
             _blockManager.AddBlock(BlockManager.BlockNames.Invisible, TopLeft, 4F);
             _blockManager.AddBlock(BlockManager.BlockNames.Invisible, BottomRight, 4F);
@@ -143,13 +177,20 @@ namespace _3902_Project
 
             for (int i = 0; i < _environment.Count; i++)
             {
+
+                if (i == 0)
+                {
+                    loadDoors(_environment[i]);
+                    continue;
+                }
+
                 for (int j = 0; j < _environment[i].Count; j++)
                 {
                     string blockToPlace = _environment[i][j];
 
                     if (_csvTranslationsBlock.ContainsKey(blockToPlace))
                     {
-                        _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2((int)_startingPosition.X + 128 + (j * 64), (int)_startingPosition.Y + 128 + (i * 64)), 4F);
+                        _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2((int)_startingPosition.X + 128 + (j * 64), (int)_startingPosition.Y + 128 + ((i - 1) * 64)), 4F);
                     }
                 }
             }
@@ -183,14 +224,45 @@ namespace _3902_Project
                 {
                     string itemToPlace = _items[i][j];
 
-                    if (_csvTranslationsItem.ContainsKey(itemToPlace))
+                    if (!itemToPlace[0].Equals("!") && _csvTranslationsItem.ContainsKey(itemToPlace))
                     {
                         _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2((int)_startingPosition.X + 128 + (j * 64), (int)_startingPosition.Y + 128 + (i * 64)), 4F);
                     }
                 }
             }
         }
+        private void writeToItemCsv()
+        {
+            string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Items/Item" + _level.ToString() + ".csv";
 
+            int rows = _items.Count;
+            int cols = _items[0].Count;
+
+            using (StreamWriter writer = new StreamWriter(filepath))
+            {
+                for (int i = 0; i < rows; i++)
+                {
+                    string[] rowValues = new string[cols];
+                    for (int j = 0; j < cols; j++)
+                    {
+                        rowValues[j] = _items[i][j];
+                    }
+
+                    // Write the row as a comma-separated line
+                    writer.WriteLine(string.Join(",", rowValues));
+                }
+            }
+        }
+        public void deloadItem(ISprite sprite, int x, int y)
+        {
+            // translate position to indeces
+            int row = (x - 128 - (int)_startingPosition.X) / 64;
+            int col = (y - 128 - (int)_startingPosition.Y) % 12;
+
+            _items[row][col] = "!" + _items[row][col];
+            writeToItemCsv();
+        }
+ 
         // expects this to be called AFTER everything else has loaded so collision boxes can be correctly added 
         public void loadCollisions()
         {

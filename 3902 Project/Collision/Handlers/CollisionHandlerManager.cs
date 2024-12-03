@@ -23,12 +23,12 @@ namespace _3902_Project
         /// <param name="block">BlockManager</param>
         /// <param name="item">ItemManager</param>
         /// <param name="projectile">ProjectileManager</param>
-        public void LoadAll(LinkManager link, EnemyManager enemy, BlockManager block, ItemManager item, ProjectileManager projectile)
+        public void LoadAll(LinkManager link, EnemyManager enemy, BlockManager block, ItemManager item, ProjectileManager projectile, EnvironmentFactory environment)
         {
             _linkCollisionHandler.LoadAll(link);
             _enemyCollisionHandler.LoadAll(enemy);
             _blockCollisionHandler.LoadAll(block);
-            _itemCollisionHandler.LoadAll(item);
+            _itemCollisionHandler.LoadAll(item, environment);
             _projectileCollisionHandler.LoadAll(projectile);
         }
 

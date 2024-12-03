@@ -4,6 +4,7 @@ using System;
 public class ItemCollisionHandler : ICollisionHandler
 {
     private ItemManager _item;
+    private EnvironmentFactory _environment;
 
     public ItemCollisionHandler() { }
 
@@ -11,7 +12,7 @@ public class ItemCollisionHandler : ICollisionHandler
     /// Load everything that this handler needs
     /// </summary>
     /// <param name="item">manager for items</param>
-    public void LoadAll(ItemManager item) { _item = item; }
+    public void LoadAll(ItemManager item, EnvironmentFactory environment) { _item = item; _environment = environment;  }
 
     // handle collisions based on objectB collision type
     public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
@@ -26,5 +27,6 @@ public class ItemCollisionHandler : ICollisionHandler
         // links collision box deals no damage, so it needs to be 1
         objectA.Health -= 1;
         // call to environment to add deload check in csv
+        // _environment.deloadItem(objectA.Sprite, objectA.Bounds.X, objectA.Bounds.Y);
     }
 }
