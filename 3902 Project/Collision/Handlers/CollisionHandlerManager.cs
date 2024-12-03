@@ -23,13 +23,13 @@ namespace _3902_Project
         /// <param name="block">BlockManager</param>
         /// <param name="item">ItemManager</param>
         /// <param name="projectile">ProjectileManager</param>
-        public void LoadAll(LinkManager link, EnemyManager enemy, BlockManager block, ItemManager item, ProjectileManager projectile)
+        public void LoadAll(LinkManager link, EnemyManager enemy, BlockManager block, ItemManager item, ProjectileManager projectile, PlaySoundEffect sound)
         {
-            _linkCollisionHandler.LoadAll(link);
-            _enemyCollisionHandler.LoadAll(enemy);
-            _blockCollisionHandler.LoadAll(block);
-            _itemCollisionHandler.LoadAll(item);
-            _projectileCollisionHandler.LoadAll(projectile);
+            _linkCollisionHandler.LoadAll(link, sound);
+            _enemyCollisionHandler.LoadAll(enemy, sound);
+            _blockCollisionHandler.LoadAll(block, sound);
+            _itemCollisionHandler.LoadAll(item, sound);
+            _projectileCollisionHandler.LoadAll(projectile, sound);
         }
 
         /// <summary>

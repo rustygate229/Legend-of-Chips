@@ -102,13 +102,6 @@ namespace _3902_Project
             foreach (var item in _collisionBoxes)
             {
                 item.Sprite.Update();
-                if (item.Health <= 0)
-                    unloadList.Add(item);
-            }
-            foreach (var item in unloadList)
-            {
-                if (_collisionBoxes.Contains(item))
-                    UnloadItem(item);
             }
         }
     }

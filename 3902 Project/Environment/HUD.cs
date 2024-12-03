@@ -37,7 +37,6 @@ namespace _3902_Project
         {
             Vector2 placementPosition = new (480, 100);
             float printScale = 4F;
-            if (_spriteWeapon != null) _itemManager.UnloadMenuItem(_spriteWeapon);
             switch (name) {
                 case LinkInventory.LinkSwordType.WOOD:
                     _spriteWeapon = _itemManager.AddMenuItem(ItemManager.ItemNames.WoodSword, placementPosition, printScale); break;
@@ -49,7 +48,6 @@ namespace _3902_Project
         {
             Vector2 placementPosition = new(610, 100);
             float printScale = 4F;
-            if (_spriteProjectile != null) _itemManager.UnloadMenuItem(_spriteWeapon);
             switch (name)
             {
                 case ProjectileManager.ProjectileNames.Bomb:
@@ -155,7 +153,7 @@ namespace _3902_Project
         private void CreateDigits(int amount, float printScale, Vector2 placementPosition)
         {
             Vector2 multiplier = new(8 * printScale, 0);
-            if (amount > 0 && amount <= 999)
+            if (amount >= 0 && amount <= 999)
             {
                 int firstDigit;
                 int secondDigit;

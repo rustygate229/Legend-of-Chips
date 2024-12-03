@@ -5,7 +5,7 @@ using System;
 
 namespace _3902_Project
 {
-    class PlaySoundEffect
+    public class PlaySoundEffect
     {
         private ContentManager _content;
 

@@ -33,10 +33,20 @@ namespace _3902_Project
             switch (item)
             {
                 // gave 10 for testing purpose
-                case AItem_FArrow: _inventory.AddItem(ProjectileManager.ProjectileNames.BlueArrow, 10); break;
-                case AItem_FLife: MaxHealth += 2; break;
+                case AItem_FArrow:  _inventory.AddItem(ItemManager.ItemNames.BlueArrow, 5); break;
+                case SItem_Bomb:    _inventory.AddItem(ItemManager.ItemNames.Bomb, 3); break;
+                case AItem_FBanana: _inventory.AddItem(ItemManager.ItemNames.FlashingBanana, 1); break;
+                case AItem_FEmerald: _inventory.AddItem(ItemManager.ItemNames.FlashingEmerald, 1); break;
+                case SItem_NormalKey:
+                case SItem_BossKey: _inventory.AddItem(ItemManager.ItemNames.NormalKey, 1); break;
+                case SItem_AddLife: MaxHealth += 2; CollisionBox.Health += 2; break;
+                case AItem_FLife:
+                case AItem_FPotion:
+                    if (CollisionBox.Health + 2 > MaxHealth) CollisionBox.Health = MaxHealth;
+                    else CollisionBox.Health += 2; break;
                 default: break;
             }
+            Console.WriteLine("Current Link Health: " + CollisionBox.Health);
         }
     }
 }

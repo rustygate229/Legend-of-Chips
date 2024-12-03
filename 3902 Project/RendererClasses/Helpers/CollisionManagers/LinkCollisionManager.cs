@@ -23,8 +23,7 @@ namespace _3902_Project
         public void SetCollision(ICollisionBox box) { box.IsCollidable = true; }
 
         // ALSO, could add a counter in CanFireProjectile() if needed
-        private ProjectileManager.ProjectileNames _currentProjectile;
-        public ProjectileManager.ProjectileNames CurrentProjectile { get { return _currentProjectile; } set { _currentProjectile = value; } }
+        public ProjectileManager.ProjectileNames CurrentProjectile { get { return _inventory.CurrentProjectile; } set { _inventory.CurrentProjectile = value; } }
         private ProjectileManager.ProjectileType _linkProjectile = ProjectileManager.ProjectileType.LinkProj;
         public bool CanFireProjectile()
         {
@@ -59,7 +58,18 @@ namespace _3902_Project
                     CurrentProjectile, _linkProjectile, 
                     helper.GetPositionAhead(PositionAheadScale(), LinkDestinationRectangle), _direction, _printScale
                 );
-                _inventory.RemoveItem(CurrentProjectile, 1);
+                _inventory.RemoveItem(ProjectileConversion(CurrentProjectile), 1);
+            }
+        }
+
+        private ItemManager.ItemNames ProjectileConversion(ProjectileManager.ProjectileNames projectile)
+        {
+            switch (projectile)
+            {
+                case ProjectileManager.ProjectileNames.BlueArrow:   return ItemManager.ItemNames.BlueArrow;
+                case ProjectileManager.ProjectileNames.Bomb:        return ItemManager.ItemNames.Bomb;
+                case ProjectileManager.ProjectileNames.Boomerang:   return ItemManager.ItemNames.FlashingBanana;
+                default: throw new ArgumentException("There is no conversion for this projectile");
             }
         }
 

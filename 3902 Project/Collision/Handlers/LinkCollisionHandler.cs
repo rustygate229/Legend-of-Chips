@@ -5,6 +5,7 @@ namespace _3902_Project
     public class LinkCollisionHandler : ICollisionHandler
     {
         private LinkManager _link;
+        private PlaySoundEffect _sound;
 
         public LinkCollisionHandler() { }
 
@@ -12,7 +13,7 @@ namespace _3902_Project
         /// Load everything that this handler needs
         /// </summary>
         /// <param name="link">manager for Link</param>
-        public void LoadAll(LinkManager link) { _link = link; }
+        public void LoadAll(LinkManager link, PlaySoundEffect sound) { _link = link; _sound = sound; }
 
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
@@ -32,6 +33,7 @@ namespace _3902_Project
             // if link is NOT in damage state, activate the state and remove health from link
             if (_link.IsLinkDamaged == false)
             {
+                _sound.PlaySound(PlaySoundEffect.Sounds.Link_Zapped);
                 objectA.Health -= objectB.Damage;
                 _link.SetDamaged(50, side);
                 _link.SetCollisionSide(side);
@@ -43,6 +45,7 @@ namespace _3902_Project
             // if link is NOT in damage state, activate the state and remove health from link
             if (_link.IsLinkDamaged == false)
             {
+                _sound.PlaySound(PlaySoundEffect.Sounds.Link_Zapped);
                 objectA.Health -= objectB.Damage;
                 _link.SetDamaged(50, side);
                 _link.SetCollisionSide(side);

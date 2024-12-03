@@ -63,7 +63,7 @@ namespace _3902_Project
         /// </summary>
         public void UnloadAllLetters() { _runningMisc.Clear(); }
 
-        public void UnloadLetter(ISprite name) { _runningMisc.Remove(name); }
+        public void UnloadMisc(ISprite name) { _runningMisc.Remove(name); }
 
 
         /// <summary>

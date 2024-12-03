@@ -14,8 +14,8 @@ namespace _3902_Project
         private ICollisionBox _collisionBox;
         private int _counter;
         private int _boomerangCounter = 0;
-        private int _explosionCounter = 280;
-        private int _counterTotal = 300;
+        private int _explosionCounter = 100;
+        private int _counterTotal = 110;
 
         /// <summary>
         /// constructor for the projectile sprite: <c>Blue Arrow</c>
@@ -27,7 +27,7 @@ namespace _3902_Project
         /// <param name="printScale">the print scale of the projectile: printScale * spriteDimensions</param>
         public PJoiner_Boomerang(Texture2D spriteSheet, Renderer.DIRECTION direction, float printScale)
         {
-            _boomerang = new PSprite_Boomerang(spriteSheet, direction, printScale);
+            _boomerang = new PSprite_Boomerang(spriteSheet, direction, printScale, _explosionCounter);
             _smallExplosion = new PSprite_SmallExplosion(spriteSheet, printScale);
             _counter = _boomerangCounter;
             _currentSprite = _boomerang;

@@ -88,7 +88,7 @@ namespace _3902_Project
             // for the showing of collisions
             _outline = Content.Load<Texture2D>("SpriteSheets\\Block&Room(Dungeon)_Transparent");
 
-            EnvironmentFactory.LoadAll(LinkManager, EnemyManager, BlockManager, ItemManager, ProjectileManager);
+            EnvironmentFactory.LoadAll(LinkManager, EnemyManager, BlockManager, ItemManager, ProjectileManager, MySoundEffect);
             EnvironmentFactory.loadLevel();
         }
 

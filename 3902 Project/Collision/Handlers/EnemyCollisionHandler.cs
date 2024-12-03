@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 public class EnemyCollisionHandler
 {
     EnemyManager _enemy;
+    private PlaySoundEffect _sound;
 
     public EnemyCollisionHandler() { }
 
@@ -14,9 +15,10 @@ public class EnemyCollisionHandler
     /// Load everything that this handler needs
     /// </summary>
     /// <param name="enemy">manager for enemies</param>
-    public void LoadAll(EnemyManager enemy)
+    public void LoadAll(EnemyManager enemy, PlaySoundEffect sound)
     {
         _enemy = enemy;
+        _sound = sound;
     }
 
     public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
@@ -51,12 +53,20 @@ public class EnemyCollisionHandler
 
     private void HandleLinkProjCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
     {
-        if (!_enemy.IsDamagable(objectA.Sprite))
+        if (!_enemy.IsDamaged(objectA.Sprite))
         {
             switch (objectA.Sprite)
             {
                 default: _enemy.SetDamageHelper(50, false, side, objectA.Sprite); break;
             }
+            if (objectA.Health > 0)
+                _sound.PlaySound(PlaySoundEffect.Sounds.Enemy_Zapped);
+            else
+            {
+                _sound.PlaySound(PlaySoundEffect.Sounds.Enemy_Death);
+                _enemy.UnloadEnemy(objectA);
+            }
+
             objectA.Health -= objectB.Damage;
             Console.WriteLine("EnemyCollisionhandler: LinkProj hit, current health of enemy: " + objectA.Health);
         }

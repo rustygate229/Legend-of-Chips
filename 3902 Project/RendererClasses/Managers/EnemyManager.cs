@@ -67,7 +67,7 @@ namespace _3902_Project
             }
         }
 
-        public bool IsDamagable(ISprite sprite)
+        public bool IsDamaged(ISprite sprite)
         {
             foreach (var tuple in _runningEnemies)
             {
@@ -114,14 +114,9 @@ namespace _3902_Project
                         tuple.Item1.Update();
                         enemyBox.Bounds = enemyBox.Sprite.DestinationRectangle;
 
-                        if (IsDamagable(tuple.Item1))
+                        if (IsDamaged(tuple.Item1))
                         {
                             tuple.Item2.UpdateDamagedState();
-                        }
-
-                        if (enemyBox.Health <= 0)
-                        {
-                            unloadList.Add(enemyBox);
                         }
                     }
                 }

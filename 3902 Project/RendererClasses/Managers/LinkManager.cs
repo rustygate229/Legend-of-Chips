@@ -89,6 +89,7 @@ namespace _3902_Project
             {
                 _damageHelper.CurrentSprite = CurrentLink;
                 _damageHelper.UpdateDamagedState();
+                // Console.WriteLine("Current Link Health: " + CollisionBox.Health);
             }
 
             if ((_swordDamageDecrementTotal >= 0) && (_swordDamageDecrementTotal < 10))

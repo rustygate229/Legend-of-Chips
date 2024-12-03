@@ -5,6 +5,7 @@ namespace _3902_Project
     public class ProjectileCollisionHandler : ICollisionHandler
     {
         private ProjectileManager _projectile;
+        private PlaySoundEffect _sound;
 
         public ProjectileCollisionHandler() { }
 
@@ -12,7 +13,7 @@ namespace _3902_Project
         /// Load everything that this handler needs
         /// </summary>
         /// <param name="projectile">manager for projectiles</param>
-        public void LoadAll(ProjectileManager projectile) { _projectile = projectile; }
+        public void LoadAll(ProjectileManager projectile, PlaySoundEffect sound) { _projectile = projectile; _sound = sound; }
 
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {

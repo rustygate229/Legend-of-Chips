@@ -12,6 +12,7 @@ namespace _3902_Project
         private CollisionHandlerManager _collisionHandlerManager = new ();
         private ProjectileManager _projectileManager;
         private LinkManager _linkManager;
+        private PlaySoundEffect _sound;
 
         private int _level;
         private int _prevLevel = -1; // -1 is a stand in for a null value
@@ -32,17 +33,18 @@ namespace _3902_Project
 
         public EnvironmentFactory() { }
 
-        public void LoadAll(LinkManager link, EnemyManager enemy, BlockManager block, ItemManager item, ProjectileManager projectile)
+        public void LoadAll(LinkManager link, EnemyManager enemy, BlockManager block, ItemManager item, ProjectileManager projectile, PlaySoundEffect sound)
         {
             _linkManager = link;
             _enemyManager = enemy;
             _blockManager = block;
             _itemManager = item;
             _projectileManager = projectile;
+            _sound = sound;
 
             // Initialize Collision
             _collisionBoxes = new List<List<ICollisionBox>>();
-            _collisionHandlerManager.LoadAll(link, enemy, block, item, projectile);
+            _collisionHandlerManager.LoadAll(link, enemy, block, item, projectile, sound);
 
             _level = 1;
 
@@ -116,7 +118,7 @@ namespace _3902_Project
 
         private void loadBlocks()
         {
-            string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Levels/Level" + _level.ToString() + ".csv";
+            string filepath = Directory.GetCurrentDirectory() + "/../../../Environment/Levels/Level" + _level.ToString() + ".csv";
             _environment = ReadCsvFile(filepath);
 
             _blockManager.AddBlock(BlockManager.BlockNames.Environment, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y), 4F);
@@ -157,7 +159,7 @@ namespace _3902_Project
 
         private void loadEnemies()
         {
-            string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Enemies/Enemy" + _level.ToString() + ".csv";
+            string filepath = Directory.GetCurrentDirectory() + "/../../../Environment/Enemies/Enemy" + _level.ToString() + ".csv";
             _enemies = ReadCsvFile(filepath);
 
             for (int i = 0; i < _enemies.Count; i++)
@@ -174,7 +176,7 @@ namespace _3902_Project
 
         private void loadItems()
         {
-            string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Items/Item" + _level.ToString() + ".csv";
+            string filepath = Directory.GetCurrentDirectory() + "/../../../Environment/Items/Item" + _level.ToString() + ".csv";
             _items = ReadCsvFile(filepath);
 
             for (int i = 0; i < _items.Count; i++)

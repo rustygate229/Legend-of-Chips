@@ -18,11 +18,13 @@ namespace _3902_Project
             }
         }
 
-        public bool IsDestroyable(ICollisionBox box)
+        public bool IsOpenable(ICollisionBox box)
         {
             switch (box.Sprite)
             {
                 case FBlock_Wall:
+                case FBlock_DiamondHoleLockedDoor:
+                case FBlock_KeyHoleLockedDoor:
                     return true;
                 default: return false;
             }

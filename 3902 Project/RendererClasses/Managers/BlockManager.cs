@@ -114,8 +114,6 @@ namespace _3902_Project
             { 
                 block.Sprite.Update(); 
                 // *NOTE* need to change, since once a block gets destroyed, we need to spawn a new one (Wall -> Bombed_Wall)
-                if (block.Health <= 0)
-                    unloadList.Add(block);
             }
             foreach (var block in unloadList) 
             {
