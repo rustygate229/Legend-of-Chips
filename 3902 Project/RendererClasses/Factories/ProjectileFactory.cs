@@ -17,8 +17,8 @@ namespace _3902_Project
 
         public void LoadAllTextures(ContentManager content)
         {
-            _enemySpriteSheet = content.Load<Texture2D>("Dungeon_Enemies_Spritesheet_transparent");
-            _linkSpriteSheet = content.Load<Texture2D>("Link Spritesheet transparent");
+            _enemySpriteSheet = content.Load<Texture2D>("SpriteSheets\\Enemies(Dungeon)_Transparent");
+            _linkSpriteSheet = content.Load<Texture2D>("SpriteSheets\\Link_Transparent");
         }
 
         public void UnloadAllTextures(ContentManager content)

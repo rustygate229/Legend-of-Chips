@@ -14,7 +14,7 @@ namespace _3902_Project
 
         public void LoadSongs()
         {
-            song = _content.Load<Song>("Title_BGM");
+            song = _content.Load<Song>("Audio\\TitleScreen");
 
             MediaPlayer.Play(song);
             MediaPlayer.IsRepeating = true;

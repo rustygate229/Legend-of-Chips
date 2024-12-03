@@ -18,7 +18,7 @@ namespace _3902_Project
         // Constructor to initialize the factory instance
         private LinkSpriteFactory() { LinkSpriteFactory.instance = this; }
 
-        public void LoadAllTextures(ContentManager content) { _linkSpritesheet = content.Load<Texture2D>("Link Spritesheet transparent"); }
+        public void LoadAllTextures(ContentManager content) { _linkSpritesheet = content.Load<Texture2D>("SpriteSheets\\Link_Transparent"); }
 
         public void UnloadAllTextures(ContentManager content) { _linkSpritesheet.Dispose(); }
 

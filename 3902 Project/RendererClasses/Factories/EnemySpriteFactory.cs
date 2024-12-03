@@ -19,7 +19,7 @@ namespace _3902_Project
         // Constructor to initialize the factory instance
         private EnemySpriteFactory() { EnemySpriteFactory.instance = this; }
 
-        public void LoadAllTextures(ContentManager content) { _enemySpritesheet = content.Load<Texture2D>("Dungeon_Enemies_Spritesheet_transparent"); }
+        public void LoadAllTextures(ContentManager content) { _enemySpritesheet = content.Load<Texture2D>("SpriteSheets\\Enemies(Dungeon)_Transparent"); }
 
         public void UnloadAllTextures(ContentManager content) { _enemySpritesheet.Dispose(); }
 

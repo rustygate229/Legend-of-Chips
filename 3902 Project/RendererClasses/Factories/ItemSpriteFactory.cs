@@ -23,9 +23,9 @@ namespace _3902_Project
         // load all textures/spritesheet
         public void LoadAllTextures(ContentManager content) 
         { 
-            _itemSpritesheet = content.Load<Texture2D>("Items Spritesheet");
-            _blockSpriteSheet = content.Load<Texture2D>("Dungeon_Block_and_Room_Spritesheet_transparent");
-            _hudSpriteSheet = content.Load<Texture2D>("Hud and Pause Screen");
+            _itemSpritesheet = content.Load<Texture2D>("SpriteSheets\\Items_Transparent");
+            _blockSpriteSheet = content.Load<Texture2D>("SpriteSheets\\Block&Room(Dungeon)_Transparent");
+            _hudSpriteSheet = content.Load<Texture2D>("SpriteSheets\\HUD&Pause");
         }
 
 
@@ -44,22 +44,18 @@ namespace _3902_Project
                     return new SItem_Clock(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Compass:
                     return new SItem_Compass(_itemSpritesheet, printScale);
-                case ItemManager.ItemNames.Emerald:
-                    return new SItem_Emeralds(_hudSpriteSheet, printScale);
-                case ItemManager.ItemNames.Keys:
-                    return new SItem_Keys(_hudSpriteSheet, printScale);
                 case ItemManager.ItemNames.Flute:
                     return new SItem_Flute(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.AddLife:
                     return new SItem_AddLife(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Game:
-                    return new SItem_Game(_itemSpritesheet, printScale);
+                    return new SItem_MagicBook(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Horn:
                     return new SItem_Horn(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Ladder:
                     return new SItem_Ladder(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.WoodSword:
-                    return new SItem_WoodSword(_itemSpritesheet, printScale);
+                    return new SItem_MasterSword(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.BlueArrow:
                     return new SItem_BlueArrow(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.MagicStaff:
@@ -68,8 +64,6 @@ namespace _3902_Project
                     return new SItem_Meat(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.NormalKey:
                     return new SItem_NormalKey(_itemSpritesheet, printScale);
-                case ItemManager.ItemNames.Orb:
-                    return new SItem_Orb(_blockSpriteSheet, printScale);
                 case ItemManager.ItemNames.Shield:
                     return new SItem_Shield(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Sword:

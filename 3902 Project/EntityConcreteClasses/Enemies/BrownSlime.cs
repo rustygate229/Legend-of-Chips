@@ -18,7 +18,6 @@ namespace _3902_Project
         private float _positionSpeed = 2F;
 
         // variables for shooting projectile
-        private ISprite _projectileFireBall;
         private ProjectileManager _projectileManager;
 
         // create enemy renderer

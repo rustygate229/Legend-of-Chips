@@ -1,9 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
 
 namespace _3902_Project
 {
@@ -21,7 +18,7 @@ namespace _3902_Project
         internal MiscManager MiscManager = new();
         internal EnvironmentFactory EnvironmentFactory = new();
         internal BackgroundMusic BackgroundMusic = new();
-        internal MySoundEffect MySoundEffect = new();
+        internal PlaySoundEffect MySoundEffect = new();
         internal HUD HUD = new();
 
         //private List<ICollisionBox> _EnemyCollisionBoxes;
@@ -87,9 +84,9 @@ namespace _3902_Project
             MiscManager.LoadAll(_spriteBatch, Content);
             BackgroundMusic.LoadAll(Content);
             MySoundEffect.LoadAll(Content);
-            HUD.LoadAll(_spriteBatch, Content, LinkManager, ItemManager, MiscManager);
+            HUD.LoadAll(_spriteBatch, LinkManager, ItemManager, MiscManager);
             // for the showing of collisions
-            _outline = Content.Load<Texture2D>("Dungeon_Block_and_Room_Spritesheet_transparent");
+            _outline = Content.Load<Texture2D>("SpriteSheets\\Block&Room(Dungeon)_Transparent");
 
             EnvironmentFactory.LoadAll(LinkManager, EnemyManager, BlockManager, ItemManager, ProjectileManager);
             EnvironmentFactory.loadLevel();
@@ -148,11 +145,18 @@ namespace _3902_Project
                 foreach (ICollisionBox collisionBox in collisionBoxes)
                 {
                     Rectangle bounds = collisionBox.Bounds;
-                    if (i == 0) color = Color.White;
-                    if (i == 1) color = Color.Red;
-                    if (i == 2) color = Color.Green;
-                    if (i == 3) color = Color.Blue;
-                    if (i == 4) color = Color.Yellow;
+                    if (collisionBox.IsCollidable)
+                    {
+                        if (i == 0) color = Color.White;
+                        if (i == 1) color = Color.Red;
+                        if (i == 2) color = Color.Green;
+                        if (i == 3) color = Color.Blue;
+                        if (i == 4) color = Color.Yellow;
+                        lineWidth = 3;
+                    }
+                    else
+                        lineWidth = 0;
+
                     Rectangle outlineTop =      new (bounds.X, bounds.Y, bounds.Width, lineWidth);
                     Rectangle outlineLeft =     new (bounds.X, bounds.Y, lineWidth, bounds.Height);
                     Rectangle outlineBottom =   new (bounds.X, bounds.Y + (bounds.Height - lineWidth), bounds.Width, lineWidth);
@@ -171,7 +175,7 @@ namespace _3902_Project
         public void ResetGame() 
         {
             // need to have a sequence play out first, but that will need a transition
-            MySoundEffect.DiePlaySound();
+            MySoundEffect.PlaySound(PlaySoundEffect.Sounds.Enemy_Death);
             Initialize();
         }
     }

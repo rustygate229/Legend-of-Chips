@@ -23,7 +23,7 @@ namespace _3902_Project
         // load all textures/spritesheet
         public void LoadAllTextures(ContentManager content)
         {
-            _blockSpritesheet = content.Load<Texture2D>("Dungeon_Block_and_Room_Spritesheet_transparent");
+            _blockSpritesheet = content.Load<Texture2D>("SpriteSheets\\Block&Room(Dungeon)_Transparent");
         }
 
 

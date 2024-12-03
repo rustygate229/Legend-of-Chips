@@ -10,9 +10,9 @@ namespace _3902_Project
         // create item names for finding them
         public enum ItemNames
         {
-            AddLife, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Orb, Ladder, Emerald, Keys, WoodSword,
-            BlueArrow, MagicStaff, Game, NormalKey, BossKey, Compass, FlashingLife, DepletingHeart, FlashingEmerald,
-            FlashingPotion, FlashingScripture, FlashingSword, FlashingBanana, FlashingArrow,
+            AddLife, Clock, Meat, Sword, Shield, Bomb, Bow, Horn, Flute, WaterPlate, Ladder, WoodSword,
+            BlueArrow, MagicStaff, Game, NormalKey, BossKey, Compass, FlashingLife, DepletingHeart,
+            FlashingPotion, FlashingScripture, FlashingSword, FlashingBanana, FlashingArrow, FlashingEmerald,
             FlashingCandle, FlashingRing, FlashingTriForce, HeartEmpty, HeartHalf, HeartFull,
         }
 

@@ -25,7 +25,6 @@ namespace _3902_Project
 
         // create variables for passing
         private BlockSpriteFactory _factory = BlockSpriteFactory.Instance;
-        private ContentManager _contentManager;
         private SpriteBatch _spriteBatch;
 
 
@@ -66,6 +65,7 @@ namespace _3902_Project
         public void AddBlock(BlockNames name, Rectangle destinationRectangle, float printScale)
         {
             ISprite currentSprite = _factory.CreateBlock(name, printScale);
+            currentSprite.PositionOnWindow = new(destinationRectangle.X, destinationRectangle.Y);
             currentSprite.DestinationRectangle = destinationRectangle;
             _runningBlocks.Add(currentSprite);
 

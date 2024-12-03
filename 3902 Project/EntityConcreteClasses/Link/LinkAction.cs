@@ -14,8 +14,6 @@ namespace _3902_Project
         private RendererLists _rendererList;
         private bool _isCentered = true;
 
-        private int _currentFrame;
-
 
         /// <summary>
         /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet

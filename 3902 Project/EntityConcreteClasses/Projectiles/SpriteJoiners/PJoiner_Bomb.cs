@@ -13,8 +13,7 @@ namespace _3902_Project
         private ISprite _currentSprite;
 
         private ICollisionBox _collisionBox;
-        private int _counter = 0;
-        private int _bombCounter = 0;
+        private int _counter;
         private int _bombFireCounter = 80;
         private int _bombCloudCounter = 100;
         private int _counterTotal = 130;

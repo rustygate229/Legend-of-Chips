@@ -10,11 +10,11 @@ namespace _3902_Project
     public class KeyboardInput : IController
     {
         // Dictionary to map keys to corresponding commands
-        private Dictionary<Keys, ICommand> keysToCommands = new Dictionary<Keys, ICommand>();
-        private Dictionary<Keys, ICommand> keysMoveToCommands = new Dictionary<Keys, ICommand>();
+        private Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand> keysToCommands = new Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand>();
+        private Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand> keysMoveToCommands = new Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand>();
 
         // Create a set of previous keys for previous 
-        private HashSet<Keys> _previousKeys = new HashSet<Keys>();
+        private HashSet<Microsoft.Xna.Framework.Input.Keys> _previousKeys = new HashSet<Microsoft.Xna.Framework.Input.Keys>();
 
         // use game for inputs
         private Game1 _game;
@@ -26,43 +26,43 @@ namespace _3902_Project
             this._game = game;
 
             // Mapping keys to corresponding commands for player movement
-            keysMoveToCommands.Add(Keys.W, new CommandMoveUp(game));
-            keysMoveToCommands.Add(Keys.S, new CommandMoveDown(game));
-            keysMoveToCommands.Add(Keys.A, new CommandMoveLeft(game));
-            keysMoveToCommands.Add(Keys.D, new CommandMoveRight(game));
-            keysMoveToCommands.Add(Keys.Up, new CommandMoveUp(game));
-            keysMoveToCommands.Add(Keys.Down, new CommandMoveDown(game));
-            keysMoveToCommands.Add(Keys.Left, new CommandMoveLeft(game));
-            keysMoveToCommands.Add(Keys.Right, new CommandMoveRight(game));
+            keysMoveToCommands.Add(Microsoft.Xna.Framework.Input.Keys.W, new CommandMoveUp(game));
+            keysMoveToCommands.Add(Microsoft.Xna.Framework.Input.Keys.S, new CommandMoveDown(game));
+            keysMoveToCommands.Add(Microsoft.Xna.Framework.Input.Keys.A, new CommandMoveLeft(game));
+            keysMoveToCommands.Add(Microsoft.Xna.Framework.Input.Keys.D, new CommandMoveRight(game));
+            keysMoveToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Up, new CommandMoveUp(game));
+            keysMoveToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Down, new CommandMoveDown(game));
+            keysMoveToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Left, new CommandMoveLeft(game));
+            keysMoveToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Right, new CommandMoveRight(game));
 
             // Mapping keys for damaged state
-            keysToCommands.Add(Keys.E, new CommandLinkDamaged(game));
+            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.E, new CommandLinkDamaged(game));
 
             // Mapping keys for other actions such as attack
-            keysToCommands.Add(Keys.Z, new CommandLinkSwordAttack(game));
-            keysToCommands.Add(Keys.N, new CommandLinkThrow(game));
+            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Z, new CommandLinkSwordAttack(game));
+            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.N, new CommandLinkThrow(game));
 
             // Mapping keys for game control actions such as reset and quit
-            keysToCommands.Add(Keys.Q, new CommandQuit(game));
-            keysToCommands.Add(Keys.R, new CommandReset(game));
+            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Q, new CommandQuit(game));
+            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.R, new CommandReset(game));
 
             // Mapping keys for moving through the inventory
-            keysToCommands.Add(Keys.D1, new CommandLinkSetInventory(game, 1));
-            keysToCommands.Add(Keys.D2, new CommandLinkSetInventory(game, 2));
-            keysToCommands.Add(Keys.D3, new CommandLinkSetInventory(game, 3));
-            keysToCommands.Add(Keys.D4, new CommandLinkSetInventory(game, 4));
-            keysToCommands.Add(Keys.D5, new CommandLinkSetInventory(game, 5));
+            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.D1, new CommandLinkSetInventory(game, 1));
+            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.D2, new CommandLinkSetInventory(game, 2));
+            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.D3, new CommandLinkSetInventory(game, 3));
+            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.D4, new CommandLinkSetInventory(game, 4));
+            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.D5, new CommandLinkSetInventory(game, 5));
 
             // DEBUG TOOLS
-            keysToCommands.Add(Keys.C, new CommandDrawCollidables(game));
+            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.C, new CommandDrawCollidables(game));
 
         }
 
 
-        private bool IsMoveKey(Keys key)
+        private bool IsMoveKey(Microsoft.Xna.Framework.Input.Keys key)
         {
-            return key == Keys.W || key == Keys.A || key == Keys.S || key == Keys.D ||
-                   key == Keys.Up || key == Keys.Down || key == Keys.Left || key == Keys.Right;
+            return key == Microsoft.Xna.Framework.Input.Keys.W || key == Microsoft.Xna.Framework.Input.Keys.A || key == Microsoft.Xna.Framework.Input.Keys.S || key == Microsoft.Xna.Framework.Input.Keys.D ||
+                   key == Microsoft.Xna.Framework.Input.Keys.Up || key == Microsoft.Xna.Framework.Input.Keys.Down || key == Microsoft.Xna.Framework.Input.Keys.Left || key == Microsoft.Xna.Framework.Input.Keys.Right;
         }
 
         // Update method to check keyboard input and execute corresponding commands
@@ -70,11 +70,11 @@ namespace _3902_Project
         {
             //get the keyboard state
             KeyboardState currentKeyboardState = Keyboard.GetState();
-            Keys[] currentKeyboardPressed = currentKeyboardState.GetPressedKeys();
-            HashSet<Keys> newPreviousKeys = new HashSet<Keys>();
+            Microsoft.Xna.Framework.Input.Keys[] currentKeyboardPressed = currentKeyboardState.GetPressedKeys();
+            HashSet<Microsoft.Xna.Framework.Input.Keys> newPreviousKeys = new HashSet<Microsoft.Xna.Framework.Input.Keys>();
 
             // for each key, find if it is either previously pressed or a movement key
-            foreach (Keys key in currentKeyboardPressed)
+            foreach (Microsoft.Xna.Framework.Input.Keys key in currentKeyboardPressed)
             {
                 // if key passes check, then execute
                 if (keysToCommands.ContainsKey(key)) 
@@ -92,7 +92,7 @@ namespace _3902_Project
             if (currentKeyboardPressed.Length == 0) { new CommandLinkStill(_game).Execute(); }
             else if (currentKeyboardPressed.Length > 0)
             {
-                Keys key = currentKeyboardPressed[currentKeyboardPressed.Length - 1];
+                Microsoft.Xna.Framework.Input.Keys key = currentKeyboardPressed[currentKeyboardPressed.Length - 1];
                 if (keysMoveToCommands.ContainsKey(key))
                 {
                     if (!_previousKeys.Contains(key))

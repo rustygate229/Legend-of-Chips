@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -125,8 +124,22 @@ namespace _3902_Project
             _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_UP, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y + 576), 4F);
             _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y + 288), 4F);
             _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT, new Vector2((int)_startingPosition.X + 1024 - 128, (int)_startingPosition.Y + 288), 4F);
-            Rectangle testInvisible = new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 50);
-            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, testInvisible, 4F);
+            Rectangle TopRight =    new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 128);
+            Rectangle TopLeft =     new((int)(_startingPosition.X), (int)(_startingPosition.Y), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X), 128); //
+            Rectangle BottomRight = new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 128); 
+            Rectangle BottomLeft =  new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 128);
+            Rectangle RightBottom = new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 128);
+            Rectangle RightTop =    new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 128);
+            Rectangle LeftBottom =  new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 128);
+            Rectangle LeftTop =     new((int)(_startingPosition.X), (int)(_startingPosition.Y), (int)(_startingPosition.Y + 448) - (int)(_startingPosition.Y), 128);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, TopRight, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, TopLeft, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, BottomRight, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, BottomLeft, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, RightBottom, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, RightTop, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, LeftBottom, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, LeftTop, 4F);
 
             for (int i = 0; i < _environment.Count; i++)
             {

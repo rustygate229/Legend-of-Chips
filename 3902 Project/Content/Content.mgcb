@@ -13,91 +13,175 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin 01 Title BGM.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:01 Title BGM.mp3;Title_BGM.mp3
-
-#begin Dungeon_Block_and_Room_Spritesheet_transparent.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Dungeon_Block_and_Room_Spritesheet_transparent.png
-
-#begin Dungeon_Enemies_Spritesheet_transparent.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Dungeon_Enemies_Spritesheet_transparent.png
-
-#begin Hud and Pause Screen.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Hud and Pause Screen.png
-
-#begin item-101soundboards.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:item-101soundboards.mp3
-
-#begin item-102soundboards.wav
+#begin Audio/Ambiance_Magical.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:item-102soundboards.wav
+/build:Audio/Ambiance_Magical.wav
 
-#begin Items Spritesheet.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Items Spritesheet.png
-
-#begin kill.wav
+#begin Audio/Block_DoorOpens.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:kill.wav
+/build:Audio/Block_DoorOpens.wav
 
-#begin life-lost-101soundboards.mp3
+#begin Audio/Enemy_BossDeath.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Enemy_BossDeath.wav
+
+#begin Audio/Enemy_BossRoar.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Enemy_BossRoar.wav
+
+#begin Audio/Enemy_BossZapped.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Enemy_BossZapped.wav
+
+#begin Audio/Enemy_Death.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Enemy_Death.wav
+
+#begin Audio/Enemy_Zapped.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Enemy_Zapped.wav
+
+#begin Audio/ItemDrop_Key.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/ItemDrop_Key.wav
+
+#begin Audio/ItemPickup_Animation.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/ItemPickup_Animation.wav
+
+#begin Audio/ItemPickup_Generic.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/ItemPickup_Generic.wav
+
+#begin Audio/ItemPickup_HealthHeart.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/ItemPickup_HealthHeart.wav
+
+#begin Audio/ItemPickup_TriForce.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/ItemPickup_TriForce.wav
+
+#begin Audio/ItemPlace_Bomb.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/ItemPlace_Bomb.wav
+
+#begin Audio/ItemReveal_Ganon.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/ItemReveal_Ganon.wav
+
+#begin Audio/Link_Flute.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Link_Flute.wav
+
+#begin Audio/Link_GotRupees.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Link_GotRupees.wav
+
+#begin Audio/Link_ShieldDeflect.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Link_ShieldDeflect.wav
+
+#begin Audio/Link_SpentRupees.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Link_SpentRupees.wav
+
+#begin Audio/Link_Zapped.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Link_Zapped.wav
+
+#begin Audio/Link_ZapsTwoBolts.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Link_ZapsTwoBolts.wav
+
+#begin Audio/Link_ZapsWithMasterSword.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Link_ZapsWithMasterSword.wav
+
+#begin Audio/Link_ZapsWithPower.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Link_ZapsWithPower.wav
+
+#begin Audio/Link_ZapsWithSword.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Link_ZapsWithSword.wav
+
+#begin Audio/LinkThrow_Flames.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/LinkThrow_Flames.wav
+
+#begin Audio/LinkThrow_MagicBoomerang.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/LinkThrow_MagicBoomerang.wav
+
+#begin Audio/LinkThrow_MagicBoomerangUpgraded.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/LinkThrow_MagicBoomerangUpgraded.wav
+
+#begin Audio/LinkWalking.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/LinkWalking.wav
+
+#begin Audio/TitleScreen.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:life-lost-101soundboards.mp3
+/build:Audio/TitleScreen.mp3
 
-#begin life-lost-102soundboards.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:life-lost-102soundboards.wav
-
-#begin Link Spritesheet transparent.png
+#begin SpriteSheets/Block&Room(Dungeon)_Transparent.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -107,16 +191,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Link Spritesheet transparent.png
+/build:SpriteSheets/Block&Room(Dungeon)_Transparent.png
 
-#begin Menu.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Menu.spritefont
-
-#begin Miscellaneous_Spritesheet_transparent.png
+#begin SpriteSheets/Block&Room(Overworld).png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -126,9 +203,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Miscellaneous_Spritesheet_transparent.png
+/build:SpriteSheets/Block&Room(Overworld).png
 
-#begin Overworld Spritesheet.png
+#begin SpriteSheets/Enemies(Dungeon)_Transparent.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -138,5 +215,53 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Overworld Spritesheet.png
+/build:SpriteSheets/Enemies(Dungeon)_Transparent.png
+
+#begin SpriteSheets/HUD&Pause.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SpriteSheets/HUD&Pause.png
+
+#begin SpriteSheets/Items_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SpriteSheets/Items_Transparent.png
+
+#begin SpriteSheets/Link_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SpriteSheets/Link_Transparent.png
+
+#begin SpriteSheets/Misc_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SpriteSheets/Misc_Transparent.png
 

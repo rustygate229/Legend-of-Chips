@@ -8,12 +8,13 @@ namespace _3902_Project
 {
     public class MiscManager
     {
-        private List<ISprite> _runningLetters = new List<ISprite>();
+        private List<ISprite> _runningMisc = new List<ISprite>();
 
         // create variables for passing
         private MiscSpriteFactory _factory = MiscSpriteFactory.Instance;
         private SpriteBatch _spriteBatch;
 
+        public enum Misc_Names { Emeralds, Keys, Projectiles, Panal }
 
         // constructor
         public MiscManager() { }
@@ -31,11 +32,28 @@ namespace _3902_Project
         /// <param name="name"></param>
         /// <param name="placementPosition"></param>
         /// <param name="printScale"></param>
+        /// <returns></returns>
         public ISprite CallAlphabet(string name, float printScale, Color tint, Vector2 placementPosition)
         {
             ISprite currentSprite = _factory.CreateLetter(name.ToLower(), printScale, tint);
             currentSprite.PositionOnWindow = placementPosition;
-            _runningLetters.Add(currentSprite);
+            _runningMisc.Add(currentSprite);
+
+            return currentSprite;
+        }
+
+        /// <summary>
+        /// Add an letter to the running letter list
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="printScale"></param>
+        /// <param name="placementPosition"></param>
+        /// <returns></returns>
+        public ISprite AddMisc(Misc_Names name, float printScale, Vector2 placementPosition)
+        {
+            ISprite currentSprite = _factory.CreateMisc(name, printScale);
+            currentSprite.PositionOnWindow = placementPosition;
+            _runningMisc.Add(currentSprite);
 
             return currentSprite;
         }
@@ -43,9 +61,9 @@ namespace _3902_Project
         /// <summary>
         /// Remove/Unload all Block Sprites
         /// </summary>
-        public void UnloadAllLetters() { _runningLetters.Clear(); }
+        public void UnloadAllLetters() { _runningMisc.Clear(); }
 
-        public void UnloadLetter(ISprite name) { _runningLetters.Remove(name); }
+        public void UnloadLetter(ISprite name) { _runningMisc.Remove(name); }
 
 
         /// <summary>
@@ -53,7 +71,7 @@ namespace _3902_Project
         /// </summary>
         public void Draw()
         {
-            foreach (var letter in _runningLetters)
+            foreach (var letter in _runningMisc)
             {
                 letter.Draw(_spriteBatch);
             }
@@ -65,7 +83,7 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            foreach (var letter in _runningLetters)
+            foreach (var letter in _runningMisc)
             {
                 letter.Update();
             }
