@@ -45,6 +45,9 @@
 * Sprites
   - https://www.spriters-resource.com/nes/legendofzelda/
   - Sprite Editor: Rolina Qu
+* Audio
+  - https://www.sounds-resource.com/nes/legendofzelda/
+  - 
 * Command and Keyboard Interfaces
   - Hongxiang Wang
 * Link/Player Movement and Sprite Animations
