@@ -10,6 +10,7 @@ namespace _3902_Project
     {
         private List<ISprite> _runningMisc = new List<ISprite>();
         private ISprite _currentTransition;
+        private ISprite _currentStartScreen;
 
         // create variables for passing
         private MiscSpriteFactory _factory = MiscSpriteFactory.Instance;
@@ -17,6 +18,7 @@ namespace _3902_Project
 
         public enum Misc_Names { Emeralds, Keys, Projectiles, Panal }
         public enum Transition_Names { Black_FadeInTotal, Black_FadeOutTotal, Black_FadeInPartial, Black_FadeOutPartial }
+        public enum StartMenu_Names { StartScreen, StoryScreen }
 
         // constructor
         public MiscManager() { }
@@ -73,6 +75,14 @@ namespace _3902_Project
             return currentSprite;
         }
 
+        public ISprite StartMenu(StartMenu_Names name)
+        {
+            ISprite currentSprite = _factory.CreateStartScreen(name);
+            _currentStartScreen = currentSprite;
+
+            return currentSprite;
+        }
+
         public ISprite GetCurrentTransition() { return _currentTransition; }
 
         /// <summary>
@@ -81,6 +91,9 @@ namespace _3902_Project
         public void UnloadAllMisc() { _runningMisc.Clear(); }
 
         public void UnloadTransition() { _currentTransition = null; }
+
+        public void UnloadStartMenu() { _currentStartScreen = null; }
+
 
         public void UnloadMisc(ISprite name) { _runningMisc.Remove(name); }
 
@@ -108,6 +121,12 @@ namespace _3902_Project
         {
             _currentTransition?.Update();
             _currentTransition?.Draw(_spriteBatch);
+        }
+
+        public void UpdateAndDrawStartScreen(SpriteBatch spriteBatch)
+        {
+            _currentStartScreen?.Update();
+            _currentStartScreen?.Draw(_spriteBatch);
         }
     }
 }
