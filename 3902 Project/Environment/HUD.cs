@@ -183,7 +183,7 @@ namespace _3902_Project
         public void Draw()
         {
             _itemManager.UnloadAllMenuItems();
-            _miscManager.UnloadAllLetters();
+            _miscManager.UnloadAllMisc();
             DrawText();
             DrawWeapon(_inventory.CurrentLinkSword);
             DrawProjectile(_linkManager.CurrentProjectile);

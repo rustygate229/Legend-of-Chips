@@ -27,6 +27,10 @@ namespace _3902_Project
 
 
         Texture2D _outline;
+        private bool _pauseState = false;
+        public bool PauseState { get { return _pauseState; } set { _pauseState = value; } }
+        private int _pauseCounter = 0;
+        public int PauseCounter { get { return _pauseCounter; } set { _pauseCounter = value; } }
         private bool _drawCollidables = false;
         public bool DoDrawCollisions
         {
@@ -87,6 +91,7 @@ namespace _3902_Project
             MiscManager.LoadAll(_spriteBatch, Content);
             BackgroundMusic.LoadAll(Content);
             HUD.LoadAll(_spriteBatch, LinkManager, ItemManager, MiscManager);
+
             // for the showing of collisions
             _outline = Content.Load<Texture2D>("SpriteSheets\\Block&Room(Dungeon)_Transparent");
 
@@ -96,20 +101,23 @@ namespace _3902_Project
 
         protected override void Update(GameTime gameTime)
         {
-            BlockManager.Update();
-            ItemManager.Update();
-            ProjectileManager.Update();
-            EnemyManager.Update(); 
-            LinkManager.Update();
-            MiscManager.Update();
-            EnvironmentFactory.Update();
+            if (!PauseState && PauseCounter == 0)
+            {
+                BlockManager.Update();
+                ItemManager.Update();
+                ProjectileManager.Update();
+                EnemyManager.Update();
+                LinkManager.Update();
+                EnvironmentFactory.Update();
+                MiscManager.Update();
 
+                if (LinkManager.CollisionBox.Health <= 0)
+                    ResetGame();
+            }
+            
             // Update input controls
             keyboardController.Update();
             mouseController.Update();
-
-            if (LinkManager.CollisionBox.Health <= 0)
-                ResetGame();
 
             base.Update(gameTime);
         }
@@ -129,6 +137,18 @@ namespace _3902_Project
             // draw the collisions if the enters "C"
             if (DoDrawCollisions)
                 DrawCollisions();
+
+            if (PauseState)
+                MiscManager.UpdateAndDrawTransition(_spriteBatch);
+
+            if (!PauseState && PauseCounter != 0)
+            {
+                MiscManager.UpdateAndDrawTransition(_spriteBatch);
+                PauseCounter++;
+                // sadly. must hard code the same value present in sprite class
+                if (PauseCounter >= 530 / 10)
+                    PauseCounter = 0;
+            }
 
             base.Draw(gameTime);
         }

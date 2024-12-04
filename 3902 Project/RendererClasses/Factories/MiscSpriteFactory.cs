@@ -64,5 +64,21 @@ namespace _3902_Project
                 default: throw new ArgumentException("Not a valid Misc Name");
             }
         }
+
+        public ISprite CreateTransition(MiscManager.Transition_Names name)
+        {
+            switch (name)
+            {
+                case MiscManager.Transition_Names.Black_FadeInTotal:
+                    return new FadeIn_Total(_hudSpriteSheet);
+                case MiscManager.Transition_Names.Black_FadeOutTotal:
+                    return new FadeOut_Total(_hudSpriteSheet);
+                case MiscManager.Transition_Names.Black_FadeInPartial:
+                    return new FadeIn_Partial(_hudSpriteSheet);
+                case MiscManager.Transition_Names.Black_FadeOutPartial:
+                    return new FadeOut_Partial(_hudSpriteSheet);
+                default: throw new ArgumentException("Not a valid Misc Name");
+            }
+        }
     }
 }

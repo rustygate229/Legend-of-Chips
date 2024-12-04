@@ -40,7 +40,7 @@ namespace _3902_Project
         public ISprite CurrentSprite
         {
             get { return _currentSprite; }
-            set { Vector2 oldPosition = _currentSprite.PositionOnWindow; _currentSprite = value; _currentSprite.PositionOnWindow = oldPosition; }
+            set { Vector2 oldPosition = _currentSprite.PositionOnWindow; _currentSprite = value; _currentSprite.PositionOnWindow = oldPosition; CollisionBox.Sprite = value; }
         }
 
         public Vector2 PositionOnWindow

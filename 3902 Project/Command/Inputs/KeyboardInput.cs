@@ -12,6 +12,7 @@ namespace _3902_Project
         // Dictionary to map keys to corresponding commands
         private Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand> keysToCommands = new Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand>();
         private Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand> keysMoveToCommands = new Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand>();
+        private Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand> keysPauseToCommands = new Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand>();
 
         // Create a set of previous keys for previous 
         private HashSet<Microsoft.Xna.Framework.Input.Keys> _previousKeys = new HashSet<Microsoft.Xna.Framework.Input.Keys>();
@@ -45,6 +46,7 @@ namespace _3902_Project
             // Mapping keys for game control actions such as reset and quit
             keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Q, new CommandQuit(game));
             keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.R, new CommandReset(game));
+            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.P, new CommandPauseGame(game));
 
             // Mapping keys for moving through the inventory
             keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.D1, new CommandLinkSetInventory(game, 1));
@@ -56,6 +58,16 @@ namespace _3902_Project
             // DEBUG TOOLS
             keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.C, new CommandDrawCollidables(game));
 
+            // Mapping keys to corresponding commands for player movement
+            keysPauseToCommands.Add(Microsoft.Xna.Framework.Input.Keys.W, new CommandSelectUp(game));
+            keysPauseToCommands.Add(Microsoft.Xna.Framework.Input.Keys.S, new CommandSelectDown(game));
+            keysPauseToCommands.Add(Microsoft.Xna.Framework.Input.Keys.A, new CommandSelectLeft(game));
+            keysPauseToCommands.Add(Microsoft.Xna.Framework.Input.Keys.D, new CommandSelectRight(game));
+            keysPauseToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Up, new CommandSelectUp(game));
+            keysPauseToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Down, new CommandSelectDown(game));
+            keysPauseToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Left, new CommandSelectLeft(game));
+            keysPauseToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Right, new CommandSelectRight(game));
+            keysPauseToCommands.Add(Microsoft.Xna.Framework.Input.Keys.P, new CommandPauseGame(game));
         }
 
         // Update method to check keyboard input and execute corresponding commands
@@ -64,13 +76,29 @@ namespace _3902_Project
             //get the keyboard state
             KeyboardState currentKeyboardState = Keyboard.GetState();
             Microsoft.Xna.Framework.Input.Keys[] currentKeyboardPressed = currentKeyboardState.GetPressedKeys();
-            HashSet<Microsoft.Xna.Framework.Input.Keys> newPreviousKeys = new HashSet<Microsoft.Xna.Framework.Input.Keys>();
+            HashSet<Microsoft.Xna.Framework.Input.Keys> newPreviousKeys = new();
 
+            if (!_game.PauseState)
+            {
+                newPreviousKeys = NormalKeyCheck(currentKeyboardPressed, newPreviousKeys);
+                newPreviousKeys = MovementCheck(currentKeyboardPressed, newPreviousKeys);
+            }
+            else
+            {
+                newPreviousKeys = PauseKeyCheck(currentKeyboardPressed, newPreviousKeys);
+            }
+
+            // set old previous keys = new previous keys
+            _previousKeys = newPreviousKeys;
+        }
+
+        private HashSet<Microsoft.Xna.Framework.Input.Keys> NormalKeyCheck(Microsoft.Xna.Framework.Input.Keys[] currentKeyboardPressed, HashSet<Microsoft.Xna.Framework.Input.Keys> newPreviousKeys)
+        {
             // for each key, find if it is either previously pressed or a movement key
             foreach (Microsoft.Xna.Framework.Input.Keys key in currentKeyboardPressed)
             {
                 // if key passes check, then execute
-                if (keysToCommands.ContainsKey(key)) 
+                if (keysToCommands.ContainsKey(key))
                 {
                     if (!_previousKeys.Contains(key))
                     {
@@ -81,6 +109,11 @@ namespace _3902_Project
                     newPreviousKeys.Add(key);
                 }
             }
+            return newPreviousKeys;
+        }
+
+        private HashSet<Microsoft.Xna.Framework.Input.Keys> MovementCheck(Microsoft.Xna.Framework.Input.Keys[] currentKeyboardPressed, HashSet<Microsoft.Xna.Framework.Input.Keys> newPreviousKeys)
+        {
             // if conditions for movement keys
             if (currentKeyboardPressed.Length == 0 && _previousKeys.Count != 0) { new CommandLinkStill(_game).Execute(); }
             else if (currentKeyboardPressed.Length > 0)
@@ -96,9 +129,27 @@ namespace _3902_Project
                     newPreviousKeys.Add(key);
                 }
             }
+            return newPreviousKeys;
+        }
 
-            // set old previous keys = new previous keys
-            _previousKeys = newPreviousKeys;
+        private HashSet<Microsoft.Xna.Framework.Input.Keys> PauseKeyCheck(Microsoft.Xna.Framework.Input.Keys[] currentKeyboardPressed, HashSet<Microsoft.Xna.Framework.Input.Keys> newPreviousKeys)
+        {
+            // for each key, find if it is either previously pressed or a movement key
+            foreach (Microsoft.Xna.Framework.Input.Keys key in currentKeyboardPressed)
+            {
+                // if key passes check, then execute
+                if (keysPauseToCommands.ContainsKey(key))
+                {
+                    if (!_previousKeys.Contains(key))
+                    {
+                        ICommand setKeyboardCommand = keysPauseToCommands[key];
+                        setKeyboardCommand.Execute();
+                    }
+                    // add keys to a new previous
+                    newPreviousKeys.Add(key);
+                }
+            }
+            return newPreviousKeys;
         }
     }
 }
