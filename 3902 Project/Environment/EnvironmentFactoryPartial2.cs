@@ -24,24 +24,24 @@ namespace _3902_Project
             Dictionary<BlockNames, int> level2 = new Dictionary<BlockNames, int>();
             level2.Add(BlockNames.OpenDoor_RIGHT, 1);
             level2.Add(BlockNames.OpenDoor_LEFT, 3);
-            openDoorAssignments.Add(1, level2);
+            openDoorAssignments.Add(2, level2);
 
             // Level 3
             Dictionary<BlockNames, int> level3 = new Dictionary<BlockNames, int>();
             level3.Add(BlockNames.OpenDoor_RIGHT, 2);
             level3.Add(BlockNames.OpenDoor_DOWN, 4);
             level3.Add(BlockNames.OpenDoor_UP, 5);
-            openDoorAssignments.Add(1, level3);
+            openDoorAssignments.Add(3, level3);
 
             // Level 4
             Dictionary<BlockNames, int> level4 = new Dictionary<BlockNames, int>();
             level4.Add(BlockNames.OpenDoor_UP, 3);
-            openDoorAssignments.Add(1, level4);
+            openDoorAssignments.Add(4, level4);
 
             // Level 5
             Dictionary<BlockNames, int> level5 = new Dictionary<BlockNames, int>();
             level5.Add(BlockNames.OpenDoor_DOWN, 3);
-            openDoorAssignments.Add(1, level5);
+            openDoorAssignments.Add(5, level5);
         }
 
         private void moveToNextRoom(BlockNames name)
