@@ -25,7 +25,6 @@ namespace _3902_Project
         // create variables for passing
         private ItemSpriteFactory _factory = ItemSpriteFactory.Instance;
         private SpriteBatch _spriteBatch;
-        private EnvironmentFactory _environmentFactory;
 
         // constructor
         public ItemManager() { }

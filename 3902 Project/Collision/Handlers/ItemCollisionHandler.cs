@@ -13,8 +13,7 @@ public class ItemCollisionHandler : ICollisionHandler
     /// Load everything that this handler needs
     /// </summary>
     /// <param name="item">manager for items</param>
-    public void LoadAll(ItemManager item, EnvironmentFactory environment) { _item = item; _environment = environment;  }
-    public void LoadAll(ItemManager item, PlaySoundEffect sound) { _item = item; _sound = sound; }
+    public void LoadAll(ItemManager item, PlaySoundEffect sound, EnvironmentFactory environment) { _item = item; _sound = sound; _environment = environment; }
 
     // handle collisions based on objectB collision type
     public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)

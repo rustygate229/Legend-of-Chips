@@ -46,8 +46,7 @@ namespace _3902_Project
 
             // Initialize Collision
             _collisionBoxes = new List<List<ICollisionBox>>();
-            _collisionHandlerManager.LoadAll(link, enemy, block, item, projectile, sound);
-            _collisionHandlerManager.LoadAll(link, enemy, block, item, projectile, this);
+            _collisionHandlerManager.LoadAll(link, enemy, block, item, projectile, sound, this);
 
             _csvTranslationsBlock = new Dictionary<string, BlockManager.BlockNames>();
             _csvTranslationsEnemy = new Dictionary<string, EnemyManager.EnemyNames>();
@@ -196,18 +195,17 @@ namespace _3902_Project
             {
 
                 if (i == 0)
-                {
                     loadDoors(_environment[i]);
-                    continue;
-                }
-
-                for (int j = 0; j < _environment[i].Count; j++)
+                else
                 {
-                    string blockToPlace = _environment[i][j];
-
-                    if (_csvTranslationsBlock.ContainsKey(blockToPlace))
+                    for (int j = 0; j < _environment[i].Count; j++)
                     {
-                        _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2((int)_startingPosition.X + 128 + (j * 64), (int)_startingPosition.Y + 128 + (i * 64)), printScale);
+                        string blockToPlace = _environment[i][j];
+
+                        if (_csvTranslationsBlock.ContainsKey(blockToPlace))
+                        {
+                            _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2((int)_startingPosition.X + 128 + (j * 64), (int)_startingPosition.Y + 128 + ((i - 1) * 64)), printScale);
+                        }
                     }
                 }
             }
@@ -250,7 +248,7 @@ namespace _3902_Project
         }
         private void writeToItemCsv(int level)
         {
-            string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Items/Item" + level.ToString() + ".csv";
+            string filepath = Directory.GetCurrentDirectory() + "/../../../Environment/Items/Item" + level.ToString() + ".csv";
 
             int rows = _items.Count;
             int cols = _items[0].Count;
@@ -287,7 +285,7 @@ namespace _3902_Project
         {
             for (int level = _level; level < _endLevel + 1; level++)
             {
-                string filepath = Directory.GetCurrentDirectory() + "/../../../Content/Items/Item" + level.ToString() + ".csv";
+                string filepath = Directory.GetCurrentDirectory() + "/../../../Environment/Items/Item" + level.ToString() + ".csv";
                 _items = ReadCsvFile(filepath);
 
                 for (int i = 0; i < _items.Count; i++)
