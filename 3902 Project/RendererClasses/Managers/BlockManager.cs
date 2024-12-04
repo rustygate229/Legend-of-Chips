@@ -52,20 +52,7 @@ namespace _3902_Project
             _runningBlocks.Add(currentSprite);
 
             if (currentSprite is FBlock_OpenDoor || currentSprite is FBlock_BombedDoor)
-            {
-                switch (name)
-                {
-                    case BlockNames.BombedDoor_DOWN: CreateTeleportBlocks(Renderer.DIRECTION.DOWN, printScale); break;
-                    case BlockNames.BombedDoor_UP: CreateTeleportBlocks(Renderer.DIRECTION.UP, printScale); break;
-                    case BlockNames.BombedDoor_RIGHT: CreateTeleportBlocks(Renderer.DIRECTION.RIGHT, printScale); break;
-                    case BlockNames.BombedDoor_LEFT: CreateTeleportBlocks(Renderer.DIRECTION.LEFT, printScale); break;
-                    case BlockNames.OpenDoor_DOWN: CreateTeleportBlocks(Renderer.DIRECTION.DOWN, printScale); break;
-                    case BlockNames.OpenDoor_UP: CreateTeleportBlocks(Renderer.DIRECTION.UP, printScale); break;
-                    case BlockNames.OpenDoor_RIGHT: CreateTeleportBlocks(Renderer.DIRECTION.RIGHT, printScale); break;
-                    case BlockNames.OpenDoor_LEFT: CreateTeleportBlocks(Renderer.DIRECTION.LEFT, printScale); break;
-                    default: throw new ArgumentException("Not valid openable door in manager");
-                }
-            }
+                CreateTeleportBlocks(name, printScale);
 
             BlockCollisionBox box = new (currentSprite);
             SetHealthDamage(box);
@@ -87,20 +74,7 @@ namespace _3902_Project
             _runningBlocks.Add(currentSprite);
 
             if (currentSprite is FBlock_OpenDoor || currentSprite is FBlock_BombedDoor)
-            {
-                switch (name)
-                {
-                    case BlockNames.BombedDoor_DOWN: CreateTeleportBlocks(Renderer.DIRECTION.DOWN, printScale); break;
-                    case BlockNames.BombedDoor_UP: CreateTeleportBlocks(Renderer.DIRECTION.UP, printScale); break;
-                    case BlockNames.BombedDoor_RIGHT: CreateTeleportBlocks(Renderer.DIRECTION.RIGHT, printScale); break;
-                    case BlockNames.BombedDoor_LEFT: CreateTeleportBlocks(Renderer.DIRECTION.LEFT, printScale); break;
-                    case BlockNames.OpenDoor_DOWN: CreateTeleportBlocks(Renderer.DIRECTION.DOWN, printScale); break;
-                    case BlockNames.OpenDoor_UP: CreateTeleportBlocks(Renderer.DIRECTION.UP, printScale); break;
-                    case BlockNames.OpenDoor_RIGHT: CreateTeleportBlocks(Renderer.DIRECTION.RIGHT, printScale); break;
-                    case BlockNames.OpenDoor_LEFT: CreateTeleportBlocks(Renderer.DIRECTION.LEFT, printScale); break;
-                    default: throw new ArgumentException("Not valid openable door in manager");
-                }
-            }
+                CreateTeleportBlocks(name, printScale);
 
             BlockCollisionBox box = new(currentSprite);
             SetHealthDamage(box);

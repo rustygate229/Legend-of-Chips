@@ -85,17 +85,21 @@ namespace _3902_Project
             }
         }
 
-        public void CreateTeleportBlocks(Renderer.DIRECTION direction, float printScale)
+        public void CreateTeleportBlocks(BlockNames name, float printScale)
         {
             // sadly needs to be accurate to current scaling in Environment
             Vector2 startPos = new(0, 900 - (176 * 4));
             int dimScale = (int)(printScale * 8);
-            switch (direction)
+            switch (name)
             {
-                case Renderer.DIRECTION.DOWN:   AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (124 * printScale)), (int)(startPos.Y + (8 * printScale)), dimScale, dimScale), printScale); break;
-                case Renderer.DIRECTION.UP:     AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (124 * printScale)), (int)(startPos.Y + (160 * printScale)), dimScale, dimScale), printScale); break;
-                case Renderer.DIRECTION.RIGHT:  AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (8 * printScale)), (int)(startPos.Y + (84 * printScale)), dimScale, dimScale), printScale); break;
-                case Renderer.DIRECTION.LEFT:   AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (240 * printScale)), (int)(startPos.Y + (84 * printScale)), dimScale, dimScale), printScale); break;
+                case BlockNames.BombedDoor_DOWN:    AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (124 * printScale)), (int)(startPos.Y + (8 * printScale)), dimScale, dimScale), printScale); break;
+                case BlockNames.BombedDoor_UP:      AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (124 * printScale)), (int)(startPos.Y + (160 * printScale)), dimScale, dimScale), printScale); break;
+                case BlockNames.BombedDoor_RIGHT:   AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (8 * printScale)), (int)(startPos.Y + (84 * printScale)), dimScale, dimScale), printScale); break;
+                case BlockNames.BombedDoor_LEFT:    AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (240 * printScale)), (int)(startPos.Y + (84 * printScale)), dimScale, dimScale), printScale); break;
+                case BlockNames.OpenDoor_DOWN:      AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (124 * printScale)), (int)(startPos.Y + (8 * printScale)), dimScale, dimScale), printScale); break;
+                case BlockNames.OpenDoor_UP:        AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (124 * printScale)), (int)(startPos.Y + (160 * printScale)), dimScale, dimScale), printScale); break;
+                case BlockNames.OpenDoor_RIGHT:     AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (8 * printScale)), (int)(startPos.Y + (84 * printScale)), dimScale, dimScale), printScale); break;
+                case BlockNames.OpenDoor_LEFT:      AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (240 * printScale)), (int)(startPos.Y + (84 * printScale)), dimScale, dimScale), printScale); break;
                 default: break;
             }
         }
