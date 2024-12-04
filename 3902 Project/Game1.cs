@@ -114,7 +114,7 @@ namespace _3902_Project
                     if (PauseCounter == 0)
                         MiscManager.StartMenu(MiscManager.StartMenu_Names.StoryScreen);
                     PauseCounter++;
-                    if (PauseCounter >= (900 * 7.3) / 3.5)
+                    if (PauseCounter >= (900 * 7.35) / 3.5)
                     {
                         _startState = false;
                         MiscManager.UnloadStartMenu();

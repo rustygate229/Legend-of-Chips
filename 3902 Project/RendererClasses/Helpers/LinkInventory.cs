@@ -12,7 +12,7 @@ namespace _3902_Project
         private Dictionary<ProjectileManager.ProjectileNames, int> _projectileInventory = new();
 
         // links current sword type
-        public enum LinkSwordType { WOOD, IRON, MASTER, STAFF }
+        public enum LinkSwordType { WOOD, IRON, MASTER, STAFF, DEBUG }
         private LinkSwordType _linkSwordType;
         public LinkSwordType CurrentLinkSword { get { return _linkSwordType; } set { _linkSwordType = value; } }
 

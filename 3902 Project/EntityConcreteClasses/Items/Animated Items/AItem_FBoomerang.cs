@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _3902_Project
 {
-    public class AItem_FBanana : ISprite
+    public class AItem_FBoomerang : ISprite
     {
         // variables to change based on where your item is and what to print out
         private Rectangle _spritePosition = new (128, 0, 8, 32);
@@ -19,7 +19,7 @@ namespace _3902_Project
         /// </summary>
         /// <param name="spriteSheet"></param>
         /// <param name="printScale"></param>
-        public AItem_FBanana(Texture2D spriteSheet, float printScale)
+        public AItem_FBoomerang(Texture2D spriteSheet, float printScale)
         {
             _item = new(spriteSheet, _spritePosition, _spriteRowAndColumn, printScale, _frames);
             _item.IsCentered = _isCentered;
