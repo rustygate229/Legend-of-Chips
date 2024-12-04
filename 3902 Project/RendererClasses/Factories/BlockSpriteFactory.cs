@@ -117,6 +117,16 @@ namespace _3902_Project
                 default: throw new ArgumentException("Invalid block name");
             }
         }
+
+        public ISprite CreateBlock(BlockManager.BlockNames blockName, Rectangle destinationRectangle, float printScale)
+        {
+            switch (blockName)
+            {
+                case BlockManager.BlockNames.Invisible:
+                    return new SBlock_Invisible(_blockSpritesheet, destinationRectangle, printScale);
+                default: throw new ArgumentException("Invalid block name");
+            }
+        }
     }
 }
 
