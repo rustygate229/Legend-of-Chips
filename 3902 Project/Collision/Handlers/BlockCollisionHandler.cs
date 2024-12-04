@@ -22,10 +22,7 @@
                 HandleLinkProjectileCollision(objectA, objectB, side);
 
             if (objectA.Health <= 0)
-            {
-                _block.CreateTeleportBlocks(objectA, side);
                 _block.ChangeDoors(objectA, side);
-            }
         }
 
         private void HandleLinkCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
@@ -33,7 +30,7 @@
             // add link moving the block logic
             if (_block.IsMovable(objectA))
             {
-
+                
             }
             
             // destroy block logic
@@ -47,7 +44,6 @@
                         {
                             // call move sprite here
                             _sound.PlaySound(PlaySoundEffect.Sounds.Block_DoorOpens);
-                            _block.CreateTeleportBlocks(objectA, side);
                             _block.ChangeDoors(objectA, side);
                             _link.GetLinkInventory().KeyAmount -= 1;
                         }

@@ -85,35 +85,17 @@ namespace _3902_Project
             }
         }
 
-        public void CreateTeleportBlocks(ICollisionBox objectA, CollisionData.CollisionType side)
+        public void CreateTeleportBlocks(Renderer.DIRECTION direction, float printScale)
         {
             // sadly needs to be accurate to current scaling in Environment
             Vector2 startPos = new(0, 900 - (176 * 4));
-            float printScale = 4F;
             int dimScale = (int)(printScale * 8);
-            switch (objectA.Sprite)
+            switch (direction)
             {
-                case FBlock_Wall:
-                    switch (side)
-                    {
-                        case CollisionData.CollisionType.BOTTOM:    AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (124 * printScale)), (int)(startPos.Y + (8 * printScale)), dimScale, dimScale), printScale); break;
-                        case CollisionData.CollisionType.TOP:       AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (124 * printScale)), (int)(startPos.Y + (160 * printScale)), dimScale, dimScale), printScale); break;
-                        case CollisionData.CollisionType.RIGHT:     AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (8 * printScale)), (int)(startPos.Y + (84 * printScale)), dimScale, dimScale), printScale); break;
-                        case CollisionData.CollisionType.LEFT:      AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (240 * printScale)), (int)(startPos.Y + (84 * printScale)), dimScale, dimScale), printScale); break;
-                        default: break;
-                    }
-                    break;
-                case FBlock_DiamondHoleLockedDoor:
-                case FBlock_KeyHoleLockedDoor:
-                    switch (side)
-                    {
-                        case CollisionData.CollisionType.BOTTOM:    AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (8 * printScale)), (int)(startPos.Y + (84 * printScale)), dimScale, dimScale), printScale); break;
-                        case CollisionData.CollisionType.TOP:       AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (124 * printScale)), (int)(startPos.Y + (8 * printScale)), dimScale, dimScale), printScale); break;
-                        case CollisionData.CollisionType.RIGHT:     AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (124 * printScale)), (int)(startPos.Y + (160 * printScale)), dimScale, dimScale), printScale); break;
-                        case CollisionData.CollisionType.LEFT:      AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (240 * printScale)), (int)(startPos.Y + (84 * printScale)), dimScale, dimScale), printScale); break;
-                        default: break;
-                    }
-                    break;
+                case Renderer.DIRECTION.DOWN:   AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (124 * printScale)), (int)(startPos.Y + (8 * printScale)), dimScale, dimScale), printScale); break;
+                case Renderer.DIRECTION.UP:     AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (124 * printScale)), (int)(startPos.Y + (160 * printScale)), dimScale, dimScale), printScale); break;
+                case Renderer.DIRECTION.RIGHT:  AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (8 * printScale)), (int)(startPos.Y + (84 * printScale)), dimScale, dimScale), printScale); break;
+                case Renderer.DIRECTION.LEFT:   AddBlock(BlockNames.Teleport, new Rectangle((int)(startPos.X + (240 * printScale)), (int)(startPos.Y + (84 * printScale)), dimScale, dimScale), printScale); break;
                 default: break;
             }
         }

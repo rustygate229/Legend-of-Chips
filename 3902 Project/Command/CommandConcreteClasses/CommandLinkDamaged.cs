@@ -12,7 +12,14 @@ namespace _3902_Project
 
         public void Execute()
         {
-            _link.IsLinkDamaged = true;
+            switch (_link.LinkDirection)
+            {
+                case Renderer.DIRECTION.DOWN: _link.SetDamaged(50, CollisionData.CollisionType.BOTTOM); break;
+                case Renderer.DIRECTION.UP: _link.SetDamaged(50, CollisionData.CollisionType.TOP); break;
+                case Renderer.DIRECTION.RIGHT: _link.SetDamaged(50, CollisionData.CollisionType.RIGHT); break;
+                case Renderer.DIRECTION.LEFT: _link.SetDamaged(50, CollisionData.CollisionType.LEFT); break;
+                default: break;
+            }
         }
     }
 }

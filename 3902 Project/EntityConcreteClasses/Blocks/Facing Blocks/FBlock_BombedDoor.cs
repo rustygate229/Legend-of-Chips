@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace _3902_Project
 {
@@ -15,6 +14,8 @@ namespace _3902_Project
         // create a Renderer object
         private RendererLists _rendererList;
         private bool _isCentered = false;
+        private float _printScale;
+        private Renderer.DIRECTION _direction;
 
 
         /// <summary>
@@ -22,6 +23,8 @@ namespace _3902_Project
         /// </summary>
         public FBlock_BombedDoor(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale)
         {
+            _printScale = printScale;
+            _direction = facingDirection;
             // create different facing block sprites for the renderer list
             Renderer blockDown = new(spriteSheet, _spriteDownPosition, printScale);
             Renderer blockUp = new(spriteSheet, _spriteUpPosition, printScale);
@@ -52,7 +55,6 @@ namespace _3902_Project
             get { return _rendererList.PositionOnWindow; }
             set { _rendererList.PositionOnWindow = value; }
         }
-
 
         /// <summary>
         /// Updates the block (movement, animation, etc.)

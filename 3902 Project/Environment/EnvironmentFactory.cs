@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -113,52 +114,54 @@ namespace _3902_Project
         private void loadDoors(List<string> doors)
         {
             // Top door
+            BlockManager.BlockNames currentName;
             switch (doors[0])
             {
-                case "c":
-                    _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_UP, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y + 576), 4F); break;
-                case "o":
-                    _blockManager.AddBlock(BlockManager.BlockNames.OpenDoor_UP, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y + 576), 4F); break;
-                case "b":
-                    _blockManager.AddBlock(BlockManager.BlockNames.BombedDoor_UP, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y + 576), 4F); break;
-                default: break;
+                case "c": currentName = BlockManager.BlockNames.DiamondHoleLockedDoor_UP; break;
+                case "k": currentName = BlockManager.BlockNames.KeyHoleLockedDoor_UP; break;
+                case "w": currentName = BlockManager.BlockNames.Wall_UP; break;
+                case "o": currentName = BlockManager.BlockNames.OpenDoor_UP; break;
+                case "b": currentName = BlockManager.BlockNames.BombedDoor_UP; break;
+                default: throw new ArgumentException("Not a valid Door");
             }
+            _blockManager.AddBlock(currentName, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y + 576), 4F);
 
             // Down door
             switch (doors[1])
             {
-                case "c":
-                    _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y), 4F); break;
-                case "o":
-                    _blockManager.AddBlock(BlockManager.BlockNames.OpenDoor_DOWN, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y), 4F); break;
-                case "b":
-                    _blockManager.AddBlock(BlockManager.BlockNames.BombedDoor_DOWN, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y), 4F); break;
-                default: break;
+                case "c": currentName = BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN; break;
+                case "k": currentName = BlockManager.BlockNames.KeyHoleLockedDoor_DOWN; break;
+                case "w": currentName = BlockManager.BlockNames.Wall_DOWN; break;
+                case "o": currentName = BlockManager.BlockNames.OpenDoor_DOWN; break;
+                case "b": currentName = BlockManager.BlockNames.BombedDoor_DOWN; break;
+                default: throw new ArgumentException("Not a valid Door");
             }
+            _blockManager.AddBlock(currentName, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y), 4F);
 
             // Left door
             switch (doors[2])
             {
-                case "c":
-                    _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT, new Vector2((int)_startingPosition.X + 1024 - 128, (int)_startingPosition.Y + 288), 4F);  break;
-                case "o":
-                    _blockManager.AddBlock(BlockManager.BlockNames.OpenDoor_LEFT, new Vector2((int)_startingPosition.X + 1024 - 128, (int)_startingPosition.Y + 288), 4F); break;
-                case "b":
-                    _blockManager.AddBlock(BlockManager.BlockNames.BombedDoor_LEFT, new Vector2((int)_startingPosition.X + 1024 - 128, (int)_startingPosition.Y + 288), 4F); break;
-                default: break;
+                case "c": currentName = BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT; break;
+                case "k": currentName = BlockManager.BlockNames.KeyHoleLockedDoor_LEFT; break;
+                case "w": currentName = BlockManager.BlockNames.Wall_LEFT; break;
+                case "o": currentName = BlockManager.BlockNames.OpenDoor_LEFT; break;
+                case "b": currentName = BlockManager.BlockNames.BombedDoor_LEFT; break;
+                default: throw new ArgumentException("Not a valid Door");
             }
+            _blockManager.AddBlock(currentName, new Vector2((int)_startingPosition.X + 1024 - 128, (int)_startingPosition.Y + 288), 4F);
 
             // Right door
             switch (doors[3])
             {
-                case "c":
-                    _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y + 288), 4F); break;
-                case "o":
-                    _blockManager.AddBlock(BlockManager.BlockNames.OpenDoor_RIGHT, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y + 288), 4F); break;
-                case "b":
-                    _blockManager.AddBlock(BlockManager.BlockNames.BombedDoor_RIGHT, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y + 288), 4F); break;
-                default: break;
+                case "c": currentName = BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT; break;
+                case "k": currentName = BlockManager.BlockNames.KeyHoleLockedDoor_RIGHT; break;
+                case "w": currentName = BlockManager.BlockNames.Wall_RIGHT; break;
+                case "o": currentName = BlockManager.BlockNames.OpenDoor_RIGHT; break;
+                case "b": currentName = BlockManager.BlockNames.BombedDoor_RIGHT; break;
+                default: throw new ArgumentException("Not a valid Door");
             }
+            _blockManager.AddBlock(currentName, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y + 288), 4F);
+
         }
 
         private void loadBlocks()
@@ -309,9 +312,7 @@ namespace _3902_Project
             _collisionBoxes.Clear();
 
             // add the collision boxes IN ORDER (VERY IMPORTANT)
-            List<ICollisionBox> linkCollision = new() { _linkManager.CollisionBox };
-
-            _collisionBoxes.Add(linkCollision);
+            _collisionBoxes.Add(_linkManager.GetCollisionBoxes());
             _collisionBoxes.Add(_enemyManager.GetCollisionBoxes());
             _collisionBoxes.Add(_blockManager.GetCollisionBoxes());
             _collisionBoxes.Add(_projectileManager.GetCollisionBoxes());

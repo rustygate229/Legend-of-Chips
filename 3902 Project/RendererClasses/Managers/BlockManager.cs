@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 namespace _3902_Project
@@ -50,6 +51,22 @@ namespace _3902_Project
             currentSprite.PositionOnWindow = placementPosition;
             _runningBlocks.Add(currentSprite);
 
+            if (currentSprite is FBlock_OpenDoor || currentSprite is FBlock_BombedDoor)
+            {
+                switch (name)
+                {
+                    case BlockNames.BombedDoor_DOWN: CreateTeleportBlocks(Renderer.DIRECTION.DOWN, printScale); break;
+                    case BlockNames.BombedDoor_UP: CreateTeleportBlocks(Renderer.DIRECTION.UP, printScale); break;
+                    case BlockNames.BombedDoor_RIGHT: CreateTeleportBlocks(Renderer.DIRECTION.RIGHT, printScale); break;
+                    case BlockNames.BombedDoor_LEFT: CreateTeleportBlocks(Renderer.DIRECTION.LEFT, printScale); break;
+                    case BlockNames.OpenDoor_DOWN: CreateTeleportBlocks(Renderer.DIRECTION.DOWN, printScale); break;
+                    case BlockNames.OpenDoor_UP: CreateTeleportBlocks(Renderer.DIRECTION.UP, printScale); break;
+                    case BlockNames.OpenDoor_RIGHT: CreateTeleportBlocks(Renderer.DIRECTION.RIGHT, printScale); break;
+                    case BlockNames.OpenDoor_LEFT: CreateTeleportBlocks(Renderer.DIRECTION.LEFT, printScale); break;
+                    default: throw new ArgumentException("Not valid openable door in manager");
+                }
+            }
+
             BlockCollisionBox box = new (currentSprite);
             SetHealthDamage(box);
             SetCollision(box);
@@ -68,6 +85,22 @@ namespace _3902_Project
             currentSprite.PositionOnWindow = new(destinationRectangle.X, destinationRectangle.Y);
             currentSprite.DestinationRectangle = destinationRectangle;
             _runningBlocks.Add(currentSprite);
+
+            if (currentSprite is FBlock_OpenDoor || currentSprite is FBlock_BombedDoor)
+            {
+                switch (name)
+                {
+                    case BlockNames.BombedDoor_DOWN: CreateTeleportBlocks(Renderer.DIRECTION.DOWN, printScale); break;
+                    case BlockNames.BombedDoor_UP: CreateTeleportBlocks(Renderer.DIRECTION.UP, printScale); break;
+                    case BlockNames.BombedDoor_RIGHT: CreateTeleportBlocks(Renderer.DIRECTION.RIGHT, printScale); break;
+                    case BlockNames.BombedDoor_LEFT: CreateTeleportBlocks(Renderer.DIRECTION.LEFT, printScale); break;
+                    case BlockNames.OpenDoor_DOWN: CreateTeleportBlocks(Renderer.DIRECTION.DOWN, printScale); break;
+                    case BlockNames.OpenDoor_UP: CreateTeleportBlocks(Renderer.DIRECTION.UP, printScale); break;
+                    case BlockNames.OpenDoor_RIGHT: CreateTeleportBlocks(Renderer.DIRECTION.RIGHT, printScale); break;
+                    case BlockNames.OpenDoor_LEFT: CreateTeleportBlocks(Renderer.DIRECTION.LEFT, printScale); break;
+                    default: throw new ArgumentException("Not valid openable door in manager");
+                }
+            }
 
             BlockCollisionBox box = new(currentSprite);
             SetHealthDamage(box);
@@ -112,13 +145,7 @@ namespace _3902_Project
             List<ICollisionBox> unloadList = new List<ICollisionBox>();
             foreach (var block in _collisionBoxes)
             { 
-                block.Sprite.Update(); 
-                // *NOTE* need to change, since once a block gets destroyed, we need to spawn a new one (Wall -> Bombed_Wall)
-            }
-            foreach (var block in unloadList) 
-            {
-                if (_collisionBoxes.Contains(block))
-                    UnloadBlock(block);
+                block.Sprite.Update();
             }
         }
     }
