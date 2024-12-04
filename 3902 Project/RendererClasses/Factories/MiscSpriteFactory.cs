@@ -11,6 +11,7 @@ namespace _3902_Project
         private Texture2D _letterSpriteSheet;
         private Texture2D _miscSpriteSheet;
         private Texture2D _hudSpriteSheet;
+        private Texture2D _startScreenMenu;
 
         // create a new instance of BlockSpriteFactory
         private static MiscSpriteFactory instance = new MiscSpriteFactory();
@@ -28,6 +29,7 @@ namespace _3902_Project
             _letterSpriteSheet = content.Load<Texture2D>("SpriteSheets\\Block&Room(Dungeon)_Transparent");
             _miscSpriteSheet = content.Load<Texture2D>("SpriteSheets\\Misc_Transparent");
             _hudSpriteSheet = content.Load<Texture2D>("SpriteSheets\\HUD&Pause");
+            _startScreenMenu = content.Load<Texture2D>("SpriteSheets\\StartScreen");
         }
 
         /// <summary>
@@ -61,6 +63,34 @@ namespace _3902_Project
                     return new Projectiles(_hudSpriteSheet, printScale);
                 case MiscManager.Misc_Names.Panal:
                     return new Panal(_hudSpriteSheet, printScale);
+                default: throw new ArgumentException("Not a valid Misc Name");
+            }
+        }
+
+        public ISprite CreateTransition(MiscManager.Transition_Names name)
+        {
+            switch (name)
+            {
+                case MiscManager.Transition_Names.Black_FadeInTotal:
+                    return new FadeIn_Total(_hudSpriteSheet);
+                case MiscManager.Transition_Names.Black_FadeOutTotal:
+                    return new FadeOut_Total(_hudSpriteSheet);
+                case MiscManager.Transition_Names.Black_FadeInPartial:
+                    return new FadeIn_Partial(_hudSpriteSheet);
+                case MiscManager.Transition_Names.Black_FadeOutPartial:
+                    return new FadeOut_Partial(_hudSpriteSheet);
+                default: throw new ArgumentException("Not a valid Misc Name");
+            }
+        }
+
+        public ISprite CreateStartScreen(MiscManager.StartMenu_Names name)
+        {
+            switch (name)
+            {
+                case MiscManager.StartMenu_Names.StartScreen:
+                    return new StartScreen(_startScreenMenu);
+                case MiscManager.StartMenu_Names.StoryScreen:
+                    return new StoryScreen(_startScreenMenu);
                 default: throw new ArgumentException("Not a valid Misc Name");
             }
         }

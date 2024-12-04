@@ -27,6 +27,14 @@ namespace _3902_Project
 
 
         Texture2D _outline;
+        private bool _pauseState = false;
+        public bool PauseState { get { return _pauseState; } set { _pauseState = value; } }
+        private int _pauseCounter = 0;
+        public int PauseCounter { get { return _pauseCounter; } set { _pauseCounter = value; } }
+        private bool _startState = true;
+        public bool StartState { get { return _startState; } set { _startState = value; } }
+        private bool _userPressedEnter;
+        public bool UserPressedEnter { get { return _userPressedEnter; } set { _userPressedEnter = value; } }
         private bool _drawCollidables = false;
         public bool DoDrawCollisions
         {
@@ -86,7 +94,10 @@ namespace _3902_Project
             LinkManager.LoadAll(_spriteBatch, Content, MySoundEffect, ProjectileManager);
             MiscManager.LoadAll(_spriteBatch, Content);
             BackgroundMusic.LoadAll(Content);
-            HUD.LoadAll(_spriteBatch, LinkManager, ItemManager, MiscManager);
+            HUD.LoadAll(LinkManager, ItemManager, MiscManager);
+            MiscManager.StartTransition(MiscManager.Transition_Names.Black_FadeOutTotal);
+            MiscManager.StartMenu(MiscManager.StartMenu_Names.StartScreen);
+
             // for the showing of collisions
             _outline = Content.Load<Texture2D>("SpriteSheets\\Block&Room(Dungeon)_Transparent");
 
@@ -96,20 +107,39 @@ namespace _3902_Project
 
         protected override void Update(GameTime gameTime)
         {
-            BlockManager.Update();
-            ItemManager.Update();
-            ProjectileManager.Update();
-            EnemyManager.Update(); 
-            LinkManager.Update();
-            MiscManager.Update();
-            EnvironmentFactory.Update();
+            if (_startState)
+            {
+                if (UserPressedEnter)
+                {
+                    if (PauseCounter == 0)
+                        MiscManager.StartMenu(MiscManager.StartMenu_Names.StoryScreen);
+                    PauseCounter++;
+                    if (PauseCounter >= (900 * 7.3) / 3.5)
+                    {
+                        _startState = false;
+                        MiscManager.UnloadStartMenu();
+                        PauseCounter = 1;
+                        UserPressedEnter = false;
+                    }
+                }
+            }
+            else if (!PauseState && PauseCounter == 0)
+            {
+                BlockManager.Update();
+                ItemManager.Update();
+                ProjectileManager.Update();
+                EnemyManager.Update();
+                LinkManager.Update();
+                EnvironmentFactory.Update();
+                MiscManager.Update();
 
+                if (LinkManager.CollisionBox.Health <= 0)
+                    ResetGame();
+            }
+            
             // Update input controls
             keyboardController.Update();
             mouseController.Update();
-
-            if (LinkManager.CollisionBox.Health <= 0)
-                ResetGame();
 
             base.Update(gameTime);
         }
@@ -117,18 +147,35 @@ namespace _3902_Project
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            
-            BlockManager.Draw();
-            ItemManager.Draw();
-            ProjectileManager.Draw();
-            EnemyManager.Draw();
-            LinkManager.Draw();
-            HUD.Draw();
-            MiscManager.Draw();
 
-            // draw the collisions if the enters "C"
-            if (DoDrawCollisions)
-                DrawCollisions();
+            if (_startState)
+                MiscManager.UpdateAndDrawStartScreen(_spriteBatch);
+            else
+            {
+                BlockManager.Draw();
+                ItemManager.Draw();
+                ProjectileManager.Draw();
+                EnemyManager.Draw();
+                LinkManager.Draw();
+                HUD.Draw();
+                MiscManager.Draw();
+
+                // draw the collisions if the enters "C"
+                if (DoDrawCollisions)
+                    DrawCollisions();
+
+                if (PauseState)
+                    MiscManager.UpdateAndDrawTransition(_spriteBatch);
+
+                if (!PauseState && PauseCounter != 0)
+                {
+                    MiscManager.UpdateAndDrawTransition(_spriteBatch);
+                    PauseCounter++;
+                    // sadly. must hard code the same value present in sprite class
+                    if (PauseCounter >= 530 / 10)
+                        PauseCounter = 0;
+                }
+            }
 
             base.Draw(gameTime);
         }
@@ -178,6 +225,8 @@ namespace _3902_Project
         {
             // need to have a sequence play out first, but that will need a transition
             MySoundEffect.PlaySound(PlaySoundEffect.Sounds.Enemy_Death);
+            _startState = false;
+            PauseCounter = 1;
             Initialize();
         }
     }

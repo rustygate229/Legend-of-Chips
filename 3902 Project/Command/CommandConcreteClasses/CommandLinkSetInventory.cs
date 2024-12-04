@@ -21,10 +21,6 @@ namespace _3902_Project
                     _link.CurrentProjectile = ProjectileManager.ProjectileNames.BlueArrow; break;
                 case 3: // Boomerang - FIREBALL PLACEHOLDER
                     _link.CurrentProjectile = ProjectileManager.ProjectileNames.Boomerang; break;
-                case 4: // ?? - FIREBALL PLACEHOLDER
-                    _link.CurrentProjectile = ProjectileManager.ProjectileNames.FireBall; break;
-                case 5: // ??? - FIREBALL PLACEHOLDER
-                    _link.CurrentProjectile = ProjectileManager.ProjectileNames.FireBall; break;
                 default: break;
             }
         }

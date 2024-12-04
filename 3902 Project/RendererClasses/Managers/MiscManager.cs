@@ -9,12 +9,16 @@ namespace _3902_Project
     public class MiscManager
     {
         private List<ISprite> _runningMisc = new List<ISprite>();
+        private ISprite _currentTransition;
+        private ISprite _currentStartScreen;
 
         // create variables for passing
         private MiscSpriteFactory _factory = MiscSpriteFactory.Instance;
         private SpriteBatch _spriteBatch;
 
         public enum Misc_Names { Emeralds, Keys, Projectiles, Panal }
+        public enum Transition_Names { Black_FadeInTotal, Black_FadeOutTotal, Black_FadeInPartial, Black_FadeOutPartial }
+        public enum StartMenu_Names { StartScreen, StoryScreen }
 
         // constructor
         public MiscManager() { }
@@ -27,7 +31,7 @@ namespace _3902_Project
 
 
         /// <summary>
-        /// Add an letter to the running letter list
+        /// Add an letter to the running misc list
         /// </summary>
         /// <param name="name"></param>
         /// <param name="placementPosition"></param>
@@ -43,7 +47,7 @@ namespace _3902_Project
         }
 
         /// <summary>
-        /// Add an letter to the running letter list
+        /// Add a misc item to the running misc list
         /// </summary>
         /// <param name="name"></param>
         /// <param name="printScale"></param>
@@ -59,9 +63,37 @@ namespace _3902_Project
         }
 
         /// <summary>
+        /// Adds a transtition to the running transition list
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public ISprite StartTransition(Transition_Names name)
+        {
+            ISprite currentSprite = _factory.CreateTransition(name);
+            _currentTransition = currentSprite;
+
+            return currentSprite;
+        }
+
+        public ISprite StartMenu(StartMenu_Names name)
+        {
+            ISprite currentSprite = _factory.CreateStartScreen(name);
+            _currentStartScreen = currentSprite;
+
+            return currentSprite;
+        }
+
+        public ISprite GetCurrentTransition() { return _currentTransition; }
+
+        /// <summary>
         /// Remove/Unload all Block Sprites
         /// </summary>
-        public void UnloadAllLetters() { _runningMisc.Clear(); }
+        public void UnloadAllMisc() { _runningMisc.Clear(); }
+
+        public void UnloadTransition() { _currentTransition = null; }
+
+        public void UnloadStartMenu() { _currentStartScreen = null; }
+
 
         public void UnloadMisc(ISprite name) { _runningMisc.Remove(name); }
 
@@ -71,10 +103,8 @@ namespace _3902_Project
         /// </summary>
         public void Draw()
         {
-            foreach (var letter in _runningMisc)
-            {
-                letter.Draw(_spriteBatch);
-            }
+            foreach (var misc in _runningMisc)
+                misc.Draw(_spriteBatch);
         }
 
 
@@ -83,10 +113,20 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            foreach (var letter in _runningMisc)
-            {
-                letter.Update();
-            }
+            foreach (var misc in _runningMisc)
+                misc.Update();
+        }
+
+        public void UpdateAndDrawTransition(SpriteBatch spriteBatch)
+        {
+            _currentTransition?.Update();
+            _currentTransition?.Draw(_spriteBatch);
+        }
+
+        public void UpdateAndDrawStartScreen(SpriteBatch spriteBatch)
+        {
+            _currentStartScreen?.Update();
+            _currentStartScreen?.Draw(_spriteBatch);
         }
     }
 }
