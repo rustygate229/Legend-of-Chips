@@ -17,7 +17,7 @@ namespace _3902_Project
         private ISprite _spriteProjectile;
 
         private int level;
-        private int maxLevel = 4;
+        private int maxLevel = 5;
 
         public HUD() {}
         public void LoadAll(SpriteBatch spriteBatch, LinkManager link, ItemManager item, MiscManager misc)
