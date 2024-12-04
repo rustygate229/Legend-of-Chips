@@ -106,8 +106,27 @@ namespace _3902_Project
                         _manager.CallProjectile(
                             ProjectileManager.ProjectileNames.WoodSwordAttack, _linkProjectile, 
                             helper.GetPositionAhead(0.4F, LinkDestinationRectangle), _direction, _printScale
-                        );
-                        break;
+                        ); break;
+                    case LinkInventory.LinkSwordType.IRON:
+                        _manager.CallProjectile(
+                            ProjectileManager.ProjectileNames.IronSwordAttack, _linkProjectile,
+                            helper.GetPositionAhead(0.4F, LinkDestinationRectangle), _direction, _printScale
+                        ); break;
+                    case LinkInventory.LinkSwordType.MASTER:
+                        _manager.CallProjectile(
+                            ProjectileManager.ProjectileNames.MasterSwordAttack, _linkProjectile,
+                            helper.GetPositionAhead(0.4F, LinkDestinationRectangle), _direction, _printScale
+                        ); break;
+                    case LinkInventory.LinkSwordType.STAFF:
+                        _manager.CallProjectile(
+                            ProjectileManager.ProjectileNames.MagicStaffSAttack, _linkProjectile,
+                            helper.GetPositionAhead(0.4F, LinkDestinationRectangle), _direction, _printScale
+                        ); break;
+                    case LinkInventory.LinkSwordType.DEBUG:
+                        _manager.CallProjectile(
+                            ProjectileManager.ProjectileNames.DebugSwordAttack, _linkProjectile,
+                            helper.GetPositionAhead(0.4F, LinkDestinationRectangle), _direction, _printScale
+                        ); break;
                     default: break;
                 }
             }

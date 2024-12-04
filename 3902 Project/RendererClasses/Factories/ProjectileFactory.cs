@@ -42,7 +42,11 @@ namespace _3902_Project
                 case ProjectileManager.ProjectileNames.Boomerang:
                     return new PJoiner_Boomerang(_linkSpriteSheet, direction, printScale);
                 case ProjectileManager.ProjectileNames.WoodSwordAttack:
-                    return new PJoiner_WoodSword(name, _linkSpriteSheet, direction, printScale);
+                case ProjectileManager.ProjectileNames.IronSwordAttack:
+                case ProjectileManager.ProjectileNames.MasterSwordAttack:
+                case ProjectileManager.ProjectileNames.MagicStaffSAttack:
+                case ProjectileManager.ProjectileNames.DebugSwordAttack:
+                    return new PJoiner_SwordAttack(name, _linkSpriteSheet, direction, printScale);
                 default: throw new ArgumentException("Invalid projectile name in factory");
             }
 
