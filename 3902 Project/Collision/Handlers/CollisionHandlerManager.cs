@@ -27,7 +27,7 @@ namespace _3902_Project
         {
             _linkCollisionHandler.LoadAll(link, sound);
             _enemyCollisionHandler.LoadAll(enemy, sound);
-            _blockCollisionHandler.LoadAll(block, sound);
+            _blockCollisionHandler.LoadAll(block, sound, link);
             _itemCollisionHandler.LoadAll(item, sound);
             _projectileCollisionHandler.LoadAll(projectile, sound);
         }

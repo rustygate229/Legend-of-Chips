@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace _3902_Project
@@ -54,6 +53,8 @@ namespace _3902_Project
             // added this so link fires in front of himself
             if (CanFireProjectile())
             {
+                if (CurrentProjectile is ProjectileManager.ProjectileNames.Bomb)
+                    _soundEffect.PlaySound(PlaySoundEffect.Sounds.ItemPlace_Bomb);
                 _manager.CallProjectile(
                     CurrentProjectile, _linkProjectile, 
                     helper.GetPositionAhead(PositionAheadScale(), LinkDestinationRectangle), _direction, _printScale
@@ -62,7 +63,7 @@ namespace _3902_Project
             }
         }
 
-        private ItemManager.ItemNames ProjectileConversion(ProjectileManager.ProjectileNames projectile)
+        private static ItemManager.ItemNames ProjectileConversion(ProjectileManager.ProjectileNames projectile)
         {
             switch (projectile)
             {
@@ -71,6 +72,18 @@ namespace _3902_Project
                 case ProjectileManager.ProjectileNames.Boomerang:   return ItemManager.ItemNames.FlashingBanana;
                 default: throw new ArgumentException("There is no conversion for this projectile");
             }
+        }
+
+        public bool IsLinkShieldFaceEnemy(CollisionData.CollisionType side)
+        {
+            if (
+                (side.Equals(CollisionData.CollisionType.BOTTOM) && LinkDirection.Equals(Renderer.DIRECTION.DOWN))
+                || (side.Equals(CollisionData.CollisionType.TOP) && LinkDirection.Equals(Renderer.DIRECTION.UP))
+                || (side.Equals(CollisionData.CollisionType.RIGHT) && LinkDirection.Equals(Renderer.DIRECTION.RIGHT))
+                || (side.Equals(CollisionData.CollisionType.LEFT) && LinkDirection.Equals(Renderer.DIRECTION.LEFT))
+                )
+                return true;
+            else return false;
         }
 
 

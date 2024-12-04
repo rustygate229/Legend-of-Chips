@@ -10,11 +10,8 @@ namespace _3902_Project
         public void SetHealthDamage(ICollisionBox box, int health) { box.Health = _maxHealth; box.Damage = 0; }
 
 
-        private int _maxHealth = 10;
+        private int _maxHealth = 6;
         public int MaxHealth { get { return _maxHealth; } set { _maxHealth = value; } }
-
-        private CollisionData.CollisionType _collisionDetectedSide;
-        public void SetCollisionSide(CollisionData.CollisionType side) { _collisionDetectedSide = side; }
 
         public bool IsLinkDamaged { get { return _damageHelper.IsDamaged; } set { _damageHelper.IsDamaged = value; } }
 
@@ -41,12 +38,15 @@ namespace _3902_Project
                 case SItem_BossKey: _inventory.AddItem(ItemManager.ItemNames.NormalKey, 1); break;
                 case SItem_AddLife: MaxHealth += 2; CollisionBox.Health += 2; break;
                 case AItem_FLife:
-                case AItem_FPotion:
                     if (CollisionBox.Health + 2 > MaxHealth) CollisionBox.Health = MaxHealth;
                     else CollisionBox.Health += 2; break;
+                case AItem_FPotion:
+                case SItem_Meat:
+                    if (CollisionBox.Health + 3 > MaxHealth) CollisionBox.Health = MaxHealth;
+                    else CollisionBox.Health += 3; break;
                 default: break;
             }
-            Console.WriteLine("Current Link Health: " + CollisionBox.Health);
+            // Console.WriteLine("Current Link Health: " + CollisionBox.Health);
         }
     }
 }

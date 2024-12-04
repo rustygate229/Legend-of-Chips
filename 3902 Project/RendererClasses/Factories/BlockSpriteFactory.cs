@@ -109,8 +109,11 @@ namespace _3902_Project
                     return new FBlock_Wall(_blockSpritesheet, Renderer.DIRECTION.RIGHT, printScale);
                 case BlockManager.BlockNames.Wall_LEFT:
                     return new FBlock_Wall(_blockSpritesheet, Renderer.DIRECTION.LEFT, printScale);
+
                 case BlockManager.BlockNames.Invisible:
                     return new SBlock_Invisible(_blockSpritesheet, printScale);
+                case BlockManager.BlockNames.Teleport:
+                    return new SBlock_Teleport(_blockSpritesheet, printScale);
                 default: throw new ArgumentException("Invalid block name");
             }
         }

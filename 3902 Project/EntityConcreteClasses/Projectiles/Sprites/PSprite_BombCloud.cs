@@ -7,7 +7,7 @@ namespace _3902_Project
     {
         // variables to change based on where your projectile is and what to print out
         private Rectangle _spriteBombCloud = new (138, 185, 51, 16);
-        private Vector2 _spriteRowAndColumn = new Vector2(1, 3);
+        private Vector2 _spriteRowAndColumn = new (1, 3);
         private int _bombCloudFrames = 30;
 
         private Renderer _bombCloud;

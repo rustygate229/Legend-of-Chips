@@ -1,8 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using System;
-using System.Threading;
-using static _3902_Project.Renderer;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace _3902_Project
 {
@@ -65,8 +62,8 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-            Vector2 newPosition = _fireBall.PositionOnWindow + _updatePosition;
-            _fireBall.PositionOnWindow = newPosition;
+            _fireBall.UpdateFrames();
+            _fireBall.PositionOnWindow += _updatePosition;
         }
 
 

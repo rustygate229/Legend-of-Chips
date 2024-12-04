@@ -76,14 +76,14 @@ namespace _3902_Project
             mouseController = new MouseInput(this);
 
             // Loading all Managers
+            MySoundEffect.LoadAll(Content);
             BlockManager.LoadAll(_spriteBatch, Content);
             ItemManager.LoadAll(_spriteBatch, Content);
             ProjectileManager.LoadAll(_spriteBatch, Content);
             EnemyManager.LoadAll(_spriteBatch, Content, ProjectileManager);
-            LinkManager.LoadAll(_spriteBatch, Content, ProjectileManager);
+            LinkManager.LoadAll(_spriteBatch, Content, MySoundEffect, ProjectileManager);
             MiscManager.LoadAll(_spriteBatch, Content);
             BackgroundMusic.LoadAll(Content);
-            MySoundEffect.LoadAll(Content);
             HUD.LoadAll(_spriteBatch, LinkManager, ItemManager, MiscManager);
             // for the showing of collisions
             _outline = Content.Load<Texture2D>("SpriteSheets\\Block&Room(Dungeon)_Transparent");

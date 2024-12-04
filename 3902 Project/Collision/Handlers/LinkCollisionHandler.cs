@@ -36,43 +36,57 @@ namespace _3902_Project
                 _sound.PlaySound(PlaySoundEffect.Sounds.Link_Zapped);
                 objectA.Health -= objectB.Damage;
                 _link.SetDamaged(50, side);
-                _link.SetCollisionSide(side);
             }
         }
 
         private void HandleEnemyProjCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
             // if link is NOT in damage state, activate the state and remove health from link
-            if (_link.IsLinkDamaged == false)
+            if (_link.IsLinkDamaged == false && !_link.IsLinkShieldFaceEnemy(side))
             {
                 _sound.PlaySound(PlaySoundEffect.Sounds.Link_Zapped);
                 objectA.Health -= objectB.Damage;
                 _link.SetDamaged(50, side);
-                _link.SetCollisionSide(side);
             }
         }
 
 
         private void HandleBlockCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            // Handle player collision with block
-            Rectangle BoundsA = objectA.Bounds;
-            Rectangle BoundsB = objectB.Bounds;
-
-            switch (side)
+            if (objectB.Sprite is SBlock_Teleport)
             {
-                case CollisionData.CollisionType.BOTTOM:
-                    BoundsA.Y = BoundsB.Top - BoundsA.Height; break;    // Move player above the block
-                case CollisionData.CollisionType.TOP:
-                    BoundsA.Y = BoundsB.Bottom; break;                  // Move player below the block
-                case CollisionData.CollisionType.RIGHT:
-                    BoundsA.X = BoundsB.Left - BoundsA.Width; break;    // Move player to the left of the block
-                case CollisionData.CollisionType.LEFT:
-                    BoundsA.X = BoundsB.Right; break;                   // Move player to the right of the block
-                default: break;
+                Vector2 startPos = new(0, 900 - (176 * 4));
+                float printScale = 4f;
+                switch (side)
+                {
+                    case CollisionData.CollisionType.BOTTOM:    _link.LinkPositionOnWindow = new(startPos.X + (119 * printScale), startPos.Y + (34 * printScale)); break;
+                    case CollisionData.CollisionType.TOP:       _link.LinkPositionOnWindow = new(startPos.X + (120 * printScale), startPos.Y + (126 * printScale)); break;
+                    case CollisionData.CollisionType.RIGHT:     _link.LinkPositionOnWindow = new(startPos.X + (34 * printScale), startPos.Y + (80 * printScale)); break;
+                    case CollisionData.CollisionType.LEFT:      _link.LinkPositionOnWindow = new(startPos.X + (206 * printScale), startPos.Y + (80 * printScale)); break;
+                    default: break;
+                }
             }
+            else
+            {
+                // Handle player collision with block
+                Rectangle BoundsA = objectA.Bounds;
+                Rectangle BoundsB = objectB.Bounds;
 
-            _link.LinkPositionOnWindow = new (BoundsA.X, BoundsA.Y);
+                switch (side)
+                {
+                    case CollisionData.CollisionType.BOTTOM:
+                        BoundsA.Y = BoundsB.Top - BoundsA.Height; break;    // Move player above the block
+                    case CollisionData.CollisionType.TOP:
+                        BoundsA.Y = BoundsB.Bottom; break;                  // Move player below the block
+                    case CollisionData.CollisionType.RIGHT:
+                        BoundsA.X = BoundsB.Left - BoundsA.Width; break;    // Move player to the left of the block
+                    case CollisionData.CollisionType.LEFT:
+                        BoundsA.X = BoundsB.Right; break;                   // Move player to the right of the block
+                    default: break;
+                }
+
+                _link.LinkPositionOnWindow = new(BoundsA.X, BoundsA.Y);
+            }
         }
 
         private void HandleItemCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)

@@ -8,7 +8,7 @@ namespace _3902_Project
     public partial class LinkManager
     {
         // create link names for finding them
-        public enum LinkSprite { Standing, Moving, Throwing }
+        public enum LinkSprite { Standing, Moving, Throwing, Won }
         public enum LinkActions { SwordAttack, SwordThrow, None }
 
         private LinkSprite _currentLinkSprite;
@@ -26,6 +26,7 @@ namespace _3902_Project
         private LinkSpriteFactory _factory = LinkSpriteFactory.Instance;
         private ProjectileManager _manager;
         private SpriteBatch _spriteBatch;
+        private PlaySoundEffect _soundEffect;
 
         // Links global variables
         private ICollisionBox _collisionBox;
@@ -44,11 +45,12 @@ namespace _3902_Project
         public LinkManager() { }
 
         // Load all link textures
-        public void LoadAll(SpriteBatch spriteBatch, ContentManager content, ProjectileManager manager) {
+        public void LoadAll(SpriteBatch spriteBatch, ContentManager content, PlaySoundEffect sounds, ProjectileManager manager) {
             // initialize inventory
             _inventory = new();
             _spriteBatch = spriteBatch;
             _manager = manager;
+            _soundEffect = sounds;
             _factory.LoadAllTextures(content);
 
             // all initial stuff
@@ -57,6 +59,7 @@ namespace _3902_Project
             CurrentLinkAction = LinkActions.None;
             LinkDirection = Renderer.DIRECTION.DOWN;
             IsLinkDamaged = false;
+            _inventory.LinkShield = true;
             _inventory.CurrentLinkSword = LinkInventory.LinkSwordType.WOOD;
 
             CurrentLink = _factory.CreateLink(CurrentLinkSprite, _inventory.LinkShield, _direction, _printScale, _manager);

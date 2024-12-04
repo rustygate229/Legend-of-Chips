@@ -10,7 +10,7 @@ namespace _3902_Project
         // create block names for finding them
         public enum BlockNames
         {
-            Environment, Dirt, Square, Tile, WhiteBrick, WhiteTile, Water, Invisible,
+            Environment, Dirt, Square, Tile, WhiteBrick, WhiteTile, Water, Invisible, Teleport,
             BombedDoor_DOWN, BombedDoor_UP, BombedDoor_RIGHT, BombedDoor_LEFT,
             DiamondHoleLockedDoor_DOWN, DiamondHoleLockedDoor_UP, DiamondHoleLockedDoor_RIGHT, DiamondHoleLockedDoor_LEFT,
             KeyHoleLockedDoor_DOWN, KeyHoleLockedDoor_UP, KeyHoleLockedDoor_RIGHT, KeyHoleLockedDoor_LEFT,

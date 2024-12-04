@@ -8,7 +8,7 @@ namespace _3902_Project
     {
         // variables to change based on where your projectile is and what to print out
         private Rectangle _spriteFire = new (191, 185, 16, 16);
-        private Vector2 _spriteRowAndColumn = new Vector2(1, 1);
+        private Vector2 _spriteRowAndColumn = new (1, 1);
         private int _fireFrames = 30;
 
         private Renderer _fire;

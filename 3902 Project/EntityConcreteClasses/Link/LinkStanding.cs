@@ -12,8 +12,8 @@ namespace _3902_Project
 
         // Big Shield link
         private Rectangle _spriteBigShieldDownPosition = new(289, 11, 16, 16);
-        private Rectangle _spriteBigShieldUpPosition = new(305, 11, 16, 16);
-        private Rectangle _spriteBigShieldRightLeftPosition = new(34, 11, 16, 16);
+        private Rectangle _spriteBigShieldUpPosition = new(69, 11, 16, 16);
+        private Rectangle _spriteBigShieldRightLeftPosition = new(323, 11, 16, 16);
 
         // create a Renderer object
         private RendererLists _rendererList;

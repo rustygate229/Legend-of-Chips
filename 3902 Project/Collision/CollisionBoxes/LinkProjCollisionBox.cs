@@ -27,7 +27,7 @@ namespace _3902_Project
         public ISprite Sprite
         {
             get { return _sprite; }
-            set { _sprite = value; }
+            set { _sprite = value; Bounds = _sprite.DestinationRectangle; }
         }
 
         public Rectangle Bounds

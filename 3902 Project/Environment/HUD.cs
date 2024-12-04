@@ -35,7 +35,7 @@ namespace _3902_Project
 
         public void DrawWeapon(LinkInventory.LinkSwordType name)
         {
-            Vector2 placementPosition = new (480, 100);
+            Vector2 placementPosition = new (469, 85);
             float printScale = 4F;
             switch (name) {
                 case LinkInventory.LinkSwordType.WOOD:
@@ -46,7 +46,7 @@ namespace _3902_Project
 
         public void DrawProjectile(ProjectileManager.ProjectileNames name)
         {
-            Vector2 placementPosition = new(610, 100);
+            Vector2 placementPosition = new(607, 85);
             float printScale = 4F;
             switch (name)
             {

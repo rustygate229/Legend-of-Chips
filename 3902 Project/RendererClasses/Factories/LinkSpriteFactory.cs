@@ -1,6 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 using System;
 
 namespace _3902_Project
@@ -32,7 +31,9 @@ namespace _3902_Project
                 case LinkManager.LinkSprite.Throwing:
                     return new LinkAction(_linkSpritesheet, direction, printScale);
                 case LinkManager.LinkSprite.Moving:
-                    return new LinkMoving(_linkSpritesheet, direction, printScale, manager);
+                    return new LinkMoving(_linkSpritesheet, shieldStatus, direction, printScale, manager);
+                case LinkManager.LinkSprite.Won:
+                    return new LinkWon(_linkSpritesheet, printScale);
                 default: throw new ArgumentException("invalid link name");
             }
         }

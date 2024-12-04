@@ -14,9 +14,9 @@ namespace _3902_Project
 
         private ICollisionBox _collisionBox;
         private int _counter;
-        private int _bombFireCounter = 80;
-        private int _bombCloudCounter = 100;
-        private int _counterTotal = 130;
+        private int _bombFireCounter = 60;
+        private int _bombCloudCounter = 90;
+        private int _counterTotal = 120;
 
         /// <summary>
         /// constructor for the projectile sprite: <c>Blue Arrow</c>
@@ -42,7 +42,7 @@ namespace _3902_Project
         public ISprite CurrentSprite
         {
             get { return _currentSprite; }
-            set { Vector2 oldPosition = _currentSprite.PositionOnWindow; _currentSprite = value; _currentSprite.PositionOnWindow = oldPosition; }
+            set { Vector2 oldPosition = _currentSprite.PositionOnWindow; _currentSprite = value; _currentSprite.PositionOnWindow = oldPosition; CollisionBox.Sprite = value; }
         }
 
         public Vector2 PositionOnWindow
@@ -77,6 +77,7 @@ namespace _3902_Project
                 CurrentSprite = _bombFire;
             else
                 CurrentSprite = _bombCloud;
+
 
             CurrentSprite.Update();
         }

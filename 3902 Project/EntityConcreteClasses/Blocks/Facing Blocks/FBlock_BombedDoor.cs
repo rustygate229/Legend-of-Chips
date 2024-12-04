@@ -7,10 +7,10 @@ namespace _3902_Project
     public class FBlock_BombedDoor : ISprite
     {
         // variables to change based on where your block is and what to print out
-        private Rectangle _spriteDownPosition = new (914, 11, 32, 32);
-        private Rectangle _spriteUpPosition = new (914, 110, 32, 32);
-        private Rectangle _spriteRightPosition = new (914, 44, 32, 32);
-        private Rectangle _spriteLeftPosition = new (914, 77, 32, 32);
+        private Rectangle _spriteDownPosition = new (947, 11, 32, 32);
+        private Rectangle _spriteUpPosition = new (947, 110, 32, 32);
+        private Rectangle _spriteRightPosition = new (947, 44, 32, 32);
+        private Rectangle _spriteLeftPosition = new (947, 77, 32, 32);
 
         // create a Renderer object
         private RendererLists _rendererList;

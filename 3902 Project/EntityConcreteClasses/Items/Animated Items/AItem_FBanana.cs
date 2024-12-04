@@ -6,7 +6,7 @@ namespace _3902_Project
     public class AItem_FBanana : ISprite
     {
         // variables to change based on where your item is and what to print out
-        private Rectangle _spritePosition = new (112, 0, 8, 32);
+        private Rectangle _spritePosition = new (128, 0, 8, 32);
         private Vector2 _spriteRowAndColumn = new (2, 1);
         private int _frames = 12;
 

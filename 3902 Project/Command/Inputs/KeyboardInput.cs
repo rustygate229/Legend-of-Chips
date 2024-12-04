@@ -58,13 +58,6 @@ namespace _3902_Project
 
         }
 
-
-        private bool IsMoveKey(Microsoft.Xna.Framework.Input.Keys key)
-        {
-            return key == Microsoft.Xna.Framework.Input.Keys.W || key == Microsoft.Xna.Framework.Input.Keys.A || key == Microsoft.Xna.Framework.Input.Keys.S || key == Microsoft.Xna.Framework.Input.Keys.D ||
-                   key == Microsoft.Xna.Framework.Input.Keys.Up || key == Microsoft.Xna.Framework.Input.Keys.Down || key == Microsoft.Xna.Framework.Input.Keys.Left || key == Microsoft.Xna.Framework.Input.Keys.Right;
-        }
-
         // Update method to check keyboard input and execute corresponding commands
         public void Update()
         {
@@ -89,7 +82,7 @@ namespace _3902_Project
                 }
             }
             // if conditions for movement keys
-            if (currentKeyboardPressed.Length == 0) { new CommandLinkStill(_game).Execute(); }
+            if (currentKeyboardPressed.Length == 0 && _previousKeys.Count != 0) { new CommandLinkStill(_game).Execute(); }
             else if (currentKeyboardPressed.Length > 0)
             {
                 Microsoft.Xna.Framework.Input.Keys key = currentKeyboardPressed[currentKeyboardPressed.Length - 1];

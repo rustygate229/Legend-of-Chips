@@ -7,30 +7,50 @@ namespace _3902_Project
     public class LinkMoving : IColor
     {
         // variables for link in frame 1 of the moving link sprite animation
-        private Rectangle _spriteDownPosition = new(0, 11, 32, 16);
+        private Rectangle _spriteLittleShieldDownPosition = new(0, 11, 32, 16);
+        private Rectangle _spriteLittleShieldRightLeftPosition = new(34, 11, 32, 16);
+
+        // Big Shield link
+        private Rectangle _spriteBigShieldDownPosition = new(289, 11, 32, 16);
+        private Rectangle _spriteBigShieldRightLeftPosition = new(323, 11, 32, 16);
+
         private Rectangle _spriteUpPosition = new(69, 11, 32, 16);
-        private Rectangle _spriteRightLeftPosition = new(34, 11, 32, 16);
+
 
         private Vector2 _spriteRowAndColumn = new(1, 2);
-        private int _framerate = 12;
-        private float _positionSpeed = 2f;
+        private int _frames = 12;
+        private float _positionSpeed = 3f;
         private Vector2 _updatePosition;
 
 
         // create a Renderer object
-        private RendererLists _rendererList;
+        private Renderer _linkDown;
+        private Renderer _linkUp;
+        private Renderer _linkRightLeft;
         private bool _isCentered = true;
+        private RendererLists _rendererList;
+
 
         /// <summary>
         /// Constructs the block (set values, create Rendering, etc.); takes the Block Spritesheet
         /// </summary>
-        public LinkMoving(Texture2D spriteSheet, Renderer.DIRECTION facingDirection, float printScale, ProjectileManager manager)
+        public LinkMoving(Texture2D spriteSheet, bool shieldStatus, Renderer.DIRECTION facingDirection, float printScale, ProjectileManager manager)
         {
+            // create current shield Link
+            if (!shieldStatus)
+            {
+                _linkDown = new(spriteSheet, _spriteLittleShieldDownPosition, _spriteRowAndColumn, printScale, _frames);
+                _linkRightLeft = new(spriteSheet, _spriteLittleShieldRightLeftPosition, _spriteRowAndColumn, printScale, _frames);
+            }
+            else
+            {
+                _linkDown = new(spriteSheet, _spriteBigShieldDownPosition, _spriteRowAndColumn, printScale, _frames);
+                _linkRightLeft = new(spriteSheet, _spriteBigShieldRightLeftPosition, _spriteRowAndColumn, printScale, _frames);
+            }
+            _linkUp = new(spriteSheet, _spriteUpPosition, _spriteRowAndColumn, printScale, _frames);
+
             // create different facing block sprites for the renderer list
-            Renderer linkDown = new(spriteSheet, _spriteDownPosition, _spriteRowAndColumn, printScale, _framerate);
-            Renderer linkUp = new(spriteSheet, _spriteUpPosition, _spriteRowAndColumn, printScale, _framerate);
-            Renderer linkRightLeft = new(spriteSheet, _spriteRightLeftPosition, _spriteRowAndColumn, printScale, _framerate);
-            Renderer[] rendererListSetArray = { linkDown, linkUp, linkRightLeft };
+            Renderer[] rendererListSetArray = { _linkDown, _linkUp, _linkRightLeft };
             // create renderer list
             _rendererList = new RendererLists(rendererListSetArray, RendererLists.RendOrder.Size3RightLeft);
             _rendererList.IsCentered = _isCentered;

@@ -59,22 +59,7 @@ namespace _3902_Project
         public Vector2 PositionOnWindow
         {
             get { return _positionOnWindow; }
-            set {
-                if (AnimatedStatus is STATUS.SeparatedAnimated)
-                {
-                    List<Tuple<Rectangle, Rectangle>> tempTupleList = new();
-                    foreach (var tuple in _sAndDRectList)
-                    {
-                        Rectangle tempDestRect = tuple.Item2;
-                        tempDestRect.X = (int)value.X;
-                        tempDestRect.Y = (int)value.Y;
-                        Tuple<Rectangle, Rectangle> tempTuple = new(tuple.Item1, tempDestRect);
-                        tempTupleList.Add(tempTuple);
-                    }
-                    _sAndDRectList = tempTupleList;
-                }
-                else _positionOnWindow = value;
-            }
+            set { _positionOnWindow = value; }
         }
 
         private float _printScale;
@@ -107,6 +92,7 @@ namespace _3902_Project
         // item animation requirements
         private Vector2 _rowsAndColumns;
         private int _currentFrame;
+        public int CurrentFrame { get { return _currentFrame; } }
         private int _previousFrame;
         private int _reversedFrame;
         private int _totalFrames;
@@ -177,8 +163,8 @@ namespace _3902_Project
             {
                 Rectangle destinationRectangle = new(
                     0, 0,
-                    (int)((sourceRectangle.Width / _rowsAndColumns.Y) * printScale),
-                    (int)((sourceRectangle.Height / _rowsAndColumns.X) * printScale)
+                    (int)(sourceRectangle.Width * printScale),
+                    (int)(sourceRectangle.Height * printScale)
                     );
                 Tuple<Rectangle, Rectangle> newListAddon = new Tuple<Rectangle, Rectangle> (sourceRectangle, destinationRectangle);
                 _sAndDRectList.Add(newListAddon);

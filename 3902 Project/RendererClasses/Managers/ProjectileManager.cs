@@ -83,6 +83,7 @@ namespace _3902_Project
             {
                 projectile.Update();
                 projectile.CollisionBox.Bounds = projectile.CurrentSprite.DestinationRectangle;
+                SetCollidable(projectile.CollisionBox);
                 SetDamageSwitches(projectile.CollisionBox);
                 if (projectile.RemovableFlip is true)
                     unloadList.Add(projectile);

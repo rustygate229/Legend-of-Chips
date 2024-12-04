@@ -4,6 +4,7 @@
     {
         private BlockManager _block;
         private PlaySoundEffect _sound;
+        private LinkManager _link;
 
         public BlockCollisionHandler() { }
 
@@ -11,7 +12,7 @@
         /// Load everything that this handler needs
         /// </summary>
         /// <param name="block">manager for blocks</param>
-        public void LoadAll(BlockManager block, PlaySoundEffect sound) { _block = block; _sound = sound; }
+        public void LoadAll(BlockManager block, PlaySoundEffect sound, LinkManager link) { _block = block; _sound = sound; _link = link; }
 
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
@@ -20,10 +21,11 @@
             if (objectB is LinkProjCollisionBox)
                 HandleLinkProjectileCollision(objectA, objectB, side);
 
-
-            // might not be needed for transitioning blocks
-            // if (objectA.Health <= 0)
-                // _block.UnloadBlock(objectA);
+            if (objectA.Health <= 0)
+            {
+                _block.CreateTeleportBlocks(objectA, side);
+                _block.ChangeDoors(objectA, side);
+            }
         }
 
         private void HandleLinkCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
@@ -41,8 +43,14 @@
                 {
                     case FBlock_DiamondHoleLockedDoor:
                     case FBlock_KeyHoleLockedDoor:
-                        // call move sprite here
-                        _sound.PlaySound(PlaySoundEffect.Sounds.Block_DoorOpens);
+                        if (_link.GetLinkInventory().KeyAmount > 0)
+                        {
+                            // call move sprite here
+                            _sound.PlaySound(PlaySoundEffect.Sounds.Block_DoorOpens);
+                            _block.CreateTeleportBlocks(objectA, side);
+                            _block.ChangeDoors(objectA, side);
+                            _link.GetLinkInventory().KeyAmount -= 1;
+                        }
                         break;
                     default: break;
                 }
@@ -51,7 +59,7 @@
 
         private void HandleLinkProjectileCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            if (objectB is PJoiner_Bomb && _block.IsOpenable(objectA))
+            if (objectB.Sprite is PSprite_BombCloud && _block.IsOpenable(objectA))
             {
                 objectA.Health -= objectB.Damage;
             }

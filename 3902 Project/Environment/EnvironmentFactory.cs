@@ -17,6 +17,7 @@ namespace _3902_Project
         private int _level;
         private int _prevLevel = -1; // -1 is a stand in for a null value
         private int _endLevel = 4;
+        private float printScale = 4;
 
         private Dictionary<string, BlockManager.BlockNames> _csvTranslationsBlock;
         private Dictionary<string, EnemyManager.EnemyNames> _csvTranslationsEnemy;
@@ -26,7 +27,7 @@ namespace _3902_Project
         private List<List<string>> _enemies;
         private List<List<string>> _items;
 
-        private Vector2 _startingPosition = new (0, 200);
+        private Vector2 _startingPosition = new (0, 900 - (176 * 4));
 
         public List<List<ICollisionBox>> _collisionBoxes;
         
@@ -121,27 +122,30 @@ namespace _3902_Project
             string filepath = Directory.GetCurrentDirectory() + "/../../../Environment/Levels/Level" + _level.ToString() + ".csv";
             _environment = ReadCsvFile(filepath);
 
-            _blockManager.AddBlock(BlockManager.BlockNames.Environment, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y), 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y), 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_UP, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y + 576), 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y + 288), 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT, new Vector2((int)_startingPosition.X + 1024 - 128, (int)_startingPosition.Y + 288), 4F);
-            Rectangle TopRight =    new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 128);
-            Rectangle TopLeft =     new((int)(_startingPosition.X), (int)(_startingPosition.Y), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X), 128); //
-            Rectangle BottomRight = new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 128); 
-            Rectangle BottomLeft =  new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 128);
-            Rectangle RightBottom = new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 128);
-            Rectangle RightTop =    new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 128);
-            Rectangle LeftBottom =  new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 128);
-            Rectangle LeftTop =     new((int)(_startingPosition.X), (int)(_startingPosition.Y), (int)(_startingPosition.Y + 448) - (int)(_startingPosition.Y), 128);
-            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, TopRight, 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, TopLeft, 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, BottomRight, 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, BottomLeft, 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, RightBottom, 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, RightTop, 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, LeftBottom, 4F);
-            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, LeftTop, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.Environment, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y), printScale);
+            _blockManager.AddBlock(BlockManager.BlockNames.Wall_DOWN, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y), printScale);
+            _blockManager.AddBlock(BlockManager.BlockNames.Wall_UP, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y + 576), printScale);
+            _blockManager.AddBlock(BlockManager.BlockNames.Wall_RIGHT, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y + 288), printScale);
+            _blockManager.AddBlock(BlockManager.BlockNames.Wall_LEFT, new Vector2((int)_startingPosition.X + 1024 - 128, (int)_startingPosition.Y + 288), printScale);
+            Rectangle TopRight =    new((int)(_startingPosition.X) + (int)(144 * printScale), (int)(_startingPosition.Y), (int)(112 * printScale), (int)(32 * printScale)); //
+            Rectangle TopLeft =     new((int)(_startingPosition.X), (int)(_startingPosition.Y), (int)(112 * printScale), (int)(32 * printScale)); //
+
+            Rectangle BottomRight = new((int)(_startingPosition.X) + (int)(144 * printScale), (int)(_startingPosition.Y) + (int)(144 * printScale), (int)(112 * printScale), (int)(32 * printScale)); //
+            Rectangle BottomLeft =  new((int)(_startingPosition.X), (int)(_startingPosition.Y) + (int)(144 * printScale), (int)(112 * printScale), (int)(32 * printScale)); //
+
+            Rectangle RightBottom = new((int)(_startingPosition.X) + (int)(224 * printScale), (int)(_startingPosition.Y) + (int)(104 * printScale), (int)(32 * printScale), (int)(72 * printScale)); //
+            Rectangle RightTop =    new((int)(_startingPosition.X) + (int)(224 * printScale), (int)(_startingPosition.Y), (int)(32 * printScale), (int)(72 * printScale)); //
+
+            Rectangle LeftBottom =  new((int)(_startingPosition.X), (int)(_startingPosition.Y) + (int)(104 * printScale), (int)(32 * printScale), (int)(112 * printScale)); //
+            Rectangle LeftTop =     new((int)(_startingPosition.X), (int)(_startingPosition.Y), (int)(32 * printScale), (int)(72 * printScale)); //
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, TopRight, printScale);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, TopLeft, printScale);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, BottomRight, printScale);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, BottomLeft, printScale);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, RightBottom, printScale);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, RightTop, printScale);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, LeftBottom, printScale);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, LeftTop, printScale);
 
             for (int i = 0; i < _environment.Count; i++)
             {
@@ -151,7 +155,7 @@ namespace _3902_Project
 
                     if (_csvTranslationsBlock.ContainsKey(blockToPlace))
                     {
-                        _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2((int)_startingPosition.X + 128 + (j * 64), (int)_startingPosition.Y + 128 + (i * 64)), 4F);
+                        _blockManager.AddBlock(_csvTranslationsBlock[blockToPlace], new Vector2((int)_startingPosition.X + 128 + (j * 64), (int)_startingPosition.Y + 128 + (i * 64)), printScale);
                     }
                 }
             }
@@ -169,7 +173,7 @@ namespace _3902_Project
                     string enemyToPlace = _enemies[i][j];
 
                     if (_csvTranslationsEnemy.ContainsKey(enemyToPlace))
-                        _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2((int)_startingPosition.X + 128 + (j * 64), (int)_startingPosition.Y + 128 + (i * 64)), 4F);
+                        _enemyManager.AddEnemy(_csvTranslationsEnemy[enemyToPlace], new Vector2((int)_startingPosition.X + 128 + (j * 64), (int)_startingPosition.Y + 128 + (i * 64)), printScale);
                 }
             }
         }
@@ -187,7 +191,7 @@ namespace _3902_Project
 
                     if (_csvTranslationsItem.ContainsKey(itemToPlace))
                     {
-                        _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2((int)_startingPosition.X + 128 + (j * 64), (int)_startingPosition.Y + 128 + (i * 64)), 4F);
+                        _itemManager.AddItem(_csvTranslationsItem[itemToPlace], new Vector2((int)_startingPosition.X + 128 + (j * 64), (int)_startingPosition.Y + 128 + (i * 64)), printScale);
                     }
                 }
             }
