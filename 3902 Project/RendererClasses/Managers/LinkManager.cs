@@ -95,6 +95,20 @@ namespace _3902_Project
                 // Console.WriteLine("Current Link Health: " + CollisionBox.Health);
             }
 
+            if (CurrentLinkSprite is LinkSprite.Moving)
+            {
+                float positionSpeed = 3F;
+                switch (LinkDirection)
+                {
+                    case Renderer.DIRECTION.DOWN:   _manager.SetNewSwordPosition(new Vector2(0, Math.Abs(positionSpeed))); break;
+                    case Renderer.DIRECTION.UP: _manager.SetNewSwordPosition(new Vector2(0, -(Math.Abs(positionSpeed)))); break;
+                    case Renderer.DIRECTION.RIGHT: _manager.SetNewSwordPosition(new Vector2(Math.Abs(positionSpeed), 0)); break;
+                    case Renderer.DIRECTION.LEFT: _manager.SetNewSwordPosition(new Vector2(-(Math.Abs(positionSpeed)), 0)); break;
+                    default: throw new ArgumentException("Invalid direction type for updatePosition");
+                }
+            }
+                
+
             if ((_swordDamageDecrementTotal >= 0) && (_swordDamageDecrementTotal < 10))
                 _swordDamageDecrementTotal--;
             else if (_swordDamageDecrementTotal != 10)

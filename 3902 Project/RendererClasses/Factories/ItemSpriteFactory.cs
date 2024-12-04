@@ -55,7 +55,7 @@ namespace _3902_Project
                 case ItemManager.ItemNames.Ladder:
                     return new SItem_Ladder(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.WoodSword:
-                    return new SItem_MasterSword(_itemSpritesheet, printScale);
+                    return new SItem_WoodSword(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.BlueArrow:
                     return new SItem_BlueArrow(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.MagicStaff:
@@ -67,7 +67,7 @@ namespace _3902_Project
                 case ItemManager.ItemNames.Shield:
                     return new SItem_Shield(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Sword:
-                    return new SItem_Sword(_itemSpritesheet, printScale);
+                    return new SItem_MasterSword(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.WaterPlate:
                     return new SItem_WaterPlate(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.HeartFull:
@@ -82,7 +82,7 @@ namespace _3902_Project
                 case ItemManager.ItemNames.FlashingArrow:
                     return new AItem_FArrow(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.FlashingBanana:
-                    return new AItem_FBanana(_itemSpritesheet, printScale);
+                    return new AItem_FBoomerang(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.FlashingCandle:
                     return new AItem_FCandle(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.FlashingEmerald:

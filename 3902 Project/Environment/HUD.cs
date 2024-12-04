@@ -7,22 +7,17 @@ namespace _3902_Project
 {
     public class HUD
     {
-        private SpriteBatch _spriteBatch;
         private LinkManager _linkManager;
         private ItemManager _itemManager;
         private MiscManager _miscManager;
         private LinkInventory _inventory;
 
-        private ISprite _spriteWeapon;
-        private ISprite _spriteProjectile;
-
         private int level;
         private int maxLevel = 5;
 
         public HUD() {}
-        public void LoadAll(SpriteBatch spriteBatch, LinkManager link, ItemManager item, MiscManager misc)
+        public void LoadAll(LinkManager link, ItemManager item, MiscManager misc)
         {
-            _spriteBatch = spriteBatch;
             _linkManager = link;
             _itemManager = item;
             _miscManager = misc;
@@ -39,7 +34,7 @@ namespace _3902_Project
             float printScale = 4F;
             switch (name) {
                 case LinkInventory.LinkSwordType.WOOD:
-                    _spriteWeapon = _itemManager.AddMenuItem(ItemManager.ItemNames.WoodSword, placementPosition, printScale); break;
+                    _itemManager.AddMenuItem(ItemManager.ItemNames.WoodSword, placementPosition, printScale); break;
                 default: break;
             }
         }
@@ -51,11 +46,11 @@ namespace _3902_Project
             switch (name)
             {
                 case ProjectileManager.ProjectileNames.Bomb:
-                    _spriteProjectile = _itemManager.AddMenuItem(ItemManager.ItemNames.Bomb, placementPosition, printScale); break;
+                    _itemManager.AddMenuItem(ItemManager.ItemNames.Bomb, placementPosition, printScale); break;
                 case ProjectileManager.ProjectileNames.BlueArrow:
-                    _spriteProjectile = _itemManager.AddMenuItem(ItemManager.ItemNames.BlueArrow, placementPosition, printScale); break;
+                    _itemManager.AddMenuItem(ItemManager.ItemNames.BlueArrow, placementPosition, printScale); break;
                 case ProjectileManager.ProjectileNames.Boomerang:
-                    _spriteProjectile = _itemManager.AddMenuItem(ItemManager.ItemNames.FlashingBanana, placementPosition, printScale); break;
+                    _itemManager.AddMenuItem(ItemManager.ItemNames.FlashingBanana, placementPosition, printScale); break;
                 default: break;
             }
         }
@@ -100,29 +95,28 @@ namespace _3902_Project
         {
             // Draw a heart shape based on the character's HP
             int fullHearts = _linkManager.CollisionBox.Health / 2;
-            bool hasHalfHeart = _linkManager.CollisionBox.Health != 0;
+            bool hasHalfHeart = _linkManager.CollisionBox.Health % 2 != 0;
             int maxHearts = _linkManager.MaxHealth / 2;
 
             float heartScale = 4F; // Scaling ratio for heart
 
+            int j = 0;
             for (int i = 0; i < maxHearts; i++)
             {
-                ISprite heartSprite;
+                int heightMatch;
+                if (i < 8) heightMatch = 128;
+                else if (i < 16) heightMatch = 92;
+                else heightMatch = 56;
 
                 if (i < fullHearts)
-                {
-                    heartSprite = _itemManager.AddMenuItem(ItemManager.ItemNames.HeartFull, new Vector2(700 + i * 40, 60), heartScale);
-                }
+                    _itemManager.AddMenuItem(ItemManager.ItemNames.HeartFull, new Vector2(685 + j * 40, heightMatch), heartScale);
                 else if (i == fullHearts && hasHalfHeart)
-                {
-                    heartSprite = _itemManager.AddMenuItem(ItemManager.ItemNames.HeartHalf, new Vector2(700 + i * 40, 60), heartScale);
-                }
+                    _itemManager.AddMenuItem(ItemManager.ItemNames.HeartHalf, new Vector2(685 + j * 40, heightMatch), heartScale);
                 else
-                {
-                    heartSprite = _itemManager.AddMenuItem(ItemManager.ItemNames.HeartEmpty, new Vector2(700 + i * 40, 60), heartScale);
-                }
+                    _itemManager.AddMenuItem(ItemManager.ItemNames.HeartEmpty, new Vector2(685 + j * 40, heightMatch), heartScale);
 
-                heartSprite.Draw(_spriteBatch);
+                j++;
+                if (j == 8) j = 0;
             }
         }
 
@@ -183,7 +177,7 @@ namespace _3902_Project
         public void Draw()
         {
             _itemManager.UnloadAllMenuItems();
-            _miscManager.UnloadAllLetters();
+            _miscManager.UnloadAllMisc();
             DrawText();
             DrawWeapon(_inventory.CurrentLinkSword);
             DrawProjectile(_linkManager.CurrentProjectile);

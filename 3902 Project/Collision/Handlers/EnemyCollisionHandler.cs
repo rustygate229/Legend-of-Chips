@@ -1,12 +1,12 @@
 ﻿using _3902_Project;
 using Microsoft.Xna.Framework;
 using System;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
+using System.ComponentModel.Design;
 
 public class EnemyCollisionHandler
 {
-    EnemyManager _enemy;
+    private EnemyManager _enemy;
+    private ItemManager _item;
     private PlaySoundEffect _sound;
 
     public EnemyCollisionHandler() { }
@@ -15,9 +15,10 @@ public class EnemyCollisionHandler
     /// Load everything that this handler needs
     /// </summary>
     /// <param name="enemy">manager for enemies</param>
-    public void LoadAll(EnemyManager enemy, PlaySoundEffect sound)
+    public void LoadAll(EnemyManager enemy, ItemManager item, PlaySoundEffect sound)
     {
         _enemy = enemy;
+        _item = item;
         _sound = sound;
     }
 
@@ -53,17 +54,33 @@ public class EnemyCollisionHandler
 
     private void HandleLinkProjCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
     {
+        Random random = new();
         if (!_enemy.IsDamaged(objectA.Sprite))
         {
             switch (objectA.Sprite)
             {
-                default: _enemy.SetDamageHelper(50, false, side, objectA.Sprite); break;
+                default: _enemy.SetDamageHelper(45, false, side, objectA.Sprite); break;
             }
             if (objectA.Health > 0)
                 _sound.PlaySound(PlaySoundEffect.Sounds.Enemy_Zapped);
             else
             {
                 _sound.PlaySound(PlaySoundEffect.Sounds.Enemy_Death);
+                switch(objectA.Sprite)
+                {
+                    case GreenSlime:
+                        if (random.Next(4) <= 2) _item.AddItem(ItemManager.ItemNames.FlashingEmerald, objectA.Sprite.PositionOnWindow, 4f);
+                        else if (random.Next(4) <= 3) _item.AddItem(ItemManager.ItemNames.BlueArrow, objectA.Sprite.PositionOnWindow, 4f);
+                        break;
+                    case Darknut:
+                        if (random.Next(4) <= 2) _item.AddItem(ItemManager.ItemNames.FlashingEmerald, objectA.Sprite.PositionOnWindow, 4f);
+                        else if (random.Next(4) <= 3) _item.AddItem(ItemManager.ItemNames.BlueArrow, objectA.Sprite.PositionOnWindow, 4f);
+                        break;
+                    case BrownSlime:
+                        if (random.Next(4) <= 2) _item.AddItem(ItemManager.ItemNames.FlashingEmerald, objectA.Sprite.PositionOnWindow, 4f);
+                        else if (random.Next(4) <= 3) _item.AddItem(ItemManager.ItemNames.BlueArrow, objectA.Sprite.PositionOnWindow, 4f);
+                        break;
+                }
                 _enemy.UnloadEnemy(objectA);
             }
 

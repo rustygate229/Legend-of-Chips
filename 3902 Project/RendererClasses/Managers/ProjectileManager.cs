@@ -94,5 +94,17 @@ namespace _3902_Project
                     UnloadProjectileJoiner(projectile);
             }
         }
+
+        public void SetNewSwordPosition(Vector2 updatePosition)
+        {
+            foreach (var projectile in _runningProjectileJoiners)
+            {
+                if (projectile is PJoiner_WoodSword)
+                {
+                    projectile.PositionOnWindow += updatePosition;
+                }
+            }
+
+        }
     }
 }

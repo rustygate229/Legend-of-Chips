@@ -55,7 +55,7 @@
 
         private void HandleLinkProjectileCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
-            if (objectB.Sprite is PSprite_BombCloud && _block.IsOpenable(objectA))
+            if (objectB.Sprite is PSprite_BombCloud && objectA.Sprite is FBlock_Wall)
             {
                 objectA.Health -= objectB.Damage;
             }

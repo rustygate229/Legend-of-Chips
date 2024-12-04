@@ -14,11 +14,7 @@ namespace _3902_Project
             _environment = ReadCsvFile(filepath);
 
             _blockManager.AddBlock(BlockManager.BlockNames.Environment, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y), printScale);
-            _blockManager.AddBlock(BlockManager.BlockNames.Wall_DOWN, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y), printScale);
-            _blockManager.AddBlock(BlockManager.BlockNames.Wall_UP, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y + 576), printScale);
-            _blockManager.AddBlock(BlockManager.BlockNames.Wall_RIGHT, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y + 288), printScale);
 
-            _blockManager.AddBlock(BlockManager.BlockNames.Wall_LEFT, new Vector2((int)_startingPosition.X + 1024 - 128, (int)_startingPosition.Y + 288), printScale);
             Rectangle TopRight =    new((int)(_startingPosition.X) + (int)(144 * printScale), (int)(_startingPosition.Y), (int)(112 * printScale), (int)(32 * printScale)); //
             Rectangle TopLeft =     new((int)(_startingPosition.X), (int)(_startingPosition.Y), (int)(112 * printScale), (int)(32 * printScale)); //
 

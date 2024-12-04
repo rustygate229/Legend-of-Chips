@@ -36,10 +36,10 @@ namespace _3902_Project
             float scale = 0;
             switch(CurrentProjectile)
             {
-                case ProjectileManager.ProjectileNames.Boomerang:
-                    scale = 1F; break;
-                case ProjectileManager.ProjectileNames.BlueArrow:
                 case ProjectileManager.ProjectileNames.Bomb:
+                    scale = 0.75F; break;
+                case ProjectileManager.ProjectileNames.BlueArrow:
+                case ProjectileManager.ProjectileNames.Boomerang:
                 case ProjectileManager.ProjectileNames.FireBall:
                     scale = 0.5F; break;
                 default:  break;
@@ -105,7 +105,7 @@ namespace _3902_Project
                     case LinkInventory.LinkSwordType.WOOD:
                         _manager.CallProjectile(
                             ProjectileManager.ProjectileNames.WoodSwordAttack, _linkProjectile, 
-                            helper.GetPositionAhead(0.3F, LinkDestinationRectangle), _direction, _printScale
+                            helper.GetPositionAhead(0.4F, LinkDestinationRectangle), _direction, _printScale
                         );
                         break;
                     default: break;

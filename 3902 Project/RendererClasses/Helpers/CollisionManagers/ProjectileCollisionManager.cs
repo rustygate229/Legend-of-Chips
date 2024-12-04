@@ -15,6 +15,10 @@ namespace _3902_Project
                 // *NOTE* also implement bomb being moved away from a block collision when placed
                 case PSprite_BombCloud:
                 case PSprite_WoodSword:
+                case PSprite_IronSword:
+                case PSprite_MasterSword:
+                case PSprite_MagicStaff:
+                case PSprite_DebugSword:
                     return false;
                 default: return box.IsCollidable;
             }
@@ -29,6 +33,10 @@ namespace _3902_Project
                 case PSprite_BombCloud:     box.Health = 1; box.Damage = 3; break;
                 case PSprite_Boomerang:     box.Health = 1; box.Damage = 2; break;
                 case PSprite_WoodSword:     box.Health = 1; box.Damage = 1; break;
+                case PSprite_IronSword:     box.Health = 1; box.Damage = 3; break;
+                case PSprite_MasterSword:   box.Health = 1; box.Damage = 5; break;
+                case PSprite_DebugSword:    box.Health = 1; box.Damage = 1000; break;
+                case PSprite_MagicWave:     box.Health = 1; box.Damage = 5; break;
                 default:                    box.Health = 1; box.Damage = 0; break;
             }
         }
@@ -42,13 +50,11 @@ namespace _3902_Project
                 case PSprite_BombCloud:
                 case PSprite_Boomerang:
                 case PSprite_WoodSword:
+                case PSprite_IronSword:
+                case PSprite_MasterSword:
+                case PSprite_MagicStaff:
+                case PSprite_DebugSword:
                     box.IsCollidable = true;
-                    break;
-                case PSprite_SmallExplosion:
-                // bomb will become collidable since it needs to not be on top of blocks
-                case PSprite_Bomb:
-                case PSprite_Fire:
-                    box.IsCollidable = false;
                     break;
                 default:
                     box.IsCollidable = false;

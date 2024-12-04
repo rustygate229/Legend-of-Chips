@@ -3,10 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _3902_Project
 {
-    public class SItem_Sword : ISprite
+    public class SItem_IronSword : ISprite
     {
         // variables to change based on where your item is and what to print out
-        private Rectangle _spritePosition = new (112, 0, 8, 16);
+        private Rectangle _spritePosition = new(104, 16, 8, 16);
 
         // create a Renderer object
         private Renderer _item;
@@ -18,7 +18,7 @@ namespace _3902_Project
         /// </summary>
         /// <param name="spriteSheet"></param>
         /// <param name="printScale"></param>
-        public SItem_Sword(Texture2D spriteSheet, float printScale)
+        public SItem_IronSword(Texture2D spriteSheet, float printScale)
         {
             _item = new(spriteSheet, _spritePosition, printScale);
             _item.IsCentered = _isCentered;
@@ -46,7 +46,7 @@ namespace _3902_Project
         /// <summary>
         /// update the sprite via Renderer method
         /// </summary>
-        public void Update() { _item.UpdateFrames(); }
+        public void Update() { }
 
 
         /// <summary>

@@ -46,7 +46,7 @@ namespace _3902_Project
         /// <summary>
         /// update the sprite via Renderer method
         /// </summary>
-        public void Update() { _item.UpdateFrames(); }
+        public void Update() { }
 
 
         /// <summary>
