@@ -22,6 +22,7 @@ namespace _3902_Project
         internal BackgroundMusic BackgroundMusic = new();
         internal PlaySoundEffect MySoundEffect = new();
         internal HUD HUD = new();
+        internal CollisionManager CollisionManager = new();
 
         //private List<ICollisionBox> _EnemyCollisionBoxes;
 
@@ -74,6 +75,7 @@ namespace _3902_Project
             BackgroundMusic = new();
             MySoundEffect = new();
             HUD = new();
+            CollisionManager = new();
             LoadContent();
     }
 
@@ -103,6 +105,8 @@ namespace _3902_Project
 
             EnvironmentFactory.LoadAll(LinkManager, EnemyManager, BlockManager, ItemManager, ProjectileManager, MySoundEffect);
             EnvironmentFactory.loadLevel();
+
+            CollisionManager.LoadAll(LinkManager, EnemyManager, BlockManager, ItemManager, ProjectileManager, MySoundEffect, EnvironmentFactory);
         }
 
         protected override void Update(GameTime gameTime)
@@ -132,6 +136,7 @@ namespace _3902_Project
                 LinkManager.Update();
                 EnvironmentFactory.Update();
                 MiscManager.Update();
+                CollisionManager.Update();
 
                 if (LinkManager.CollisionBox.Health <= 0)
                     ResetGame();

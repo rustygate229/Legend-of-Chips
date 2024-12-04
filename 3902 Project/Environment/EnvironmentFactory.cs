@@ -45,10 +45,6 @@ namespace _3902_Project
             _projectileManager = projectile;
             _sound = sound;
 
-            // Initialize Collision
-            _collisionBoxes = new List<List<ICollisionBox>>();
-            _collisionHandlerManager.LoadAll(link, enemy, block, item, projectile, sound, this);
-
             _csvTranslationsBlock = new Dictionary<string, BlockManager.BlockNames>();
             _csvTranslationsEnemy = new Dictionary<string, EnemyManager.EnemyNames>();
             _csvTranslationsItem = new Dictionary<string, ItemManager.ItemNames>();
@@ -101,6 +97,12 @@ namespace _3902_Project
             _csvTranslationsItem.Add("c", ItemManager.ItemNames.Clock);
             _csvTranslationsItem.Add("m", ItemManager.ItemNames.Meat);
             _csvTranslationsItem.Add("h", ItemManager.ItemNames.Horn);
+            _csvTranslationsItem.Add("ws", ItemManager.ItemNames.WoodSword);
+            _csvTranslationsItem.Add("is", ItemManager.ItemNames.IronSword);
+            _csvTranslationsItem.Add("ms", ItemManager.ItemNames.MasterSword);
+            _csvTranslationsItem.Add("mas", ItemManager.ItemNames.MagicStaff);
+            _csvTranslationsItem.Add("ds", ItemManager.ItemNames.DebugSword);
+
         }
 
         public Rectangle getRoomDimensions()
