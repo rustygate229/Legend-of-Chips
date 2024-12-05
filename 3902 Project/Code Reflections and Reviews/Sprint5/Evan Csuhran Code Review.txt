@@ -1,0 +1,21 @@
+# CODE REVIEW
+* AUTHOR: EVAN CSUHRAN
+* DATE: 12/4/24
+* SPRINT #5
+* FILE NAME: CharacterStateManager.cs
+* FILE AUTHOR: HONGXIANG WANG
+* TIME TAKEN: ~ 10 minutes
+
+# READABILITY:
+* Worked closely on this class with Xiang, it went through a lot of renditions with the changing of Link entirely. So, at the current state it is incredibly more readable than prior. 
+* The simple current version of this is meant as a creator for setting actions based on item pickups and values that directly impact them. So, it's fairly clear what to 
+
+# CODE QUALITY:
+* Great technique with switch cases and using the sprite classes to set items to actions in Link Manager.
+* Is clear what purpose it serves in interacting with the Link Inventory.
+
+# FEELINGS ABOUT SPRINT:
+* We did quite a crunch to get the code into it's current state, you can tell it's borderline completely different from prior and the baseline functionality is far superior. 
+So, mainly Sprint 5 is a mix of reaching Sprint 4s expectations and a great refactoring of the code to reach better implementation standards.
+* I'd say our two weaknesses are the Game1.cs since it is horrible in terms of Code Quality right now due to hard coding states and not having enough time to use the resources
+we spent creating since Sprint 4. But, overall feel pretty great about the state we reached in less than 3 weeks with a 5 day break in between - including the great Collision and Link refactor.
