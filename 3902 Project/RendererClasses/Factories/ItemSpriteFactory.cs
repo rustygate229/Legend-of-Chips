@@ -82,6 +82,8 @@ namespace _3902_Project
                     return new SItem_HeartHalf(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.HeartEmpty:
                     return new SItem_HeartEmpty(_itemSpritesheet, printScale);
+                case ItemManager.ItemNames.Rupees:
+                    return new SItem_Rupees(_itemSpritesheet, printScale);
 
                 case ItemManager.ItemNames.DepletingHeart:
                     return new AItem_DepletingHeart(_itemSpritesheet, printScale);

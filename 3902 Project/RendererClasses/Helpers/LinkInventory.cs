@@ -20,6 +20,9 @@ namespace _3902_Project
         private bool _linkShieldSmall;
         public bool LinkShield { get { return _linkShieldSmall; } set { _linkShieldSmall = value; } }
 
+        private bool _linkHasTriForce;
+        public bool LinkHasTriForce { get { return _linkHasTriForce; } set { _linkHasTriForce = value; } }
+
         private ProjectileManager.ProjectileNames _currentProjectile;
         public ProjectileManager.ProjectileNames CurrentProjectile { get { return _currentProjectile; } set { _currentProjectile = value; } }
 
@@ -37,6 +40,7 @@ namespace _3902_Project
             CurrentLinkSword = LinkSwordType.WOOD;
             // initialize link shield to be small
             LinkShield = false;
+            LinkHasTriForce = false;
 
             // initializing some amounts for testing
             int amount = 10;
@@ -51,10 +55,9 @@ namespace _3902_Project
             switch (name)
             {
                 case ItemManager.ItemNames.FlashingEmerald:
-                    _linkEmeraldAmount += amount; break;
+                case ItemManager.ItemNames.Rupees:          _linkEmeraldAmount += amount; break;
                 case ItemManager.ItemNames.NormalKey:
-                case ItemManager.ItemNames.BossKey:
-                    _linkNormalKeyAmount += amount; break;
+                case ItemManager.ItemNames.BossKey:         _linkNormalKeyAmount += amount; break;
                 case ItemManager.ItemNames.Bomb:            AddProjectile(ProjectileManager.ProjectileNames.Bomb, amount); break;
                 case ItemManager.ItemNames.BlueArrow:       AddProjectile(ProjectileManager.ProjectileNames.BlueArrow, amount); break;
                 case ItemManager.ItemNames.FlashingBanana:  AddProjectile(ProjectileManager.ProjectileNames.Boomerang, amount); break;
@@ -66,11 +69,10 @@ namespace _3902_Project
         {
             switch (name)
             {
-                case ItemManager.ItemNames.FlashingEmerald:
-                    _linkEmeraldAmount -= amount; break;
+                case ItemManager.ItemNames.FlashingEmerald: 
+                case ItemManager.ItemNames.Rupees:          _linkEmeraldAmount -= amount; break;
                 case ItemManager.ItemNames.NormalKey:
-                case ItemManager.ItemNames.BossKey:
-                    _linkNormalKeyAmount -= amount; break;
+                case ItemManager.ItemNames.BossKey:         _linkNormalKeyAmount -= amount; break;
                 case ItemManager.ItemNames.Bomb:            RemoveProjectile(ProjectileManager.ProjectileNames.Bomb, amount); break;
                 case ItemManager.ItemNames.BlueArrow:       RemoveProjectile(ProjectileManager.ProjectileNames.BlueArrow, amount); break;
                 case ItemManager.ItemNames.FlashingBanana:  RemoveProjectile(ProjectileManager.ProjectileNames.Boomerang, amount); break;

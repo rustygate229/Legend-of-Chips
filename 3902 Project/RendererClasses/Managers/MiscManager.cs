@@ -33,17 +33,31 @@ namespace _3902_Project
         {
             // Use MiscManager to draw "Game Over" on the screen.
             float printScale = 6F;
-            CallAlphabet("G", printScale, Color.White, new Vector2(300, 200));
-            CallAlphabet("A", printScale, Color.White, new Vector2(348, 200));
-            CallAlphabet("M", printScale, Color.White, new Vector2(396, 200));
-            CallAlphabet("E", printScale, Color.White, new Vector2(444, 200));
+            Color color = Color.PaleVioletRed;
+            CallAlphabet("G", printScale, color, new Vector2(300, 200));
+            CallAlphabet("A", printScale, color, new Vector2(348, 200));
+            CallAlphabet("M", printScale, color, new Vector2(396, 200));
+            CallAlphabet("E", printScale, color, new Vector2(444, 200));
 
-            CallAlphabet("O", printScale, Color.White, new Vector2(492+48, 200));
-            CallAlphabet("V", printScale, Color.White, new Vector2(540+48, 200));
-            CallAlphabet("E", printScale, Color.White, new Vector2(588+48, 200));
-            CallAlphabet("R", printScale, Color.White, new Vector2(636+48, 200));
+            CallAlphabet("O", printScale, color, new Vector2(492+48, 200));
+            CallAlphabet("V", printScale, color, new Vector2(540+48, 200));
+            CallAlphabet("E", printScale, color, new Vector2(588+48, 200));
+            CallAlphabet("R", printScale, color, new Vector2(636+48, 200));
+        }
 
-           
+        public void TriggerWinState()
+        {
+            // Use MiscManager to draw "Game Over" on the screen.
+            float printScale = 6F;
+            Color color = Color.GreenYellow;
+            CallAlphabet("G", printScale, color, new Vector2(300, 200));
+            CallAlphabet("A", printScale, color, new Vector2(348, 200));
+            CallAlphabet("M", printScale, color, new Vector2(396, 200));
+            CallAlphabet("E", printScale, color, new Vector2(444, 200));
+
+            CallAlphabet("W", printScale, color, new Vector2(492 + 48, 200));
+            CallAlphabet("O", printScale, color, new Vector2(540 + 48, 200));
+            CallAlphabet("N", printScale, color, new Vector2(588 + 48, 200));
         }
 
 

@@ -6,7 +6,7 @@ namespace _3902_Project
     public class SItem_MasterSword : ISprite
     {
         // variables to change based on where your item is and what to print out
-        private Rectangle _spritePosition = new (112, 0, 8, 16);
+        private Rectangle _spritePosition = new (71, 154, 7, 16);
 
         // create a Renderer object
         private Renderer _item;

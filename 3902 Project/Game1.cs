@@ -38,25 +38,13 @@ namespace _3902_Project
         public bool UserPressedEnter { get { return _userPressedEnter; } set { _userPressedEnter = value; } }
         private bool _drawCollidables = false;
         private bool _isGameOver = false;
-        private GameState _currentState = GameState.Start;
-
-        // Property to expose the Game Over state
-        public bool IsGameOver
-        {
-            get { return _isGameOver; }
-            set { _isGameOver = value; }
-        }
+        public bool IsGameOver { get { return _isGameOver; } set { _isGameOver = value; } }
+        private bool _wonState = false;
+        public bool IsWonState { get { return _wonState; } set { _wonState = value; } }
         public bool DoDrawCollisions
         {
             get { return _drawCollidables; }
             set { _drawCollidables = value; }
-        }
-        public enum GameState
-        {
-            Start,
-            Running,
-            Paused,
-            GameOver
         }
 
         //private List<ICollisionBox> _blockCollisionBoxes;
@@ -157,7 +145,7 @@ namespace _3902_Project
                     }
                 }
             }
-            else if (PauseCounter == 0 && !_isGameOver)
+            else if (PauseCounter == 0 && !_isGameOver && !_wonState)
             {
                 // Regular game update when the game is running
                 BlockManager.Update();
@@ -172,12 +160,29 @@ namespace _3902_Project
                 // Check if player health is zero
                 if (LinkManager.CollisionBox.Health <= 0)
                 {
-                    // Enter Game Over state
-                    //PauseState = true;   // Pause the game
                     MySoundEffect.PlaySound(PlaySoundEffect.Sounds.Enemy_Death);
                     IsGameOver = true;  // Set the game state to Game Over
                     ICommand pauseGame = new CommandPauseGame(this);
                     pauseGame.Execute();
+                }
+
+                if (LinkManager.GetLinkInventory().LinkHasTriForce)
+                {
+                    if (!_wonState)
+                    {
+                        MySoundEffect.PlaySound(PlaySoundEffect.Sounds.ItemPickup_TriForce);
+                        ItemManager.UnloadAllMenuItems();
+                        ItemManager.UnloadAllItems();
+                        MiscManager.UnloadAllMisc();
+                        ItemManager.AddItem(ItemManager.ItemNames.FlashingTriForce, new(470, 500), 6F);
+                        LinkManager.LinkPositionOnWindow = new(470, 600);
+                        LinkManager.ReplaceLinkSprite(LinkManager.LinkSprite.Won);
+                        IsWonState = true;  // Set the game state to Win
+                        ICommand muteGame = new CommandToggleMute(this);
+                        muteGame.Execute();
+                        ICommand pauseGame = new CommandPauseGame(this);
+                        pauseGame.Execute();
+                    }
                 }
             }
             
@@ -214,10 +219,25 @@ namespace _3902_Project
 
                 if (PauseState)
                 {
-                    MiscManager.UpdateAndDrawTransition(_spriteBatch);
-                    MiscManager.UnloadAllMisc();
-                    MiscManager.TriggerGameOver();
-                    MiscManager.Draw();
+                    if (IsGameOver)
+                    {
+                        MiscManager.UpdateAndDrawTransition(_spriteBatch);
+                        MiscManager.UnloadAllMisc();
+                        MiscManager.TriggerGameOver();
+                        MiscManager.Draw();
+                    }
+                    else if (IsWonState)
+                    {
+                        MiscManager.UpdateAndDrawTransition(_spriteBatch);
+                        MiscManager.UnloadAllMisc();
+                        ItemManager.UnloadAllMenuItems();
+                        MiscManager.TriggerWinState();
+                        LinkManager.Update();
+                        ItemManager.Update();
+                        MiscManager.Draw();
+                        LinkManager.Draw();
+                        ItemManager.Draw();
+                    }
                 }
 
                 if (!PauseState && PauseCounter != 0)
@@ -277,11 +297,13 @@ namespace _3902_Project
         public void ResetGame()
         {
             // need to have a sequence play out first, but that will need a transition
-            _startState = false;
             ICommand pauseGame = new CommandPauseGame(this);
-            pauseGame.Execute();
+            if (PauseState)
+                pauseGame.Execute();
             PauseCounter = 0;
+            _startState = false;
             _isGameOver = false;
+            _wonState = false;
             Initialize();
         }
     }

@@ -34,7 +34,7 @@ namespace _3902_Project
                 case SItem_Bomb:    _inventory.AddItem(ItemManager.ItemNames.Bomb, 3); break;
                 case AItem_FBoomerang: _inventory.AddItem(ItemManager.ItemNames.FlashingBanana, 1); break;
                 case AItem_FEmerald: _inventory.AddItem(ItemManager.ItemNames.FlashingEmerald, 1); break;
-                case SItem_Rupees: _inventory.AddItem(ItemManager.ItemNames.FlashingEmerald, 5); break;
+                case SItem_Rupees: _inventory.AddItem(ItemManager.ItemNames.Rupees, 5); break;
                 case SItem_NormalKey:
                 case SItem_BossKey: _inventory.AddItem(ItemManager.ItemNames.NormalKey, 1); break;
                 case SItem_AddLife: MaxHealth += 2; break;
@@ -44,6 +44,7 @@ namespace _3902_Project
                 case SItem_Meat:
                     if (CollisionBox.Health + 3 <= MaxHealth) CollisionBox.Health += 3; break;
                 case SItem_Shield: _inventory.LinkShield = !_inventory.LinkShield; break;
+                case AItem_FTriForce: _inventory.LinkHasTriForce = !_inventory.LinkHasTriForce; break;
                 case SItem_IronSword: 
                     if (_inventory.CurrentLinkSword <= LinkInventory.LinkSwordType.IRON) _inventory.CurrentLinkSword = LinkInventory.LinkSwordType.IRON; break;
                 case SItem_MasterSword:

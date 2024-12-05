@@ -80,6 +80,8 @@ public class EnemyCollisionHandler
                         if (random.Next(4) <= 2) _item.AddItem(ItemManager.ItemNames.FlashingEmerald, objectA.Sprite.PositionOnWindow, 4f);
                         else if (random.Next(4) <= 3) _item.AddItem(ItemManager.ItemNames.BlueArrow, objectA.Sprite.PositionOnWindow, 4f);
                         break;
+                    case BigBoss:
+                        _item.AddItem(ItemManager.ItemNames.FlashingTriForce, objectA.Sprite.PositionOnWindow, 4f); break;
                 }
                 _enemy.UnloadEnemy(objectA);
             }

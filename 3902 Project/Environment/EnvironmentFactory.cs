@@ -90,7 +90,7 @@ namespace _3902_Project
             _csvTranslationsEnemy.Add("d", EnemyManager.EnemyNames.Darknut);
             _csvTranslationsEnemy.Add("bb", EnemyManager.EnemyNames.BigBoss);
 
-            _csvTranslationsItem.Add("fs", ItemManager.ItemNames.FlashingScripture);
+            _csvTranslationsItem.Add("fs", ItemManager.ItemNames.FlashingEmerald);
             _csvTranslationsItem.Add("fl", ItemManager.ItemNames.FlashingLife);
             _csvTranslationsItem.Add("fp", ItemManager.ItemNames.FlashingPotion);
             _csvTranslationsItem.Add("fh", ItemManager.ItemNames.AddLife);
@@ -100,7 +100,8 @@ namespace _3902_Project
             _csvTranslationsItem.Add("bk", ItemManager.ItemNames.BossKey);
             _csvTranslationsItem.Add("c", ItemManager.ItemNames.Clock);
             _csvTranslationsItem.Add("m", ItemManager.ItemNames.Meat);
-            _csvTranslationsItem.Add("h", ItemManager.ItemNames.Horn);
+            _csvTranslationsItem.Add("h", ItemManager.ItemNames.Shield);
+            _csvTranslationsItem.Add("fr", ItemManager.ItemNames.Rupees);
             _csvTranslationsItem.Add("ws", ItemManager.ItemNames.WoodSword);
             _csvTranslationsItem.Add("is", ItemManager.ItemNames.IronSword);
             _csvTranslationsItem.Add("ms", ItemManager.ItemNames.MasterSword);
