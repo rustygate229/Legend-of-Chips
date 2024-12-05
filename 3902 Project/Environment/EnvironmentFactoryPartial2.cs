@@ -46,7 +46,10 @@ namespace _3902_Project
 
         public void moveToNextRoom(CollisionType name)
         {
-            _level = openDoorAssignments[_level][name];
+            int templevel = openDoorAssignments[_level][name];
+
+            if (templevel < _level) { _display.DecrementLevel(); } else { _display.IncrementLevel(); }
+            _level = templevel;
         }
     }
         

@@ -110,6 +110,15 @@ namespace _3902_Project
                 case BlockManager.BlockNames.Wall_LEFT:
                     return new FBlock_Wall(_blockSpritesheet, Renderer.DIRECTION.LEFT, printScale);
 
+                case BlockManager.BlockNames.WallStop_DOWN:
+                    return new FBlock_WallStop(_blockSpritesheet, Renderer.DIRECTION.DOWN, printScale);
+                case BlockManager.BlockNames.WallStop_UP:
+                    return new FBlock_WallStop(_blockSpritesheet, Renderer.DIRECTION.UP, printScale);
+                case BlockManager.BlockNames.WallStop_RIGHT:
+                    return new FBlock_WallStop(_blockSpritesheet, Renderer.DIRECTION.RIGHT, printScale);
+                case BlockManager.BlockNames.WallStop_LEFT:
+                    return new FBlock_WallStop(_blockSpritesheet, Renderer.DIRECTION.LEFT, printScale);
+
                 case BlockManager.BlockNames.Invisible:
                     return new SBlock_Invisible(_blockSpritesheet, printScale);
                 case BlockManager.BlockNames.Teleport:
