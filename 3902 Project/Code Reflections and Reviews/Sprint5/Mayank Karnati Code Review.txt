@@ -1,0 +1,23 @@
+READABILITY & CODE REVIEW 
+AUTHOR: Mayank Karnati
+DATE: 12/4/24
+SPRINT NUMBER: 5
+.cs FILE NAME: HUD.cs
+CODE AUTHOR: Evan Csuhran
+TIME TAKEN: 20 minutes
+
+Readability: The code is generally clear, with well-structured variables and a logical flow that aligns with the intended HUD functionality. 
+The use of camel-case naming conventions and descriptive variable names contributes to the overall readability, and comments, particularly 
+in the constructors and methods, help clarify the purpose of each section. However, there are opportunities for improvement, particularly 
+with longer methods such as DrawText and DrawHearts, which could be broken down into smaller, more focused helper functions to improve modularity. 
+Additionally, repetitive logic, such as the frequent calls to _miscManager.CallAlphabet in DrawText, could be encapsulated in a utility method to reduce 
+redundancy. While most of the comments are helpful, redundant ones that restate what the code is already doing should be avoided to maintain a clean codebase.
+
+Code Quality: The modular design of the code is a strength, particularly in how it separates concerns for drawing HUD components, managing items, and 
+handling the Link's inventory. The encapsulation of HUD logic within the class boundaries is well-executed, and methods like CreateDigits showcase 
+thoughtful design for handling numeric conversions and dynamic text rendering. However, the code could benefit from improved reusability and 
+simplification in certain areas. For instance, repetitive patterns in DrawText, DrawAmountOnScreen, and CreateDigits could be centralized into 
+helper functions, making the code easier to maintain. Similarly, the nested logic in DrawHearts for determining heart placement could be 
+simplified by pre-calculating positions or using a more structured approach. The switch statements in DrawWeapon and DrawProjectile might also
+benefit from optimization through the use of dictionaries or enum mappings to reduce verbosity. Finally, the error handling in CreateDigits is 
+functional but could be enhanced with more descriptive error messages to assist in debugging.

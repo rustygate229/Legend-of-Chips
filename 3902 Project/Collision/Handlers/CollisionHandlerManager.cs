@@ -25,7 +25,7 @@ namespace _3902_Project
         /// <param name="projectile">ProjectileManager</param>
         public void LoadAll(LinkManager link, EnemyManager enemy, BlockManager block, ItemManager item, ProjectileManager projectile, PlaySoundEffect sound, EnvironmentFactory enviro)
         {
-            _linkCollisionHandler.LoadAll(link, sound);
+            _linkCollisionHandler.LoadAll(link, sound, enviro);
             _enemyCollisionHandler.LoadAll(enemy, item, sound);
             _blockCollisionHandler.LoadAll(block, sound, link);
             _itemCollisionHandler.LoadAll(item, sound, enviro);
@@ -78,8 +78,6 @@ namespace _3902_Project
                 else if (objectB is LinkProjCollisionBox || objectB is EnemyProjCollisionBox)
                     _projectileCollisionHandler.HandleCollision(objectB, objectA, side);
                 // don't need items since enemies can't interact with items
-                // else if (objectB is ItemCollisionBox)
-                    // _itemCollisionHandler.HandleCollision(objectB, objectA, side);
             }
 
             else if (objectA is BlockCollisionBox) 

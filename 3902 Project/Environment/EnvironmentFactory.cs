@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.IO;
 
 namespace _3902_Project
@@ -15,10 +16,11 @@ namespace _3902_Project
         private ProjectileManager _projectileManager;
         private LinkManager _linkManager;
         private PlaySoundEffect _sound;
+        private HUD _display;
 
         private int _level = 1;
         private int _prevLevel = -1; // -1 is a stand in for a null value
-        private int _endLevel = 5;
+        private int _endLevel = 7;
         private float printScale = 4;
 
         private Dictionary<string, BlockManager.BlockNames> _csvTranslationsBlock;
@@ -36,7 +38,7 @@ namespace _3902_Project
 
         public EnvironmentFactory() { }
 
-        public void LoadAll(LinkManager link, EnemyManager enemy, BlockManager block, ItemManager item, ProjectileManager projectile, PlaySoundEffect sound)
+        public void LoadAll(LinkManager link, EnemyManager enemy, BlockManager block, ItemManager item, ProjectileManager projectile, PlaySoundEffect sound, HUD display)
         {
             _linkManager = link;
             _enemyManager = enemy;
@@ -44,10 +46,7 @@ namespace _3902_Project
             _itemManager = item;
             _projectileManager = projectile;
             _sound = sound;
-
-            // Initialize Collision
-            _collisionBoxes = new List<List<ICollisionBox>>();
-            _collisionHandlerManager.LoadAll(link, enemy, block, item, projectile, sound, this);
+            _display = display;
 
             _csvTranslationsBlock = new Dictionary<string, BlockManager.BlockNames>();
             _csvTranslationsEnemy = new Dictionary<string, EnemyManager.EnemyNames>();
@@ -101,6 +100,12 @@ namespace _3902_Project
             _csvTranslationsItem.Add("c", ItemManager.ItemNames.Clock);
             _csvTranslationsItem.Add("m", ItemManager.ItemNames.Meat);
             _csvTranslationsItem.Add("h", ItemManager.ItemNames.Horn);
+            _csvTranslationsItem.Add("ws", ItemManager.ItemNames.WoodSword);
+            _csvTranslationsItem.Add("is", ItemManager.ItemNames.IronSword);
+            _csvTranslationsItem.Add("ms", ItemManager.ItemNames.MasterSword);
+            _csvTranslationsItem.Add("mas", ItemManager.ItemNames.MagicStaff);
+            _csvTranslationsItem.Add("ds", ItemManager.ItemNames.DebugSword);
+
         }
 
         public Rectangle getRoomDimensions()
@@ -122,6 +127,7 @@ namespace _3902_Project
                 case "c": currentName = BlockManager.BlockNames.DiamondHoleLockedDoor_UP; break;
                 case "k": currentName = BlockManager.BlockNames.KeyHoleLockedDoor_UP; break;
                 case "w": currentName = BlockManager.BlockNames.Wall_UP; break;
+                case "ws": currentName = BlockManager.BlockNames.WallStop_UP; break;
                 case "o": currentName = BlockManager.BlockNames.OpenDoor_UP; break;
                 case "b": currentName = BlockManager.BlockNames.BombedDoor_UP; break;
                 default: throw new ArgumentException("Not a valid Door");
@@ -134,6 +140,7 @@ namespace _3902_Project
                 case "c": currentName = BlockManager.BlockNames.DiamondHoleLockedDoor_DOWN; break;
                 case "k": currentName = BlockManager.BlockNames.KeyHoleLockedDoor_DOWN; break;
                 case "w": currentName = BlockManager.BlockNames.Wall_DOWN; break;
+                case "ws": currentName = BlockManager.BlockNames.WallStop_DOWN; break;
                 case "o": currentName = BlockManager.BlockNames.OpenDoor_DOWN; break;
                 case "b": currentName = BlockManager.BlockNames.BombedDoor_DOWN; break;
                 default: throw new ArgumentException("Not a valid Door");
@@ -146,6 +153,7 @@ namespace _3902_Project
                 case "c": currentName = BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT; break;
                 case "k": currentName = BlockManager.BlockNames.KeyHoleLockedDoor_LEFT; break;
                 case "w": currentName = BlockManager.BlockNames.Wall_LEFT; break;
+                case "ws": currentName = BlockManager.BlockNames.WallStop_LEFT; break;
                 case "o": currentName = BlockManager.BlockNames.OpenDoor_LEFT; break;
                 case "b": currentName = BlockManager.BlockNames.BombedDoor_LEFT; break;
                 default: throw new ArgumentException("Not a valid Door");
@@ -158,6 +166,7 @@ namespace _3902_Project
                 case "c": currentName = BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT; break;
                 case "k": currentName = BlockManager.BlockNames.KeyHoleLockedDoor_RIGHT; break;
                 case "w": currentName = BlockManager.BlockNames.Wall_RIGHT; break;
+                case "ws": currentName = BlockManager.BlockNames.WallStop_RIGHT; break;
                 case "o": currentName = BlockManager.BlockNames.OpenDoor_RIGHT; break;
                 case "b": currentName = BlockManager.BlockNames.BombedDoor_RIGHT; break;
                 default: throw new ArgumentException("Not a valid Door");

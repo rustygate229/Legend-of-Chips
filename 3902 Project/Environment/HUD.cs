@@ -13,8 +13,7 @@ namespace _3902_Project
         private LinkInventory _inventory;
 
         private int level;
-        private int maxLevel = 5;
-        
+        private int maxLevel = 7;
 
         public HUD() {}
         public void LoadAll(LinkManager link, ItemManager item, MiscManager misc)
@@ -39,6 +38,15 @@ namespace _3902_Project
             switch (name) {
                 case LinkInventory.LinkSwordType.WOOD:
                     _itemManager.AddMenuItem(ItemManager.ItemNames.WoodSword, placementPosition, printScale); break;
+                case LinkInventory.LinkSwordType.IRON:
+                    _itemManager.AddMenuItem(ItemManager.ItemNames.IronSword, placementPosition, printScale); break;
+                case LinkInventory.LinkSwordType.MASTER:
+                    _itemManager.AddMenuItem(ItemManager.ItemNames.MasterSword, placementPosition, printScale); break;
+                case LinkInventory.LinkSwordType.STAFF:
+                    _itemManager.AddMenuItem(ItemManager.ItemNames.MagicStaff, placementPosition, printScale); break;
+                case LinkInventory.LinkSwordType.DEBUG:
+                    _itemManager.AddMenuItem(ItemManager.ItemNames.DebugSword, placementPosition, printScale); break;
+
                 default: break;
             }
         }

@@ -10,7 +10,7 @@ namespace _3902_Project
         public enum ProjectileNames
         {
             Bomb, BlueArrow, FireBall, Boomerang,
-            WoodSwordAttack
+            WoodSwordAttack, IronSwordAttack, MasterSwordAttack, MagicStaffSAttack, DebugSwordAttack
         }
 
         public enum ProjectileType { LinkProj, EnemyProj }
@@ -99,7 +99,7 @@ namespace _3902_Project
         {
             foreach (var projectile in _runningProjectileJoiners)
             {
-                if (projectile is PJoiner_WoodSword)
+                if (projectile is PJoiner_SwordAttack)
                 {
                     projectile.PositionOnWindow += updatePosition;
                 }

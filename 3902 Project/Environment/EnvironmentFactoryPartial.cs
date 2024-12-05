@@ -1,7 +1,5 @@
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 
 namespace _3902_Project
@@ -147,19 +145,6 @@ namespace _3902_Project
                 _items.Clear();
             }
         }
- 
-        // expects this to be called AFTER everything else has loaded so collision boxes can be correctly added 
-        public void loadCollisions()
-        {
-            _collisionBoxes.Clear();
-
-            // add the collision boxes IN ORDER (VERY IMPORTANT)
-            _collisionBoxes.Add(_linkManager.GetCollisionBoxes());
-            _collisionBoxes.Add(_enemyManager.GetCollisionBoxes());
-            _collisionBoxes.Add(_blockManager.GetCollisionBoxes());
-            _collisionBoxes.Add(_projectileManager.GetCollisionBoxes());
-            _collisionBoxes.Add(_itemManager.GetCollisionBoxes());
-        }
 
         public void loadLevel()
         {
@@ -167,7 +152,6 @@ namespace _3902_Project
             loadBlocks();
             loadEnemies();
             loadItems();
-            loadCollisions();
         }
 
         public void incrementLevel()
@@ -193,12 +177,6 @@ namespace _3902_Project
             }
 
             _prevLevel = _level;
-
-            // Detect Collisions
-            List<CollisionData> detectedCollisions = CollisionDetector.DetectCollisions(_collisionBoxes);
-
-            // Handle Collisions
-            _collisionHandlerManager.HandleCollisions(detectedCollisions);
         }
     }
 }

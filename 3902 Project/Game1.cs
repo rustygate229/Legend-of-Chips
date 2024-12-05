@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
 
 namespace _3902_Project
 {
@@ -23,6 +22,7 @@ namespace _3902_Project
         internal BackgroundMusic BackgroundMusic = new();
         internal PlaySoundEffect MySoundEffect = new();
         internal HUD HUD = new();
+        internal CollisionManager CollisionManager = new();
 
         //private List<ICollisionBox> _EnemyCollisionBoxes;
 
@@ -65,7 +65,7 @@ namespace _3902_Project
         // Input controller
         internal IController keyboardController;
         internal IController mouseController;
-        
+
 
         public Game1()
         {
@@ -92,8 +92,9 @@ namespace _3902_Project
             BackgroundMusic = new();
             MySoundEffect = new();
             HUD = new();
+            CollisionManager = new();
             LoadContent();
-    }
+        }
 
         protected override void LoadContent()
         {
@@ -119,20 +120,35 @@ namespace _3902_Project
             // for the showing of collisions
             _outline = Content.Load<Texture2D>("SpriteSheets\\Block&Room(Dungeon)_Transparent");
 
-            EnvironmentFactory.LoadAll(LinkManager, EnemyManager, BlockManager, ItemManager, ProjectileManager, MySoundEffect);
+            EnvironmentFactory.LoadAll(LinkManager, EnemyManager, BlockManager, ItemManager, ProjectileManager, MySoundEffect, HUD);
             EnvironmentFactory.loadLevel();
+
+            CollisionManager.LoadAll(LinkManager, EnemyManager, BlockManager, ItemManager, ProjectileManager, MySoundEffect, EnvironmentFactory);
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (_startState)
             {
-                if (UserPressedEnter)
+                Debug.Write("value of UserPressedEnter: " + UserPressedEnter + " \n");
+
+                if (PauseCounter == 0 && UserPressedEnter)
                 {
-                    if (PauseCounter == 0)
-                        MiscManager.StartMenu(MiscManager.StartMenu_Names.StoryScreen);
+                    MiscManager.StartMenu(MiscManager.StartMenu_Names.StoryScreen);
+                    UserPressedEnter = false;
                     PauseCounter++;
-                    if (PauseCounter >= (900 * 7.35) / 3.5)
+                }
+                if (PauseCounter <= 10 && PauseCounter > 0 && UserPressedEnter)
+                {
+                    //PauseCounter is between 0 and 5 and UserPressedEnter is true (catching potential errors)
+                    UserPressedEnter = false;
+
+                }
+
+                if (PauseCounter >= 1)
+                {
+                    PauseCounter++;
+                    if (PauseCounter >= (900 * 7.35) / 3.5 || (UserPressedEnter && PauseCounter >= 30))
                     {
                         _startState = false;
                         MiscManager.UnloadStartMenu();
@@ -151,6 +167,7 @@ namespace _3902_Project
                 LinkManager.Update();
                 EnvironmentFactory.Update();
                 MiscManager.Update();
+                CollisionManager.Update();
 
                 // Check if player health is zero
                 if (LinkManager.CollisionBox.Health <= 0)
@@ -235,11 +252,11 @@ namespace _3902_Project
                     else
                         lineWidth = 0;
 
-                    Rectangle outlineTop =      new (bounds.X, bounds.Y, bounds.Width, lineWidth);
-                    Rectangle outlineLeft =     new (bounds.X, bounds.Y, lineWidth, bounds.Height);
-                    Rectangle outlineBottom =   new (bounds.X, bounds.Y + (bounds.Height - lineWidth), bounds.Width, lineWidth);
-                    Rectangle outlineRight =    new (bounds.X + (bounds.Width - lineWidth), bounds.Y, lineWidth, bounds.Height);
-                    Rectangle rectangleSource = new (235, 1213, 8, 8);
+                    Rectangle outlineTop = new(bounds.X, bounds.Y, bounds.Width, lineWidth);
+                    Rectangle outlineLeft = new(bounds.X, bounds.Y, lineWidth, bounds.Height);
+                    Rectangle outlineBottom = new(bounds.X, bounds.Y + (bounds.Height - lineWidth), bounds.Width, lineWidth);
+                    Rectangle outlineRight = new(bounds.X + (bounds.Width - lineWidth), bounds.Y, lineWidth, bounds.Height);
+                    Rectangle rectangleSource = new(235, 1213, 8, 8);
                     _spriteBatch.Draw(_outline, outlineTop, rectangleSource, color);
                     _spriteBatch.Draw(_outline, outlineBottom, rectangleSource, color);
                     _spriteBatch.Draw(_outline, outlineRight, rectangleSource, color);
@@ -250,7 +267,7 @@ namespace _3902_Project
         }
 
 
-        public void ResetGame() 
+        public void ResetGame()
         {
             // need to have a sequence play out first, but that will need a transition
             MySoundEffect.PlaySound(PlaySoundEffect.Sounds.Enemy_Death);
