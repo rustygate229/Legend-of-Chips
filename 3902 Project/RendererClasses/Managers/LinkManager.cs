@@ -60,7 +60,7 @@ namespace _3902_Project
             LinkDirection = Renderer.DIRECTION.DOWN;
             IsLinkDamaged = false;
             _inventory.LinkShield = true;
-            _inventory.CurrentLinkSword = LinkInventory.LinkSwordType.WOOD;
+            _inventory.CurrentLinkSword = LinkInventory.LinkSwordType.DEBUG;
 
             CurrentLink = _factory.CreateLink(CurrentLinkSprite, _inventory.LinkShield, _direction, _printScale, _manager);
             LinkPositionOnWindow = new(140, 200 + 310);

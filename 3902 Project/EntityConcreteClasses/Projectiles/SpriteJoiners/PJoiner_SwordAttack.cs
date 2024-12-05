@@ -1,15 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections;
 
 namespace _3902_Project
 {
-    public class PJoiner_WoodSword : IJoiner
+    public class PJoiner_SwordAttack : IJoiner
     {
         // variables to change based on where your sprite is and what to print out
-        private ISprite _woodSword;
+        private ISprite _currentSword;
         private bool _removable;
-        private ISprite _currentSprite;
-        private ProjectileManager.ProjectileNames _currentSword;
 
         private ICollisionBox _collisionBox;
         private int _counter;
@@ -23,12 +22,18 @@ namespace _3902_Project
         /// direction the sprite spawn in. EXAMPLE: if facingDirection = DOWN, then the sprite will spawned in facing and moving downwards.
         /// </param>
         /// <param name="printScale">the print scale of the projectile: printScale * spriteDimensions</param>
-        public PJoiner_WoodSword(ProjectileManager.ProjectileNames name, Texture2D spriteSheet, Renderer.DIRECTION direction, float printScale)
+        public PJoiner_SwordAttack(ProjectileManager.ProjectileNames name, Texture2D spriteSheet, Renderer.DIRECTION direction, float printScale)
         {
-            _woodSword = new PSprite_WoodSword(spriteSheet, direction, printScale, _counterTotal);
-            _currentSword = name;
+            switch(name)
+            {
+                case ProjectileManager.ProjectileNames.WoodSwordAttack: _currentSword = new PSprite_WoodSword(spriteSheet, direction, printScale, _counterTotal); break;
+                case ProjectileManager.ProjectileNames.IronSwordAttack: _currentSword = new PSprite_IronSword(spriteSheet, direction, printScale, _counterTotal); break;
+                case ProjectileManager.ProjectileNames.MasterSwordAttack: _currentSword = new PSprite_MasterSword(spriteSheet, direction, printScale, _counterTotal); break;
+                case ProjectileManager.ProjectileNames.MagicStaffSAttack: _currentSword = new PSprite_MagicStaff(spriteSheet, direction, printScale, _counterTotal); break;
+                case ProjectileManager.ProjectileNames.DebugSwordAttack: _currentSword = new PSprite_DebugSword(spriteSheet, direction, printScale, _counterTotal); break;
+                default: break;
+            }
             _counter = 0;
-            _currentSprite = _woodSword;
             RemovableFlip = false;
         }
 
@@ -40,8 +45,8 @@ namespace _3902_Project
 
         public ISprite CurrentSprite 
         { 
-            get { return _currentSprite; }
-            set { Vector2 oldPosition = _currentSprite.PositionOnWindow; _currentSprite = value; _currentSprite.PositionOnWindow = oldPosition; CollisionBox.Sprite = value; }
+            get { return _currentSword; }
+            set { Vector2 oldPosition = _currentSword.PositionOnWindow; _currentSword = value; _currentSword.PositionOnWindow = oldPosition; CollisionBox.Sprite = value; }
         }
 
         public Vector2 PositionOnWindow

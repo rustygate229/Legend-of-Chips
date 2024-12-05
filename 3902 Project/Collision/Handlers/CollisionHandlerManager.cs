@@ -25,7 +25,7 @@ namespace _3902_Project
         /// <param name="projectile">ProjectileManager</param>
         public void LoadAll(LinkManager link, EnemyManager enemy, BlockManager block, ItemManager item, ProjectileManager projectile, PlaySoundEffect sound, EnvironmentFactory enviro)
         {
-            _linkCollisionHandler.LoadAll(link, sound);
+            _linkCollisionHandler.LoadAll(link, sound, enviro);
             _enemyCollisionHandler.LoadAll(enemy, item, sound);
             _blockCollisionHandler.LoadAll(block, sound, link);
             _itemCollisionHandler.LoadAll(item, sound, enviro);

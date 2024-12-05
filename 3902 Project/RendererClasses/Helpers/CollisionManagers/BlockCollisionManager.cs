@@ -44,6 +44,7 @@ namespace _3902_Project
                 case FBlock_KeyHoleLockedDoor:
                 case FBlock_Wall:
                 case SBlock_Teleport:
+                case FBlock_WallStop:
                     box.IsCollidable = true; break;
                 case FBlock_BombedDoor:
                 case FBlock_OpenDoor:

@@ -11,6 +11,7 @@ namespace _3902_Project
         private Texture2D _itemSpritesheet;
         private Texture2D _blockSpriteSheet;
         private Texture2D _hudSpriteSheet;
+        private Texture2D _linkSpriteSheet;
 
         // create a new instance of ItemSpriteFactory
         private static ItemSpriteFactory instance = new ItemSpriteFactory();
@@ -26,6 +27,7 @@ namespace _3902_Project
             _itemSpritesheet = content.Load<Texture2D>("SpriteSheets\\Items_Transparent");
             _blockSpriteSheet = content.Load<Texture2D>("SpriteSheets\\Block&Room(Dungeon)_Transparent");
             _hudSpriteSheet = content.Load<Texture2D>("SpriteSheets\\HUD&Pause");
+            _linkSpriteSheet = content.Load<Texture2D>("SpriteSheets\\Link_Transparent");
         }
 
 
@@ -56,18 +58,22 @@ namespace _3902_Project
                     return new SItem_Ladder(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.WoodSword:
                     return new SItem_WoodSword(_itemSpritesheet, printScale);
-                case ItemManager.ItemNames.BlueArrow:
-                    return new SItem_BlueArrow(_itemSpritesheet, printScale);
+                case ItemManager.ItemNames.IronSword:
+                    return new SItem_IronSword(_itemSpritesheet, printScale);
+                case ItemManager.ItemNames.MasterSword:
+                    return new SItem_MasterSword(_linkSpriteSheet, printScale);
                 case ItemManager.ItemNames.MagicStaff:
                     return new SItem_MagicStaff(_itemSpritesheet, printScale);
+                case ItemManager.ItemNames.DebugSword:
+                    return new SItem_DebugSword(_linkSpriteSheet, printScale);
+                case ItemManager.ItemNames.BlueArrow:
+                    return new SItem_BlueArrow(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Meat:
                     return new SItem_Meat(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.NormalKey:
                     return new SItem_NormalKey(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.Shield:
                     return new SItem_Shield(_itemSpritesheet, printScale);
-                case ItemManager.ItemNames.Sword:
-                    return new SItem_MasterSword(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.WaterPlate:
                     return new SItem_WaterPlate(_itemSpritesheet, printScale);
                 case ItemManager.ItemNames.HeartFull:
