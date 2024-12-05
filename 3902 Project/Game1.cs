@@ -31,7 +31,7 @@ namespace _3902_Project
         public bool PauseState { get { return _pauseState; } set { _pauseState = value; } }
         private int _pauseCounter = 0;
         public int PauseCounter { get { return _pauseCounter; } set { _pauseCounter = value; } }
-        private bool _startState = false;
+        private bool _startState = true;
         public bool StartState { get { return _startState; } set { _startState = value; } }
         private bool _userPressedEnter;
         public bool UserPressedEnter { get { return _userPressedEnter; } set { _userPressedEnter = value; } }
@@ -110,9 +110,9 @@ namespace _3902_Project
 
         protected override void Update(GameTime gameTime)
         {
-            Debug.Write("value of UserPressedEnter: " + UserPressedEnter + " \n");
             if (_startState)
             {
+                Debug.Write("value of UserPressedEnter: " + UserPressedEnter + " \n");
 
                 if (PauseCounter == 0 && UserPressedEnter)
                 {
@@ -120,6 +120,13 @@ namespace _3902_Project
                     UserPressedEnter = false;
                     PauseCounter++;
                 }
+                if (PauseCounter <= 10 && PauseCounter > 0 && UserPressedEnter)
+                {
+                    //PauseCounter is between 0 and 5 and UserPressedEnter is true (catching potential errors)
+                    UserPressedEnter = false;
+
+                }
+
                 if (PauseCounter >= 1)
                 {
                     PauseCounter++;
