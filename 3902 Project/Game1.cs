@@ -200,7 +200,7 @@ namespace _3902_Project
 
         public void DrawCollisions()
         {
-            List<List<ICollisionBox>> collisions = EnvironmentFactory._collisionBoxes;
+            List<List<ICollisionBox>> collisions = CollisionManager.GetCollisionBoxes();
             Color color = Color.White;
             int lineWidth = 3;
 

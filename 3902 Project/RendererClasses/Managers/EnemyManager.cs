@@ -10,7 +10,7 @@ namespace _3902_Project
     public partial class EnemyManager
     {
         // create enemy names for finding them
-        public enum EnemyNames { GreenSlime, BrownSlime, Darknut }
+        public enum EnemyNames { GreenSlime, BrownSlime, Darknut, BigBoss }
 
         // list of enemies
         private List<Tuple<ISprite, DamageHelper>> _runningEnemies = new();
