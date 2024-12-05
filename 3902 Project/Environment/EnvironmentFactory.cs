@@ -20,7 +20,7 @@ namespace _3902_Project
 
         private int _level = 1;
         private int _prevLevel = -1; // -1 is a stand in for a null value
-        private int _endLevel = 5;
+        private int _endLevel = 7;
         private float printScale = 4;
 
         private Dictionary<string, BlockManager.BlockNames> _csvTranslationsBlock;

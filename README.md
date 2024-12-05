@@ -27,11 +27,11 @@
      * C: Draws all collidables (*not all collision boxes)
 
 # Code Insight
-* Sadly, in terms of full functionality, we're lacking in most departments. However, we believe that most of our changes exist in changing the structure of the code, which hopefully accounts for the lack of functionality. If not, we still did meat fairly great standing with the state we we're in with Sprint 4. 
+* Sadly, in terms of full functionality, we're lacking in most departments. However, we believe that most of our changes exist in changing the structure of the code, which hopefully accounts for the lack of functionality. If not, we still did decently with the state we we're in with Sprint 4. 
 * Mainly writing this as a sendoff/insight into how we felt about the project, even without a letter grade being assigned to it. Overall, even in our final crunch, we are proud of our attempts at this code and our remake of Legend of Zelda, even with it's flaws.
 
 # Known Bugs (in levels of necessity)
-1) 
+1) Some bugs with collision of large boxes and small boxes - for example, the boss enemy with a large hitbox quickly moving into Link can give him a significant amount of speed. 
 
 # Credits
 * Sprites

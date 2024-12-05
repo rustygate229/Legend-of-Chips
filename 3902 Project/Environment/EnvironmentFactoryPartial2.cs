@@ -17,7 +17,9 @@ namespace _3902_Project
 
             // Level 1
             Dictionary<CollisionType, int> level1 = new Dictionary<CollisionType, int>();
+            level1.Add(CollisionType.LEFT, 7);
             level1.Add(CollisionType.RIGHT, 2);
+            level1.Add(CollisionType.TOP, 6);
             openDoorAssignments.TryAdd(1, level1);
 
             // Level 2
@@ -42,6 +44,16 @@ namespace _3902_Project
             Dictionary<CollisionType, int> level5 = new Dictionary<CollisionType, int>();
             level5.Add(CollisionType.TOP, 3);
             openDoorAssignments.TryAdd(5, level5);
+
+            // Level 6
+            Dictionary<CollisionType, int> level6 = new Dictionary<CollisionType, int>();
+            level6.Add(CollisionType.BOTTOM, 1);
+            openDoorAssignments.TryAdd(6, level6);
+
+            // Level 7
+            Dictionary<CollisionType, int> level7 = new Dictionary<CollisionType, int>();
+            level7.Add(CollisionType.RIGHT, 1);
+            openDoorAssignments.TryAdd(7, level7);
         }
 
         public void moveToNextRoom(CollisionType name)

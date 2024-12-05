@@ -13,7 +13,7 @@ namespace _3902_Project
         private LinkInventory _inventory;
 
         private int level;
-        private int maxLevel = 5;
+        private int maxLevel = 7;
 
         public HUD() {}
         public void LoadAll(LinkManager link, ItemManager item, MiscManager misc)
