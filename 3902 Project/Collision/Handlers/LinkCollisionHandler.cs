@@ -65,9 +65,9 @@ namespace _3902_Project
                     case CollisionData.CollisionType.RIGHT:     _link.LinkPositionOnWindow = new(startPos.X + (34 * printScale), startPos.Y + (80 * printScale)); break;
                     case CollisionData.CollisionType.LEFT:      _link.LinkPositionOnWindow = new(startPos.X + (206 * printScale), startPos.Y + (80 * printScale)); break;
                     default: break;
-
-                    _environmentFactory.moveToNextRoom(side);
                 }
+
+                _environmentFactory.moveToNextRoom(side);
             }
             else
             {
