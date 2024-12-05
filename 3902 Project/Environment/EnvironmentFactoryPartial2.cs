@@ -18,30 +18,30 @@ namespace _3902_Project
             // Level 1
             Dictionary<CollisionType, int> level1 = new Dictionary<CollisionType, int>();
             level1.Add(CollisionType.RIGHT, 2);
-            openDoorAssignments.Add(1, level1);
+            openDoorAssignments.TryAdd(1, level1);
 
             // Level 2
             Dictionary<CollisionType, int> level2 = new Dictionary<CollisionType, int>();
             level2.Add(CollisionType.LEFT, 1);
             level2.Add(CollisionType.RIGHT, 3);
-            openDoorAssignments.Add(2, level2);
+            openDoorAssignments.TryAdd(2, level2);
 
             // Level 3
             Dictionary<CollisionType, int> level3 = new Dictionary<CollisionType, int>();
             level3.Add(CollisionType.LEFT, 2);
             level3.Add(CollisionType.TOP, 4);
             level3.Add(CollisionType.BOTTOM, 5);
-            openDoorAssignments.Add(3, level3);
+            openDoorAssignments.TryAdd(3, level3);
 
             // Level 4
             Dictionary<CollisionType, int> level4 = new Dictionary<CollisionType, int>();
             level4.Add(CollisionType.BOTTOM, 3);
-            openDoorAssignments.Add(4, level4);
+            openDoorAssignments.TryAdd(4, level4);
 
             // Level 5
             Dictionary<CollisionType, int> level5 = new Dictionary<CollisionType, int>();
             level5.Add(CollisionType.TOP, 3);
-            openDoorAssignments.Add(5, level5);
+            openDoorAssignments.TryAdd(5, level5);
         }
 
         public void moveToNextRoom(CollisionType name)
