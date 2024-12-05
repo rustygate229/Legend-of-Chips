@@ -32,7 +32,7 @@ namespace _3902_Project
         public bool PauseState { get { return _pauseState; } set { _pauseState = value; } }
         private int _pauseCounter = 0;
         public int PauseCounter { get { return _pauseCounter; } set { _pauseCounter = value; } }
-        private bool _startState = true;
+        private bool _startState = false;
         public bool StartState { get { return _startState; } set { _startState = value; } }
         private bool _userPressedEnter;
         public bool UserPressedEnter { get { return _userPressedEnter; } set { _userPressedEnter = value; } }

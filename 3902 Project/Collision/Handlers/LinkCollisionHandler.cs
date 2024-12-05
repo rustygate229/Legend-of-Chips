@@ -6,6 +6,7 @@ namespace _3902_Project
     {
         private LinkManager _link;
         private PlaySoundEffect _sound;
+        private EnvironmentFactory _environmentFactory;
 
         public LinkCollisionHandler() { }
 
@@ -13,7 +14,7 @@ namespace _3902_Project
         /// Load everything that this handler needs
         /// </summary>
         /// <param name="link">manager for Link</param>
-        public void LoadAll(LinkManager link, PlaySoundEffect sound) { _link = link; _sound = sound; }
+        public void LoadAll(LinkManager link, PlaySoundEffect sound, EnvironmentFactory enviro) { _link = link; _sound = sound; _environmentFactory = enviro;  }
 
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
@@ -65,6 +66,8 @@ namespace _3902_Project
                     case CollisionData.CollisionType.LEFT:      _link.LinkPositionOnWindow = new(startPos.X + (206 * printScale), startPos.Y + (80 * printScale)); break;
                     default: break;
                 }
+
+                _environmentFactory.moveToNextRoom(side);
             }
             else
             {
