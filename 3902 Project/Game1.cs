@@ -130,7 +130,7 @@ namespace _3902_Project
         {
             if (_startState)
             {
-                Debug.Write("value of UserPressedEnter: " + UserPressedEnter + " \n");
+                //Debug.Write("value of UserPressedEnter: " + UserPressedEnter + " \n");
 
                 if (PauseCounter == 0 && UserPressedEnter)
                 {
@@ -157,7 +157,7 @@ namespace _3902_Project
                     }
                 }
             }
-            else if (!PauseState && PauseCounter == 0 && !_isGameOver)
+            else if (PauseCounter == 0 && !_isGameOver)
             {
                 // Regular game update when the game is running
                 BlockManager.Update();
@@ -174,8 +174,10 @@ namespace _3902_Project
                 {
                     // Enter Game Over state
                     //PauseState = true;   // Pause the game
+                    MySoundEffect.PlaySound(PlaySoundEffect.Sounds.Enemy_Death);
                     IsGameOver = true;  // Set the game state to Game Over
-                    MiscManager.TriggerGameOver();
+                    ICommand pauseGame = new CommandPauseGame(this);
+                    pauseGame.Execute();
                 }
             }
             
@@ -211,7 +213,12 @@ namespace _3902_Project
                     DrawCollisions();
 
                 if (PauseState)
+                {
                     MiscManager.UpdateAndDrawTransition(_spriteBatch);
+                    MiscManager.UnloadAllMisc();
+                    MiscManager.TriggerGameOver();
+                    MiscManager.Draw();
+                }
 
                 if (!PauseState && PauseCounter != 0)
                 {
@@ -270,9 +277,11 @@ namespace _3902_Project
         public void ResetGame()
         {
             // need to have a sequence play out first, but that will need a transition
-            MySoundEffect.PlaySound(PlaySoundEffect.Sounds.Enemy_Death);
             _startState = false;
-            PauseCounter = 1;
+            ICommand pauseGame = new CommandPauseGame(this);
+            pauseGame.Execute();
+            PauseCounter = 0;
+            _isGameOver = false;
             Initialize();
         }
     }

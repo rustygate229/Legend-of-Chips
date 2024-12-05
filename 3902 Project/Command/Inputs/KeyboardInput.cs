@@ -48,6 +48,8 @@ namespace _3902_Project
             // Mapping keys for game control actions such as reset and quit
             keysGameOverToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Q, new CommandQuit(game));
             keysGameOverToCommands.Add(Microsoft.Xna.Framework.Input.Keys.R, new CommandReset(game));
+            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Q, new CommandQuit(game));
+            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.R, new CommandReset(game));
             keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.P, new CommandPauseGame(game));
 
             // Mapping keys for moving through the inventory
@@ -71,6 +73,8 @@ namespace _3902_Project
             keysPauseToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Left, new CommandSelectLeft(game));
             keysPauseToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Right, new CommandSelectRight(game));
             keysPauseToCommands.Add(Microsoft.Xna.Framework.Input.Keys.P, new CommandPauseGame(game));
+            keysPauseToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Q, new CommandQuit(game));
+            keysPauseToCommands.Add(Microsoft.Xna.Framework.Input.Keys.R, new CommandReset(game));
 
             keysStartEndToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Enter, new CommandStartEndGame(game));
         }

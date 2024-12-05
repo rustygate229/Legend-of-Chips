@@ -24,24 +24,27 @@ namespace _3902_Project
             MouseState currentMouseState = Mouse.GetState();
             HashSet<string> newbuttonsClicked = new HashSet<string>();
 
-            if (Mouse.GetState().RightButton == ButtonState.Pressed)
-                newbuttonsClicked.Add("rc");
-            else if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-                newbuttonsClicked.Add("lc");
-
-            // for each key, find if it is either previously pressed or a movement key
-            foreach (string key in newbuttonsClicked)
+            if (!_game.PauseState)
             {
-                if (key == "rc" && !previousMouseButtons.Contains("rc"))
-                {
-                    _game.EnvironmentFactory.incrementLevel();
-                    _game.HUD.IncrementLevel();
-                }
+                if (Mouse.GetState().RightButton == ButtonState.Pressed)
+                    newbuttonsClicked.Add("rc");
+                else if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                    newbuttonsClicked.Add("lc");
 
-                else if (key == "lc" && !previousMouseButtons.Contains("lc"))
+                // for each key, find if it is either previously pressed or a movement key
+                foreach (string key in newbuttonsClicked)
                 {
-                    _game.EnvironmentFactory.decrementLevel();
-                    _game.HUD.DecrementLevel();
+                    if (key == "rc" && !previousMouseButtons.Contains("rc"))
+                    {
+                        _game.EnvironmentFactory.incrementLevel();
+                        _game.HUD.IncrementLevel();
+                    }
+
+                    else if (key == "lc" && !previousMouseButtons.Contains("lc"))
+                    {
+                        _game.EnvironmentFactory.decrementLevel();
+                        _game.HUD.DecrementLevel();
+                    }
                 }
             }
 
