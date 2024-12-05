@@ -24,6 +24,9 @@ namespace _3902_Project
             _inventory = _linkManager.GetLinkInventory();
             level = 1;
         }
+        
+
+       
 
         public void IncrementLevel() { if (level < maxLevel)  level++;  }
         public void DecrementLevel() { if (level > 1) level--; }
@@ -192,6 +195,7 @@ namespace _3902_Project
             DrawProjectile(_linkManager.CurrentProjectile);
             DrawAmountOnScreen();
             DrawHearts();
+           
         }
     }
 }

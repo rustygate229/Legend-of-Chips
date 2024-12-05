@@ -11,6 +11,7 @@ namespace _3902_Project
 
 
         private int _maxHealth = 6;
+
         public int MaxHealth { get { return _maxHealth; } set { if (value <= 48) _maxHealth = value; CollisionBox.Health = _maxHealth; } }
 
         public bool IsLinkDamaged { get { return _damageHelper.IsDamaged; } set { _damageHelper.IsDamaged = value; } }

@@ -15,7 +15,7 @@ namespace _3902_Project
         private Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand> keysMoveToCommands = new Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand>();
         private Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand> keysPauseToCommands = new Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand>();
         private Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand> keysStartEndToCommands = new Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand>();
-
+        private Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand> keysGameOverToCommands = new Dictionary<Microsoft.Xna.Framework.Input.Keys, ICommand>();
         // Create a set of previous keys for previous 
         private HashSet<Microsoft.Xna.Framework.Input.Keys> _previousKeys = new HashSet<Microsoft.Xna.Framework.Input.Keys>();
 
@@ -46,8 +46,8 @@ namespace _3902_Project
             keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.N, new CommandLinkThrow(game));
 
             // Mapping keys for game control actions such as reset and quit
-            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Q, new CommandQuit(game));
-            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.R, new CommandReset(game));
+            keysGameOverToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Q, new CommandQuit(game));
+            keysGameOverToCommands.Add(Microsoft.Xna.Framework.Input.Keys.R, new CommandReset(game));
             keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.P, new CommandPauseGame(game));
 
             // Mapping keys for moving through the inventory
@@ -75,28 +75,33 @@ namespace _3902_Project
             keysStartEndToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Enter, new CommandStartEndGame(game));
         }
 
+       
+
         // Update method to check keyboard input and execute corresponding commands
         public void Update()
         {
-            //get the keyboard state
             KeyboardState currentKeyboardState = Keyboard.GetState();
             Microsoft.Xna.Framework.Input.Keys[] currentKeyboardPressed = currentKeyboardState.GetPressedKeys();
-            HashSet<Microsoft.Xna.Framework.Input.Keys> newPreviousKeys = new();
+            HashSet<Microsoft.Xna.Framework.Input.Keys> newPreviousKeys = new HashSet<Microsoft.Xna.Framework.Input.Keys>();
 
             if (_game.StartState)
+            {
                 newPreviousKeys = EnterKeyCheck(currentKeyboardPressed, newPreviousKeys);
+            }
+            else if (_game.IsGameOver) // If Game Over state
+            {
+                newPreviousKeys = GameOverKeyCheck(currentKeyboardPressed, newPreviousKeys);
+            }
+            else if (!_game.PauseState)
+            {
+                newPreviousKeys = NormalKeyCheck(currentKeyboardPressed, newPreviousKeys);
+                newPreviousKeys = MovementCheck(currentKeyboardPressed, newPreviousKeys);
+            }
             else
             {
-                if (!_game.PauseState)
-                {
-                    newPreviousKeys = NormalKeyCheck(currentKeyboardPressed, newPreviousKeys);
-                    newPreviousKeys = MovementCheck(currentKeyboardPressed, newPreviousKeys);
-                }
-                else
-                    newPreviousKeys = PauseKeyCheck(currentKeyboardPressed, newPreviousKeys);
+                newPreviousKeys = PauseKeyCheck(currentKeyboardPressed, newPreviousKeys);
             }
 
-            // set old previous keys = new previous keys
             _previousKeys = newPreviousKeys;
         }
 
@@ -169,5 +174,23 @@ namespace _3902_Project
             }
             return newPreviousKeys;
         }
+        // Add a method to handle Game Over key commands
+        private HashSet<Microsoft.Xna.Framework.Input.Keys> GameOverKeyCheck(Microsoft.Xna.Framework.Input.Keys[] currentKeyboardPressed, HashSet<Microsoft.Xna.Framework.Input.Keys> newPreviousKeys)
+        {
+            foreach (Microsoft.Xna.Framework.Input.Keys key in currentKeyboardPressed)
+            {
+                if (keysGameOverToCommands.ContainsKey(key))
+                {
+                    if (!_previousKeys.Contains(key))
+                    {
+                        ICommand setKeyboardCommand = keysGameOverToCommands[key];
+                        setKeyboardCommand.Execute();
+                    }
+                    newPreviousKeys.Add(key);
+                }
+            }
+            return newPreviousKeys;
+        }
+
     }
 }
