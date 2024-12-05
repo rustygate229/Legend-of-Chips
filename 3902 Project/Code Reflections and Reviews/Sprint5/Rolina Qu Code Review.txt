@@ -1,0 +1,11 @@
+READABILITY & CODE REVIEW 
+AUTHOR: Rolina Qu
+DATE: 12/4/24
+SPRINT NUMBER: 4
+.cs FILE NAME: MiscSpriteFactory.cs
+.cs FILE AUTHOR: Evan Cshuran
+TIME TAKEN: 20 minutes
+
+Readability: The code is generally somewhat clear and readable, with clearly labelled variables and descriptive method names. In addition, the methods all use switch cases for their various types, with clear names indicating which transition, misc, and start screen is being loaded and returned based on the name given. 
+
+Code Quality: The code is also generally fairly clearly written with useful names, and all the methods return a sprite of type ISprite in accordance with the Factory design pattern. 
