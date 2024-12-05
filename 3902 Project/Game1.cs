@@ -173,7 +173,7 @@ namespace _3902_Project
                 if (LinkManager.CollisionBox.Health <= 0)
                 {
                     // Enter Game Over state
-                    //PauseState = true;   // Pause the game
+                    PauseState = true;   // Pause the game
                     IsGameOver = true;  // Set the game state to Game Over
                     MiscManager.TriggerGameOver();
                 }

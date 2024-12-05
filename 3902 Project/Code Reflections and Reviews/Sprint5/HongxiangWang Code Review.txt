@@ -1,0 +1,20 @@
+READABILITY & CODE REVIEWAUTHOR: 
+HongxiangWang
+DATE: 12/4/24
+SPRINT NUMBER: 5
+.cs FILE NAME: MiscManager.cs
+CODE AUTHOR: Gary
+TIME TAKEN: 20 minutes
+
+Readability: The code is mostly clear, with good naming conventions for variables. Methods like TriggerGameOver could be broken into smaller helper functions to improve modularity. The CallAlphabet method has repetitive code that could be consolidated into a utility function to draw entire strings, reducing redundancy. Some comments are redundant and could be removed for a cleaner codebase.
+
+Code Quality: The MiscManager design separates concerns well, but improvements could be made for maintainability. Repeated calls to draw individual letters in TriggerGameOver are verbose; encapsulating them into a function to render words would help. The UpdateAndDrawTransition and UpdateAndDrawStartScreen methods should separate update and draw logic to align with best practices. The UnloadMisc method could benefit from ensuring proper checks to prevent runtime issues.
+
+Additional Recommendations:
+
+Refactoring: Split MiscManager into separate classes for managing sprites, transitions, and start screens to adhere to the Single Responsibility Principle.
+
+Reusability: Consolidate repetitive text drawing logic into helper methods.
+
+Optimization: Refactor switch statements using dictionaries or enums for better readability and reduced verbosity.
+
