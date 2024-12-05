@@ -29,6 +29,23 @@ namespace _3902_Project
             _spriteBatch = spriteBatch;
         }
 
+        public void TriggerGameOver()
+        {
+            // Use MiscManager to draw "Game Over" on the screen.
+            float printScale = 6F;
+            CallAlphabet("G", printScale, Color.White, new Vector2(400, 200));
+            CallAlphabet("A", printScale, Color.White, new Vector2(440, 200));
+            CallAlphabet("M", printScale, Color.White, new Vector2(480, 200));
+            CallAlphabet("E", printScale, Color.White, new Vector2(520, 200));
+
+            CallAlphabet("O", printScale, Color.White, new Vector2(600, 200));
+            CallAlphabet("V", printScale, Color.White, new Vector2(640, 200));
+            CallAlphabet("E", printScale, Color.White, new Vector2(680, 200));
+            CallAlphabet("R", printScale, Color.White, new Vector2(720, 200));
+
+           
+        }
+
 
         /// <summary>
         /// Add an letter to the running misc list

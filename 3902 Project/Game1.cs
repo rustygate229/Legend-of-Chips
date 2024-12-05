@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
@@ -36,11 +37,28 @@ namespace _3902_Project
         private bool _userPressedEnter;
         public bool UserPressedEnter { get { return _userPressedEnter; } set { _userPressedEnter = value; } }
         private bool _drawCollidables = false;
+        private bool _isGameOver = false;
+        private GameState _currentState = GameState.Start;
+
+        // Property to expose the Game Over state
+        public bool IsGameOver
+        {
+            get { return _isGameOver; }
+            set { _isGameOver = value; }
+        }
         public bool DoDrawCollisions
         {
             get { return _drawCollidables; }
             set { _drawCollidables = value; }
         }
+        public enum GameState
+        {
+            Start,
+            Running,
+            Paused,
+            GameOver
+        }
+
         //private List<ICollisionBox> _blockCollisionBoxes;
         //private List<ICollisionBox> _itemCollisionBoxes;
 
@@ -123,8 +141,9 @@ namespace _3902_Project
                     }
                 }
             }
-            else if (!PauseState && PauseCounter == 0)
+            else if (!PauseState && PauseCounter == 0 && !_isGameOver)
             {
+                // Regular game update when the game is running
                 BlockManager.Update();
                 ItemManager.Update();
                 ProjectileManager.Update();
@@ -133,16 +152,26 @@ namespace _3902_Project
                 EnvironmentFactory.Update();
                 MiscManager.Update();
 
+                // Check if player health is zero
                 if (LinkManager.CollisionBox.Health <= 0)
-                    ResetGame();
+                {
+                    // Enter Game Over state
+                    //PauseState = true;   // Pause the game
+                    IsGameOver = true;  // Set the game state to Game Over
+                    MiscManager.TriggerGameOver();
+                }
             }
             
+
             // Update input controls
             keyboardController.Update();
             mouseController.Update();
 
             base.Update(gameTime);
         }
+
+
+
 
         protected override void Draw(GameTime gameTime)
         {

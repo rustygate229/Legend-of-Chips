@@ -14,6 +14,7 @@ namespace _3902_Project
 
         private int level;
         private int maxLevel = 5;
+        
 
         public HUD() {}
         public void LoadAll(LinkManager link, ItemManager item, MiscManager misc)
@@ -24,6 +25,9 @@ namespace _3902_Project
             _inventory = _linkManager.GetLinkInventory();
             level = 1;
         }
+        
+
+       
 
         public void IncrementLevel() { if (level < maxLevel)  level++;  }
         public void DecrementLevel() { if (level > 1) level--; }
@@ -183,6 +187,7 @@ namespace _3902_Project
             DrawProjectile(_linkManager.CurrentProjectile);
             DrawAmountOnScreen();
             DrawHearts();
+           
         }
     }
 }
