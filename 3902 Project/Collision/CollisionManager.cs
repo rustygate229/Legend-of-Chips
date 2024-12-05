@@ -47,8 +47,10 @@ namespace _3902_Project
             _collisionBoxes.Add(_projectileManager.GetCollisionBoxes());
             _collisionBoxes.Add(_itemManager.GetCollisionBoxes());
         }
+        public List<List<ICollisionBox> >GetCollisionBoxes() {
+            return _collisionBoxes;
 
-
+        }
         /// <summary>
         /// Update all items in the List
         /// </summary>

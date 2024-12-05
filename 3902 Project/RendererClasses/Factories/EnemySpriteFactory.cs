@@ -9,6 +9,7 @@ namespace _3902_Project
     {
         // Enemy spritesheet
         private Texture2D _enemySpritesheet;
+        private Texture2D _BossSpritesheet;
 
         // Create a singleton instance of EnemySpriteFactory
         private static EnemySpriteFactory instance = new EnemySpriteFactory();
@@ -19,7 +20,11 @@ namespace _3902_Project
         // Constructor to initialize the factory instance
         private EnemySpriteFactory() { EnemySpriteFactory.instance = this; }
 
-        public void LoadAllTextures(ContentManager content) { _enemySpritesheet = content.Load<Texture2D>("SpriteSheets\\Enemies(Dungeon)_Transparent"); }
+        public void LoadAllTextures(ContentManager content) { 
+            
+            _enemySpritesheet = content.Load<Texture2D>("SpriteSheets\\Enemies(Dungeon)_Transparent");
+            _BossSpritesheet = content.Load<Texture2D>("SpriteSheets\\BossEnemies_Transparent");
+        }
 
         public void UnloadAllTextures(ContentManager content) { _enemySpritesheet.Dispose(); }
 
@@ -36,6 +41,8 @@ namespace _3902_Project
                     return new GreenSlime(_enemySpritesheet, printScale, _projectileManager);
                 case EnemyManager.EnemyNames.Darknut:
                     return new Darknut(_enemySpritesheet, printScale);
+                case EnemyManager.EnemyNames.BigBoss:
+                       return new BigBoss(_BossSpritesheet, printScale);
                 default: throw new ArgumentException("invalid enemy name");
             }
         }
