@@ -31,7 +31,8 @@
 * Mainly writing this as a sendoff/insight into how we felt about the project, even without a letter grade being assigned to it. Overall, even in our final crunch, we are proud of our attempts at this code and our remake of Legend of Zelda, even with it's flaws.
 
 # Known Bugs (in levels of necessity)
-1) Some bugs with collision of large boxes and small boxes - for example, the boss enemy with a large hitbox quickly moving into Link can give him a significant amount of speed. 
+1) Some bugs with collision of large boxes and small boxes - for example, the boss enemy with a large hitbox quickly moving into Link can give him a significant amount of speed.
+2) General small details that we used hard code to fix, so there is most likely some bugs that will pop up (mainly with state transitions in Game1.cs)
 
 # Credits
 * Sprites
