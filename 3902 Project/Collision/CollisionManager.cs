@@ -6,7 +6,7 @@ using static _3902_Project.PlaySoundEffect;
 
 namespace _3902_Project
 {
-    public partial class CollisionManager
+    public class CollisionManager
     {
         public List<List<ICollisionBox>> _collisionBoxes;
         private BlockManager _blockManager;
