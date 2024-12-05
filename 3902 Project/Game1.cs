@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
 
 namespace _3902_Project
 {
@@ -47,7 +46,7 @@ namespace _3902_Project
         // Input controller
         internal IController keyboardController;
         internal IController mouseController;
-        
+
 
         public Game1()
         {
@@ -75,7 +74,7 @@ namespace _3902_Project
             MySoundEffect = new();
             HUD = new();
             LoadContent();
-    }
+        }
 
         protected override void LoadContent()
         {
@@ -107,14 +106,20 @@ namespace _3902_Project
 
         protected override void Update(GameTime gameTime)
         {
+            Debug.Write("value of UserPressedEnter: " + UserPressedEnter + " \n");
             if (_startState)
             {
-                if (UserPressedEnter)
+
+                if (PauseCounter == 0 && UserPressedEnter)
                 {
-                    if (PauseCounter == 0)
-                        MiscManager.StartMenu(MiscManager.StartMenu_Names.StoryScreen);
+                    MiscManager.StartMenu(MiscManager.StartMenu_Names.StoryScreen);
+                    UserPressedEnter = false;
                     PauseCounter++;
-                    if (PauseCounter >= (900 * 7.35) / 3.5)
+                }
+                if (PauseCounter >= 1)
+                {
+                    PauseCounter++;
+                    if (PauseCounter >= (900 * 7.35) / 3.5 || (UserPressedEnter && PauseCounter >= 30))
                     {
                         _startState = false;
                         MiscManager.UnloadStartMenu();
@@ -123,6 +128,7 @@ namespace _3902_Project
                     }
                 }
             }
+
             else if (!PauseState && PauseCounter == 0)
             {
                 BlockManager.Update();
@@ -136,7 +142,7 @@ namespace _3902_Project
                 if (LinkManager.CollisionBox.Health <= 0)
                     ResetGame();
             }
-            
+
             // Update input controls
             keyboardController.Update();
             mouseController.Update();
@@ -206,11 +212,11 @@ namespace _3902_Project
                     else
                         lineWidth = 0;
 
-                    Rectangle outlineTop =      new (bounds.X, bounds.Y, bounds.Width, lineWidth);
-                    Rectangle outlineLeft =     new (bounds.X, bounds.Y, lineWidth, bounds.Height);
-                    Rectangle outlineBottom =   new (bounds.X, bounds.Y + (bounds.Height - lineWidth), bounds.Width, lineWidth);
-                    Rectangle outlineRight =    new (bounds.X + (bounds.Width - lineWidth), bounds.Y, lineWidth, bounds.Height);
-                    Rectangle rectangleSource = new (235, 1213, 8, 8);
+                    Rectangle outlineTop = new(bounds.X, bounds.Y, bounds.Width, lineWidth);
+                    Rectangle outlineLeft = new(bounds.X, bounds.Y, lineWidth, bounds.Height);
+                    Rectangle outlineBottom = new(bounds.X, bounds.Y + (bounds.Height - lineWidth), bounds.Width, lineWidth);
+                    Rectangle outlineRight = new(bounds.X + (bounds.Width - lineWidth), bounds.Y, lineWidth, bounds.Height);
+                    Rectangle rectangleSource = new(235, 1213, 8, 8);
                     _spriteBatch.Draw(_outline, outlineTop, rectangleSource, color);
                     _spriteBatch.Draw(_outline, outlineBottom, rectangleSource, color);
                     _spriteBatch.Draw(_outline, outlineRight, rectangleSource, color);
@@ -221,7 +227,7 @@ namespace _3902_Project
         }
 
 
-        public void ResetGame() 
+        public void ResetGame()
         {
             // need to have a sequence play out first, but that will need a transition
             MySoundEffect.PlaySound(PlaySoundEffect.Sounds.Enemy_Death);

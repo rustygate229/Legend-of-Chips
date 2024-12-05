@@ -78,8 +78,6 @@ namespace _3902_Project
                 else if (objectB is LinkProjCollisionBox || objectB is EnemyProjCollisionBox)
                     _projectileCollisionHandler.HandleCollision(objectB, objectA, side);
                 // don't need items since enemies can't interact with items
-                // else if (objectB is ItemCollisionBox)
-                    // _itemCollisionHandler.HandleCollision(objectB, objectA, side);
             }
 
             else if (objectA is BlockCollisionBox) 
