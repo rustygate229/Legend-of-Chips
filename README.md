@@ -23,8 +23,11 @@
       * Cannot cylce since it would be confusing for if levels are new are not
   - DEBUG TOOLS:
      * H: Gives Link the MAX NUMBER OF HEARTS/HEALTH
-     * M: Spawns Link Back in Bounds (in case weird collision stuff happens)
+     * J: Spawns Link Back in Bounds (in case weird collision stuff happens)
      * K: Gives Link Debug Sword (InstaKill)
+     * Y: Spawn 50 Bombs
+     * U: Spawn 50 Arrows
+     * I: Spawn 50 Boomerangs
      * E: Link Enters Damage State (knockback from his facing direction)
      * C: Draws all collidables (*not all collision boxes)
 
