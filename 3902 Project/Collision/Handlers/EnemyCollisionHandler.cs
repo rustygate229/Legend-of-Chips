@@ -54,11 +54,12 @@ public class EnemyCollisionHandler
 
     private void HandleLinkProjCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
     {
-        Random random = new();
         if (!_enemy.IsDamaged(objectA.Sprite))
         {
+            objectA.Health -= objectB.Damage;
             switch (objectA.Sprite)
             {
+                // if had special enemies, could change their total damage time and stuff
                 default: _enemy.SetDamageHelper(45, false, side, objectA.Sprite); break;
             }
             if (objectA.Health > 0)
@@ -66,27 +67,32 @@ public class EnemyCollisionHandler
             else
             {
                 _sound.PlaySound(PlaySoundEffect.Sounds.Enemy_Death);
-                switch(objectA.Sprite)
+                Random random = new();
+                int currentOdds = random.Next(10);
+                switch (objectA.Sprite)
                 {
                     case GreenSlime:
-                        if (random.Next(4) <= 2) _item.AddItem(ItemManager.ItemNames.FlashingEmerald, objectA.Sprite.PositionOnWindow, 4f);
-                        else if (random.Next(4) <= 3) _item.AddItem(ItemManager.ItemNames.BlueArrow, objectA.Sprite.PositionOnWindow, 4f);
+                        if (currentOdds <= 5) _item.AddItem(ItemManager.ItemNames.FlashingEmerald, objectA.Sprite.PositionOnWindow, 4f);
+                        else if (currentOdds <= 7) _item.AddItem(ItemManager.ItemNames.Rupees, objectA.Sprite.PositionOnWindow, 4f);
+                        else _item.AddItem(ItemManager.ItemNames.Meat, objectA.Sprite.PositionOnWindow, 4f);
                         break;
                     case Darknut:
-                        if (random.Next(4) <= 2) _item.AddItem(ItemManager.ItemNames.FlashingEmerald, objectA.Sprite.PositionOnWindow, 4f);
-                        else if (random.Next(4) <= 3) _item.AddItem(ItemManager.ItemNames.BlueArrow, objectA.Sprite.PositionOnWindow, 4f);
+                        if (currentOdds <= 5) _item.AddItem(ItemManager.ItemNames.FlashingEmerald, objectA.Sprite.PositionOnWindow, 4f);
+                        else if (currentOdds <= 7) _item.AddItem(ItemManager.ItemNames.Rupees, objectA.Sprite.PositionOnWindow, 4f);
+                        else _item.AddItem(ItemManager.ItemNames.FlashingPotion, objectA.Sprite.PositionOnWindow, 4f);
                         break;
                     case BrownSlime:
-                        if (random.Next(4) <= 2) _item.AddItem(ItemManager.ItemNames.FlashingEmerald, objectA.Sprite.PositionOnWindow, 4f);
-                        else if (random.Next(4) <= 3) _item.AddItem(ItemManager.ItemNames.BlueArrow, objectA.Sprite.PositionOnWindow, 4f);
+                        if (currentOdds <= 5) _item.AddItem(ItemManager.ItemNames.FlashingEmerald, objectA.Sprite.PositionOnWindow, 4f);
+                        else if (currentOdds <= 7) _item.AddItem(ItemManager.ItemNames.Rupees, objectA.Sprite.PositionOnWindow, 4f);
+                        else _item.AddItem(ItemManager.ItemNames.FlashingLife, objectA.Sprite.PositionOnWindow, 4f);
                         break;
                     case BigBoss:
+                        // enter win state
                         _item.AddItem(ItemManager.ItemNames.FlashingTriForce, objectA.Sprite.PositionOnWindow, 4f); break;
                 }
                 _enemy.UnloadEnemy(objectA);
             }
 
-            objectA.Health -= objectB.Damage;
             Console.WriteLine("EnemyCollisionhandler: LinkProj hit, current health of enemy: " + objectA.Health);
         }
     }

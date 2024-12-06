@@ -23,6 +23,9 @@ namespace _3902_Project
         private bool _linkHasTriForce;
         public bool LinkHasTriForce { get { return _linkHasTriForce; } set { _linkHasTriForce = value; } }
 
+        private bool _linkHasBow;
+        public bool LinkHasBow { get { return _linkHasBow; } set { _linkHasBow = value; } }
+
         private ProjectileManager.ProjectileNames _currentProjectile;
         public ProjectileManager.ProjectileNames CurrentProjectile { get { return _currentProjectile; } set { _currentProjectile = value; } }
 
@@ -41,10 +44,10 @@ namespace _3902_Project
             // initialize link shield to be small
             LinkShield = false;
             LinkHasTriForce = false;
+            LinkHasBow = false;
 
             // initializing some amounts for testing
-            int amount = 10;
-            _projectileInventory.Add(ProjectileManager.ProjectileNames.FireBall, amount);
+            int amount = 0;
             _projectileInventory.Add(ProjectileManager.ProjectileNames.BlueArrow, amount);
             _projectileInventory.Add(ProjectileManager.ProjectileNames.Bomb, amount);
             _projectileInventory.Add(ProjectileManager.ProjectileNames.Boomerang, amount);

@@ -59,11 +59,9 @@ namespace _3902_Project
             CurrentLinkAction = LinkActions.None;
             LinkDirection = Renderer.DIRECTION.RIGHT;
             IsLinkDamaged = false;
-            _inventory.LinkShield = false;
-            _inventory.CurrentLinkSword = LinkInventory.LinkSwordType.WOOD;
 
             CurrentLink = _factory.CreateLink(CurrentLinkSprite, _inventory.LinkShield, _direction, _printScale, _manager);
-            LinkPositionOnWindow = new(140, 200 + 310);
+            LinkPositionOnWindow = new(128, 196 + (128 + (64 * 3)));
             CollisionBox = new LinkCollisionBox(CurrentLink);
             SetCollision(CollisionBox);
             // IMPORTANT: look at this methods comment for health transfering

@@ -14,9 +14,19 @@ namespace _3902_Project
         {
             if (_link.CanFireProjectile())
             {
-                if ((_link.CurrentLinkSprite is LinkManager.LinkSprite.Standing) || (_link.CurrentLinkSprite is LinkManager.LinkSprite.Throwing))
-                    _link.ReplaceLinkSprite(LinkManager.LinkSprite.Throwing);
-                _link.FireProjectile();
+                if (_link.CurrentProjectile is ProjectileManager.ProjectileNames.BlueArrow)
+                {
+                    if (_link.GetLinkInventory().LinkHasBow)
+                        if ((_link.CurrentLinkSprite is LinkManager.LinkSprite.Standing) || (_link.CurrentLinkSprite is LinkManager.LinkSprite.Throwing))
+                            _link.ReplaceLinkSprite(LinkManager.LinkSprite.Throwing);
+                    _link.FireProjectile();
+                }
+                else
+                {
+                    if ((_link.CurrentLinkSprite is LinkManager.LinkSprite.Standing) || (_link.CurrentLinkSprite is LinkManager.LinkSprite.Throwing))
+                        _link.ReplaceLinkSprite(LinkManager.LinkSprite.Throwing);
+                    _link.FireProjectile();
+                }
             }
         }
     }

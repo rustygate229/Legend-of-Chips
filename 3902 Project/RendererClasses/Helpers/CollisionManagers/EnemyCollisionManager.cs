@@ -21,7 +21,7 @@ namespace _3902_Project
                     box.Damage = 1;
                     break;
                 case BrownSlime:
-                    box.Health = 5;
+                    box.Health = 8;
                     box.Damage = 1;
                     break;
                 case Darknut:
@@ -29,8 +29,8 @@ namespace _3902_Project
                     box.Damage = 2;
                     break;
                 case BigBoss:
-                    box.Health = 50;
-                    box.Damage = 1;
+                    box.Health = 70;
+                    box.Damage = 2;
                     break;
                 default: break;
             }

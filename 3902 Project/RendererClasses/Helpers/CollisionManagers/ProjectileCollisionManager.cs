@@ -28,9 +28,9 @@ namespace _3902_Project
         {
             switch (box.Sprite)
             {
-                case PSprite_BlueArrow:     box.Health = 1; box.Damage = 3; break;
+                case PSprite_BlueArrow:     box.Health = 1; box.Damage = 4; break;
                 case PSprite_FireBall:      box.Health = 1; box.Damage = 1; break;
-                case PSprite_BombCloud:     box.Health = 1; box.Damage = 3; break;
+                case PSprite_BombCloud:     box.Health = 1; box.Damage = 5; break;
                 case PSprite_Boomerang:     box.Health = 1; box.Damage = 2; break;
                 case PSprite_WoodSword:     box.Health = 1; box.Damage = 1; break;
                 case PSprite_IronSword:     box.Health = 1; box.Damage = 3; break;

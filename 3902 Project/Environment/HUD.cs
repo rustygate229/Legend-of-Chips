@@ -195,7 +195,6 @@ namespace _3902_Project
             DrawProjectile(_linkManager.CurrentProjectile);
             DrawAmountOnScreen();
             DrawHearts();
-           
         }
     }
 }

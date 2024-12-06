@@ -95,6 +95,8 @@ namespace _3902_Project
             _csvTranslationsItem.Add("fp", ItemManager.ItemNames.FlashingPotion);
             _csvTranslationsItem.Add("fh", ItemManager.ItemNames.AddLife);
             _csvTranslationsItem.Add("fa", ItemManager.ItemNames.FlashingArrow);
+            _csvTranslationsItem.Add("bow", ItemManager.ItemNames.Bow);
+            _csvTranslationsItem.Add("fb", ItemManager.ItemNames.FlashingBanana);
             _csvTranslationsItem.Add("bo", ItemManager.ItemNames.Bomb);
             _csvTranslationsItem.Add("nk", ItemManager.ItemNames.NormalKey);
             _csvTranslationsItem.Add("bk", ItemManager.ItemNames.BossKey);

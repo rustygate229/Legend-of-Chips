@@ -55,11 +55,22 @@ namespace _3902_Project
             {
                 if (CurrentProjectile is ProjectileManager.ProjectileNames.Bomb)
                     _soundEffect.PlaySound(PlaySoundEffect.Sounds.ItemPlace_Bomb);
-                _manager.CallProjectile(
-                    CurrentProjectile, _linkProjectile, 
-                    helper.GetPositionAhead(PositionAheadScale(), LinkDestinationRectangle), _direction, _printScale
-                );
-                _inventory.RemoveItem(ProjectileConversion(CurrentProjectile), 1);
+                if (CurrentProjectile is ProjectileManager.ProjectileNames.BlueArrow && _inventory.LinkHasBow)
+                {
+                    _manager.CallProjectile(
+                        CurrentProjectile, _linkProjectile,
+                        helper.GetPositionAhead(PositionAheadScale(), LinkDestinationRectangle), _direction, _printScale
+                    );
+                    _inventory.RemoveItem(ProjectileConversion(CurrentProjectile), 1);
+                }
+                else if (CurrentProjectile is not ProjectileManager.ProjectileNames.BlueArrow)
+                {
+                    _manager.CallProjectile(
+                        CurrentProjectile, _linkProjectile,
+                        helper.GetPositionAhead(PositionAheadScale(), LinkDestinationRectangle), _direction, _printScale
+                    );
+                    _inventory.RemoveItem(ProjectileConversion(CurrentProjectile), 1);
+                }
             }
         }
 
@@ -99,33 +110,34 @@ namespace _3902_Project
             // based on what link current sword is and if Link can attack
             if (CanSwordAttack())
             {
+                float positionOfSword = 0.5F;
                 _swordDamageDecrementTotal--;
                 switch (_inventory.CurrentLinkSword)
                 {
                     case LinkInventory.LinkSwordType.WOOD:
                         _manager.CallProjectile(
                             ProjectileManager.ProjectileNames.WoodSwordAttack, _linkProjectile, 
-                            helper.GetPositionAhead(0.4F, LinkDestinationRectangle), _direction, _printScale
+                            helper.GetPositionAhead(positionOfSword, LinkDestinationRectangle), _direction, _printScale
                         ); break;
                     case LinkInventory.LinkSwordType.IRON:
                         _manager.CallProjectile(
                             ProjectileManager.ProjectileNames.IronSwordAttack, _linkProjectile,
-                            helper.GetPositionAhead(0.4F, LinkDestinationRectangle), _direction, _printScale
+                            helper.GetPositionAhead(positionOfSword, LinkDestinationRectangle), _direction, _printScale
                         ); break;
                     case LinkInventory.LinkSwordType.MASTER:
                         _manager.CallProjectile(
                             ProjectileManager.ProjectileNames.MasterSwordAttack, _linkProjectile,
-                            helper.GetPositionAhead(0.4F, LinkDestinationRectangle), _direction, _printScale
+                            helper.GetPositionAhead(positionOfSword, LinkDestinationRectangle), _direction, _printScale
                         ); break;
                     case LinkInventory.LinkSwordType.STAFF:
                         _manager.CallProjectile(
                             ProjectileManager.ProjectileNames.MagicStaffSAttack, _linkProjectile,
-                            helper.GetPositionAhead(0.4F, LinkDestinationRectangle), _direction, _printScale
+                            helper.GetPositionAhead(positionOfSword, LinkDestinationRectangle), _direction, _printScale
                         ); break;
                     case LinkInventory.LinkSwordType.DEBUG:
                         _manager.CallProjectile(
                             ProjectileManager.ProjectileNames.DebugSwordAttack, _linkProjectile,
-                            helper.GetPositionAhead(0.4F, LinkDestinationRectangle), _direction, _printScale
+                            helper.GetPositionAhead(positionOfSword, LinkDestinationRectangle), _direction, _printScale
                         ); break;
                     default: break;
                 }

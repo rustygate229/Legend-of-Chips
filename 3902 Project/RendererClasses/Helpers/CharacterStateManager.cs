@@ -31,8 +31,8 @@ namespace _3902_Project
             {
                 // gave 10 for testing purpose
                 case AItem_FArrow:  _inventory.AddItem(ItemManager.ItemNames.BlueArrow, 5); break;
-                case SItem_Bomb:    _inventory.AddItem(ItemManager.ItemNames.Bomb, 3); break;
-                case AItem_FBoomerang: _inventory.AddItem(ItemManager.ItemNames.FlashingBanana, 1); break;
+                case SItem_Bomb:    _inventory.AddItem(ItemManager.ItemNames.Bomb, 1); break;
+                case AItem_FBoomerang: _inventory.AddItem(ItemManager.ItemNames.FlashingBanana, 10); break;
                 case AItem_FEmerald: _inventory.AddItem(ItemManager.ItemNames.FlashingEmerald, 1); break;
                 case SItem_Rupees: _inventory.AddItem(ItemManager.ItemNames.Rupees, 5); break;
                 case SItem_NormalKey:
@@ -41,8 +41,9 @@ namespace _3902_Project
                 case AItem_FLife:
                     if (CollisionBox.Health + 2 <= MaxHealth) CollisionBox.Health += 2; break;
                 case AItem_FPotion:
-                case SItem_Meat:
                     if (CollisionBox.Health + 3 <= MaxHealth) CollisionBox.Health += 3; break;
+                case SItem_Meat:
+                    if (CollisionBox.Health + 1 <= MaxHealth) CollisionBox.Health += 3; break;
                 case SItem_Shield: _inventory.LinkShield = !_inventory.LinkShield; break;
                 case AItem_FTriForce: _inventory.LinkHasTriForce = !_inventory.LinkHasTriForce; break;
                 case SItem_IronSword: 
@@ -53,6 +54,8 @@ namespace _3902_Project
                     if (_inventory.CurrentLinkSword <= LinkInventory.LinkSwordType.STAFF) _inventory.CurrentLinkSword = LinkInventory.LinkSwordType.STAFF; break;
                 case SItem_DebugSword:
                     if (_inventory.CurrentLinkSword <= LinkInventory.LinkSwordType.DEBUG) _inventory.CurrentLinkSword = LinkInventory.LinkSwordType.DEBUG; break;
+                case SItem_Bow:
+                    _inventory.LinkHasBow = !_inventory.LinkHasBow; break;
                 default: break;
             }
              Console.WriteLine("Current Link Health: " + CollisionBox.Health);
