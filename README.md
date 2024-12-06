@@ -13,7 +13,6 @@
      * 1: Bomb
      * 2: Arrow
      * 3: Boomerang
-  - E: Link Enters Damage State (knockback from his facing direction)
        
 * Other
   - Q: Quit/Close Program
@@ -24,8 +23,10 @@
       * Cannot cylce since it would be confusing for if levels are new are not
   - DEBUG TOOLS:
      * H: Gives Link the MAX NUMBER OF HEARTS/HEALTH
-     * C: Draws all collidables (*not all collision boxes)
+     * M: Spawns Link Back in Bounds (in case weird collision stuff happens)
      * K: Gives Link Debug Sword (InstaKill)
+     * E: Link Enters Damage State (knockback from his facing direction)
+     * C: Draws all collidables (*not all collision boxes)
 
 # Code Insight
 * Sadly, in terms of full functionality, we're lacking in most departments. However, we believe that most of our changes exist in changing the structure of the code, which hopefully accounts for the lack of functionality. If not, we still did decently with the state we we're in with Sprint 4. 
