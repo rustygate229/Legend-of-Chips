@@ -299,8 +299,14 @@ namespace _3902_Project
             // need to have a sequence play out first, but that will need a transition
             ICommand pauseGame = new CommandPauseGame(this);
             if (PauseState)
+            {
                 pauseGame.Execute();
-            PauseCounter = 0;
+                PauseCounter = 0;
+            }
+            else
+            {
+                PauseCounter = 1;
+            }
             _startState = false;
             _isGameOver = false;
             _wonState = false;
