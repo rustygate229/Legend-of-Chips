@@ -25,6 +25,7 @@
   - DEBUG TOOLS:
      * H: Gives Link the MAX NUMBER OF HEARTS/HEALTH
      * C: Draws all collidables (*not all collision boxes)
+     * K: Gives Link Debug Sword (InstaKill)
 
 # Code Insight
 * Sadly, in terms of full functionality, we're lacking in most departments. However, we believe that most of our changes exist in changing the structure of the code, which hopefully accounts for the lack of functionality. If not, we still did decently with the state we we're in with Sprint 4. 
