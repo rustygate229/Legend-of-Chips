@@ -9,12 +9,12 @@ namespace _3902_Project
         // variables to change based on where your block is and what to print out
         private Rectangle _spritePosition = new (78, 28, 32, 16);
         private Vector2 _rowAndColumns = new (1, 2);
-        private int frames = 12;
+        private int frames = 8;
         private float _printScale;
 
         // variables for moving the enemy
         private int _moveCounter = 0;
-        private int _moveTotal = 30;
+        private int _moveTotal = 20;
         private float _positionSpeed = 2F;
 
         // variables for shooting projectile
@@ -62,7 +62,7 @@ namespace _3902_Project
         public void Update()
         {
             if (_moveCounter == 0) _enemy.SetRandomMovement(); Vector2 updatePosition = _enemy.GetUpdatePosition(_positionSpeed);
-            if (_moveCounter == 15) 
+            if (_moveCounter == 12) 
                 _projectileManager.CallProjectile(ProjectileManager.ProjectileNames.FireBall, ProjectileManager.ProjectileType.EnemyProj, _enemy.GetPositionAhead(0.5F), _enemy.Direction, _printScale);
             _moveCounter++;
             if (_moveCounter == _moveTotal) { _moveCounter = 0; }

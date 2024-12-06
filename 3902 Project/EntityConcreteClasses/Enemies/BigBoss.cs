@@ -10,15 +10,12 @@ namespace _3902_Project
         private Rectangle _spritePosition = new(40, 154, 165, 32);
         private Vector2 _rowAndColumns = new(1, 5);
         private int frames = 25;
-        private float _printScale;
 
         // variables for moving the enemy
         private int _moveCounter = 0;
-        private int _moveTotal = 15;
-        private float _positionSpeed = 1F;
-
+        private int _moveTotal = 12;
+        private float _positionSpeed = 0.85F;
       
-
         // create enemy renderer
         private Renderer _enemy;
         private bool _isCentered = true;
@@ -30,8 +27,6 @@ namespace _3902_Project
         /// <param name="spriteSheet"></param>
         public BigBoss(Texture2D spriteSheet, float printScale)
         {
-            _printScale = printScale;
-           
             _enemy = new(spriteSheet, _spritePosition, _rowAndColumns, printScale, frames);
             _enemy.IsCentered = _isCentered;
         }

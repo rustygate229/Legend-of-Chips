@@ -21,7 +21,7 @@ namespace _3902_Project
 
         // variables for moving the enemy
         private int _moveCounter;
-        private int _moveTotal = 100;
+        private int _moveTotal = 40;
         private int _frameRate = 12;
         private float _positionSpeed = 2f;
 
