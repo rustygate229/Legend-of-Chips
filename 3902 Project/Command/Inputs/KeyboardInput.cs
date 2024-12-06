@@ -71,6 +71,7 @@ namespace _3902_Project
             keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.U, new CommandSpawn50Arrows(game));
             keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.I, new CommandSpawn50Boomerangs(game));
             keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.Y, new CommandSpawn50Bombs(game));
+            keysToCommands.Add(Microsoft.Xna.Framework.Input.Keys.M, new CommandToggleMute(game));
 
             // Mapping keys to corresponding commands for player interacting with pause screen
             keysPauseToCommands.Add(Microsoft.Xna.Framework.Input.Keys.W, new CommandSelectUp(game));
